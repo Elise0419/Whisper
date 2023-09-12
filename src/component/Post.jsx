@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import "./Post.css";
 
-import Comment from "./Comment";
-import Header from "./Header";
-import Footer from "./Footer";
-import Aside from "./Aside";
+import Comment from "./Block/Comment";
+import Header from "./Block/Header";
+import Footer from "./Block/Footer";
+import Aside from "./Block/Aside";
 
 import avatar from "./img/avatar.png";
 
@@ -13,11 +13,11 @@ function Post() {
   const [isFavorited, setIsFavorited] = useState(false); // 初始状态为未收藏
 
   function toggleLike() {
-    setIsLiked(prevState => !prevState);
+    setIsLiked((prevState) => !prevState);
   }
 
   function toggleFavorite() {
-    setIsFavorited(prevState => !prevState);
+    setIsFavorited((prevState) => !prevState);
   }
 
   return (

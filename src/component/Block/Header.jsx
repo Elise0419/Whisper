@@ -1,11 +1,12 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 import "./Header.css";
 
-import user from "./img/dog.jpeg";
-import logo from "./img/logo.png";
-import whiteArrow from "./img/whiteArrow.png";
-import purpleArrow from "./img/purpleArrow.png";
+import user from "../img/dog.jpeg";
+import logo from "../img/logo.png";
+import whiteArrow from "../img/whiteArrow.png";
+import purpleArrow from "../img/purpleArrow.png";
 
 function Header() {
   return (
@@ -13,21 +14,21 @@ function Header() {
       <div className="nav">nav</div>
       <header>
         <div>
-          <a href="">
+          <Link to="/">
             <img className="logo" src={logo} />
-          </a>
-          <a href="">
+          </Link>
+          <Link to="/">
             <span className="whisper">WHISPER</span>
-          </a>
+          </Link>
           <button className="ddBtn">
-            切換論壇個版
+            創建貼文
             <img className="ddArrow" src={purpleArrow} />
             <span className="ddItem">
-              <a href="">美妝保養</a>
-              <a href="">時尚穿搭</a>
-              <a href="">美食情報</a>
-              <a href="">健康生活</a>
-              <a href="">感情生活</a>
+              <Link to="/upload">美妝保養</Link>
+              <Link to="/upload">時尚穿搭</Link>
+              <Link to="/upload">美食情報</Link>
+              <Link to="/upload">健康生活</Link>
+              <Link to="/upload">感情生活</Link>
             </span>
           </button>
         </div>

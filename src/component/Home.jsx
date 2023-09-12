@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Header from "./Header";
-import Footer from "./Footer";
+
 import "./Home.css";
+import Header from "./Block/Header";
+import Footer from "./Block/Footer";
 
 import user from "./img/dog.jpeg";
 import user2 from "./img/cat.jpg";
@@ -58,36 +59,36 @@ function Love() {
       <section>
         <div className="topicTitle">
           <p>推薦的個人論壇</p>
-          <a>
+          <Link to="/makeup">
             <img className="topicImg" src={lip} />
             <p className="topicList">美妝保養</p>
             {/* <p>各種美妝技巧貼文</p> */}
             <img className="topicArrow" src={redArrow} />
-          </a>
-          <a>
+          </Link>
+          <Link to="/food">
             <img className="topicImg" src={cake} />
             <p className="topicList">美食情報</p>
             {/* <p>好食物好味道</p> */}
             <img className="topicArrow" src={redArrow} />
-          </a>
-          <a>
+          </Link>
+          <Link to="/health">
             <img className="topicImg" src={yoga} />
             <p className="topicList">健康生活</p>
             {/* <p>綠色出行綠色生活</p> */}
             <img className="topicArrow" src={redArrow} />
-          </a>
-          <a>
+          </Link>
+          <Link to="/fashion">
             <img className="topicImg" src={dress} />
             <p className="topicList">時尚穿搭</p>
             {/* <p>fashion前言趨勢</p> */}
             <img className="topicArrow" src={redArrow} />
-          </a>
-          <a>
+          </Link>
+          <Link to="/love">
             <img className="topicImg" src={love} />
             <p className="topicList">感情生活</p>
             {/* <p>各種抱怨聚集地</p> */}
             <img className="topicArrow" src={redArrow} />
-          </a>
+          </Link>
         </div>
       </section>
       <article>

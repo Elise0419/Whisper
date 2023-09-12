@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { useEffect, useState } from "react";
 
 import "./Theme.css";
-import Header from "../Header.jsx";
-import Aside from "../Aside.jsx";
+import Header from "../Block/Header.jsx";
+import Aside from "../Block/Aside.jsx";
 
 import user from "../img/dog.jpeg";
 import user2 from "../img/cat.jpg";

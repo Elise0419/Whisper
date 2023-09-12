@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 
 import { useEffect, useState } from "react";
-import Header from "./Header";
-import Footer from "./Footer";
+import Header from "./Block/Header";
+import Footer from "./Block/Footer";
 import "./Home.css";
 
 import user from "./img/dog.jpeg";

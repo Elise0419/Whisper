@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Validation from "./SignupValidation";
+
 import "./Signup.css";
-import Header from "./Header";
-import Footer from "./Footer";
+
+import Validation from "./SignupValidation";
+
+import Header from "./Block/Header";
+import Footer from "./Block/Footer";
 
 function Signup() {
   const [values, setValues] = useState({
@@ -82,7 +85,9 @@ function Signup() {
                   name="email"
                   onChange={handleInput}
                 />
-                {errors.email && <span className="errorMessage">{errors.email}</span>}
+                {errors.email && (
+                  <span className="errorMessage">{errors.email}</span>
+                )}
               </div>
 
               <div className="">

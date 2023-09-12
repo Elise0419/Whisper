@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./Profile.css";
 
-import Header from "./Header";
-import Footer from "./Footer";
+import Header from "./Block/Header";
+import Footer from "./Block/Footer";
 
 function Profile() {
   // 使用狀態來追蹤是否處於編輯模式
@@ -145,30 +145,29 @@ function Profile() {
               </div>
 
               <div className="profilephoneNumber">
-              <label htmlFor="phoneNumber">手機號碼:</label>
-              <input
-                type="tel"
-                id="phoneNumber"
-                name="phoneNumber"
-                value="0916888888"
-                pattern="^0\d{1,2}-?\d{6,7}$"
-                required
-                readOnly
-              />
-              <button
-                type="button"
-                className="edit-button"
-                onClick={handleEditClick}
-              >
-                編輯
-              </button>
-              {isEditing && (
-                <button type="button" onClick={handleSaveClick}>
-                  保存
+                <label htmlFor="phoneNumber">手機號碼:</label>
+                <input
+                  type="tel"
+                  id="phoneNumber"
+                  name="phoneNumber"
+                  value="0916888888"
+                  pattern="^0\d{1,2}-?\d{6,7}$"
+                  required
+                  readOnly
+                />
+                <button
+                  type="button"
+                  className="edit-button"
+                  onClick={handleEditClick}
+                >
+                  編輯
                 </button>
-              )}
+                {isEditing && (
+                  <button type="button" onClick={handleSaveClick}>
+                    保存
+                  </button>
+                )}
               </div>
-              
             </form>
           </div>
         </div>

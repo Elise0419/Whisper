@@ -11,6 +11,7 @@ import Love from "./component/Theme/Love";
 import Health from "./component/Theme/Health";
 import Food from "./component/Theme/Food";
 import Makeup from "./component/Theme/Makeup";
+import Profile from "./component/Profile";
 
 class App extends Component {
   state = {};
@@ -18,16 +19,17 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Switch>
-          <Route path="/" component={Home} />
-          <Route path="/upload" component={Upload} />
-          <Route path="/post" component={Post} />
-          <Route path="/signup" component={Signup} />
-          <Route path="/login" component={Login} />
-          <Route path="/fashion" component={Fashion} />
-          <Route path="/love" component={Love} />
-          <Route path="/health" component={Health} />
-          <Route path="/food" component={Food} />
-          <Route path="/makeup" component={Makeup} />
+          <Route path="/" component={Home} exact />
+          <Route path="/upload" component={Upload} exact />
+          <Route path="/post" component={Post} exact />
+          <Route path="/signup" component={Signup} exact />
+          <Route path="/login" component={Login} exact />
+          <Route path="/fashion" component={Fashion} exact />
+          <Route path="/love" component={Love} exact />
+          <Route path="/health" component={Health} exact />
+          <Route path="/food" component={Food} exact />
+          <Route path="/makeup" component={Makeup} exact />
+          <Route path="/profile" component={Profile} exact />
         </Switch>
       </BrowserRouter>
     );

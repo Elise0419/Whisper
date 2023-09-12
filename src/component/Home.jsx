@@ -94,16 +94,13 @@ function Love() {
       <article>
         <div className="search">
           <img src={user} alt="" />
-          <input
-            type="text"
-            placeholder="Let’s share what going on your mind..."
-          />
-          <button>創建貼文</button>
+          <input type="text" placeholder="熱門貼搜尋" />
+          <button>Search</button>
         </div>
 
         {post.map((post) => {
           return (
-            <a className="card" href="">
+            <Link className="card" to="/post">
               <img className="cardImg" src={makeup} alt="" />
               <span className="cardMid">
                 <img src={user2} />
@@ -118,13 +115,13 @@ function Love() {
                   50
                 </span>
               </span>
-            </a>
+            </Link>
           );
         })}
 
         {post.map((post) => {
           return (
-            <a className="card" href="">
+            <Link className="card" to="/post">
               <span className="cardTxt">
                 <span className="paperTape">paperTapepaperTape</span>
                 <br />
@@ -143,11 +140,11 @@ function Love() {
                   50
                 </span>
               </span>
-            </a>
+            </Link>
           );
         })}
 
-        <a className="card" href="">
+        <Link className="card" to="/post">
           <span className="cardTxt">
             <span className="paperTape">paperTapepaperTape</span>
             <br />
@@ -166,8 +163,8 @@ function Love() {
               50
             </span>
           </span>
-        </a>
-        <a className="card" href="">
+        </Link>
+        <Link className="card" to="/post">
           <img className="cardImg" src={makeup} alt="" />
           <span className="cardMid">
             <img src={user2} />
@@ -182,8 +179,8 @@ function Love() {
               50
             </span>
           </span>
-        </a>
-        <a className="card" href="">
+        </Link>
+        <Link className="card" to="/post">
           <span className="cardTxt">
             <span className="paperTape">paperTapepaperTape</span>
             <br />
@@ -202,8 +199,8 @@ function Love() {
               50
             </span>
           </span>
-        </a>
-        <a className="card" href="">
+        </Link>
+        <Link className="card" to="/post">
           <img className="cardImg" src={makeup} alt="" />
           <span className="cardMid">
             <img src={user2} />
@@ -218,8 +215,8 @@ function Love() {
               50
             </span>
           </span>
-        </a>
-        <a className="card" href="">
+        </Link>
+        <Link className="card" to="/post">
           <span className="cardTxt">
             <span className="paperTape">paperTapepaperTape</span>
             <br />
@@ -238,8 +235,8 @@ function Love() {
               50
             </span>
           </span>
-        </a>
-        <a className="card" href="">
+        </Link>
+        <Link className="card" to="/post">
           <img className="cardImg" src={makeup} alt="" />
           <span className="cardMid">
             <img src={user2} />
@@ -254,8 +251,8 @@ function Love() {
               50
             </span>
           </span>
-        </a>
-        <a className="card" href="">
+        </Link>
+        <Link className="card" to="/post">
           <span className="cardTxt">
             <span className="paperTape">paperTapepaperTape</span>
             <br />
@@ -274,8 +271,8 @@ function Love() {
               50
             </span>
           </span>
-        </a>
-        <a className="card" href="">
+        </Link>
+        <Link className="card" to="/post">
           <img className="cardImg" src={makeup} alt="" />
           <span className="cardMid">
             <img src={user2} />
@@ -290,8 +287,8 @@ function Love() {
               50
             </span>
           </span>
-        </a>
-        <a className="card" href="">
+        </Link>
+        <Link className="card" to="/post">
           <span className="cardTxt">
             <span className="paperTape">paperTapepaperTape</span>
             <br />
@@ -310,8 +307,8 @@ function Love() {
               50
             </span>
           </span>
-        </a>
-        <a className="card" href="">
+        </Link>
+        <Link className="card" to="/post">
           <img className="cardImg" src={makeup} alt="" />
           <span className="cardMid">
             <img src={user2} />
@@ -326,8 +323,8 @@ function Love() {
               50
             </span>
           </span>
-        </a>
-        <a className="card" href="">
+        </Link>
+        <Link className="card" to="/post">
           <span className="cardTxt">
             <span className="paperTape">paperTapepaperTape</span>
             <br />
@@ -346,8 +343,8 @@ function Love() {
               50
             </span>
           </span>
-        </a>
-        <a className="card" href="">
+        </Link>
+        <Link className="card" to="/post">
           <img className="cardImg" src={makeup} alt="" />
           <span className="cardMid">
             <img src={user2} />
@@ -362,8 +359,8 @@ function Love() {
               50
             </span>
           </span>
-        </a>
-        <a className="card" href="">
+        </Link>
+        <Link className="card" to="/post">
           <span className="cardTxt">
             <span className="paperTape">paperTapepaperTape</span>
             <br />
@@ -382,8 +379,8 @@ function Love() {
               50
             </span>
           </span>
-        </a>
-        <a className="card" href="">
+        </Link>
+        <Link className="card" to="/post">
           <img className="cardImg" src={makeup} alt="" />
           <span className="cardMid">
             <img src={user2} />
@@ -398,8 +395,8 @@ function Love() {
               50
             </span>
           </span>
-        </a>
-        <a className="card" href="">
+        </Link>
+        <Link className="card" to="/post">
           <span className="cardTxt">
             <span className="paperTape">paperTapepaperTape</span>
             <br />
@@ -418,64 +415,64 @@ function Love() {
               50
             </span>
           </span>
-        </a>
+        </Link>
       </article>
       <aside>
         <div className="rankTitle">
           <p>流行貼文排行榜</p>
-          <a href="">
+          <Link to="/post">
             <p className="rankNum">No.1</p>
             <p className="rankList">飛柔清爽修護瞬效柔...</p>
             <img className="rankArrow" src={redArrow} />
-          </a>
-          <a href="">
+          </Link>
+          <Link to="/post">
             <p className="rankNum">No.2</p>
             <p className="rankList">飛柔清爽修護瞬效柔...</p>
             <img className="rankArrow" src={redArrow} />
-          </a>
-          <a href="">
+          </Link>
+          <Link to="/post">
             <p className="rankNum">No.3</p>
             <p className="rankList">飛柔清爽修護瞬效柔...</p>
             <img className="rankArrow" src={redArrow} />
-          </a>
-          <a href="">
+          </Link>
+          <Link to="/post">
             <p className="rankNum">No.4</p>
             <p className="rankList">飛柔清爽修護瞬效柔...</p>
             <img className="rankArrow" src={redArrow} />
-          </a>
-          <a href="">
+          </Link>
+          <Link to="/post">
             <p className="rankNum">No.5</p>
             <p className="rankList">飛柔清爽修護瞬效柔...</p>
             <img className="rankArrow" src={redArrow} />
-          </a>
+          </Link>
         </div>
         <div className="rankTitle">
           <p>點贊貼文排行榜</p>
-          <a href="">
+          <Link to="/post">
             <p className="rankNum">No.1</p>
             <p className="rankList">飛柔清爽修護瞬效柔...</p>
             <img className="rankArrow" src={redArrow} />
-          </a>
-          <a href="">
+          </Link>
+          <Link to="/post">
             <p className="rankNum">No.2</p>
             <p className="rankList">飛柔清爽修護瞬效柔...</p>
             <img className="rankArrow" src={redArrow} />
-          </a>
-          <a href="">
+          </Link>
+          <Link to="/post">
             <p className="rankNum">No.3</p>
             <p className="rankList">飛柔清爽修護瞬效柔...</p>
             <img className="rankArrow" src={redArrow} />
-          </a>
-          <a href="">
+          </Link>
+          <Link to="/post">
             <p className="rankNum">No.4</p>
             <p className="rankList">飛柔清爽修護瞬效柔...</p>
             <img className="rankArrow" src={redArrow} />
-          </a>
-          <a href="">
+          </Link>
+          <Link to="/post">
             <p className="rankNum">No.5</p>
             <p className="rankList">飛柔清爽修護瞬效柔...</p>
             <img className="rankArrow" src={redArrow} />
-          </a>
+          </Link>
         </div>
       </aside>
       <Footer />

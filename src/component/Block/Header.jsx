@@ -33,12 +33,12 @@ function Header() {
           </button>
         </div>
         <div>
-          <a href="">
+          <Link to="profile">
             <img className="userImg" src={user} />
-          </a>
-          <a href="">
+          </Link>
+          <Link to="profile">
             <span className="userName">David.one</span>
-          </a>
+          </Link>
           <img className="userArrow" src={whiteArrow} />
         </div>
       </header>

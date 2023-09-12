@@ -69,7 +69,7 @@ function Profile() {
       <section></section>
       <article>
         <div className="ProfileContainer">
-          <h2>使用者設定</h2>
+          <h2>用戶設置</h2>
           <hr />
           <div className="ProfileForm">
             <form>

@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 
 import "./Header.css";
 
-import user from "../img/dog.jpeg";
-import logo from "../img/logo.png";
-import whiteArrow from "../img/whiteArrow.png";
-import purpleArrow from "../img/purpleArrow.png";
+import user from "../Img/dog.jpeg";
+import logo from "../Img/logo.png";
+import whiteArrow from "../Img/whiteArrow.png";
+import purpleArrow from "../Img/purpleArrow.png";
 
 function Header() {
   return (

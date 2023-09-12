@@ -6,7 +6,7 @@ import Validation from "./LoginValidation";
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
 
-import logo from "./img/logo.png";
+import logo from "./Img/logo.png";
 
 function Login() {
   const [values, setValues] = useState({

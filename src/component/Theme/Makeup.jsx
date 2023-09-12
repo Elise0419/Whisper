@@ -5,13 +5,13 @@ import "./Theme.css";
 import Header from "../Block/Header.jsx";
 import Aside from "../Block/Aside";
 
-import user from "../img/dog.jpeg";
-import user2 from "../img/cat.jpg";
-import makeup from "../img/makeup.jpg";
-import like from "../img/like.png";
-import comment from "../img/comment.png";
-import ad1 from "../img/ad1.jpg";
-import adArrow from "../img/adArrow.png";
+import user from "../Img/dog.jpeg";
+import user2 from "../Img/cat.jpg";
+import makeup from "../Img/makeup.jpg";
+import like from "../Img/like.png";
+import comment from "../Img/comment.png";
+import ad1 from "../Img/ad1.jpg";
+import adArrow from "../Img/adArrow.png";
 
 function Love() {
   var [ad, setAd] = useState([]);

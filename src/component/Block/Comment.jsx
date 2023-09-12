@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import avatar from "../img/avatar.png";
+import avatar from "../Img/avatar.png";
 
 function Comment() {
   const [state, setState] = useState({

@@ -6,7 +6,7 @@ import Header from "./Block/Header";
 import Footer from "./Block/Footer";
 import Aside from "./Block/Aside";
 
-import avatar from "./img/avatar.png";
+import avatar from "./Img/avatar.png";
 
 function Post() {
   const [isLiked, setIsLiked] = useState(false); // 初始状态为未点赞

@@ -6,17 +6,17 @@ import "./Home.css";
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
 
-import user from "./img/dog.jpeg";
-import user2 from "./img/cat.jpg";
-import makeup from "./img/makeup.jpg";
-import like from "./img/like.png";
-import comment from "./img/comment.png";
-import redArrow from "./img/redArrow.png";
-import lip from "./img/lip.jpg";
-import love from "./img/love.jpg";
-import dress from "./img/dress.jpg";
-import cake from "./img/cake.jpg";
-import yoga from "./img/yoga.jpg";
+import user from "./Img/dog.jpeg";
+import user2 from "./Img/cat.jpg";
+import makeup from "./Img/makeup.jpg";
+import like from "./Img/like.png";
+import comment from "./Img/comment.png";
+import redArrow from "./Img/redArrow.png";
+import lip from "./Img/lip.jpg";
+import love from "./Img/love.jpg";
+import dress from "./Img/dress.jpg";
+import cake from "./Img/cake.jpg";
+import yoga from "./Img/yoga.jpg";
 
 function Love() {
   var [ad, setAd] = useState([]);

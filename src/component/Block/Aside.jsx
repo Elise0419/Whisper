@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import "./Aside.css";
 
-import makeup2 from "../img/makeup.jpeg";
+import makeup2 from "../Img/makeup.jpeg";
 
 function Aside() {
   return (

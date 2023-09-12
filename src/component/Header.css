@@ -1,0 +1,93 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--colorPurple);
+}
+
+header>div {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 3.75rem;
+    margin-left: 2.625rem;
+    border-radius: var(--circle);
+}
+
+.whisper {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-left: 0.5rem;
+}
+
+.ddBtn {
+    width: 12.125rem;
+    color: var(--colorGray200);
+    height: 2.5rem;
+    border: 1px solid var(--colorPink200);
+    display: flex;
+    position: relative;
+    font-size: 0.875rem;
+    align-items: center;
+    margin-left: 5.6875rem;
+    border-radius: var(--radius);
+    justify-content: space-between;
+    background-color: white;
+}
+
+.ddArrow {
+    width: 1.25rem;
+}
+
+.ddItem {
+    top: 2.5rem;
+    left: -0.08rem;
+    width: 12.125rem;
+    display: none;
+    position: absolute;
+    font-size: 1rem;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    line-height: 2rem;
+    border-radius: var(--radius);
+    letter-spacing: 0.5rem;
+    background-color: white;
+}
+
+.ddItem a {
+    color: var(--colorGray200);
+    display: block;
+}
+
+.ddItem a:hover {
+    color: white;
+    border-radius: var(--radius);
+    background-color: var(--colorRed);
+}
+
+.ddBtn:hover .ddItem {
+    display: block;
+}
+
+.userImg {
+    width: 2.875rem;
+    margin-right: 0.4375rem;
+    border-radius: var(--circle);
+}
+
+.userName {
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-right: 2.625rem;
+}
+
+.userArrow {
+    width: 1.25rem;
+    margin-right: 2.875rem;
+}
+
+header a {
+    text-decoration: none;
+}

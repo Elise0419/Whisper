@@ -1,0 +1,121 @@
+aside {
+    width: 374px;
+    min-height: 920px;
+    /* background-color: pink; */
+}
+
+/* - - - - - - - - - - */
+.forumAbout {
+    width: 20.25rem;
+    height: 19.5rem;
+    border: var(--colorPink200) solid 2px;
+    box-sizing: border-box;
+    margin-top: 1.25rem;
+    margin-left: 0.625rem;
+    border-radius: 1rem;
+    background-color: var(--colorPink100);
+}
+
+.forumTitle {
+    margin-left: 1.625rem;
+    display: flex;
+    align-items: center;
+}
+
+.forumTitle img {
+    width: 3.75rem;
+    height: 3.75rem;
+    object-fit: cover;
+    border-radius: var(--circle);
+}
+
+.forumTitle span {
+    color: var(--colorYellow);
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-left: 0.75rem;
+}
+
+.forumIntro {
+    margin-left: 1.625rem;
+    width: 17rem;
+    color: var(--colorGray300);
+    font-size: 0.875rem;
+}
+
+.forumCreate {
+    margin-left: 1.625rem;
+    font-size: 0.875rem;
+    color: var(--colorGray100);
+}
+
+.forumBtm {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--colorRed);
+}
+
+.forumBtm>span {
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.forumRule,
+.forumTag {
+    width: 20.25rem;
+    border: var(--colorPink200) solid 2px;
+    box-sizing: border-box;
+    margin-top: 1.25rem;
+    margin-left: 0.625rem;
+    border-radius: 1rem;
+    background-color: var(--colorPink100);
+}
+
+.forumRule>p {
+    color: var(--colorYellow);
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-left: 0.75rem;
+}
+
+.forumRule li {
+    font-size: 0.875rem;
+    color: var(--colorGray300);
+    width: 90%;
+}
+
+.forumTag p {
+    color: var(--colorPurple);
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.forumTag button {
+    padding: 0.625rem;
+    font-size: 0.875rem;
+    border-radius: var(--radius);
+    border: none;
+    color: white;
+    margin-right: 0.625rem;
+    margin-bottom: 0.25rem;
+}
+
+.tagA {
+    background-color: var(--colorPink300);
+}
+
+.tagB {
+    background-color: var(--colorYellow);
+}
+
+.tagC {
+    background-color: var(--colorPurple);
+}
+
+.forumTag span {
+    display: inline-block;
+    margin-left: 1.5rem;
+    margin-bottom: 1.25rem;
+}

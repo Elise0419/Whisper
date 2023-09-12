@@ -108,7 +108,7 @@
 }
 
 
-.signupMain form .error {
+.signupMain form .errorMessage{
     width: 220px;
     display: block; /* 将错误信息设置为块级元素 */
     margin-top: 5px; /* 添加上方间距 */
@@ -116,9 +116,3 @@
     font-size: 12px; /* 设置错误信息的字体大小 */
   }
 
-  .signupMain form .error-message {
-    display: block;
-    margin-top: 5px;
-    color: #f08170;
-    font-size: 12px;
-}

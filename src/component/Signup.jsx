@@ -53,7 +53,7 @@ function Signup() {
                   onChange={handleInput}
                 />
                 {errors.username && (
-                  <span className="error-message">{errors.username}</span>
+                  <span className="errorMessage">{errors.username}</span>
                 )}
               </div>
 
@@ -68,7 +68,7 @@ function Signup() {
                   onChange={handleInput}
                 />
                 {errors.idNumber && (
-                  <span className="error-message">{errors.idNumber}</span>
+                  <span className="errorMessage">{errors.idNumber}</span>
                 )}
               </div>
 
@@ -82,7 +82,7 @@ function Signup() {
                   name="email"
                   onChange={handleInput}
                 />
-                {errors.email && <span className="error">{errors.email}</span>}
+                {errors.email && <span className="errorMessage">{errors.email}</span>}
               </div>
 
               <div className="">
@@ -96,7 +96,7 @@ function Signup() {
                   onChange={handleInput}
                 />
                 {errors.phoneNumber && (
-                  <span className="error">{errors.phoneNumber}</span>
+                  <span className="errorMessage">{errors.phoneNumber}</span>
                 )}
               </div>
 
@@ -111,7 +111,7 @@ function Signup() {
                   onChange={handleInput}
                 />
                 {errors.password && (
-                  <span className="error">{errors.password}</span>
+                  <span className="errorMessage">{errors.password}</span>
                 )}
               </div>
 

@@ -20,7 +20,7 @@ function Validation(values){
     if(values.username === ""){
         error.username = "用戶名不該為空,請輸入用戶名";
     } else if (!username_pattern.test(values.username)){
-        error.username = "用戶名輸入錯誤";
+        error.username = "用戶名只能用中文和英文";
     } else {
         error.username = "";
     }
@@ -56,7 +56,7 @@ function Validation(values){
     if(values.password === ""){
         error.password = "密碼不該為空,請輸入密碼"
     }else if (!password_pattern.test(values.password)){
-        error.password = "密碼輸入錯誤"
+        error.password = "要求密碼至少包含一個字母和一個數字，且總長度需達到 8 個字符以上"
     }else {
         error.password = ""
     }

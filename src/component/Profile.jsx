@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Profile.css";
-import Axios from "axios";
+// import Axios from "axios";
 
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
@@ -9,20 +9,20 @@ import user from "./Img/dog.jpeg";
 
 function Profile() {
   const [isEditing, setIsEditing] = useState({
-    profilePic: false,
-    username: false,
-    userDeclaration: false,
-    email: false,
-    idNumber: false,
-    phoneNumber: false,
+    profilePic: false, // 是否編輯頭像
+    username: false, // 是否編輯用戶名稱
+    userDeclaration: false, // 是否編輯用戶聲明
+    email: false, // 是否編輯電子郵件
+    idNumber: false, // 是否編輯身份證字號
+    phoneNumber: false, // 是否編輯手機號碼
   });
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null); // 選擇的新頭像
   const [formData, setFormData] = useState({
-    username: "David",
-    userDeclaration: "致力于打造美好生活",
-    email: "user@example.com",
-    idNumber: "A247850405",
-    phoneNumber: "0916888888",
+    username: "David", // 用戶名稱
+    userDeclaration: "致力于打造美好生活", // 用戶聲明
+    email: "user@example.com", // 電子郵件
+    idNumber: "A247850405", // 身份證字號
+    phoneNumber: "0916888888", // 手機號碼
   });
 
   const handleEditClick = (field) => {
@@ -32,35 +32,36 @@ function Profile() {
   const handleSaveClick = async (field) => {
     setIsEditing({ ...isEditing, [field]: false });
 
-    if (field === "profilePic" && selectedImage) {
-      const formData = new FormData();
-      formData.append("profilePic", selectedImage);
+    // if (field === "profilePic" && selectedImage) {
+    //   const formData = new FormData();
+    //   formData.append("profilePic", selectedImage);
 
-      try {
-        const response = await Axios.post(
-          "http://example.com/upload_profile_pic.php", // 替换成你的后端 API 地址
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
+    //   try {
+    //     const response = await Axios.post(
+    //       "http://example.com/upload_profile_pic.php", // 替换成你的后端 API 地址
+    //       formData,
+    //       {
+    //         headers: {
+    //           "Content-Type": "multipart/form-data",
+    //         },
+    //       }
+    //     );
 
-        // 更新成功后进行一些操作
-      } catch (error) {
-        console.error("Error updating profile pic:", error);
-      }
-    }
+    //     // 更新成功后进行一些操作
+    //   } catch (error) {
+    //     console.error("Error updating profile pic:", error);
+    //   }
+    // }
   };
   // 處理圖片更改的事件
   const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    setSelectedImage(file);
+    const file = event.target.files[0]; // 從事件物件中獲取選擇的檔案
+    setSelectedImage(file); // 將選擇的檔案設定為 selectedImage 的狀態
   };
 
+  // 處理輸入變化的事件
   const handleInputChange = (field, value) => {
-    setFormData({ ...formData, [field]: value });
+    setFormData({ ...formData, [field]: value }); // 根據使用者的輸入更新特定欄位的值
   };
 
   return (
@@ -267,7 +268,21 @@ function Profile() {
           </div>
         </div>
       </article>
-      <aside>{/* 側邊欄內容 */}</aside>
+      <aside>
+        {/* 側邊欄內容 */}
+        <div className="userAside">
+          <img className="userImg" src={user} alt="" />
+          <h3>David.one</h3>
+          <hr />
+          <span>致力於打造美好生活</span>
+          <p>創建時間:2023-08-01</p>
+          <div className="postNumber">
+            <span>03</span>
+            <span>當前貼文數量</span>
+          </div>
+          <button className="creatPost">創建貼文</button>
+        </div>
+      </aside>
       <Footer />
     </div>
   );

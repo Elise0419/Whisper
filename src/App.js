@@ -12,6 +12,7 @@ import Health from "./component/Theme/Health";
 import Food from "./component/Theme/Food";
 import Makeup from "./component/Theme/Makeup";
 import Profile from "./component/Profile";
+import Manage from "./component/Manage";
 
 class App extends Component {
   state = {};
@@ -30,6 +31,7 @@ class App extends Component {
           <Route path="/food" component={Food} exact />
           <Route path="/makeup" component={Makeup} exact />
           <Route path="/profile" component={Profile} exact />
+          <Route path="/manage" component={Manage} exact />
         </Switch>
       </BrowserRouter>
     );

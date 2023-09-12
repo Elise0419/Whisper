@@ -1,32 +1,66 @@
 import React, { useState } from "react";
 import "./Profile.css";
+import Axios from "axios";
 
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
 
-function Profile() {
-  // 使用狀態來追蹤是否處於編輯模式
-  const [isEditing, setIsEditing] = useState(false);
+import user from "./Img/dog.jpeg";
 
-  // 處理點擊編輯按鈕的事件
-  const handleEditClick = (event) => {
-    const field = event.target.previousElementSibling;
-    field.removeAttribute("readOnly");
-    field.classList.add("editable");
-    field.focus();
-    setIsEditing(true);
+function Profile() {
+  const [isEditing, setIsEditing] = useState({
+    profilePic: false,
+    username: false,
+    userDeclaration: false,
+    email: false,
+    idNumber: false,
+    phoneNumber: false,
+  });
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [formData, setFormData] = useState({
+    username: "David",
+    userDeclaration: "致力于打造美好生活",
+    email: "user@example.com",
+    idNumber: "A247850405",
+    phoneNumber: "0916888888",
+  });
+
+  const handleEditClick = (field) => {
+    setIsEditing({ ...isEditing, [field]: true });
   };
 
-  // 處理點擊保存按鈕的事件
-  const handleSaveClick = (event) => {
-    event.preventDefault();
+  const handleSaveClick = async (field) => {
+    setIsEditing({ ...isEditing, [field]: false });
 
-    const field = event.target.previousElementSibling.previousElementSibling;
-    field.setAttribute("readOnly", true);
-    field.classList.remove("editable");
-    setIsEditing(false);
+    if (field === "profilePic" && selectedImage) {
+      const formData = new FormData();
+      formData.append("profilePic", selectedImage);
 
-    // 在這裡可以添加保存表單數據的邏輯
+      try {
+        const response = await Axios.post(
+          "http://example.com/upload_profile_pic.php", // 替换成你的后端 API 地址
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+
+        // 更新成功后进行一些操作
+      } catch (error) {
+        console.error("Error updating profile pic:", error);
+      }
+    }
+  };
+  // 處理圖片更改的事件
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    setSelectedImage(file);
+  };
+
+  const handleInputChange = (field, value) => {
+    setFormData({ ...formData, [field]: value });
   };
 
   return (
@@ -35,88 +69,132 @@ function Profile() {
       <section></section>
       <article>
         <div className="ProfileContainer">
-          <h2>用戶設置</h2>
+          <h2>使用者設定</h2>
+          <hr />
           <div className="ProfileForm">
             <form>
               <div className="profilePic">
-                <label htmlFor="profilePic">頭像:</label>
-                <img src="./photo1.png" alt=" " />
-                <input type="file" id="profilePic" accept="image/*" readOnly />
+                <label htmlFor="profilePic">頭像修改:</label>
+                {/* 選擇新頭像會顯示在網頁上 */}
+                <img
+                  className="userImg"
+                  src={
+                    selectedImage ? URL.createObjectURL(selectedImage) : user
+                  }
+                  alt=""
+                />
+
+                {isEditing.profilePic && (
+                  <div>
+                    <input
+                      type="file"
+                      id="profilePic"
+                      accept="image/*"
+                      onChange={handleImageChange}
+                    />
+                  </div>
+                )}
                 <button
                   type="button"
-                  className="edit-button"
-                  onClick={handleEditClick}
+                  className={`editBtn ${isEditing.profilePic ? "saveBtn" : ""}`}
+                  onClick={() => handleEditClick("profilePic")}
                 >
-                  編輯
+                  {isEditing.profilePic ? "保存" : "編輯"}
                 </button>
-                {isEditing && (
-                  <button type="button" onClick={handleSaveClick}>
-                    保存
-                  </button>
-                )}
               </div>
+              <hr />
 
               <div className="profileuserName">
                 <label htmlFor="username">用戶名稱:</label>
-                <input type="text" id="username" value="David" readOnly />
-                <button
-                  type="button"
-                  className="edit-button"
-                  onClick={handleEditClick}
-                >
-                  編輯
-                </button>
-                {isEditing && (
-                  <button type="button" onClick={handleSaveClick}>
+                <input
+                  type="text"
+                  id="username"
+                  value={formData.username}
+                  readOnly={!isEditing.username}
+                  onChange={(e) =>
+                    handleInputChange("username", e.target.value)
+                  }
+                />
+                {isEditing.username ? (
+                  <button
+                    type="button"
+                    className="saveBtn"
+                    onClick={() => handleSaveClick("username")}
+                  >
                     保存
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    className="editBtn"
+                    onClick={() => handleEditClick("username")}
+                  >
+                    編輯
                   </button>
                 )}
               </div>
+              <hr />
 
               <div className="UserDeclaration">
                 <label htmlFor="UserDeclaration">用戶聲明:</label>
                 <input
                   type="text"
                   id="UserDeclaration"
-                  value="致力於打造美好生活"
-                  readOnly
+                  value={formData.userDeclaration}
+                  readOnly={!isEditing.userDeclaration}
+                  onChange={(e) =>
+                    handleInputChange("userDeclaration", e.target.value)
+                  }
                 />
-                <button
-                  type="button"
-                  className="edit-button"
-                  onClick={handleEditClick}
-                >
-                  編輯
-                </button>
-                {isEditing && (
-                  <button type="button" onClick={handleSaveClick}>
+                {isEditing.userDeclaration ? (
+                  <button
+                    type="button"
+                    className="saveBtn"
+                    onClick={() => handleSaveClick("userDeclaration")}
+                  >
                     保存
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    className="editBtn"
+                    onClick={() => handleEditClick("userDeclaration")}
+                  >
+                    編輯
                   </button>
                 )}
               </div>
+              <hr />
 
-              <div proflieEmail>
+              <div className="proflieEmail">
                 <label htmlFor="email">電子郵件:</label>
                 <input
                   type="email"
                   id="email"
                   name="email"
-                  value="user@example.com"
-                  readOnly
+                  value={formData.email}
+                  readOnly={!isEditing.email}
+                  onChange={(e) => handleInputChange("email", e.target.value)}
                 />
-                <button
-                  type="button"
-                  className="edit-button"
-                  onClick={handleEditClick}
-                >
-                  編輯
-                </button>
-                {isEditing && (
-                  <button type="button" onClick={handleSaveClick}>
+                {isEditing.email ? (
+                  <button
+                    type="button"
+                    className="saveBtn"
+                    onClick={() => handleSaveClick("email")}
+                  >
                     保存
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    className="editBtn"
+                    onClick={() => handleEditClick("email")}
+                  >
+                    編輯
                   </button>
                 )}
               </div>
+              <hr />
 
               <div className="profileidNumber">
                 <label htmlFor="idNumber">身份證字號:</label>
@@ -124,25 +202,34 @@ function Profile() {
                   type="text"
                   id="idNumber"
                   name="idNumber"
-                  value="A247850405"
+                  value={formData.idNumber}
                   pattern="^[A-Z][0-9]{9}$"
                   title="請輸入有效的身份證字號，格式為一個英文字母後接九位數字。"
                   required
-                  readOnly
+                  readOnly={!isEditing.idNumber}
+                  onChange={(e) =>
+                    handleInputChange("idNumber", e.target.value)
+                  }
                 />
-                <button
-                  type="button"
-                  className="edit-button"
-                  onClick={handleEditClick}
-                >
-                  編輯
-                </button>
-                {isEditing && (
-                  <button type="button" onClick={handleSaveClick}>
+                {isEditing.idNumber ? (
+                  <button
+                    type="button"
+                    className="saveBtn"
+                    onClick={() => handleSaveClick("idNumber")}
+                  >
                     保存
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    className="editBtn"
+                    onClick={() => handleEditClick("idNumber")}
+                  >
+                    編輯
                   </button>
                 )}
               </div>
+              <hr />
 
               <div className="profilephoneNumber">
                 <label htmlFor="phoneNumber">手機號碼:</label>
@@ -150,21 +237,29 @@ function Profile() {
                   type="tel"
                   id="phoneNumber"
                   name="phoneNumber"
-                  value="0916888888"
+                  value={formData.phoneNumber}
                   pattern="^0\d{1,2}-?\d{6,7}$"
                   required
-                  readOnly
+                  readOnly={!isEditing.phoneNumber}
+                  onChange={(e) =>
+                    handleInputChange("phoneNumber", e.target.value)
+                  }
                 />
-                <button
-                  type="button"
-                  className="edit-button"
-                  onClick={handleEditClick}
-                >
-                  編輯
-                </button>
-                {isEditing && (
-                  <button type="button" onClick={handleSaveClick}>
+                {isEditing.phoneNumber ? (
+                  <button
+                    type="button"
+                    className="saveBtn"
+                    onClick={() => handleSaveClick("phoneNumber")}
+                  >
                     保存
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    className="editBtn"
+                    onClick={() => handleEditClick("phoneNumber")}
+                  >
+                    編輯
                   </button>
                 )}
               </div>
@@ -172,20 +267,7 @@ function Profile() {
           </div>
         </div>
       </article>
-      <aside>
-        <div className="aside">
-          <img src="photo1.png" alt="" />
-          <h3>David.one</h3>
-          <hr />
-          <span>致力於打造美好生活</span>
-          <span>創建時間:2023-08-01</span>
-          <div className="postNumber">
-            <span>03</span>
-            <span>當前貼文數量</span>
-          </div>
-          <button className="creatPost">創建貼文</button>
-        </div>
-      </aside>
+      <aside>{/* 側邊欄內容 */}</aside>
       <Footer />
     </div>
   );

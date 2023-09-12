@@ -172,9 +172,8 @@ function Profile() {
           </div>
         </div>
       </article>
-
       <aside>
-        <div className="user">
+        <div className="aside">
           <img src="photo1.png" alt="" />
           <h3>David.one</h3>
           <hr />

@@ -268,25 +268,26 @@ article a {
 }
 
 /* - - - - - - - - - - */
-.rankTitle {
+.aside {
     width: 20.25rem;
-    height: 22.75rem;
+    height: fit-content;
     border: var(--colorPink200) solid 2px;
     box-sizing: border-box;
     margin-top: 1.25rem;
     margin-left: 0.625rem;
+    padding-bottom: 1rem;
     border-radius: 1rem;
     background-color: var(--colorPink100);
 }
 
-.rankTitle>p {
+.aside>p {
     color: var(--colorYellow);
     font-size: 1.25rem;
     font-weight: bold;
     margin-left: 1.5rem;
 }
 
-.rankTitle>a {
+.aside>a {
     color: var(--colorGray300);
     display: flex;
     font-size: 0.875rem;

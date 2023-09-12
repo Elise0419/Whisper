@@ -141,7 +141,7 @@ function Love() {
         })} */}
       </article>
       <aside>
-        <div className="rankTitle">
+        <div className="aside">
           <p>流行貼文排行榜</p>
           <Link to="/post">
             <p className="rankNum">No.1</p>
@@ -169,7 +169,7 @@ function Love() {
             <img className="rankArrow" src={redArrow} />
           </Link>
         </div>
-        <div className="rankTitle">
+        <div className="aside">
           <p>點贊貼文排行榜</p>
           <Link to="/post">
             <p className="rankNum">No.1</p>

@@ -7,7 +7,7 @@ import makeup2 from "../Img/makeup.jpeg";
 function Aside() {
   return (
     <aside>
-      <div className="forumAbout">
+      <div className="aside">
         <span>
           <p className="forumTitle">
             <img src={makeup2} />

@@ -5,16 +5,6 @@ aside {
 }
 
 /* - - - - - - - - - - */
-.forumAbout {
-    width: 20.25rem;
-    height: 19.5rem;
-    border: var(--colorPink200) solid 2px;
-    box-sizing: border-box;
-    margin-top: 1.25rem;
-    margin-left: 0.625rem;
-    border-radius: 1rem;
-    background-color: var(--colorPink100);
-}
 
 .forumTitle {
     margin-left: 1.625rem;

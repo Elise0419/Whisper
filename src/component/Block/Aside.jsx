@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import "./Aside.css";
+
 import makeup2 from "../img/makeup.jpeg";
 
 function Aside() {

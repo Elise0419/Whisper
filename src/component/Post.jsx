@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Post.css";
 
-import Comment from "./Comment";
+import Comment from "./Block/Comment";
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
 import Aside from "./Block/Aside";
@@ -82,7 +82,7 @@ function Post() {
         {/* 評論區域 */}
         <div className="postComment">
           {/* comment組件，傳遞 state 數據 */}
-          {/* <Comment /> */}
+          <Comment />
         </div>
       </article>
       <Aside />

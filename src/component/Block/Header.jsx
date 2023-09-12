@@ -21,7 +21,7 @@ function Header() {
             <span className="whisper">WHISPER</span>
           </Link>
           <button className="ddBtn">
-            切換論壇個版
+            創建貼文
             <img className="ddArrow" src={purpleArrow} />
             <span className="ddItem">
               <Link to="/upload">美妝保養</Link>

@@ -1,16 +1,13 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 import "./Home.css";
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
+import Article from "./Block/Article";
 
 import user from "./Img/dog.jpeg";
-import user2 from "./Img/cat.jpg";
-import makeup from "./Img/makeup.jpg";
-import like from "./Img/like.png";
-import comment from "./Img/comment.png";
 import redArrow from "./Img/redArrow.png";
 import lip from "./Img/lip.jpg";
 import love from "./Img/love.jpg";
@@ -97,35 +94,34 @@ function Love() {
           <input type="text" placeholder="熱門貼搜尋" />
           <button>Search</button>
         </div>
-
-        {post.map((post) => {
-          return (
-            <Link className="card" to="/post">
-              <img className="cardImg" src={makeup} alt="" />
-              <span className="cardMid">
-                <img src={user2} />
-                <span className="cardTitle">{post.title}</span>
-              </span>
-              <span className="cardBtm">
-                <span>#tag</span>
-                <span>
-                  <img src={comment} alt="" />
-                  50
-                  <img src={like} alt="" />
-                  50
-                </span>
-              </span>
-            </Link>
-          );
-        })}
-
-        {post.map((post) => {
+        <Article />
+        <Article />
+        <Article />
+        <Article />
+        <Article />
+        <Article />
+        <Article />
+        <Article />
+        <Article />
+        <Article />
+        <Article />
+        <Article />
+        <Article />
+        <Article />
+        <Article />
+        <Article />
+        <Article />
+        <Article />
+        <Article />
+        <Article />
+        {/* {post.map((post) => {
           return (
             <Link className="card" to="/post">
               <span className="cardTxt">
                 <span className="paperTape">paperTapepaperTape</span>
-                <br />
-                從英國有機農場清晨手摘，精心萃取大馬士革玫瑰、保加利亞白薔薇、古典玫瑰、英格蘭玫瑰等超過20種頂級玫瑰品種，再進行萃取精華成分，千葉玫瑰具有緊緻舒緩養膚實力，能使肌膚柔嫩細緻、散發健康光澤，並提升保濕度。
+                <span>
+                  從英國有機農場清晨手摘，精心萃取大馬士革玫瑰、保加利亞白薔薇、古典玫瑰、英格蘭玫瑰等超過20種頂級玫瑰品種，再進行萃取精華成分，千葉玫瑰具有緊緻舒緩養膚實力，能使肌膚柔嫩細緻、散發健康光澤，並提升保濕度。
+                </span>
               </span>
               <span className="cardMid">
                 <img src={user2} />
@@ -142,280 +138,7 @@ function Love() {
               </span>
             </Link>
           );
-        })}
-
-        <Link className="card" to="/post">
-          <span className="cardTxt">
-            <span className="paperTape">paperTapepaperTape</span>
-            <br />
-            從英國有機農場清晨手摘，精心萃取大馬士革玫瑰、保加利亞白薔薇、古典玫瑰、英格蘭玫瑰等超過20種頂級玫瑰品種，再進行萃取精華成分，千葉玫瑰具有緊緻舒緩養膚實力，能使肌膚柔嫩細緻、散發健康光澤，並提升保濕度。
-          </span>
-          <span className="cardMid">
-            <img src={user2} />
-            <span className="cardTitle">狗狗貓貓護膚牌真的很好用</span>
-          </span>
-          <span className="cardBtm">
-            <span>#tag</span>
-            <span>
-              <img src={comment} alt="" />
-              50
-              <img src={like} alt="" />
-              50
-            </span>
-          </span>
-        </Link>
-        <Link className="card" to="/post">
-          <img className="cardImg" src={makeup} alt="" />
-          <span className="cardMid">
-            <img src={user2} />
-            <span className="cardTitle">狗狗貓貓護膚牌真的很好用</span>
-          </span>
-          <span className="cardBtm">
-            <span>#tag</span>
-            <span>
-              <img src={comment} alt="" />
-              50
-              <img src={like} alt="" />
-              50
-            </span>
-          </span>
-        </Link>
-        <Link className="card" to="/post">
-          <span className="cardTxt">
-            <span className="paperTape">paperTapepaperTape</span>
-            <br />
-            從英國有機農場清晨手摘，精心萃取大馬士革玫瑰、保加利亞白薔薇、古典玫瑰、英格蘭玫瑰等超過20種頂級玫瑰品種，再進行萃取精華成分，千葉玫瑰具有緊緻舒緩養膚實力，能使肌膚柔嫩細緻、散發健康光澤，並提升保濕度。
-          </span>
-          <span className="cardMid">
-            <img src={user2} />
-            <span className="cardTitle">狗狗貓貓護膚牌真的很好用</span>
-          </span>
-          <span className="cardBtm">
-            <span>#tag</span>
-            <span>
-              <img src={comment} alt="" />
-              50
-              <img src={like} alt="" />
-              50
-            </span>
-          </span>
-        </Link>
-        <Link className="card" to="/post">
-          <img className="cardImg" src={makeup} alt="" />
-          <span className="cardMid">
-            <img src={user2} />
-            <span className="cardTitle">狗狗貓貓護膚牌真的很好用</span>
-          </span>
-          <span className="cardBtm">
-            <span>#tag</span>
-            <span>
-              <img src={comment} alt="" />
-              50
-              <img src={like} alt="" />
-              50
-            </span>
-          </span>
-        </Link>
-        <Link className="card" to="/post">
-          <span className="cardTxt">
-            <span className="paperTape">paperTapepaperTape</span>
-            <br />
-            從英國有機農場清晨手摘，精心萃取大馬士革玫瑰、保加利亞白薔薇、古典玫瑰、英格蘭玫瑰等超過20種頂級玫瑰品種，再進行萃取精華成分，千葉玫瑰具有緊緻舒緩養膚實力，能使肌膚柔嫩細緻、散發健康光澤，並提升保濕度。
-          </span>
-          <span className="cardMid">
-            <img src={user2} />
-            <span className="cardTitle">狗狗貓貓護膚牌真的很好用</span>
-          </span>
-          <span className="cardBtm">
-            <span>#tag</span>
-            <span>
-              <img src={comment} alt="" />
-              50
-              <img src={like} alt="" />
-              50
-            </span>
-          </span>
-        </Link>
-        <Link className="card" to="/post">
-          <img className="cardImg" src={makeup} alt="" />
-          <span className="cardMid">
-            <img src={user2} />
-            <span className="cardTitle">狗狗貓貓護膚牌真的很好用</span>
-          </span>
-          <span className="cardBtm">
-            <span>#tag</span>
-            <span>
-              <img src={comment} alt="" />
-              50
-              <img src={like} alt="" />
-              50
-            </span>
-          </span>
-        </Link>
-        <Link className="card" to="/post">
-          <span className="cardTxt">
-            <span className="paperTape">paperTapepaperTape</span>
-            <br />
-            從英國有機農場清晨手摘，精心萃取大馬士革玫瑰、保加利亞白薔薇、古典玫瑰、英格蘭玫瑰等超過20種頂級玫瑰品種，再進行萃取精華成分，千葉玫瑰具有緊緻舒緩養膚實力，能使肌膚柔嫩細緻、散發健康光澤，並提升保濕度。
-          </span>
-          <span className="cardMid">
-            <img src={user2} />
-            <span className="cardTitle">狗狗貓貓護膚牌真的很好用</span>
-          </span>
-          <span className="cardBtm">
-            <span>#tag</span>
-            <span>
-              <img src={comment} alt="" />
-              50
-              <img src={like} alt="" />
-              50
-            </span>
-          </span>
-        </Link>
-        <Link className="card" to="/post">
-          <img className="cardImg" src={makeup} alt="" />
-          <span className="cardMid">
-            <img src={user2} />
-            <span className="cardTitle">狗狗貓貓護膚牌真的很好用</span>
-          </span>
-          <span className="cardBtm">
-            <span>#tag</span>
-            <span>
-              <img src={comment} alt="" />
-              50
-              <img src={like} alt="" />
-              50
-            </span>
-          </span>
-        </Link>
-        <Link className="card" to="/post">
-          <span className="cardTxt">
-            <span className="paperTape">paperTapepaperTape</span>
-            <br />
-            從英國有機農場清晨手摘，精心萃取大馬士革玫瑰、保加利亞白薔薇、古典玫瑰、英格蘭玫瑰等超過20種頂級玫瑰品種，再進行萃取精華成分，千葉玫瑰具有緊緻舒緩養膚實力，能使肌膚柔嫩細緻、散發健康光澤，並提升保濕度。
-          </span>
-          <span className="cardMid">
-            <img src={user2} />
-            <span className="cardTitle">狗狗貓貓護膚牌真的很好用</span>
-          </span>
-          <span className="cardBtm">
-            <span>#tag</span>
-            <span>
-              <img src={comment} alt="" />
-              50
-              <img src={like} alt="" />
-              50
-            </span>
-          </span>
-        </Link>
-        <Link className="card" to="/post">
-          <img className="cardImg" src={makeup} alt="" />
-          <span className="cardMid">
-            <img src={user2} />
-            <span className="cardTitle">狗狗貓貓護膚牌真的很好用</span>
-          </span>
-          <span className="cardBtm">
-            <span>#tag</span>
-            <span>
-              <img src={comment} alt="" />
-              50
-              <img src={like} alt="" />
-              50
-            </span>
-          </span>
-        </Link>
-        <Link className="card" to="/post">
-          <span className="cardTxt">
-            <span className="paperTape">paperTapepaperTape</span>
-            <br />
-            從英國有機農場清晨手摘，精心萃取大馬士革玫瑰、保加利亞白薔薇、古典玫瑰、英格蘭玫瑰等超過20種頂級玫瑰品種，再進行萃取精華成分，千葉玫瑰具有緊緻舒緩養膚實力，能使肌膚柔嫩細緻、散發健康光澤，並提升保濕度。
-          </span>
-          <span className="cardMid">
-            <img src={user2} />
-            <span className="cardTitle">狗狗貓貓護膚牌真的很好用</span>
-          </span>
-          <span className="cardBtm">
-            <span>#tag</span>
-            <span>
-              <img src={comment} alt="" />
-              50
-              <img src={like} alt="" />
-              50
-            </span>
-          </span>
-        </Link>
-        <Link className="card" to="/post">
-          <img className="cardImg" src={makeup} alt="" />
-          <span className="cardMid">
-            <img src={user2} />
-            <span className="cardTitle">狗狗貓貓護膚牌真的很好用</span>
-          </span>
-          <span className="cardBtm">
-            <span>#tag</span>
-            <span>
-              <img src={comment} alt="" />
-              50
-              <img src={like} alt="" />
-              50
-            </span>
-          </span>
-        </Link>
-        <Link className="card" to="/post">
-          <span className="cardTxt">
-            <span className="paperTape">paperTapepaperTape</span>
-            <br />
-            從英國有機農場清晨手摘，精心萃取大馬士革玫瑰、保加利亞白薔薇、古典玫瑰、英格蘭玫瑰等超過20種頂級玫瑰品種，再進行萃取精華成分，千葉玫瑰具有緊緻舒緩養膚實力，能使肌膚柔嫩細緻、散發健康光澤，並提升保濕度。
-          </span>
-          <span className="cardMid">
-            <img src={user2} />
-            <span className="cardTitle">狗狗貓貓護膚牌真的很好用</span>
-          </span>
-          <span className="cardBtm">
-            <span>#tag</span>
-            <span>
-              <img src={comment} alt="" />
-              50
-              <img src={like} alt="" />
-              50
-            </span>
-          </span>
-        </Link>
-        <Link className="card" to="/post">
-          <img className="cardImg" src={makeup} alt="" />
-          <span className="cardMid">
-            <img src={user2} />
-            <span className="cardTitle">狗狗貓貓護膚牌真的很好用</span>
-          </span>
-          <span className="cardBtm">
-            <span>#tag</span>
-            <span>
-              <img src={comment} alt="" />
-              50
-              <img src={like} alt="" />
-              50
-            </span>
-          </span>
-        </Link>
-        <Link className="card" to="/post">
-          <span className="cardTxt">
-            <span className="paperTape">paperTapepaperTape</span>
-            <br />
-            從英國有機農場清晨手摘，精心萃取大馬士革玫瑰、保加利亞白薔薇、古典玫瑰、英格蘭玫瑰等超過20種頂級玫瑰品種，再進行萃取精華成分，千葉玫瑰具有緊緻舒緩養膚實力，能使肌膚柔嫩細緻、散發健康光澤，並提升保濕度。
-          </span>
-          <span className="cardMid">
-            <img src={user2} />
-            <span className="cardTitle">狗狗貓貓護膚牌真的很好用</span>
-          </span>
-          <span className="cardBtm">
-            <span>#tag</span>
-            <span>
-              <img src={comment} alt="" />
-              50
-              <img src={like} alt="" />
-              50
-            </span>
-          </span>
-        </Link>
+        })} */}
       </article>
       <aside>
         <div className="rankTitle">

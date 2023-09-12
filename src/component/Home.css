@@ -102,14 +102,6 @@ article a {
     background-color: white;
 }
 
-.cardImg {
-    width: 11.5625rem;
-    height: 8.25rem;
-    display: -webkit-box;
-    object-fit: cover;
-    border-radius: 0.9375rem 0.9375rem 0 0;
-}
-
 .cardTxt {
     color: var(--colorGray300);
     height: 8.25rem;
@@ -119,11 +111,19 @@ article a {
     text-align: center;
     padding-left: 0.625rem;
     padding-right: 0.625rem;
-    text-overflow: ellipsis;
+    /* text-overflow: ellipsis; */
     border-radius: 0.9375rem 0.9375rem 0 0;
     background-color: var(--colorPink100);
-    -webkit-box-orient: vertical;
+    /* -webkit-box-orient: vertical; */
     /* -webkit-line-clamp: 1; */
+}
+
+.cardImg {
+    width: 11.5625rem;
+    height: 8.25rem;
+    display: -webkit-box;
+    object-fit: cover;
+    border-radius: 0.9375rem 0.9375rem 0 0;
 }
 
 .paperTape {

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import "./Login.css";
-import Validation from "./LoginValidation";
+import Validation from "./Validation/LoginValidation";
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
 

@@ -13,7 +13,7 @@ import comment from "../Img/comment.png";
 import ad1 from "../Img/ad1.jpg";
 import adArrow from "../Img/adArrow.png";
 
-function Love() {
+function Fashion() {
   var [ad, setAd] = useState([]);
   var [post, setPost] = useState([]);
 
@@ -440,4 +440,4 @@ function Love() {
   );
 }
 
-export default Love;
+export default Fashion;

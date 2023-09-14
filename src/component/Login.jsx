@@ -87,6 +87,7 @@ function Login() {
                   <span className="error">{errors.password}</span>
                 )}
               </div>
+              <div><p>忘記密碼</p></div>
               <button type="submit" className="btnSuccess">
                 登入
               </button>

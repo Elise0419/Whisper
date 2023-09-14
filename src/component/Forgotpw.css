@@ -1,0 +1,134 @@
+.fgtContainer {
+    width: 49.0625rem;
+    min-height: 37.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    max-width: 1000px;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+
+.fgtText {
+    width: 315px;
+    min-height: 400px;
+    background-color: white;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.fgtText::after {
+    content: '';
+    position: absolute;
+    top: 15%;
+    left: 0;
+    width: 280px;
+    height: 100px;
+    background: linear-gradient(#f08170, #c8b2d6);
+    /* z-index: -1; */
+    filter: blur(70px);
+}
+
+
+/* 註冊連結 */
+.btnDafaultborder {
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 1s;
+    color: #f08170;
+}
+
+.btnDafaultborder:hover {
+    color: #c8b2d6;
+    text-decoration: underline;
+}
+
+
+.fgtMain form div {
+    margin-bottom: 15px;
+    /* 添加底部间距 */
+}
+
+.fgtMain form label strong {
+    display: block;
+    /* 将 strong 元素转为块级元素 */
+    margin-bottom: 5px;
+    /* 添加标签与输入框之间的间距 */
+}
+
+.fgtMain {
+    width: 315px;
+    min-height: 400px;
+    background-color: white;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.fgtMain form input {
+    font: inherit;
+    font-size: 14px;
+    width: 220px;
+    border: 0;
+    outline: 0;
+    margin: 0;
+    padding: 0 20px;
+    line-height: 40px;
+    border-radius: 10px;
+    background-color: #EFE4EF;
+}
+
+
+
+
+
+.btnSuccess {
+    font: inherit;
+    font-size: 14px;
+    border: 0;
+    outline: 0;
+    margin: 10px 0;
+    /* 调整垂直方向的外边距 */
+    padding: 0 20px;
+    line-height: 40px;
+    border-radius: 10px;
+    background-color: #C8B2D6;
+}
+
+.fgtMain form .error {
+    width: 220px;
+    display: block;
+    /* 将错误信息设置为块级元素 */
+    margin-top: 5px;
+    /* 添加上方间距 */
+    color: #f08170;
+    /* 设置错误信息的颜色 */
+    font-size: 12px;
+    /* 设置错误信息的字体大小 */
+}
+
+.fgtMain form .errorMessage {
+    width: 220px;
+    display: block;
+    /* 将错误信息设置为块级元素 */
+    margin-top: 5px;
+    /* 添加上方间距 */
+    color: #f08170;
+    /* 设置错误信息的颜色 */
+    font-size: 12px;
+    /* 设置错误信息的字体大小 */
+}
+
+

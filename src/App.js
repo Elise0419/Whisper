@@ -6,6 +6,7 @@ import Upload from "./component/Upload";
 import Post from "./component/Post";
 import Login from "./component/Login";
 import Signup from "./component/Signup";
+import Forgotpw from "./component/Forgotpw";
 import Fashion from "./component/Theme/Fashion";
 import Love from "./component/Theme/Love";
 import Health from "./component/Theme/Health";
@@ -25,6 +26,7 @@ class App extends Component {
           <Route path="/post" component={Post} exact />
           <Route path="/signup" component={Signup} exact />
           <Route path="/login" component={Login} exact />
+          <Route path="/forgotpw" component={Forgotpw} exact />
           <Route path="/fashion" component={Fashion} exact />
           <Route path="/love" component={Love} exact />
           <Route path="/health" component={Health} exact />

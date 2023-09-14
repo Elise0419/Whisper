@@ -270,7 +270,7 @@ function Profile() {
       </article>
       <aside>
         {/* 側邊欄內容 */}
-        <div className="userAside">
+        <div className="aside">
           <img className="userImg" src={user} alt="" />
           <h3>David.one</h3>
           <hr />

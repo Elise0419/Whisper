@@ -6,6 +6,8 @@ import Validation from "./Validation/SignupValidation";
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
 
+import logo from "./Img/logo.png";
+
 function Signup() {
   const [values, setValues] = useState({
     username: "",
@@ -36,6 +38,8 @@ function Signup() {
         <div className="signupContainer">
           <div className="signupText">
             <h2>歡迎加入Whisper</h2>
+             {/* 這裡插入logo */}
+            <img src={logo} alt="" width="100px" style={{ borderRadius: "50%" }} />
             <p>我已經有帳號,請直接登入～</p>
             <Link to="/login" className="btnDafaultborder">
               登入

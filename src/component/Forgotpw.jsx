@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-import "./Login.css";
-import Validation from "./Validation/LoginValidation";
+import "./Forgotpw.css";
+import Validation from "./Validation/ForgotpwValidation";
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
 
 import logo from "./Img/logo.png";
 
-function Login() {
+function Forgotpw() {
   const [values, setValues] = useState({
     email: "",
-    password: "",
+    idNumber: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -25,7 +25,7 @@ function Login() {
     setErrors(Validation(values));
 
     // 使用fetch來發送POST請求
-    fetch("http://example.com/your_php_script.php", {
+    fetch("实际的后端接口地址", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -47,17 +47,18 @@ function Login() {
       <Header />
       <section></section>
       <article>
-        <div className="loginContainer">
-          <div className="loginText">
-            <h2>歡迎登入Whisper</h2>
+        <div className="fgtContainer">
+          <div className="fgtText">
+            <h2>歡迎Whisper用戶</h2>
             {/* 這裡插入logo */}
+            {/* eslint-disable-next-line */}
             <img src={logo} alt="" width="100px" style={{ borderRadius: "50%" }} />
-            <p>目前還沒有帳號,請註冊新帳號～</p>
+            <p>忘記密碼可以馬上找回，或者～</p>
             <Link to="/signup" className="btnDafaultborder">
-              註冊帳號
+              註冊新帳號
             </Link>
           </div>
-          <div className="loginMain">
+          <div className="fgtMain">
             <form action="" onSubmit={handleSubmit}>
               <div className="">
                 <label htmlFor="email">
@@ -72,26 +73,24 @@ function Login() {
                 />
                 {errors.email && <span className="error">{errors.email}</span>}
               </div>
+
               <div className="">
-                <label htmlFor="password">
-                  <strong>密碼</strong>
+                <label htmlFor="idNumber">
+                  <strong>身份證字號</strong>
                 </label>
                 <input
-                  type="password"
-                  placeholder="輸入密碼"
-                  name="password"
+                  type="text"
+                  placeholder="輸入身份證字號"
+                  name="idNumber"
                   onChange={handleInput}
-                  className=""
                 />
-                {errors.password && (
-                  <span className="error">{errors.password}</span>
+                {errors.idNumber && (
+                  <span className="errorMessage">{errors.idNumber}</span>
                 )}
               </div>
-              <Link to="/forgotpw" className="btnDafaultborder">
-              忘記密碼
-            </Link>
+
               <button type="submit" className="btnSuccess">
-                登入
+                找回密碼
               </button>
             </form>
           </div>
@@ -103,4 +102,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Forgotpw;

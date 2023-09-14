@@ -10,3 +10,113 @@
     margin: 10px;
     padding: 0px;
 }
+
+.manageTitle {
+  display: flex;
+  margin-left: 40px;
+}
+
+.manageTitle p {
+  margin: 0;
+  padding: 40px 40px 10px 10px;
+  cursor: pointer;
+  background-color: aqua;
+}
+
+.manageTitle p:first-child {
+  border-right: 1px solid #ccc;
+}
+
+.manageTitle p:hover {
+  background-color: #f0f0f0;
+}
+
+.manageTitle p.activeTab {
+  font-weight: bold;
+  background-color: #fff;
+}
+
+
+.manageCount{
+    color: #FEA7AD;
+    display: flex;
+    margin-left: 40px;
+    padding: 0px;
+}
+
+.manageEdit{
+    background-color: #E7C65B;
+    width: 705px;
+    height: 96px;
+    margin-left: 40px;
+    margin-right: 40px;
+    justify-content: space-between;
+    display: flex;
+}
+
+.manageContent{
+    width:416px;
+    height: 96px;
+    display: flex;
+    background-color: aqua;
+
+}
+
+.manageContent img{
+    width: 156px;
+    height: 96px;
+    display: flex;
+    border-radius: 10px;
+}
+
+.manageText{
+    margin-left: 10px;
+}
+
+.managePost{
+    display: flex;
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 0px;
+
+}
+.managePoster{
+    display: flex;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.manageInteractions{
+    display: flex;
+    font-size: 12px;
+}
+
+.manageBtn{
+    display: flex;
+    background-color: aquamarine;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.deleteBtn {
+    margin-left: 20px;
+    width: 78px;
+    height: 28px;
+    flex-shrink: 0;
+    border-radius: 14px;
+    border: none;
+    background: var(--yellow, #C8B2D6);
+    color: white;
+}
+
+.editBtn {
+    margin-left:px;
+    width: 78px;
+    height: 28px;
+    flex-shrink: 0;
+    border-radius: 14px;
+    border: none;
+    background: var(--pink-300, #FEA7AD);
+    color: white;
+
+}

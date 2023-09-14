@@ -14,12 +14,11 @@ function Manage() {
       <article>
         <div className="manageContainer">
           <div className="manageTitle">
-            <h3>發布貼文</h3>
-            <h3>收藏貼文</h3>
+            <p>發布貼文</p> <p>收藏貼文</p>
           </div>
           <hr />
           <div className="manageCount">
-            <p>全部稿件</p>
+            <p>全部稿件16</p>
           </div>
           <div className="manageEdit">
             <div className="manageContent">
@@ -27,23 +26,25 @@ function Manage() {
                 src="https://imgs.gvm.com.tw/upload/gallery/20201209/75813_01.jpg"
                 alt=""
               />
-              <p>貼文名字：給予正想踏進美妝美妝</p>
-              <p>David.one.發布者.2023.8.15.16:00pm</p>
+              <div className="manageText">
+                <p className="managePost">貼文名字：給予正想踏進美妝美妝</p>
+                <p className="managePoster">David.one.發布者.2023.8.15.16:00pm</p>
 
-              <div className="manageInteractions">
-                <span>
-                <i className="material-icons">thumb_up</i> {/* 點讚 icon */}
-                  <span>12</span> {/* 顯示讚數 */}
-                </span>
-                <span>
-                <i className="material-icons">star</i> {/* 收藏 icon */}
-                  <span>8</span> {/* 顯示收藏數 */}
-                </span>
+                <div className="manageInteractions">
+                  <span>
+                    <i className="material-icons">thumb_up</i> {/* 點讚 icon */}
+                    <span>12</span> {/* 顯示讚數 */}
+                  </span>
+                  <span>
+                    <i className="material-icons">star</i> {/* 收藏 icon */}
+                    <span>8</span> {/* 顯示收藏數 */}
+                  </span>
+                </div>
               </div>
             </div>
             <div className="manageBtn">
-              <button>編輯</button>
-              <button>刪除</button>
+              <button className="editBtn">編輯</button>
+              <button className="deleteBtn">刪除</button>
             </div>
           </div>
         </div>

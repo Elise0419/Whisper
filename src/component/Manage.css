@@ -45,7 +45,7 @@
 }
 
 .manageEdit{
-    background-color: #E7C65B;
+    /* background-color: #E7C65B; */
     width: 705px;
     height: 96px;
     margin-left: 40px;
@@ -54,11 +54,14 @@
     display: flex;
 }
 
+.manageEdit hr{
+}
+
 .manageContent{
     width:416px;
     height: 96px;
     display: flex;
-    background-color: aqua;
+    /* background-color: aqua; */
 
 }
 
@@ -93,9 +96,10 @@
 
 .manageBtn{
     display: flex;
-    background-color: aquamarine;
+    /* background-color: aquamarine; */
     justify-content: space-between;
-    align-items: center;
+    /* align-items: center; */
+    /* justify-content: left; */
 }
 
 .deleteBtn {
@@ -118,5 +122,8 @@
     border: none;
     background: var(--pink-300, #FEA7AD);
     color: white;
+}
 
+.manageContainer hr{
+    width: 90%;
 }

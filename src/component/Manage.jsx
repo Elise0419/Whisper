@@ -47,6 +47,7 @@ function Manage() {
               <button className="deleteBtn">刪除</button>
             </div>
           </div>
+          <hr />
         </div>
       </article>
       <aside>

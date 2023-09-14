@@ -8,20 +8,14 @@ import Aside from "../Block/Aside";
 import Article from "../Block/Article";
 
 import user from "../Img/dog.jpeg";
-import user2 from "../Img/cat.jpg";
-import makeup from "../Img/makeup.jpg";
-import like from "../Img/like.png";
-import comment from "../Img/comment.png";
-import ad1 from "../Img/ad1.jpg";
 import adArrow from "../Img/adArrow.png";
 
 function Makeup() {
   var [ad, setAd] = useState([]);
-  var [post, setPost] = useState([]);
 
   useEffect(() => {
-    async function fetchData() {
-      fetch("http://10.10.247.43:8000/api/v1/ads", {
+    function fetchData() {
+      fetch("http://10.10.247.43:8000/api/v1/ads?type[eq]=mkup", {
         method: "GET",
       })
         .then((res) => {
@@ -29,19 +23,6 @@ function Makeup() {
         })
         .then((jsonData) => {
           setAd(jsonData.data);
-        })
-        .catch((err) => {
-          console.log("錯誤:", err);
-        });
-
-      fetch("http://10.10.247.43:8000/api/v1/posts", {
-        method: "GET",
-      })
-        .then((res) => {
-          return res.json();
-        })
-        .then((jsonData) => {
-          setPost(jsonData.data);
         })
         .catch((err) => {
           console.log("錯誤:", err);
@@ -57,7 +38,7 @@ function Makeup() {
         <div className="section">
           {ad.map((ad) => {
             return (
-              <a key={ad.id}>
+              <a key={ad.id} href={ad.webUrl}>
                 <img className="adPic" src={ad.imgUrl} />
                 <p className="adLook">
                   查看更多
@@ -66,29 +47,6 @@ function Makeup() {
               </a>
             );
           })}
-          {/* 測試 */}
-          <a>
-            <img className="adPic" src={ad1} />
-            <p className="adLook">
-              查看更多
-              <img src={adArrow} />
-            </p>
-          </a>
-          <a>
-            <img className="adPic" src={ad1} />
-            <p className="adLook">
-              查看更多
-              <img src={adArrow} />
-            </p>
-          </a>
-          <a>
-            <img className="adPic" src={ad1} />
-            <p className="adLook">
-              查看更多
-              <img src={adArrow} />
-            </p>
-          </a>
-          {/* 測試 */}
         </div>
       </section>
       <article>
@@ -97,25 +55,6 @@ function Makeup() {
           <input type="text" placeholder="熱門貼搜尋" />
           <button>Search</button>
         </div>
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
         <Article />
       </article>
       <Aside />

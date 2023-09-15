@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import "./Home.css";
@@ -16,47 +15,13 @@ import cake from "./Img/cake.jpg";
 import yoga from "./Img/yoga.jpg";
 
 function Love() {
-  var [ad, setAd] = useState([]);
-  var [post, setPost] = useState([]);
-
-  useEffect(() => {
-    async function fetchData() {
-      fetch("http://10.10.247.43:8000/api/v1/ads", {
-        method: "GET",
-      })
-        .then((res) => {
-          return res.json();
-        })
-        .then((jsonData) => {
-          setAd(jsonData.data);
-        })
-        .catch((err) => {
-          console.log("錯誤:", err);
-        });
-
-      fetch("http://10.10.247.43:8000/api/v1/posts", {
-        method: "GET",
-      })
-        .then((res) => {
-          return res.json();
-        })
-        .then((jsonData) => {
-          setPost(jsonData.data);
-        })
-        .catch((err) => {
-          console.log("錯誤:", err);
-        });
-    }
-    fetchData();
-  }, []);
-
   return (
     <div id="container">
       <Header />
       <section>
         <div className="topicTitle">
           <p>推薦的個人論壇</p>
-          <Link to="/makeup">
+          <Link to="/mkup">
             <img className="topicImg" src={lip} />
             <p className="topicList">美妝保養</p>
             {/* <p>各種美妝技巧貼文</p> */}
@@ -68,7 +33,7 @@ function Love() {
             {/* <p>好食物好味道</p> */}
             <img className="topicArrow" src={redArrow} />
           </Link>
-          <Link to="/health">
+          <Link to="/life">
             <img className="topicImg" src={yoga} />
             <p className="topicList">健康生活</p>
             {/* <p>綠色出行綠色生活</p> */}
@@ -95,50 +60,6 @@ function Love() {
           <button>Search</button>
         </div>
         <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        <Article />
-        {/* {post.map((post) => {
-          return (
-            <Link className="card" to="/post">
-              <span className="cardTxt">
-                <span className="paperTape">paperTapepaperTape</span>
-                <span>
-                  從英國有機農場清晨手摘，精心萃取大馬士革玫瑰、保加利亞白薔薇、古典玫瑰、英格蘭玫瑰等超過20種頂級玫瑰品種，再進行萃取精華成分，千葉玫瑰具有緊緻舒緩養膚實力，能使肌膚柔嫩細緻、散發健康光澤，並提升保濕度。
-                </span>
-              </span>
-              <span className="cardMid">
-                <img src={user2} />
-                <span className="cardTitle">狗狗貓貓護膚牌真的很好用</span>
-              </span>
-              <span className="cardBtm">
-                <span>#tag</span>
-                <span>
-                  <img src={comment} alt="" />
-                  50
-                  <img src={like} alt="" />
-                  50
-                </span>
-              </span>
-            </Link>
-          );
-        })} */}
       </article>
       <aside>
         <div className="aside">

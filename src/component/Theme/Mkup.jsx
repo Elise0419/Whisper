@@ -4,18 +4,18 @@ import { Link } from "react-router-dom";
 
 import "./Theme.css";
 import Header from "../Block/Header.jsx";
-import Aside from "../Block/Aside.jsx";
+import Aside from "../Block/Aside";
 import Article from "../Block/Article";
 
 import user from "../Img/dog.jpeg";
 import adArrow from "../Img/adArrow.png";
 
-function Food() {
+function Makeup() {
   var [ad, setAd] = useState([]);
 
   useEffect(() => {
     function fetchData() {
-      fetch("http://10.10.247.43:8000/api/v1/ads?type[eq]=food", {
+      fetch("http://10.10.247.43:8000/api/v1/ads?type[eq]=mkup", {
         method: "GET",
       })
         .then((res) => {
@@ -63,4 +63,4 @@ function Food() {
   );
 }
 
-export default Food;
+export default Makeup;

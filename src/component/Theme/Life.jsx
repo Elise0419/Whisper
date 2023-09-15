@@ -10,12 +10,12 @@ import Article from "../Block/Article";
 import user from "../Img/dog.jpeg";
 import adArrow from "../Img/adArrow.png";
 
-function Food() {
+function Health() {
   var [ad, setAd] = useState([]);
 
   useEffect(() => {
     function fetchData() {
-      fetch("http://10.10.247.43:8000/api/v1/ads?type[eq]=food", {
+      fetch("http://10.10.247.43:8000/api/v1/ads?type[eq]=life", {
         method: "GET",
       })
         .then((res) => {
@@ -63,4 +63,4 @@ function Food() {
   );
 }
 
-export default Food;
+export default Health;

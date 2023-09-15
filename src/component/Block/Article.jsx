@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import user2 from "../Img/cat.jpg";
-import makeup from "../Img/makeup.jpg";
 import like from "../Img/like.png";
 import comment from "../Img/comment.png";
 
@@ -32,7 +31,7 @@ function Article() {
     <React.Fragment>
       {post.map((post) => {
         return (
-          <Link className="card" to="/post" key={post.postId}>
+          <Link className="card" to={`/post/${post.postId}`} key={post.postId}>
             {console.log(post)}
             <span className="cardTop">
               {typeof post.imgUrl === "string" ? (

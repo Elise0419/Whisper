@@ -6,7 +6,7 @@ class MyEditor extends Component {
     ClassicEditor.create(document.querySelector("#editor"), {
       ckfinder: {
         // uploadUrl: "{{ route('ckeditor.upload', ['_token' => csrf_token()]) }}",
-        uploadUrl: "http://10.10.247.43:8000/api/v1/createposts",
+        uploadUrl: "http://10.10.247.43:8000/api/createposts",
       },
     })
       .then((editor) => {

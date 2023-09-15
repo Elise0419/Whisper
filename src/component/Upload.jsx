@@ -12,7 +12,7 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 function Upload() {
   var [article, setArticle] = useState("");
   async function send() {
-    var url = "http://localhost:2407/create/post";
+    var url = "http://10.10.247.43:8000/api/createposts";
     var result = await axios.post(url, article);
     alert("Done");
   }

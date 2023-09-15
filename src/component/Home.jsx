@@ -56,7 +56,7 @@ function Love() {
       <article>
         <div className="search">
           <img src={user} alt="" />
-          <input type="text" placeholder="熱門貼搜尋" />
+          <input type="text" placeholder="熱門貼文搜尋" />
           <button>Search</button>
         </div>
         <Article />

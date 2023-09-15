@@ -36,36 +36,38 @@ function Article() {
 
   return (
     <React.Fragment>
-      {art.map((art) => {
-        return (
-          <Link className="card" to={`/post/${art.postId}`} key={art.postId}>
-            <span className="cardTop">
-              {typeof art.imgUrl === "string" ? (
-                <img className="cardImg" src={art.imgUrl} />
-              ) : (
-                <span className="cardTxt">
-                  <span className="paperTape">paperTapepaperTape</span>
-                  <br />
-                  {art.content}
-                </span>
-              )}
-            </span>
-            <span className="cardMid">
-              <img src={user2} />
-              <span className="cardTitle">{art.title}</span>
-            </span>
-            <span className="cardBtm">
-              <span>#tag</span>
-              <span>
-                <img src={comment} alt="" />
-                50
-                <img src={like} alt="" />
-                50
+      <div className="cardContainer">
+        {art.map((art) => {
+          return (
+            <Link className="card" to={`/post/${art.postId}`} key={art.postId}>
+              <span className="cardTop">
+                {typeof art.imgUrl === "string" ? (
+                  <img className="cardImg" src={art.imgUrl} />
+                ) : (
+                  <span className="cardTxt">
+                    <span className="paperTape">paperTapepaperTape</span>
+                    <br />
+                    {art.content}
+                  </span>
+                )}
               </span>
-            </span>
-          </Link>
-        );
-      })}
+              <span className="cardMid">
+                <img src={user2} />
+                <span className="cardTitle">{art.title}</span>
+              </span>
+              <span className="cardBtm">
+                <span>#tag</span>
+                <span>
+                  <img src={comment} alt="" />
+                  50
+                  <img src={like} alt="" />
+                  50
+                </span>
+              </span>
+            </Link>
+          );
+        })}
+      </div>
     </React.Fragment>
   );
 }

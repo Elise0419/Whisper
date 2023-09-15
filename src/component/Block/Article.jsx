@@ -53,10 +53,11 @@ function Article() {
               </span>
               <span className="cardMid">
                 <img src={user2} />
+                {/* <img src={art.headImage} /> */}
                 <span className="cardTitle">{art.title}</span>
               </span>
               <span className="cardBtm">
-                <span>#tag</span>
+                <span>#{art.type}</span>
                 <span>
                   <img src={comment} alt="" />
                   50

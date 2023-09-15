@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
-import "./Quill.css";
-
 class Quill extends Component {
   constructor(props) {
     super(props);

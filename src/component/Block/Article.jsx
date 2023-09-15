@@ -59,10 +59,10 @@ function Article() {
               <span className="cardBtm">
                 <span>#{art.type}</span>
                 <span>
-                  <img src={comment} alt="" />
-                  50
-                  <img src={like} alt="" />
-                  50
+                  <img src={comment} />
+                  {art.save}
+                  <img src={like} />
+                  {art.thumb}
                 </span>
               </span>
             </Link>

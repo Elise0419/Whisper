@@ -4,6 +4,7 @@ import axios from "axios";
 import "./Upload.css";
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
+import MyEditor from "./MyEditor";
 
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
@@ -18,7 +19,7 @@ function Upload() {
   return (
     <div>
       <Header />
-      <CKEditor
+      {/* <CKEditor
         editor={ClassicEditor}
         data=""
         // onReady={(editor) => {
@@ -36,7 +37,8 @@ function Upload() {
         // onFocus={(event, editor) => {
         //   console.log("Focus.", editor);
         // }}
-      />
+      /> */}
+      <MyEditor />
       <div>
         <input className="reBtn" type="reset" value="取消" />
         <input className="upBtn" type="button" value="送出" onClick={send} />

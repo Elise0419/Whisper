@@ -11,14 +11,15 @@ function Article() {
   var [art, setArt] = useState([]);
   const match = useRouteMatch();
 
+  var url = match.params.type
+    ? `http://10.10.247.43:8000/api/v1/posts?type[eq]=${match.params.type}`
+    : `http://10.10.247.43:8000/api/v1/posts`;
+
   useEffect(() => {
     function fetchData() {
-      fetch(
-        `http://10.10.247.43:8000/api/v1/posts?type[eq]=${match.params.type}`,
-        {
-          method: "GET",
-        }
-      )
+      fetch(url, {
+        method: "GET",
+      })
         .then((res) => {
           return res.json();
         })

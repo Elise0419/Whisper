@@ -26,10 +26,6 @@ header {
     width: 100%;
 }
 
-.ck-editor__editable {
-    min-height: 70vh;
-}
-
 :root {
     --colorPurple: #C8B2D6;
     --colorPink100: #FDF5F3;

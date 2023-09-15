@@ -4,18 +4,18 @@ import axios from "axios";
 import "./Upload.css";
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
-import MyEditor from "./MyEditor";
+import Quill from "./Quill";
 
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+// import { CKEditor } from "@ckeditor/ckeditor5-react";
+// import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 function Upload() {
-  var [article, setArticle] = useState("");
-  async function send() {
-    var url = "http://10.10.247.43:8000/api/createposts";
-    var result = await axios.post(url, article);
-    alert("Done");
-  }
+  // var [article, setArticle] = useState("");
+  // async function send() {
+  //   var url = "http://10.10.247.43:8000/api/createposts";
+  //   var result = await axios.post(url, article);
+  //   alert("Done");
+  // }
   return (
     <div>
       <Header />
@@ -38,10 +38,10 @@ function Upload() {
         //   console.log("Focus.", editor);
         // }}
       /> */}
-      <MyEditor />
+      <Quill />
       <div>
         <input className="reBtn" type="reset" value="取消" />
-        <input className="upBtn" type="button" value="送出" onClick={send} />
+        <input className="upBtn" type="button" value="送出" />
       </div>
       <Footer />
     </div>

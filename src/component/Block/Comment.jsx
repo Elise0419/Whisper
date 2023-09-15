@@ -1,8 +1,34 @@
-import React, { useState } from "react";
+import React, { Component } from "react";
+import { useEffect, useState } from "react";
+import { useRouteMatch } from "react-router-dom";
 
 import avatar from "../Img/avatar.png";
 
 function Comment() {
+  var [com, setCom] = useState([]);
+  const match = useRouteMatch();
+
+  useEffect(() => {
+    function fetchData() {
+      fetch(
+        `http://10.10.247.43:8000/api/v1/comtxts?post[eq]=${match.params.postId}`,
+        {
+          method: "GET",
+        }
+      )
+        .then((res) => {
+          return res.json();
+        })
+        .then((jsonData) => {
+          setCom(jsonData.data);
+        })
+        .catch((err) => {
+          console.log("錯誤:", err);
+        });
+    }
+    fetchData();
+  }, []);
+
   const [state, setState] = useState({
     list: [
       {
@@ -64,11 +90,9 @@ function Comment() {
 
   return (
     <div className="commentContainer">
-      {/* 評論數量 */}
       <div className="commentHead">
         <span>評論 {state.list.length} </span>
       </div>
-      {/* 發表評論 */}
       <div className="commentSend">
         <div className="userFace">
           <img className="userHead" src={avatar} alt="" />
@@ -89,24 +113,25 @@ function Comment() {
       </div>
       {/* 已評論留言排序 */}
       <div className="commentList">
-        {state.list.map((item, index) => (
-          <div className="listItem" key={item.id}>
+        {com.map((com) => (
+          <div className="listItem" key={com.id}>
             {/* 留言頭像 */}
             <div className="userFace">
-              <img className="userHead" src={avatar} alt="" />
+              <img className="userHead" src={avatar} />
             </div>
             {/* 留言文案 */}
             <div className="comment">
-              <div className="user">{item.author}</div>
-              <p className="text">{item.comment}</p>
+              <div className="user">{com.comtxtName}</div>
+              <p className="text">{com.comment}</p>
               <div className="info">
-                <span className="time">{formatTime(item.time)}</span>
-                <span
+                {/* <span className="time">{formatTime(item.time)}</span> */}
+                <span className="time">{com.createdTime}</span>
+                {/* <span
                   className={item.attitude === 1 ? "like liked" : "like"}
                   onClick={() => handleLikeClick(index)} // 添加點擊事件程序
                 >
                   <i className="likeIcon" />
-                </span>
+                </span> */}
                 <span className="reply btnHover">是否還需要回复</span>
               </div>
             </div>

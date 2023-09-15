@@ -1,24 +1,30 @@
 import React, { Component } from "react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useRouteMatch } from "react-router-dom";
 
 import user2 from "../Img/cat.jpg";
 import like from "../Img/like.png";
 import comment from "../Img/comment.png";
 
 function Article() {
-  var [post, setPost] = useState([]);
+  var [art, setArt] = useState([]);
+  const match = useRouteMatch();
 
   useEffect(() => {
     function fetchData() {
-      fetch("http://10.10.247.43:8000/api/v1/posts", {
-        method: "GET",
-      })
+      fetch(
+        `http://10.10.247.43:8000/api/v1/posts?type[eq]=${match.params.type}`,
+        {
+          method: "GET",
+        }
+      )
         .then((res) => {
           return res.json();
         })
         .then((jsonData) => {
-          setPost(jsonData.data);
+          setArt(jsonData.data);
+          console.log(jsonData.data);
         })
         .catch((err) => {
           console.log("錯誤:", err);
@@ -29,26 +35,23 @@ function Article() {
 
   return (
     <React.Fragment>
-      {post.map((post) => {
+      {art.map((art) => {
         return (
-          <Link className="card" to={`/post/${post.postId}`} key={post.postId}>
-            {console.log(post)}
+          <Link className="card" to={`/post/${art.postId}`} key={art.postId}>
             <span className="cardTop">
-              {typeof post.imgUrl === "string" ? (
-                <img className="cardImg" src={post.imgUrl} />
+              {typeof art.imgUrl === "string" ? (
+                <img className="cardImg" src={art.imgUrl} />
               ) : (
                 <span className="cardTxt">
                   <span className="paperTape">paperTapepaperTape</span>
                   <br />
-                  {post.content}
+                  {art.content}
                 </span>
               )}
             </span>
             <span className="cardMid">
               <img src={user2} />
-              <span key={post.postId} className="cardTitle">
-                {post.title}
-              </span>
+              <span className="cardTitle">{art.title}</span>
             </span>
             <span className="cardBtm">
               <span>#tag</span>

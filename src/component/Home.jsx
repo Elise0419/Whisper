@@ -21,7 +21,7 @@ function Love() {
       <section>
         <div className="topicTitle">
           <p>推薦的個人論壇</p>
-          <Link to="/makeup">
+          <Link to="/mkup">
             <img className="topicImg" src={lip} />
             <p className="topicList">美妝保養</p>
             {/* <p>各種美妝技巧貼文</p> */}
@@ -33,7 +33,7 @@ function Love() {
             {/* <p>好食物好味道</p> */}
             <img className="topicArrow" src={redArrow} />
           </Link>
-          <Link to="/health">
+          <Link to="/life">
             <img className="topicImg" src={yoga} />
             <p className="topicList">健康生活</p>
             {/* <p>綠色出行綠色生活</p> */}

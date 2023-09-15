@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 
 import "./Theme.css";
 import Header from "./Block/Header.jsx";
 import Aside from "./Block/Aside";
 import Article from "./Block/Article";
+import Section from "./Block/Section";
 
 import user from "./Img/dog.jpeg";
 import adArrow from "./Img/adArrow.png";
@@ -35,6 +35,7 @@ function Makeup() {
     <div id="container">
       <Header />
       <section>
+        <Section />
         <div className="section">
           {ad.map((ad) => {
             return (

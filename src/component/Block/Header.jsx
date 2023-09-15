@@ -39,7 +39,16 @@ function Header() {
           <Link to="profile">
             <span className="userName">David.one</span>
           </Link>
-          <img className="userArrow" src={whiteArrow} />
+          <button className="userBtn">
+            <img className="userArrow" src={whiteArrow} />
+            <span className="userItem">
+              <Link to="/profile">我的主頁</Link>
+              <Link to="/profile">編輯信息</Link>
+              <Link to="/manage">管理貼文</Link>
+              <hr />
+              <Link to="/logout">登出</Link>
+            </span>
+          </button>
         </div>
       </header>
     </div>

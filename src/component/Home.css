@@ -1,12 +1,12 @@
 @font-face {
-    font-family: Gentium;
-    src: url('./HarmonyOS_Sans/HarmonyOS_Sans_SC_Thin.ttf');
+    font-family: Inter;
+    src: url('./Inter/Inter-VariableFont_slnt\,wght.ttf');
 }
 
 body {
     margin: 0;
     padding: 0;
-    font-family: Gentium;
+    font-family: Inter;
 }
 
 #container {

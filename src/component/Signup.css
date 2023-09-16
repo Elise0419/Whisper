@@ -18,7 +18,7 @@
 .signupText {
     width: 315px;
     min-height: 400px;
-    background-color: white;
+    /* background-color: white; */
     position: relative;
     display: flex;
     flex-direction: column;
@@ -34,11 +34,11 @@
     position: absolute;
     top: 15%;
     left: 0;
-    width: 280px;
-    height: 100px;
-    background: linear-gradient(#f08170, #c8b2d6);
-    /* z-index: -1; */
-    filter: blur(70px);
+    width: 300px;
+    height: 120px;
+    background: radial-gradient(43.74% 43.74% at 54.2% 59.54%, rgba(254, 167, 173, 0.71) 6.77%, rgba(217, 174, 201, 0.49) 32.81%, rgba(200, 178, 214, 0.22) 68.75%, rgba(255, 255, 255, 0.00) 100%);
+    z-index: -1;
+    filter: blur(15px);
 }
 
 

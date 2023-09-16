@@ -166,3 +166,76 @@
     width: 44rem;
     margin-top: 110px;
 }
+
+/* 側欄user的css */
+
+aside {
+    width: 374px;
+    min-height: 920px;
+    /* background-color: pink; */
+}
+
+.forumUser {
+    margin-left: 1.625rem;
+    display: flex;
+    align-items: center;
+}
+
+.forumUser img {
+    width: 3.75rem;
+    height: 3.75rem;
+    object-fit: cover;
+    border-radius: var(--circle);
+}
+
+.forumUser h3 {
+    color: black;
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-left: 0.75rem;
+}
+
+.asideInfo{
+    width: 80%;
+    height: 20%;
+    margin-left: 1.625rem;
+    margin-right: 1.625rem;
+    /* background-color: red; */
+}
+
+.asideInfo p {
+
+    font-size: 0.875rem;
+    color: var(--colorGray100);
+    /* background-color: red; */
+}
+
+.asideInfo span {
+
+    font-size: 0.875rem;
+    color: black;
+}
+
+.aside .postNumber{
+    width: 80%;
+    height: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #FEA7AD;
+    /* background-color: red; */
+    margin-left: 1.625rem;
+    margin-right: 1.625rem;
+}
+
+.aside  .creatPost{
+    margin-top: 10px;
+    width: 100%;
+    height: 38px;
+    flex-shrink: 0;
+    border-radius: 14px;
+    border: none;
+    background-color: #E7C65B;
+    color: white;
+
+}

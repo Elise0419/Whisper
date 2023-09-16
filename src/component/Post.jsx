@@ -82,7 +82,7 @@ function Post() {
                   onClick={toggleFavorite}
                   className={`postCustbutton ${isFavorited ? "active" : ""}`}
                 >
-                  <i className="material-icons">star</i>
+                  <i className="material-icons">favorite</i>
                 </button>
                 <span>{post.save}</span>
               </div>

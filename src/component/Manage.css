@@ -1,4 +1,3 @@
-
 .manageContainer {
     display: flex;
     flex-direction: column;
@@ -12,94 +11,132 @@
 }
 
 .manageTitle {
-  display: flex;
-  margin-left: 40px;
-}
-
-.manageTitle p {
-  margin: 0;
-  padding: 40px 40px 10px 10px;
-  cursor: pointer;
-  background-color: aqua;
-}
-
-.manageTitle p:first-child {
-  border-right: 1px solid #ccc;
-}
-
-.manageTitle p:hover {
-  background-color: #f0f0f0;
-}
-
-.manageTitle p.activeTab {
-  font-weight: bold;
-  background-color: #fff;
+    display: flex;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 20px;
+    height: 57px;
+    /* background-color: red; */
+    align-items: center;
+    border-bottom: 1px solid #9E9E9E;
 }
 
 
-.manageCount{
+
+/* tab按鈕TabSelector.css */
+.tabSelectorButton {
+    color: #9E9E9E;;
+    margin-left: 20px;
+    width: 80px;
+    height: 57px;
+    font-size: 16px;
+    margin-right: 10px;
+    background-color: transparent;
+    /* 设置背景透明 */
+    border: none;
+    /* 移除边框 */
+    outline: none;
+    /* 移除点击时的外边框 */
+    cursor: pointer;
+    /* 鼠标样式为手型 */
+    border-bottom: 2px solid rgba(0, 0, 0, 0); /* 设置透明的边框颜色 */
+    white-space: nowrap; 
+}
+
+.tabSelectorButton.active {
+    border-color: #C8B2D6;
+    color: #9E9E9E;;
+
+}
+
+.tabSelectorButton:not(.active):hover {
+    color: #9E9E9E;
+    border-color: #d1d5db;
+}
+
+
+
+/* manage的貼文組件css */
+.manageCount {
     color: #FEA7AD;
     display: flex;
     margin-left: 40px;
     padding: 0px;
 }
 
-.manageEdit{
-    /* background-color: #E7C65B; */
+.manageEdit {
     width: 705px;
     height: 96px;
     margin-left: 40px;
     margin-right: 40px;
     justify-content: space-between;
     display: flex;
+    /* background-color: #E7C65B; */
 }
 
-.manageEdit hr{
-}
-
-.manageContent{
-    width:416px;
+.manageContent {
+    width: 416px;
     height: 96px;
     display: flex;
     /* background-color: aqua; */
 
 }
 
-.manageContent img{
+.manageContent img {
     width: 156px;
     height: 96px;
     display: flex;
-    border-radius: 10px;
+    border-radius: 12px;
 }
 
-.manageText{
+.manageText {
     margin-left: 10px;
 }
 
-.managePost{
+.managePost {
     display: flex;
     font-size: 16px;
-    font-weight: 500;
+    font-weight: bold;
     margin-top: 0px;
 
 }
-.managePoster{
+
+.manageTime {
     display: flex;
     font-size: 14px;
     font-weight: 400;
 }
 
-.manageInteractions{
+.manageInteractions {
     display: flex;
+    width: 100%;
+    height: 0.875rem;
     font-size: 12px;
+    /* background-color: red; */
 }
 
-.manageBtn{
+.manageInteractions i {
+    display: flex;
+    font-size: 16px;
+    align-items: center;
+    color: #9E9E9E;
+    margin-right: 10px;
+}
+
+.manageInteractions span {
+    align-items: center;
+    display: flex;
+    color: #9E9E9E;
+    margin-right: 10px;
+}
+
+
+
+.manageBtn {
     display: flex;
     /* background-color: aquamarine; */
     justify-content: space-between;
     /* align-items: center; */
-    /* justify-content: left; */
 }
 
 .deleteBtn {
@@ -114,7 +151,7 @@
 }
 
 .editBtn {
-    margin-left:px;
+    margin-left: px;
     width: 78px;
     height: 28px;
     flex-shrink: 0;
@@ -124,20 +161,8 @@
     color: white;
 }
 
-.manageContainer hr{
-    width: 90%;
+.manageEdit hr {
+    position: absolute;
+    width: 44rem;
+    margin-top: 110px;
 }
-
-.active-tab {
-    border-color: #6366f1;
-    color: #6366f1;
-    font-weight: 500;
-  }
-  
-  .active-tab:focus {
-    border-color: #4f46e5;
-    color: #4f46e5;
-  }
-  
-
-  

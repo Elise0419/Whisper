@@ -13,8 +13,8 @@ import user from "./Img/dog.jpeg";
 function Manage() {
   const [selectedTab, setSelectedTab] = useTabs([
     "postArticle",
-    "ccollectArticle",
-    "replyMessage"
+    "collectArticle",
+    "replyMessage",
   ]);
 
   return (
@@ -24,29 +24,26 @@ function Manage() {
       <article>
         <div className="manageContainer">
           <div className="manageTitle">
-            <nav className="flex border-b border-gray-300">
+            <nav>
               <TabSelector
+                className="manageTab"
                 isActive={selectedTab === "postArticle"}
                 onClick={() => setSelectedTab("postArticle")}
               >
                 發布貼文
               </TabSelector>
               <TabSelector
-                isActive={selectedTab === "ccollectArticle"}
-                onClick={() => setSelectedTab("ccollectArticle")}
+              className="manageTab"
+                isActive={selectedTab === "collectArticle"}
+                onClick={() => setSelectedTab("collectArticle")}
               >
                 收藏貼文
               </TabSelector>
-              <TabSelector
-                isActive={selectedTab === "replyMessage"}
-                onClick={() => setSelectedTab("replyMessage")}
-              >
-                留言回覆
-              </TabSelector>
-            
+
             </nav>
           </div>
           <div>
+            {/* 發布貼文內容 */}
             <TabPanel hidden={selectedTab !== "postArticle"}>
               <div className="manageCount">
                 <p>全部稿件16</p>
@@ -59,7 +56,7 @@ function Manage() {
                   />
                   <div className="manageText">
                     <p className="managePost">貼文名字：給予正想踏進美妝美妝</p>
-                    <p className="managePoster">
+                    <p className="manageTime">
                       David.one.發布者.2023.8.15.16:00pm
                     </p>
 
@@ -68,9 +65,8 @@ function Manage() {
                         <i className="material-icons">thumb_up</i>{" "}
                         {/* 點讚 icon */}
                         <span>12</span> {/* 顯示讚數 */}
-                      </span>
-                      <span>
-                        <i className="material-icons">star</i> {/* 收藏 icon */}
+                        <i className="material-icons">favorite</i>{" "}
+                        {/* 收藏 icon */}
                         <span>8</span> {/* 顯示收藏數 */}
                       </span>
                     </div>
@@ -80,18 +76,21 @@ function Manage() {
                   <button className="editBtn">編輯</button>
                   <button className="deleteBtn">刪除</button>
                 </div>
+                <hr />
               </div>
-              <hr />
             </TabPanel>
-            <TabPanel hidden={selectedTab !== "company"}>Company</TabPanel>
-            <TabPanel hidden={selectedTab !== "team"}>Team Members</TabPanel>
-            <TabPanel hidden={selectedTab !== "billing"}>Billing</TabPanel>
+            {/* 收藏貼文內容 */}
+            <TabPanel hidden={selectedTab !== "collectArticle"}>
+              <div>收藏貼文</div>{" "}
+            </TabPanel>
+
           </div>
         </div>
       </article>
       <aside>
+        
         {/* 側邊欄內容 */}
-        <div className="userAside">
+        <div className="aside">
           <img className="userImg" src={user} alt="" />
           <h3>David.one</h3>
           <hr />

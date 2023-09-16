@@ -4,6 +4,7 @@ import "./Profile.css";
 
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
+import Asideuser from "./Block/Asideuser";
 
 import user from "./Img/dog.jpeg";
 
@@ -270,18 +271,7 @@ function Profile() {
       </article>
       <aside>
         {/* 側邊欄內容 */}
-        <div className="aside">
-          <img className="userImg" src={user} alt="" />
-          <h3>David.one</h3>
-          <hr />
-          <span>致力於打造美好生活</span>
-          <p>創建時間:2023-08-01</p>
-          <div className="postNumber">
-            <span>03</span>
-            <span>當前貼文數量</span>
-          </div>
-          <button className="creatPost">創建貼文</button>
-        </div>
+                <Asideuser/>
       </aside>
       <Footer />
     </div>

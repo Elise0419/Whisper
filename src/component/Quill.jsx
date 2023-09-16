@@ -10,17 +10,29 @@ class Quill extends Component {
     };
   }
 
+  // 存文字
   handleChange = (value) => {
     this.setState({ text: value });
   };
 
+  // 存照片
   handleImageUpload = () => {
     const formData = new FormData();
     formData.append("text", this.state.text);
 
+    // 取得Quill編輯器
     const quill = this.quillRef.getEditor();
+    // 取得Quill編輯器裡的照片
     const images = quill.container.querySelectorAll("img");
 
+    // 照片轉blob格式 並存進formData裡
+    images.forEach((image, index) => {
+      const dataURI = image.getAttribute("src");
+      const blob = dataURItoBlob(dataURI);
+      formData.append(`image${index}`, blob, `image${index}.png`);
+    });
+
+    // 轉blob的函式
     const dataURItoBlob = (dataURI) => {
       const byteString = atob(dataURI.split(",")[1]);
       const mimeString = dataURI.split(",")[0].split(":")[1].split(";")[0];
@@ -33,12 +45,6 @@ class Quill extends Component {
 
       return new Blob([ab], { type: mimeString });
     };
-
-    images.forEach((image, index) => {
-      const dataURI = image.getAttribute("src");
-      const blob = dataURItoBlob(dataURI);
-      formData.append(`image${index}`, blob, `image${index}.png`);
-    });
 
     // Laravel
     fetch("/api/createposts", {

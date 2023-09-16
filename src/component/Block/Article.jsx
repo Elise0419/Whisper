@@ -12,8 +12,8 @@ function Article() {
   const match = useRouteMatch();
 
   var url = match.params.type
-    ? `http://10.10.247.43:8000/api/v1/posts?type[eq]=${match.params.type}`
-    : `http://10.10.247.43:8000/api/v1/posts`;
+    ? `http://192.168.194.32:8000/api/v1/posts?type[eq]=${match.params.type}`
+    : `http://192.168.194.32:8000/api/v1/posts`;
 
   useEffect(() => {
     function fetchData() {

@@ -15,7 +15,7 @@ function Post() {
   const match = useRouteMatch();
   useEffect(() => {
     function fetchData() {
-      fetch(`http://10.10.247.43:8000/api/v1/posts/${match.params.postId}`, {
+      fetch(`http://192.168.194.32:8000/api/v1/posts/${match.params.postId}`, {
         method: "GET",
       })
         .then((res) => {

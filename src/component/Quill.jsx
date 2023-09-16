@@ -20,18 +20,6 @@ class Quill extends Component {
     const formData = new FormData();
     formData.append("text", this.state.text);
 
-    // 取得Quill編輯器
-    const quill = this.quillRef.getEditor();
-    // 取得Quill編輯器裡的照片
-    const images = quill.container.querySelectorAll("img");
-
-    // 照片轉blob格式 並存進formData裡
-    images.forEach((image, index) => {
-      const dataURI = image.getAttribute("src");
-      const blob = dataURItoBlob(dataURI);
-      formData.append(`image${index}`, blob, `image${index}.png`);
-    });
-
     // 轉blob的函式
     const dataURItoBlob = (dataURI) => {
       const byteString = atob(dataURI.split(",")[1]);
@@ -46,10 +34,23 @@ class Quill extends Component {
       return new Blob([ab], { type: mimeString });
     };
 
+    // 取得Quill編輯器
+    const quill = this.quillRef.getEditor();
+    // 取得Quill編輯器裡的照片
+    const images = quill.container.querySelectorAll("img");
+
+    // 照片轉blob格式 並存進formData裡
+    images.forEach((image, index) => {
+      const dataURI = image.getAttribute("src");
+      const blob = dataURItoBlob(dataURI);
+      formData.append(`image${index}`, blob, `image${index}.png`);
+    });
+
     // Laravel
-    fetch("/api/createposts", {
+    fetch("http://192.168.194.32/api/createposts", {
       method: "POST",
       body: formData,
+      mode: "no-cors",
     })
       .then((response) => {
         console.log(response);

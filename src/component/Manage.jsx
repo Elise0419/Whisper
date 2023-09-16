@@ -8,7 +8,10 @@ import { TabSelector } from "./TabSelector.tsx";
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
 import Asideuser from "./Block/Asideuser";
-import Postart from "./Block/Postart";
+// 發布貼文組件
+import Postart from "./Postart";
+// 收藏貼文組件
+import Collectart from "./Collectart";
 
 function Manage() {
   const [selectedTab, setSelectedTab] = useTabs([
@@ -48,7 +51,7 @@ function Manage() {
           <div>
             {/* 收藏貼文內容 */}
             <TabPanel hidden={selectedTab !== "collectArticle"}>
-              <div>收藏貼文</div>{" "}
+              <Collectart/>
             </TabPanel>
           </div>
         </div>

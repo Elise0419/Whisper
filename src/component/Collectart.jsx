@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { useRouteMatch } from "react-router-dom";
-import "./Postart.css";
+import "./Collectart.css";
 
-function Postart() {  
+function Collectart() {  
     return (
-        <div className="Postart">
+        <div className="collectart">
           <div className="manageCount">
-            <p>全部稿件1</p>
+            <p>全部稿件2</p>
           </div>
           <div className="manageEdit">
             <div className="manageContent">
@@ -44,5 +44,5 @@ function Postart() {
     );
   }
   
-  export default Postart;
+  export default Collectart;
   

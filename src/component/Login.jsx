@@ -1,14 +1,19 @@
+// 引入React和useState钩子
 import React, { useState } from "react";
+// 引入Link组件用于路由导航
 import { Link } from "react-router-dom";
 
-import "./Login.css";
+// 引入LoginValidation（假设是一个用于验证登录表单的模块）
 import Validation from "./Validation/LoginValidation";
+// 引入Header和Footer组件
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
 
+// 引入logo图片
 import logo from "./Img/logo.png";
 
 function Login() {
+  // 使用useState定义state变量values和errors
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -16,15 +21,18 @@ function Login() {
 
   const [errors, setErrors] = useState({});
 
+  // 处理输入框的变化事件
   const handleInput = (event) => {
     setValues((prev) => ({ ...prev, [event.target.name]: event.target.value }));
   };
 
+  // 处理表单提交事件
   const handleSubmit = (event) => {
     event.preventDefault();
+    // 使用Validation函数验证表单数据，并将错误信息存储在errors状态中
     setErrors(Validation(values));
 
-    // 使用fetch來發送POST請求
+    // 使用fetch发送POST请求
     fetch("http://example.com/your_php_script.php", {
       method: "POST",
       headers: {
@@ -34,8 +42,10 @@ function Login() {
     })
       .then((response) => response.json())
       .then((data) => {
-        // 在這裡處理從後端返回的數據
+        // 在这里处理从后端返回的数据
         console.log(data);
+        // 将Token存储在本地
+        localStorage.setItem('token', data.token);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -50,9 +60,9 @@ function Login() {
         <div className="loginContainer">
           <div className="loginText">
             <h2>歡迎登入Whisper</h2>
-            {/* 這裡插入logo */}
             <img src={logo} alt="" width="100px" style={{ borderRadius: "50%" }} />
             <p>目前還沒有帳號,請註冊新帳號～</p>
+            {/* 使用Link组件导航到注册页面 */}
             <Link to="/signup" className="btnDafaultborder">
               註冊帳號
             </Link>
@@ -87,9 +97,10 @@ function Login() {
                   <span className="error">{errors.password}</span>
                 )}
               </div>
+              {/* 使用Link组件导航到忘记密码页面 */}
               <Link to="/forgotpw" className="btnDafaultborder">
-              忘記密碼
-            </Link>
+                忘記密碼
+              </Link>
               <button type="submit" className="btnSuccess">
                 登入
               </button>

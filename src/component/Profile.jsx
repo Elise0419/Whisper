@@ -271,7 +271,7 @@ function Profile() {
       </article>
       <aside>
         {/* 側邊欄內容 */}
-                <Asideuser/>
+        <Asideuser />
       </aside>
       <Footer />
     </div>

@@ -1,79 +1,46 @@
-/* 側欄user的css */
-
-aside {
-    width: 374px;
-    min-height: 920px;
-    /* background-color: pink; */
-}
-
-.forumUser {
-    margin-left: 1.625rem;
-    display: flex;
-    align-items: center;
-}
-
-.forumUser img {
-    width: 3.75rem;
-    height: 3.75rem;
-    object-fit: cover;
+.asideImg {
+    width: 4.25rem;
     border-radius: var(--circle);
+    margin: 1.25rem;
+    vertical-align: middle;
 }
 
-.forumUser h3 {
-    color: black;
+.asideName {
     font-size: 1.25rem;
+    color: var(--colorGray300);
     font-weight: bold;
-    margin-left: 0.75rem;
 }
 
-.asideInfo{
-    width: 80%;
-    height: 20%;
-    margin-left: 1.625rem;
-    margin-right: 1.625rem;
-    /* background-color: red; */
-}
-
-.asideInfo p {
-
-    font-size: 0.875rem;
+.aside>hr {
+    width: 17.375rem;
     color: var(--colorGray100);
-    /* background-color: red; */
 }
 
-.asideInfo span {
-
+.asideMsg {
+    margin-left: 1.25rem;
+    color: var(--colorGray300);
     font-size: 0.875rem;
-    color: black;
 }
 
-.aside .postNumber{
-    width: 80%;
-    height: 20%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: #FEA7AD;
-    /* background-color: red; */
-    margin-left: 1.625rem;
-    margin-right: 1.625rem;
+.asideTime {
+    margin-left: 1.25rem;
+    color: var(--colorGray100);
+    font-size: 0.875rem;
 }
 
-.aside  .creatPost{
-    display:flex;
-    align-items: center; /* 垂直居中 */
-    justify-content: center; /* 水平居中 */
-    margin-top: 10px;
-    width: 100%;
-    height: 38px;
-    flex-shrink: 0;
-    border-radius: 20px;
-    border: none;
-    background-color: #E7C65B;
+.asideNum {
+    color: var(--colorRed);
+    font-size: 1.25rem;
+    text-align: center;
+}
+
+.asideBtn {
+    background-color: var(--colorYellow);
+    width: 18.125rem;
+    font-size: 0.875rem;
     color: white;
-    text-decoration:none;  
-}
-
-.creatPost .Link{
-    color: red;
+    border: none;
+    border-radius: 1rem;
+    padding: 0.625rem;
+    margin-left: 0.875rem;
 }

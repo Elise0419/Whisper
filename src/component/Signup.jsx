@@ -121,8 +121,9 @@ function Signup() {
                   <span className="errorMessage">{errors.password}</span>
                 )}
               </div>
-
-              <button className="btnSuccess">註冊</button>
+             <button className="btnSuccess">
+                <Link className="customLink" to="/verify">註冊</Link>
+                </button>
             </form>
           </div>
         </div>

@@ -105,7 +105,14 @@
     line-height: 40px;
     border-radius: 10px;
     background-color: #C8B2D6;
+    text-decoration: none;
 }
+
+.customLink {
+    text-decoration: none;
+    color: white;
+  }
+  
 
 
 .signupMain form .errorMessage{

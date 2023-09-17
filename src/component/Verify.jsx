@@ -21,7 +21,7 @@ function Verifyemail() {
             <img src={logo} alt="" width="100px" style={{ borderRadius: "50%" }} />
             <p>完成Email驗證,帳號註冊完成～</p>
             <Link to="/signup" className="btnDafaultborder">
-              註冊帳號
+              信息輸入錯誤,重新註冊帳號
             </Link>
           </div>
         </div>

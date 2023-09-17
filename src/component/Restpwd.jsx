@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import "./Restpwd.css";
-import Validation from "./Validation/LoginValidation";
+import Validation from "./Validation/RestpwdValidation";
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
 
@@ -10,8 +10,8 @@ import logo from "./Img/logo.png";
 
 function Restpwd() {
   const [values, setValues] = useState({
-    email: "",
     password: "",
+    confirmPassword: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -24,22 +24,25 @@ function Restpwd() {
     event.preventDefault();
     setErrors(Validation(values));
 
-    // 使用fetch來發送POST請求
-    fetch("http://example.com/your_php_script.php", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(values),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // 在這裡處理從後端返回的數據
-        console.log(data);
+    if (!errors.password && !errors.confirmPassword) {
+      // 发送密码重置请求
+      fetch("http://example.com/reset_password", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          newPassword: values.password,
+        }),
       })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("密码重置成功", data);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
   };
 
   return (
@@ -47,51 +50,44 @@ function Restpwd() {
       <Header />
       <section></section>
       <article>
-        <div className="loginContainer">
-          <div className="loginText">
-            <h2>歡迎登入Whisper</h2>
-            {/* 這裡插入logo */}
+        <div className="restContainer">
+          <div className="restText">
+            <h2>Whisper修改密碼</h2>
             <img src={logo} alt="" width="100px" style={{ borderRadius: "50%" }} />
-            <p>目前還沒有帳號,請註冊新帳號～</p>
-            <Link to="/signup" className="btnDafaultborder">
-              註冊帳號
-            </Link>
+            <p>請輸入新密碼喔～</p>
           </div>
-          <div className="loginMain">
+          <div className="restMain">
             <form action="" onSubmit={handleSubmit}>
               <div className="">
-                <label htmlFor="email">
-                  <strong>電子郵件</strong>
-                </label>
-                <input
-                  type="email"
-                  placeholder="輸入Email"
-                  name="email"
-                  onChange={handleInput}
-                  className=""
-                />
-                {errors.email && <span className="error">{errors.email}</span>}
-              </div>
-              <div className="">
                 <label htmlFor="password">
-                  <strong>密碼</strong>
+                  <strong>新密码</strong>
                 </label>
                 <input
                   type="password"
-                  placeholder="輸入密碼"
+                  placeholder="输入新密码"
                   name="password"
                   onChange={handleInput}
                   className=""
                 />
-                {errors.password && (
-                  <span className="error">{errors.password}</span>
+                {errors.password && <span className="error">{errors.password}</span>}
+              </div>
+              <div className="">
+                <label htmlFor="confirmPassword">
+                  <strong>确认密码</strong>
+                </label>
+                <input
+                  type="password"
+                  placeholder="再次输入密码"
+                  name="confirmPassword"
+                  onChange={handleInput}
+                  className=""
+                />
+                {errors.confirmPassword && (
+                  <span className="error">{errors.confirmPassword}</span>
                 )}
               </div>
-              <Link to="/forgotpw" className="btnDafaultborder">
-              忘記密碼
-            </Link>
               <button type="submit" className="btnSuccess">
-                登入
+                重置密码
               </button>
             </form>
           </div>

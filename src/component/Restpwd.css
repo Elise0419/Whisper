@@ -1,4 +1,4 @@
-.loginContainer {
+.restContainer {
     width: 49.0625rem;
     min-height: 37.5rem;
     display: flex;
@@ -12,7 +12,7 @@
     margin: 0px;
 }
 
-.loginText {
+.restText {
     width: 315px;
     min-height: 400px;
     /* background-color: white; */
@@ -27,7 +27,7 @@
 
 }
 
-.loginText::after {
+.restText::after {
     content: '';
     position: absolute;
     top: 15%;
@@ -55,19 +55,19 @@
 }
 
 
-.loginMain form div {
+.restMain form div {
     margin-bottom: 15px;
     /* 添加底部间距 */
 }
 
-.loginMain form label strong {
+.restMain form label strong {
     display: block;
     /* 将 strong 元素转为块级元素 */
     margin-bottom: 5px;
     /* 添加标签与输入框之间的间距 */
 }
 
-.loginMain {
+.restMain {
     width: 315px;
     min-height: 400px;
     background-color: white;
@@ -79,7 +79,7 @@
     justify-content: center;
 }
 
-.loginMain form input {
+.restMain form input {
     font: inherit;
     font-size: 14px;
     width: 220px;
@@ -109,7 +109,7 @@
     background-color: #C8B2D6;
 }
 
-.loginMain form .error {
+.restMain form .error {
     width: 220px;
     display: block;
     /* 将错误信息设置为块级元素 */

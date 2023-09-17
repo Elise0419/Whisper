@@ -33,10 +33,11 @@ function Login() {
     setErrors(Validation(values));
 
     // 使用fetch发送POST请求
-    fetch("http://example.com/your_php_script.php", {
+    fetch("http://10.147.20.3:8000/projectmfee41/public/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+
       },
       body: JSON.stringify(values),
     })

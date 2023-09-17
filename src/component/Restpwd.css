@@ -1,0 +1,122 @@
+.loginContainer {
+    width: 49.0625rem;
+    min-height: 37.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    max-width: 1000px;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+
+.loginText {
+    width: 315px;
+    min-height: 400px;
+    /* background-color: white; */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+
+
+}
+
+.loginText::after {
+    content: '';
+    position: absolute;
+    top: 15%;
+    left: 0;
+    width: 300px;
+    height: 100px;
+    background: radial-gradient(43.74% 43.74% at 54.2% 59.54%, rgba(254, 167, 173, 0.71) 6.77%, rgba(217, 174, 201, 0.49) 32.81%, rgba(200, 178, 214, 0.22) 68.75%, rgba(255, 255, 255, 0.00) 100%);
+    z-index: -1;
+    filter: blur(15px);
+}
+
+
+
+/* 註冊連結 */
+.btnDafaultborder {
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 1s;
+    color: #f08170;
+}
+
+.btnDafaultborder:hover {
+    color: #c8b2d6;
+    text-decoration: underline;
+}
+
+
+.loginMain form div {
+    margin-bottom: 15px;
+    /* 添加底部间距 */
+}
+
+.loginMain form label strong {
+    display: block;
+    /* 将 strong 元素转为块级元素 */
+    margin-bottom: 5px;
+    /* 添加标签与输入框之间的间距 */
+}
+
+.loginMain {
+    width: 315px;
+    min-height: 400px;
+    background-color: white;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.loginMain form input {
+    font: inherit;
+    font-size: 14px;
+    width: 220px;
+    border: 0;
+    outline: 0;
+    margin: 0;
+    padding: 0 20px;
+    line-height: 40px;
+    border-radius: 10px;
+    background-color: #EFE4EF;
+}
+
+
+
+
+
+.btnSuccess {
+    font: inherit;
+    font-size: 14px;
+    border: 0;
+    outline: 0;
+    margin: 10px 0;
+    /* 调整垂直方向的外边距 */
+    padding: 0 20px;
+    line-height: 40px;
+    border-radius: 10px;
+    background-color: #C8B2D6;
+}
+
+.loginMain form .error {
+    width: 220px;
+    display: block;
+    /* 将错误信息设置为块级元素 */
+    margin-top: 5px;
+    /* 添加上方间距 */
+    color: #f08170;
+    /* 设置错误信息的颜色 */
+    font-size: 12px;
+    /* 设置错误信息的字体大小 */
+}

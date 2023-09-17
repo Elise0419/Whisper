@@ -10,6 +10,8 @@ import Forgotpw from "./component/Forgotpw";
 import Theme from "./component/Theme";
 import Profile from "./component/Profile";
 import Manage from "./component/Manage";
+import Restpwd from "./component/Restpwd";
+
 
 class App extends Component {
   state = {};
@@ -20,6 +22,7 @@ class App extends Component {
           <Route path="/signup" component={Signup} exact />
           <Route path="/login" component={Login} exact />
           <Route path="/forgotpw" component={Forgotpw} exact />
+          <Route path="/restpwd" component={Restpwd} exact />
 
           <Route path="/upload" component={Upload} exact />
 

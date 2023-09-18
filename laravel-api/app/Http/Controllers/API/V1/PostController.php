@@ -8,6 +8,7 @@ use App\Http\Resources\V1\PostResource;
 use App\Models\Post;
 use App\Services\V1\PostQuery;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -97,7 +98,7 @@ class PostController extends Controller
 
     public function upload(Request $request)
     {
-        $userId = $request->input('user_id');
+        $userId = Auth::user()->user_id;
         $type = $request->input('type');
         $title = $request->input('title');
         $content = $request->input('content');

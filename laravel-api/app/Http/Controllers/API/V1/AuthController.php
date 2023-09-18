@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API\V1;
 
-use App\Models\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Notifications\CustomVerifyEmail;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Auth\Events\Registered;
-use App\Notifications\CustomVerifyEmail;
 use Illuminate\Support\Str;
 
 class AuthController extends Controller
@@ -29,7 +28,6 @@ class AuthController extends Controller
         $credentials = $req->only('email', 'password');
         $token = Auth::attempt($credentials);
 
-
         if (!$token) {
             return response()->json([
                 'message' => '使用者帳號密碼錯誤',
@@ -42,7 +40,7 @@ class AuthController extends Controller
             'authorization' => [
                 'token' => $token,
                 'type' => 'bearer',
-            ]
+            ],
         ]);
     }
 
@@ -74,7 +72,7 @@ class AuthController extends Controller
 
         return response()->json([
             'message' => 'User created successfully',
-            'user' => $user
+            'user' => $user,
         ]);
     }
 
@@ -93,7 +91,7 @@ class AuthController extends Controller
             'authorisation' => [
                 'token' => Auth::refresh(),
                 'type' => 'bearer',
-            ]
+            ],
         ]);
     }
 };

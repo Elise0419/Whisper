@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { useEffect, useState } from "react";
 import { useRouteMatch } from "react-router-dom";
 
-import "./Aside.css";
+import "../CSS/Aside.css";
 
 import makeup2 from "../Img/makeup.jpeg";
 

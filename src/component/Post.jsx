@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { useEffect, useState } from "react";
 import { useRouteMatch } from "react-router-dom";
 
-import "./Post.css";
+import "./CSS/Post.css";
 import Comment from "./Block/Comment";
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";

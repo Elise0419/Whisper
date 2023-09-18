@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-import "./Header.css";
+import "../CSS/Header.css";
 
 import user from "../Img/dog.jpeg";
 import logo from "../Img/logo.png";

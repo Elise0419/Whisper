@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 import { Link } from "react-router-dom";
 
-import "./Asideuser.css";
+import "../CSS/Asideuser.css";
 
 function Asideuser() {
   var [user, setUser] = useState([]);
@@ -12,7 +12,7 @@ function Asideuser() {
   var token = localStorage.getItem("token");
   useEffect(() => {
     function fetchData() {
-      fetch("http://192.168.1.3/projectmfee41/public/api/login", {
+      fetch("http://192.168.1.3:8000/projectmfee41/public/api/login", {
         method: "GET",
         headers: {
           Authorization: token,

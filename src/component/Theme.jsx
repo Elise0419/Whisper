@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useRouteMatch } from "react-router-dom";
 
-import "./Theme.css";
+import "./CSS/Theme.css";
 import Header from "./Block/Header.jsx";
 import Aside from "./Block/Aside";
 import Article from "./Block/Article";

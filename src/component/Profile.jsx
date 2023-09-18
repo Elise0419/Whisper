@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-import "./Profile.css";
+import "./CSS/Profile.css";
 // import Axios from "axios";
 
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
 import Asideuser from "./Block/Asideuser";
-
-import userImg from "./Img/dog.jpeg";
 
 function Profile() {
   const [user, setUser] = useState({});

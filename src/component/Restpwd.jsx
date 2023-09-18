@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-import "./Restpwd.css";
+import "./CSS/Restpwd.css";
 import Validation from "./Validation/RestpwdValidation";
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
@@ -53,7 +53,12 @@ function Restpwd() {
         <div className="restContainer">
           <div className="restText">
             <h2>Whisper修改密碼</h2>
-            <img src={logo} alt="" width="100px" style={{ borderRadius: "50%" }} />
+            <img
+              src={logo}
+              alt=""
+              width="100px"
+              style={{ borderRadius: "50%" }}
+            />
             <p>請輸入新密碼喔～</p>
           </div>
           <div className="restMain">
@@ -69,7 +74,9 @@ function Restpwd() {
                   onChange={handleInput}
                   className=""
                 />
-                {errors.password && <span className="error">{errors.password}</span>}
+                {errors.password && (
+                  <span className="error">{errors.password}</span>
+                )}
               </div>
               <div className="">
                 <label htmlFor="confirmPassword">

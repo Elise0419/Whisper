@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import "./Home.css";
+import "./CSS/Home.css";
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
 import Article from "./Block/Article";

@@ -103,7 +103,7 @@ function Login() {
                 忘記密碼
               </Link>
               <button type="submit" className="btnSuccess">
-                登入
+              <Link className="customLink" to="/">登入</Link>
               </button>
             </form>
           </div>

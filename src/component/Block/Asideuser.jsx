@@ -6,6 +6,32 @@ import "./Asideuser.css";
 import user from "../Img/dog.jpeg";
 
 function Asideuser() {
+  var [user, setUser] = useState([]);
+  const match = useRouteMatch();
+
+  var token = localStorage.setItem("token");
+  var token = localStorage.getItem("token");
+  useEffect(() => {
+    function fetchData() {
+      fetch("http://192.168.1.3/projectmfee41/public/api/login", {
+        method: "GET",
+        headers: {
+          Authorization: token,
+        },
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((jsonData) => {
+          console.log(jsonData);
+          // setUser(jsonData.data);
+        })
+        .catch((err) => {
+          console.log("錯誤:", err);
+        });
+    }
+    fetchData();
+  }, [match.params.type]);
   return (
     <div className="aside">
       <img className="asideImg" src={user} />

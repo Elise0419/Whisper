@@ -58,11 +58,7 @@ function Post({ userToken = null }) {
         thumb: !isLiked, // 将点赞状态传递给后端
       };
 
-<<<<<<< Updated upstream
       fetch(`http://10.10.247.43:8000/api/posts/thumb`, {
-=======
-      fetch(`http://192.168.1.3:8000/api/posts/thumb`, {
->>>>>>> Stashed changes
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -83,22 +79,6 @@ function Post({ userToken = null }) {
     }
   };
 
-<<<<<<< Updated upstream
-  // 收藏按钮点击事件处理函数
-  const toggleFavorite = () => {
-    console.log("post[0].userId:", post[0].userId);
-    if (post.length > 0) {
-      const newSaveCount = isFavorited ? post[0].save - 1 : post[0].save + 1;
-
-      const requestData = {
-        postId: post[0].postId,
-        userId: 6, 
-        // 控制userid的number
-      };
-
-      fetch(`http://10.10.247.43:8000/api/posts/save`, {
-        method: "POST",
-=======
   // ...
 
   // 收藏按钮点击事件处理函数
@@ -110,27 +90,10 @@ function Post({ userToken = null }) {
 
       fetch(`http://192.168.1.3:8000/api/v1/posts/${match.params.postId}`, {
         method: "PATCH",
->>>>>>> Stashed changes
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${userToken}`,
         },
-<<<<<<< Updated upstream
-        body: JSON.stringify(requestData),
-      })
-        .then((res) => {
-          if (!res.ok) {
-            throw new Error("Network response was not ok");
-          }
-          return res.json();
-        })
-        .then((jsonData) => {
-          if (jsonData.message === "updated!") {
-            setIsFavorited(!isFavorited); // 更新收藏状态
-            setPost((prevPost) => [{ ...prevPost[0], save: newSaveCount }]);
-          } else {
-            // 处理其他情况
-=======
         body: JSON.stringify({ save: newSaveCount }),
       })
         .then((res) => res.json())
@@ -139,7 +102,6 @@ function Post({ userToken = null }) {
             setPost((prevPost) => [
               { ...prevPost[0], save: jsonData.data.save },
             ]);
->>>>>>> Stashed changes
           }
         })
         .catch((err) => {
@@ -147,11 +109,8 @@ function Post({ userToken = null }) {
         });
     }
   };
-<<<<<<< Updated upstream
-=======
 
   // ...
->>>>>>> Stashed changes
 
   return (
     <div id="container">
@@ -161,10 +120,6 @@ function Post({ userToken = null }) {
         {post.map((post) => {
           return (
             <div className="postContainer" key={post.postId}>
-<<<<<<< Updated upstream
-              {console.log(post)}
-=======
->>>>>>> Stashed changes
               <div className="postUseinfo">
                 <div className="postUsepic">
                   <img className="userHead" src={avatar} />
@@ -195,11 +150,7 @@ function Post({ userToken = null }) {
                   </button>
                   <span>{post.thumb}</span>
                   <button
-<<<<<<< Updated upstream
                     onClick={toggleFavorite} // 确保这里调用了 toggleFavorite 函数
-=======
-                    onClick={toggleFavorite}
->>>>>>> Stashed changes
                     className={`postCustbutton ${isFavorited ? "active" : ""}`}
                   >
                     <i className="material-icons">favorite</i>

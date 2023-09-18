@@ -10,7 +10,6 @@ import userImg from "./Img/dog.jpeg";
 
 function Profile() {
   const [user, setUser] = useState({});
-<<<<<<< Updated upstream
   const [selectedImage, setSelectedImage] = useState(null);
   const [formData, setFormData] = useState({
     username: "David",
@@ -19,37 +18,23 @@ function Profile() {
     idNumber: "A247850405",
     phoneNumber: "0916888888",
   });
+  const [isEditing, setIsEditing] = useState({
+    profilePic: false,
+    username: false,
+    userDeclaration: false,
+    email: false,
+    idNumber: false,
+    phoneNumber: false,
+  });
 
-=======
-  // const [selectedImage, setSelectedImage] = useState(null);
-  // const [formData, setFormData] = useState({
-  //   username: "David",
-  //   userDeclaration: "致力于打造美好生活",
-  //   email: "user@example.com",
-  //   idNumber: "A247850405",
-  //   phoneNumber: "0916888888",
-  // });
   // const [isEditing, setIsEditing] = useState({
-  //   profilePic: false,
-  //   username: false,
-  //   userDeclaration: false,
-  //   email: false,
-  //   idNumber: false,
-  //   phoneNumber: false,
+  //   profilePic: false, // 是否編輯頭像
+  //   username: false, // 是否編輯用戶名稱
+  //   userDeclaration: false, // 是否編輯用戶聲明
+  //   email: false, // 是否編輯電子郵件
+  //   idNumber: false, // 是否編輯身份證字號
+  //   phoneNumber: false, // 是否編輯手機號碼
   // });
->>>>>>> Stashed changes
-
-
-const [isEditing, setIsEditing] = useState({
-  profilePic: false, // 是否編輯頭像
-  username: false, // 是否編輯用戶名稱
-  userDeclaration: false, // 是否編輯用戶聲明
-  email: false, // 是否編輯電子郵件
-  idNumber: false, // 是否編輯身份證字號
-  phoneNumber: false, // 是否編輯手機號碼
-});
-
-
 
   const handleEditClick = (field) => {
     setUser({ ...user, [field]: true });
@@ -98,7 +83,7 @@ const [isEditing, setIsEditing] = useState({
 
   useEffect(() => {
     function fetchData() {
-      fetch("http://10.10.247.90/projectmfee41/public/api/profile", {
+      fetch("http://192.168.1.3/projectmfee41/public/api/profile", {
         method: "get",
         headers: {
           Authorization: `Bearer ${token}`,

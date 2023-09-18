@@ -28,7 +28,7 @@ function Comment() {
         });
     }
     fetchData();
-  }, [match.params.postId, com]);
+  }, [match.params.postId]);
 
   function formatTime(time) {
     const year = time.getFullYear();

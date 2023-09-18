@@ -9,6 +9,7 @@ import makeup2 from "../Img/makeup.jpeg";
 function Aside() {
   const [forum, setForum] = useState([]);
   const match = useRouteMatch();
+
   useEffect(() => {
     function fetchData() {
       fetch(
@@ -21,9 +22,7 @@ function Aside() {
           return res.json();
         })
         .then((jsonData) => {
-          console.log(jsonData);
-          // setForum(jsonData.data);
-          // console.log(forum);
+          setForum(jsonData.data);
         })
         .catch((err) => {
           console.log("錯誤:", err);
@@ -62,7 +61,7 @@ function Aside() {
         <p>個版規則</p>
         <ol href="">
           {forum.map((forum) => {
-            <li key={forum.id}>{forum.content}</li>;
+            return <li key={forum.id}>{forum.content}</li>;
           })}
         </ol>
       </div>

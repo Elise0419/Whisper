@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
-use App\Models\User;
-
 
 class CustomEmailVerificationController extends Controller
 {
@@ -27,7 +26,6 @@ class CustomEmailVerificationController extends Controller
         if ($user->email_verified_at) {
             return response()->json(['message' => '信箱已驗證過'], 201);
         }
-
 
         if (!$user || !hash_equals($user->email_verified_token, $hash)) {
             return response()->json(['message' => '發生錯誤,請重新確認'], 400);

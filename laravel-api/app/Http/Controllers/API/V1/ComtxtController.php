@@ -16,7 +16,8 @@ class ComtxtController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-    {$filter = new ComtxtQuery();
+    {
+        $filter = new ComtxtQuery();
         $queryItems = $filter->transform($request);
 
         Comtxt::where($queryItems);

@@ -1,5 +1,5 @@
 //import React, { useState } from "react";
-import "./Manage.css";
+import "./CSS/Manage.css";
 
 // 引入tab組件
 import { TabPanel, useTabs } from "react-headless-tabs";
@@ -46,32 +46,29 @@ function Manage() {
           </div>
           {/* 發布貼文內容 */}
           <div className="Article">
-          <TabPanel hidden={selectedTab !== "postArticle"}>
-          <div className="manageCount">
-            <p>全部稿件2</p>
-          </div>
-          <Postart />
-          <Postart />
-          </TabPanel>
-          <div>
-            {/* 收藏貼文內容 */}
-            <TabPanel hidden={selectedTab !== "collectArticle"}>
-            <div className="manageCount">
-            <p>全部稿件6</p>
-          </div>
-              <Collectart/>
-
-              <Collectart/>
-              <Collectart/>
-              <Collectart/>
-              <Collectart/>
-
-              <Collectart/>
-
+            <TabPanel hidden={selectedTab !== "postArticle"}>
+              <div className="manageCount">
+                <p>全部稿件2</p>
+              </div>
+              <Postart />
+              <Postart />
             </TabPanel>
+            <div>
+              {/* 收藏貼文內容 */}
+              <TabPanel hidden={selectedTab !== "collectArticle"}>
+                <div className="manageCount">
+                  <p>全部稿件6</p>
+                </div>
+                <Collectart />
 
-          </div>
-          
+                <Collectart />
+                <Collectart />
+                <Collectart />
+                <Collectart />
+
+                <Collectart />
+              </TabPanel>
+            </div>
           </div>
         </div>
       </article>

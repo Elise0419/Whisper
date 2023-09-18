@@ -99,6 +99,9 @@ class PostController extends Controller
     public function upload(Request $request)
     {
         $userId = Auth::user()->user_id;
+        if (!$userId) {
+            return 'login';
+        };
         $type = $request->input('type');
         $title = $request->input('title');
         $content = $request->input('content');
@@ -128,6 +131,12 @@ class PostController extends Controller
 
     }
 
+    public function getUserPosts(Request $request)
+    {
+        $userId = Auth::user()->user_id;
+        $posts = Post::where('user_id', $userId)->get();
+        return response()->json($posts);
+    }
     /**
      * Display the specified resource.
      */

@@ -8,6 +8,7 @@ use App\Http\Resources\V1\SavepostResource;
 use App\Models\Post;
 use App\Models\Savepost;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SavepostController extends Controller
 {
@@ -24,7 +25,7 @@ class SavepostController extends Controller
     {
 
         $postId = $request->input('postId'); //
-        $userId = $request->input('userId'); //
+        $userId = Auth::user()->user_id; //
 
         // 檢查用戶是否已經保存了這個貼文
         $existingSave = Savepost::where('user_id', $userId)

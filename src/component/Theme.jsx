@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useRouteMatch } from "react-router-dom";
 
-import "./Theme.css";
+import "./CSS/Theme.css";
 import Header from "./Block/Header.jsx";
 import Aside from "./Block/Aside";
 import Article from "./Block/Article";
@@ -28,7 +28,6 @@ function Makeup() {
         })
         .then((jsonData) => {
           setAd(jsonData.data);
-          console.log(jsonData.data);
         })
         .catch((err) => {
           console.log("錯誤:", err);
@@ -46,7 +45,11 @@ function Makeup() {
           {ad.map((ad) => {
             return (
               <a key={ad.id} href={ad.webUrl}>
-                <img className="adPic" src={ad.imgUrl} />
+                <img
+                  className="adPic"
+                  src={ad.imgUrl}
+                  referrerPolicy="no-referrer"
+                />
                 <p className="adLook">
                   查看更多
                   <img src={adArrow} />

@@ -3,12 +3,12 @@
 use App\Http\Controllers\API\V1\AdController;
 use App\Http\Controllers\API\V1\AuthController;
 use App\Http\Controllers\API\V1\ComtxtController;
+use App\Http\Controllers\API\V1\CustomEmailVerificationController;
 use App\Http\Controllers\API\V1\PasswordResetController;
 use App\Http\Controllers\API\V1\PostController;
 use App\Http\Controllers\API\V1\ProfileController;
 use App\Http\Controllers\API\V1\RuleController;
 use App\Http\Controllers\API\V1\SavepostController;
-use App\Http\Controllers\CustomEmailVerificationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,18 +30,27 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('refresh', 'refresh');
 });
 
+Route::get('/unAuth', function () {
+    return response()->json(['error' => '尚未登入']);
+})->name('login');
+
 Route::get('/api/email/verify', function () {
     return redirect('http://10.147.20.3:3000/Login');
 })->middleware('auth:api')->name('verification.notice');
 
-Route::get('/email/verify/{user_id}/{hash}', [CustomEmailVerificationController::class, 'verify'])
-    ->middleware(['signed'])
-    ->name('verification.verify');
+// Route::get('/email/verify/{user_id}/{hash}', [CustomEmailVerificationController::class, 'verify'])
+//     ->middleware(['signed'])
+//     ->name('verification.verify');
 
-Route::post('/api/email/verification-notification', function (Request $req) {
-    $req->user()->sendEmailVerificationNotification();
-    return back()->with('message', 'Verification link sent!');
-})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+// Route::post('/api/email/verification-notification', function (Request $req) {
+//     $req->user()->sendEmailVerificationNotification();
+//     return back()->with('message', 'Verification link sent!');
+// })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+Route::controller(CustomEmailVerificationController::class)->group(function () {
+    Route::get('/email/verify/{user_id}/{hash}', 'verify')->middleware(['signed'])->name('verification.verify');
+    Route::get('/api/email/verification-notification', 'resendverify')->middleware(['auth:api', 'throttle:5,1'])->name('verification.send');
+});
 
 Route::controller(PasswordResetController::class)->group(function () {
     Route::post('forgot-password', 'sendResetLinkEmail')->name('password.email');
@@ -50,11 +59,12 @@ Route::controller(PasswordResetController::class)->group(function () {
 Route::controller(ProfileController::class)->group(function () {
     Route::get('profile', 'profile');
     Route::post('emailchange', 'emailchange');
+    Route::get('users', 'index');
 });
 
-//api/v1
+Route::middleware(['auth'])->get('/user/posts', [PostController::class, 'getUserPosts']);
+
 Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\API\V1'], function () {
-    Route::apiResource('users', UserController::class);
     Route::apiResource('posts', PostController::class);
     Route::apiResource('comtxts', ComtxtController::class);
     Route::apiResource('ads', AdController::class);

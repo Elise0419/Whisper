@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-import "./Profile.css";
+import "./CSS/Profile.css";
 // import Axios from "axios";
 
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
 import Asideuser from "./Block/Asideuser";
-
-import userImg from "./Img/dog.jpeg";
 
 function Profile() {
   const [user, setUser] = useState({});
@@ -18,19 +16,23 @@ function Profile() {
     idNumber: "A247850405",
     phoneNumber: "0916888888",
   });
+  const [isEditing, setIsEditing] = useState({
+    profilePic: false,
+    username: false,
+    userDeclaration: false,
+    email: false,
+    idNumber: false,
+    phoneNumber: false,
+  });
 
-
-
-const [isEditing, setIsEditing] = useState({
-  profilePic: false, // 是否編輯頭像
-  username: false, // 是否編輯用戶名稱
-  userDeclaration: false, // 是否編輯用戶聲明
-  email: false, // 是否編輯電子郵件
-  idNumber: false, // 是否編輯身份證字號
-  phoneNumber: false, // 是否編輯手機號碼
-});
-
-
+  // const [isEditing, setIsEditing] = useState({
+  //   profilePic: false, // 是否編輯頭像
+  //   username: false, // 是否編輯用戶名稱
+  //   userDeclaration: false, // 是否編輯用戶聲明
+  //   email: false, // 是否編輯電子郵件
+  //   idNumber: false, // 是否編輯身份證字號
+  //   phoneNumber: false, // 是否編輯手機號碼
+  // });
 
   const handleEditClick = (field) => {
     setUser({ ...user, [field]: true });
@@ -79,7 +81,7 @@ const [isEditing, setIsEditing] = useState({
 
   useEffect(() => {
     function fetchData() {
-      fetch("http://10.10.247.90/projectmfee41/public/api/profile", {
+      fetch("http://192.168.1.3/projectmfee41/public/api/profile", {
         method: "get",
         headers: {
           Authorization: `Bearer ${token}`,

@@ -3,12 +3,12 @@
 use App\Http\Controllers\API\V1\AdController;
 use App\Http\Controllers\API\V1\AuthController;
 use App\Http\Controllers\API\V1\ComtxtController;
+use App\Http\Controllers\API\V1\CustomEmailVerificationController;
 use App\Http\Controllers\API\V1\PasswordResetController;
 use App\Http\Controllers\API\V1\PostController;
 use App\Http\Controllers\API\V1\ProfileController;
 use App\Http\Controllers\API\V1\RuleController;
 use App\Http\Controllers\API\V1\SavepostController;
-use App\Http\Controllers\CustomEmailVerificationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -50,11 +50,11 @@ Route::controller(PasswordResetController::class)->group(function () {
 Route::controller(ProfileController::class)->group(function () {
     Route::get('profile', 'profile');
     Route::post('emailchange', 'emailchange');
+    Route::get('users', 'index');
 });
 
 //api/v1
 Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\API\V1'], function () {
-    Route::apiResource('users', UserController::class);
     Route::apiResource('posts', PostController::class);
     Route::apiResource('comtxts', ComtxtController::class);
     Route::apiResource('ads', AdController::class);

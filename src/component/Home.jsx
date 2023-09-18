@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import "./Home.css";
@@ -11,6 +11,26 @@ import user from "./Img/dog.jpeg";
 import redArrow from "./Img/redArrow.png";
 
 function Love() {
+  let [pop, setPop] = useState([]);
+  useEffect(() => {
+    function fetchData() {
+      fetch("http://10.10.247.43:8000/api/topPosts/1", {
+        method: "get",
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((jsonData) => {
+          setPop(jsonData.data);
+          // console.log(jsonData.data);
+          console.log(pop);
+        })
+        .catch((err) => {
+          console.log("錯誤:", err);
+        });
+    }
+    fetchData();
+  }, []);
   return (
     <div id="container">
       <Header />

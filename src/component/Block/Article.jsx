@@ -12,8 +12,8 @@ function Article() {
   const match = useRouteMatch();
 
   var url = match.params.type
-    ? `http://192.168.194.32:8000/api/v1/posts?type[eq]=${match.params.type}`
-    : `http://192.168.194.32:8000/api/v1/posts`;
+    ? `http://10.10.247.43:8000/api/v1/posts?type[eq]=${match.params.type}`
+    : `http://10.10.247.43:8000/api/v1/posts`;
 
   useEffect(() => {
     function fetchData() {
@@ -34,27 +34,35 @@ function Article() {
     fetchData();
   }, []);
 
-      // 在這裡發送請求，更新點擊率
-      const handleCardClick = async (postId) => {
-        try {
-          //發送請求來更新點擊率 地址請後端提供
-          const response = await fetch(`http://192.168.194.32:8000/api/v1/posts/${postId}/click`, {
-            method: "POST",
-          });
-          const data = await response.json();
-          console.log(`成功更新點擊率: ${data}`);
-        } catch (error) {
-          console.error("錯誤:", error);
+  // 在這裡發送請求，更新點擊率
+  const handleCardClick = async (postId) => {
+    try {
+      //發送請求來更新點擊率 地址請後端提供
+      const response = await fetch(
+        `http://10.10.247.43:8000/api/v1/posts/${postId}/click`,
+        {
+          method: "POST",
         }
-      };
+      );
+      const data = await response.json();
+      console.log(`成功更新點擊率: ${data}`);
+    } catch (error) {
+      console.error("錯誤:", error);
+    }
+  };
 
   return (
     <React.Fragment>
       <div className="cardContainer">
         {art.map((art) => {
           return (
-            // 增加一個onclick 點擊率事件 
-            <Link className="card" to={`/post/${art.postId}`} key={art.postId}  onClick={() => handleCardClick(art.postId)}>
+            // 增加一個onclick 點擊率事件
+            <Link
+              className="card"
+              to={`/post/${art.postId}`}
+              key={art.postId}
+              onClick={() => handleCardClick(art.postId)}
+            >
               <span className="cardTop">
                 {typeof art.imgUrl === "string" ? (
                   <img className="cardImg" src={art.imgUrl} />

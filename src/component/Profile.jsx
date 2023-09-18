@@ -65,6 +65,10 @@ function Profile() {
     setFormData({ ...formData, [field]: value }); // 根據使用者的輸入更新特定欄位的值
   };
 
+  localStorage.setItem("token", "john_doe");
+  var token = localStorage.getItem("token");
+  console.log(token);
+
   return (
     <div id="container">
       <Header />

@@ -99,6 +99,9 @@ class PostController extends Controller
     public function upload(Request $request)
     {
         $userId = Auth::user()->user_id;
+        if (!$userId) {
+            return 'login';
+        };
         $type = $request->input('type');
         $title = $request->input('title');
         $content = $request->input('content');

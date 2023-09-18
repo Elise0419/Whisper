@@ -165,8 +165,9 @@
 
 /* 以下是comment的css */
 .commentContainer {
+  min-height: 135px;
   width: 95%;
-  max-height: 15rem;
+  /* max-height: rem; */
   /* 166px / 16px = 10.375rem */
   display: flex;
   flex-direction: column;

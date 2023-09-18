@@ -18,33 +18,19 @@ function Profile() {
     idNumber: "A247850405",
     phoneNumber: "0916888888",
   });
-  const [isEditing, setIsEditing] = useState({
-    profilePic: false,
-    username: false,
-    userDeclaration: false,
-    email: false,
-    idNumber: false,
-    phoneNumber: false,
-  });
-    
 
 
-  const [isEditing, setIsEditing] = useState({
-    profilePic: false, // 是否編輯頭像
-    username: false, // 是否編輯用戶名稱
-    userDeclaration: false, // 是否編輯用戶聲明
-    email: false, // 是否編輯電子郵件
-    idNumber: false, // 是否編輯身份證字號
-    phoneNumber: false, // 是否編輯手機號碼
-  });
-  const [selectedImage, setSelectedImage] = useState(null); // 選擇的新頭像
-  const [formData, setFormData] = useState({
-    username: "David", // 用戶名稱
-    userDeclaration: "致力于打造美好生活", // 用戶聲明
-    email: "user@example.com", // 電子郵件
-    idNumber: "A247850405", // 身份證字號
-    phoneNumber: "0916888888", // 手機號碼
-  });
+
+const [isEditing, setIsEditing] = useState({
+  profilePic: false, // 是否編輯頭像
+  username: false, // 是否編輯用戶名稱
+  userDeclaration: false, // 是否編輯用戶聲明
+  email: false, // 是否編輯電子郵件
+  idNumber: false, // 是否編輯身份證字號
+  phoneNumber: false, // 是否編輯手機號碼
+});
+
+
 
   const handleEditClick = (field) => {
     setUser({ ...user, [field]: true });

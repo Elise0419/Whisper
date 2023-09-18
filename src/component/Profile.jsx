@@ -10,6 +10,24 @@ import userImg from "./Img/dog.jpeg";
 
 function Profile() {
   const [user, setUser] = useState({});
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [formData, setFormData] = useState({
+    username: "David",
+    userDeclaration: "致力于打造美好生活",
+    email: "user@example.com",
+    idNumber: "A247850405",
+    phoneNumber: "0916888888",
+  });
+  const [isEditing, setIsEditing] = useState({
+    profilePic: false,
+    username: false,
+    userDeclaration: false,
+    email: false,
+    idNumber: false,
+    phoneNumber: false,
+  });
+    
+
 
   const [isEditing, setIsEditing] = useState({
     profilePic: false, // 是否編輯頭像

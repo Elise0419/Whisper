@@ -38,7 +38,7 @@ function Article() {
     try {
       //發送請求來更新點擊率 地址請後端提供
       const response = await fetch(
-        `http://10.10.247.43:8000/api/v1/posts/${postId}/click`,
+        `http://10.10.247.43:8000/api/posts/${postId}/click`,
         {
           method: "POST",
         }

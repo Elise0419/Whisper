@@ -1,7 +1,7 @@
 // 引入React和useState钩子
 import React, { useState } from "react";
 // 引入Link组件用于路由导航
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 // 引入LoginValidation（假设是一个用于验证登录表单的模块）
 import Validation from "./Validation/LoginValidation";
@@ -21,6 +21,8 @@ function Login() {
 
   const [errors, setErrors] = useState({});
 
+  const history = useHistory(); // 将useHistory移动到函数组件的顶层
+
   // 处理输入框的变化事件
   const handleInput = (event) => {
     setValues((prev) => ({ ...prev, [event.target.name]: event.target.value }));
@@ -37,7 +39,6 @@ function Login() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-
       },
       body: JSON.stringify(values),
     })
@@ -46,7 +47,8 @@ function Login() {
         // 在这里处理从后端返回的数据
         console.log(data);
         // 将Token存储在本地
-        localStorage.setItem('token', data.token);
+        localStorage.setItem("token", data.token);
+        history.push("/"); // 登录成功后跳转到首页
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -61,7 +63,12 @@ function Login() {
         <div className="loginContainer">
           <div className="loginText">
             <h2>歡迎登入Whisper</h2>
-            <img src={logo} alt="" width="100px" style={{ borderRadius: "50%" }} />
+            <img
+              src={logo}
+              alt=""
+              width="100px"
+              style={{ borderRadius: "50%" }}
+            />
             <p>目前還沒有帳號,請註冊新帳號～</p>
             {/* 使用Link组件导航到注册页面 */}
             <Link to="/signup" className="btnDafaultborder">
@@ -102,8 +109,12 @@ function Login() {
               <Link to="/forgotpw" className="btnDafaultborder">
                 忘記密碼
               </Link>
-              <button type="submit" className="btnSuccess">
-              <Link className="customLink" to="/">登入</Link>
+              <button
+                type="submit"
+                className="btnSuccess"
+                onClick={() => history.push("/")}
+              >
+                登入
               </button>
             </form>
           </div>

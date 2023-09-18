@@ -14,6 +14,8 @@ function Asideuser() {
       <span className="asideMsg">致力於打造美好生活</span>
       <br />
       <span className="asideTime">創建時間:2023-08-01</span>
+      <br />
+      <span className="asideTime">最後更新時間:2023-08-01</span>
       <div className="asideNum">
         <p>03</p>
         <p>當前貼文數量</p>

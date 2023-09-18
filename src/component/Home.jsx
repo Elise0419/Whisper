@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import "./Home.css";
@@ -12,6 +12,8 @@ import redArrow from "./Img/redArrow.png";
 
 function Love() {
   let [pop, setPop] = useState([]);
+  let [like, setLike] = useState([]);
+
   useEffect(() => {
     function fetchData() {
       fetch("http://10.10.247.43:8000/api/topPosts/1", {
@@ -22,8 +24,18 @@ function Love() {
         })
         .then((jsonData) => {
           setPop(jsonData.data);
-          // console.log(jsonData.data);
-          console.log(pop);
+        })
+        .catch((err) => {
+          console.log("錯誤:", err);
+        });
+      fetch("http://10.10.247.43:8000/api/topPosts/2", {
+        method: "get",
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((jsonData) => {
+          setLike(jsonData.data);
         })
         .catch((err) => {
           console.log("錯誤:", err);
@@ -31,6 +43,7 @@ function Love() {
     }
     fetchData();
   }, []);
+
   return (
     <div id="container">
       <Header />
@@ -48,59 +61,27 @@ function Love() {
       <aside>
         <div className="aside">
           <p>流行貼文排行榜</p>
-          <Link to="/post">
-            <p className="rankNum">No.1</p>
-            <p className="rankList">飛柔清爽修護瞬效柔...</p>
-            <img className="rankArrow" src={redArrow} />
-          </Link>
-          <Link to="/post">
-            <p className="rankNum">No.2</p>
-            <p className="rankList">飛柔清爽修護瞬效柔...</p>
-            <img className="rankArrow" src={redArrow} />
-          </Link>
-          <Link to="/post">
-            <p className="rankNum">No.3</p>
-            <p className="rankList">飛柔清爽修護瞬效柔...</p>
-            <img className="rankArrow" src={redArrow} />
-          </Link>
-          <Link to="/post">
-            <p className="rankNum">No.4</p>
-            <p className="rankList">飛柔清爽修護瞬效柔...</p>
-            <img className="rankArrow" src={redArrow} />
-          </Link>
-          <Link to="/post">
-            <p className="rankNum">No.5</p>
-            <p className="rankList">飛柔清爽修護瞬效柔...</p>
-            <img className="rankArrow" src={redArrow} />
-          </Link>
+          {pop.map((pop) => {
+            return (
+              <Link to="/post" key={pop.postId}>
+                <img className="rankNum" src={pop.headImg} />
+                <p className="rankList">{pop.title}</p>
+                <img className="rankArrow" src={redArrow} />
+              </Link>
+            );
+          })}
         </div>
         <div className="aside">
           <p>點贊貼文排行榜</p>
-          <Link to="/post">
-            <p className="rankNum">No.1</p>
-            <p className="rankList">飛柔清爽修護瞬效柔...</p>
-            <img className="rankArrow" src={redArrow} />
-          </Link>
-          <Link to="/post">
-            <p className="rankNum">No.2</p>
-            <p className="rankList">飛柔清爽修護瞬效柔...</p>
-            <img className="rankArrow" src={redArrow} />
-          </Link>
-          <Link to="/post">
-            <p className="rankNum">No.3</p>
-            <p className="rankList">飛柔清爽修護瞬效柔...</p>
-            <img className="rankArrow" src={redArrow} />
-          </Link>
-          <Link to="/post">
-            <p className="rankNum">No.4</p>
-            <p className="rankList">飛柔清爽修護瞬效柔...</p>
-            <img className="rankArrow" src={redArrow} />
-          </Link>
-          <Link to="/post">
-            <p className="rankNum">No.5</p>
-            <p className="rankList">飛柔清爽修護瞬效柔...</p>
-            <img className="rankArrow" src={redArrow} />
-          </Link>
+          {like.map((like) => {
+            return (
+              <Link to="/post" key={like.postId}>
+                <img className="rankNum" src={like.headImg} />
+                <p className="rankList">{like.title}</p>
+                <img className="rankArrow" src={redArrow} />
+              </Link>
+            );
+          })}
         </div>
       </aside>
       <Footer />

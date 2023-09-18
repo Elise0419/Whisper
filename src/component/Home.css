@@ -165,7 +165,10 @@ article a {
 .cardMid img {
     width: 1.5rem;
     margin-left: 0.75rem;
+    object-fit: cover;
     border-radius: var(--circle);
+    width: 1.5rem;
+    height: 1.5rem;
 }
 
 .cardTitle {
@@ -324,6 +327,7 @@ article a {
     color: white;
     margin: 0.3125rem 0.875rem 0.3125rem 1.5rem;
     display: flex;
+    object-fit: cover;
     font-weight: bold;
     align-items: center;
     border-radius: var(--circle);

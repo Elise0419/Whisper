@@ -11,22 +11,22 @@ import userImg from "./Img/dog.jpeg";
 function Profile() {
   const [user, setUser] = useState({});
 
-  // const [isEditing, setIsEditing] = useState({
-  //   profilePic: false, // 是否編輯頭像
-  //   username: false, // 是否編輯用戶名稱
-  //   userDeclaration: false, // 是否編輯用戶聲明
-  //   email: false, // 是否編輯電子郵件
-  //   idNumber: false, // 是否編輯身份證字號
-  //   phoneNumber: false, // 是否編輯手機號碼
-  // });
-  // const [selectedImage, setSelectedImage] = useState(null); // 選擇的新頭像
-  // const [formData, setFormData] = useState({
-  //   username: "David", // 用戶名稱
-  //   userDeclaration: "致力于打造美好生活", // 用戶聲明
-  //   email: "user@example.com", // 電子郵件
-  //   idNumber: "A247850405", // 身份證字號
-  //   phoneNumber: "0916888888", // 手機號碼
-  // });
+  const [isEditing, setIsEditing] = useState({
+    profilePic: false, // 是否編輯頭像
+    username: false, // 是否編輯用戶名稱
+    userDeclaration: false, // 是否編輯用戶聲明
+    email: false, // 是否編輯電子郵件
+    idNumber: false, // 是否編輯身份證字號
+    phoneNumber: false, // 是否編輯手機號碼
+  });
+  const [selectedImage, setSelectedImage] = useState(null); // 選擇的新頭像
+  const [formData, setFormData] = useState({
+    username: "David", // 用戶名稱
+    userDeclaration: "致力于打造美好生活", // 用戶聲明
+    email: "user@example.com", // 電子郵件
+    idNumber: "A247850405", // 身份證字號
+    phoneNumber: "0916888888", // 手機號碼
+  });
 
   const handleEditClick = (field) => {
     setUser({ ...user, [field]: true });
@@ -69,14 +69,14 @@ function Profile() {
 
   localStorage.setItem(
     "token",
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTAuMTAuMjQ3LjkwL3Byb2plY3RtZmVlNDEvcHVibGljL2FwaS9sb2dpbiIsImlhdCI6MTY5NTAwNDI3NywiZXhwIjoxNjk1MDA3ODc3LCJuYmYiOjE2OTUwMDQyNzcsImp0aSI6ImI0ckRjejRJZmgyRTNWcVYiLCJzdWIiOiIyNyIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.82X5nGVV0YCeqb8lHcvdXjQmXouWTK13nfU-34ETv8I"
+    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTAuMTAuMjQ3LjkwL3Byb2plY3RtZmVlNDEvcHVibGljL2FwaS9sb2dpbiIsImlhdCI6MTY5NTAwOTI3MiwiZXhwIjoxNjk1MDEyODcyLCJuYmYiOjE2OTUwMDkyNzIsImp0aSI6IkhES3pVUGNTSEp3QzNtWm0iLCJzdWIiOiIyNSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.fcOJ5-_A44jUsGTCgZP8jJREAXUMjRpBmWqaHr87M0w"
   );
   var token = localStorage.getItem("token");
 
   useEffect(() => {
     function fetchData() {
       fetch("http://10.10.247.90/projectmfee41/public/api/profile", {
-        method: "POST",
+        method: "get",
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -94,7 +94,7 @@ function Profile() {
         });
     }
     fetchData();
-  }, [user]);
+  }, []);
 
   return (
     <div id="container">

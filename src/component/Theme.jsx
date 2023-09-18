@@ -1,5 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import { useEffect, useState } from "react";
+import { useRouteMatch } from "react-router-dom";
 
 import "./Theme.css";
 import Header from "./Block/Header.jsx";
@@ -12,24 +13,29 @@ import adArrow from "./Img/adArrow.png";
 
 function Makeup() {
   var [ad, setAd] = useState([]);
+  const match = useRouteMatch();
 
   useEffect(() => {
     function fetchData() {
-      fetch("http://192.168.194.32:8000/api/v1/ads?type[eq]=mkup", {
-        method: "GET",
-      })
+      fetch(
+        `http://10.10.247.43:8000/api/v1/ads?type[eq]=${match.params.type}`,
+        {
+          method: "GET",
+        }
+      )
         .then((res) => {
           return res.json();
         })
         .then((jsonData) => {
           setAd(jsonData.data);
+          console.log(jsonData.data);
         })
         .catch((err) => {
           console.log("錯誤:", err);
         });
     }
     fetchData();
-  }, []);
+  }, [match.params.type]);
 
   return (
     <div id="container">

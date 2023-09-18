@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useRouteMatch } from "react-router-dom";
 
-import user2 from "../Img/cat.jpg";
 import like from "../Img/like.png";
 import comment from "../Img/comment.png";
 
@@ -17,7 +16,7 @@ function Article() {
 
   useEffect(() => {
     function fetchData() {
-      fetch("http://10.10.247.43:8000/api/v1/posts", {
+      fetch(url, {
         method: "GET",
       })
         .then((res) => {
@@ -25,13 +24,14 @@ function Article() {
         })
         .then((jsonData) => {
           setArt(jsonData.data);
+          console.log(jsonData.data);
         })
         .catch((err) => {
           console.log("錯誤:", err);
         });
     }
     fetchData();
-  }, []);
+  }, [match.params.type]);
 
   // 在這裡發送請求，更新點擊率
   const handleCardClick = async (postId) => {
@@ -64,7 +64,11 @@ function Article() {
             >
               <span className="cardTop">
                 {typeof art.imgUrl === "string" ? (
-                  <img className="cardImg" src={art.imgUrl} />
+                  <img
+                    className="cardImg"
+                    src={art.imgUrl}
+                    referrerpolicy="no-referrer"
+                  />
                 ) : (
                   <span className="cardTxt">
                     <span className="paperTape">paperTapepaperTape</span>
@@ -74,8 +78,7 @@ function Article() {
                 )}
               </span>
               <span className="cardMid">
-                <img src={user2} />
-                {/* <img src={art.headImage} /> */}
+                <img src={art.headImg} />
                 <span className="cardTitle">{art.title}</span>
               </span>
               <span className="cardBtm">

@@ -6,13 +6,11 @@ import "./Collectart.css";
 function Collectart() {  
     return (
         <div className="collectart">
-          <div className="manageCount">
-            <p>全部稿件2</p>
-          </div>
+         
           <div className="manageEdit">
             <div className="manageContent">
               <img
-                src="https://imgs.gvm.com.tw/upload/gallery/20201209/75813_01.jpg"
+                src="https://img95.699pic.com/photo/50046/0008.jpg_wh300.jpg"
                 alt=""
               />
               <div className="manageText">

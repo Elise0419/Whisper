@@ -6,9 +6,7 @@ import "./Postart.css";
 function Postart() {  
     return (
         <div className="postart">
-          <div className="manageCount">
-            <p>全部稿件1</p>
-          </div>
+
           <div className="manageEdit">
             <div className="manageContent">
               <img

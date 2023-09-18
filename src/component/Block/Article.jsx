@@ -11,8 +11,8 @@ function Article() {
   const match = useRouteMatch();
 
   var url = match.params.type
-    ? `http://10.10.247.43:8000/api/v1/posts?type[eq]=${match.params.type}`
-    : `http://10.10.247.43:8000/api/v1/posts`;
+    ? `http://192.168.1.3:8000/api/v1/posts?type[eq]=${match.params.type}`
+    : `http://192.168.1.3:8000/api/v1/posts`;
 
   useEffect(() => {
     function fetchData() {
@@ -24,7 +24,6 @@ function Article() {
         })
         .then((jsonData) => {
           setArt(jsonData.data);
-          console.log(jsonData.data);
         })
         .catch((err) => {
           console.log("錯誤:", err);
@@ -38,7 +37,7 @@ function Article() {
     try {
       //發送請求來更新點擊率 地址請後端提供
       const response = await fetch(
-        `http://10.10.247.43:8000/api/posts/${postId}/click`,
+        `http://192.168.1.3:8000/api/posts/${postId}/click`,
         {
           method: "POST",
         }
@@ -67,7 +66,7 @@ function Article() {
                   <img
                     className="cardImg"
                     src={art.imgUrl}
-                    referrerpolicy="no-referrer"
+                    referrerPolicy="no-referrer"
                   />
                 ) : (
                   <span className="cardTxt">

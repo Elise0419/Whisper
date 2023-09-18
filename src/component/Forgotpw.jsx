@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-import "./Forgotpw.css";
+import "./CSS/Forgotpw.css";
 import Validation from "./Validation/ForgotpwValidation";
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
@@ -52,7 +52,12 @@ function Forgotpw() {
             <h2>歡迎Whisper用戶</h2>
             {/* 這裡插入logo */}
             {/* eslint-disable-next-line */}
-            <img src={logo} alt="" width="100px" style={{ borderRadius: "50%" }} />
+            <img
+              src={logo}
+              alt=""
+              width="100px"
+              style={{ borderRadius: "50%" }}
+            />
             <p>忘記密碼可以馬上找回，或者～</p>
             <Link to="/signup" className="btnDafaultborder">
               註冊新帳號

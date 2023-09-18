@@ -3,7 +3,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "quill/dist/quill.core.css";
 
-import "./Upload.css";
+import "./CSS/Upload.css";
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
 

@@ -1,7 +1,7 @@
 // TabSelector.jsx
 
 import React from "react";
-import "./Manage.css";
+import "./CSS/Manage.css";
 
 export const TabSelector = ({ isActive, children, onClick }) => (
   <button

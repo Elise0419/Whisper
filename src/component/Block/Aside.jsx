@@ -1,10 +1,36 @@
 import React, { Component } from "react";
+import { useEffect, useState } from "react";
+import { useRouteMatch } from "react-router-dom";
 
-import "./Aside.css";
+import "../CSS/Aside.css";
 
 import makeup2 from "../Img/makeup.jpeg";
 
 function Aside() {
+  const [forum, setForum] = useState([]);
+  const match = useRouteMatch();
+
+  useEffect(() => {
+    function fetchData() {
+      fetch(
+        `http://192.168.1.3:8000/api/v1/rules?type[eq]=${match.params.type}`,
+        {
+          method: "GET",
+        }
+      )
+        .then((res) => {
+          return res.json();
+        })
+        .then((jsonData) => {
+          setForum(jsonData.data);
+        })
+        .catch((err) => {
+          console.log("錯誤:", err);
+        });
+    }
+    fetchData();
+  }, [match.params.type]);
+
   return (
     <aside>
       <div className="aside">
@@ -34,9 +60,9 @@ function Aside() {
       <div className="forumRule">
         <p>個版規則</p>
         <ol href="">
-          <li>不可以發布與美妝產品無關的話題。不然一律刪除處理。</li>
-          <li>不可以發布與美妝產品無關的話題。不然一律刪除處理。</li>
-          <li>不可以發布與美妝產品無關的話題。不然一律刪除處理。</li>
+          {forum.map((forum) => {
+            return <li key={forum.id}>{forum.content}</li>;
+          })}
         </ol>
       </div>
       <div className="forumTag">

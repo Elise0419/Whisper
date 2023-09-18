@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-import "./Header.css";
+import "../CSS/Header.css";
 
 import user from "../Img/dog.jpeg";
 import logo from "../Img/logo.png";
@@ -33,10 +33,10 @@ function Header() {
           </button>
         </div>
         <div>
-          <Link to="profile">
+          <Link to="/profile">
             <img className="userImg" src={user} />
           </Link>
-          <Link to="profile">
+          <Link to="/profile">
             <span className="userName">David.one</span>
           </Link>
           <button className="userBtn">

@@ -49,9 +49,9 @@ header {
     padding: 5px 10px;
     background-color: white;
     border-radius: 10px;
-    float: right;
     margin: 5px;
     color: darkgray;
+    float: right;
 }
 
 .upBtn {
@@ -60,4 +60,9 @@ header {
 
 .reBtn {
     border: 1px solid salmon;
+}
+
+.quill-editor {
+    height: 500px;
+    margin-bottom: 50px;
 }

@@ -1,36 +1,43 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Profile.css";
 // import Axios from "axios";
 
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
+import Asideuser from "./Block/Asideuser";
 
-import user from "./Img/dog.jpeg";
+import userImg from "./Img/dog.jpeg";
 
 function Profile() {
-  const [isEditing, setIsEditing] = useState({
-    profilePic: false, // 是否編輯頭像
-    username: false, // 是否編輯用戶名稱
-    userDeclaration: false, // 是否編輯用戶聲明
-    email: false, // 是否編輯電子郵件
-    idNumber: false, // 是否編輯身份證字號
-    phoneNumber: false, // 是否編輯手機號碼
-  });
-  const [selectedImage, setSelectedImage] = useState(null); // 選擇的新頭像
+  const [user, setUser] = useState({});
+  const [selectedImage, setSelectedImage] = useState(null);
   const [formData, setFormData] = useState({
-    username: "David", // 用戶名稱
-    userDeclaration: "致力于打造美好生活", // 用戶聲明
-    email: "user@example.com", // 電子郵件
-    idNumber: "A247850405", // 身份證字號
-    phoneNumber: "0916888888", // 手機號碼
+    username: "David",
+    userDeclaration: "致力于打造美好生活",
+    email: "user@example.com",
+    idNumber: "A247850405",
+    phoneNumber: "0916888888",
   });
 
+
+
+const [isEditing, setIsEditing] = useState({
+  profilePic: false, // 是否編輯頭像
+  username: false, // 是否編輯用戶名稱
+  userDeclaration: false, // 是否編輯用戶聲明
+  email: false, // 是否編輯電子郵件
+  idNumber: false, // 是否編輯身份證字號
+  phoneNumber: false, // 是否編輯手機號碼
+});
+
+
+
   const handleEditClick = (field) => {
-    setIsEditing({ ...isEditing, [field]: true });
+    setUser({ ...user, [field]: true });
   };
 
   const handleSaveClick = async (field) => {
-    setIsEditing({ ...isEditing, [field]: false });
+    setUser({ ...user, [field]: false });
 
     // if (field === "profilePic" && selectedImage) {
     //   const formData = new FormData();
@@ -64,6 +71,35 @@ function Profile() {
     setFormData({ ...formData, [field]: value }); // 根據使用者的輸入更新特定欄位的值
   };
 
+  localStorage.setItem(
+    "token",
+    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTAuMTAuMjQ3LjkwL3Byb2plY3RtZmVlNDEvcHVibGljL2FwaS9sb2dpbiIsImlhdCI6MTY5NTAwOTI3MiwiZXhwIjoxNjk1MDEyODcyLCJuYmYiOjE2OTUwMDkyNzIsImp0aSI6IkhES3pVUGNTSEp3QzNtWm0iLCJzdWIiOiIyNSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.fcOJ5-_A44jUsGTCgZP8jJREAXUMjRpBmWqaHr87M0w"
+  );
+  var token = localStorage.getItem("token");
+
+  useEffect(() => {
+    function fetchData() {
+      fetch("http://10.10.247.90/projectmfee41/public/api/profile", {
+        method: "get",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((jsonData) => {
+          console.log(jsonData.user);
+          setUser(jsonData.user);
+          console.log(user);
+        })
+        .catch((err) => {
+          console.log("錯誤:", err);
+        });
+    }
+    fetchData();
+  }, []);
+
   return (
     <div id="container">
       <Header />
@@ -80,9 +116,10 @@ function Profile() {
                 <img
                   className="userImg"
                   src={
-                    selectedImage ? URL.createObjectURL(selectedImage) : user
+                    selectedImage
+                      ? URL.createObjectURL(selectedImage)
+                      : user.headimg
                   }
-                  alt=""
                 />
 
                 {isEditing.profilePic && (
@@ -110,7 +147,7 @@ function Profile() {
                 <input
                   type="text"
                   id="username"
-                  value={formData.username}
+                  value={user.mem_name}
                   readOnly={!isEditing.username}
                   onChange={(e) =>
                     handleInputChange("username", e.target.value)
@@ -173,7 +210,7 @@ function Profile() {
                   type="email"
                   id="email"
                   name="email"
-                  value={formData.email}
+                  value={user.email}
                   readOnly={!isEditing.email}
                   onChange={(e) => handleInputChange("email", e.target.value)}
                 />
@@ -203,7 +240,7 @@ function Profile() {
                   type="text"
                   id="idNumber"
                   name="idNumber"
-                  value={formData.idNumber}
+                  value={user.person_id}
                   pattern="^[A-Z][0-9]{9}$"
                   title="請輸入有效的身份證字號，格式為一個英文字母後接九位數字。"
                   required
@@ -238,7 +275,7 @@ function Profile() {
                   type="tel"
                   id="phoneNumber"
                   name="phoneNumber"
-                  value={formData.phoneNumber}
+                  value={user.phone}
                   pattern="^0\d{1,2}-?\d{6,7}$"
                   required
                   readOnly={!isEditing.phoneNumber}
@@ -270,18 +307,7 @@ function Profile() {
       </article>
       <aside>
         {/* 側邊欄內容 */}
-        <div className="userAside">
-          <img className="userImg" src={user} alt="" />
-          <h3>David.one</h3>
-          <hr />
-          <span>致力於打造美好生活</span>
-          <p>創建時間:2023-08-01</p>
-          <div className="postNumber">
-            <span>03</span>
-            <span>當前貼文數量</span>
-          </div>
-          <button className="creatPost">創建貼文</button>
-        </div>
+        <Asideuser />
       </aside>
       <Footer />
     </div>

@@ -1,12 +1,25 @@
 //import React, { useState } from "react";
 import "./Manage.css";
 
+// 引入tab組件
+import { TabPanel, useTabs } from "react-headless-tabs";
+import { TabSelector } from "./TabSelector.tsx";
+
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
-
-import user from "./Img/dog.jpeg";
+import Asideuser from "./Block/Asideuser";
+// 發布貼文組件
+import Postart from "./Postart";
+// 收藏貼文組件
+import Collectart from "./Collectart";
 
 function Manage() {
+  const [selectedTab, setSelectedTab] = useTabs([
+    "postArticle",
+    "collectArticle",
+    "replyMessage",
+  ]);
+
   return (
     <div id="container">
       <Header />
@@ -14,54 +27,39 @@ function Manage() {
       <article>
         <div className="manageContainer">
           <div className="manageTitle">
-            <h3>發布貼文</h3>
-            <h3>收藏貼文</h3>
+            <nav>
+              <TabSelector
+                className="manageTab"
+                isActive={selectedTab === "postArticle"}
+                onClick={() => setSelectedTab("postArticle")}
+              >
+                發布貼文
+              </TabSelector>
+              <TabSelector
+                className="manageTab"
+                isActive={selectedTab === "collectArticle"}
+                onClick={() => setSelectedTab("collectArticle")}
+              >
+                收藏貼文
+              </TabSelector>
+            </nav>
           </div>
-          <hr />
-          <div className="manageCount">
-            <p>全部稿件</p>
-          </div>
-          <div className="manageEdit">
-            <div className="manageContent">
-              <img
-                src="https://imgs.gvm.com.tw/upload/gallery/20201209/75813_01.jpg"
-                alt=""
-              />
-              <p>貼文名字：給予正想踏進美妝美妝</p>
-              <p>David.one.發布者.2023.8.15.16:00pm</p>
-
-              <div className="manageInteractions">
-                <span>
-                <i className="material-icons">thumb_up</i> {/* 點讚 icon */}
-                  <span>12</span> {/* 顯示讚數 */}
-                </span>
-                <span>
-                <i className="material-icons">star</i> {/* 收藏 icon */}
-                  <span>8</span> {/* 顯示收藏數 */}
-                </span>
-              </div>
-            </div>
-            <div className="manageBtn">
-              <button>編輯</button>
-              <button>刪除</button>
-            </div>
+          {/* 發布貼文內容 */}
+          <TabPanel hidden={selectedTab !== "postArticle"}>
+          <Postart />
+          </TabPanel>
+          <div>
+            {/* 收藏貼文內容 */}
+            <TabPanel hidden={selectedTab !== "collectArticle"}>
+              <Collectart/>
+            </TabPanel>
           </div>
         </div>
       </article>
+
       <aside>
         {/* 側邊欄內容 */}
-        <div className="userAside">
-          <img className="userImg" src={user} alt="" />
-          <h3>David.one</h3>
-          <hr />
-          <span>致力於打造美好生活</span>
-          <p>創建時間:2023-08-01</p>
-          <div className="postNumber">
-            <span>03</span>
-            <span>當前貼文數量</span>
-          </div>
-          <button className="creatPost">創建貼文</button>
-        </div>
+        <Asideuser />
       </aside>
       <Footer />
     </div>

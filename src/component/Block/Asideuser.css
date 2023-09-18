@@ -1,0 +1,46 @@
+.asideImg {
+    width: 4.25rem;
+    border-radius: var(--circle);
+    margin: 1.25rem;
+    vertical-align: middle;
+}
+
+.asideName {
+    font-size: 1.25rem;
+    color: var(--colorGray300);
+    font-weight: bold;
+}
+
+.aside>hr {
+    width: 17.375rem;
+    color: var(--colorGray100);
+}
+
+.asideMsg {
+    margin-left: 1.25rem;
+    color: var(--colorGray300);
+    font-size: 0.875rem;
+}
+
+.asideTime {
+    margin-left: 1.25rem;
+    color: var(--colorGray100);
+    font-size: 0.875rem;
+}
+
+.asideNum {
+    color: var(--colorRed);
+    font-size: 1.25rem;
+    text-align: center;
+}
+
+.asideBtn {
+    background-color: var(--colorYellow);
+    width: 18.125rem;
+    font-size: 0.875rem;
+    color: white;
+    border: none;
+    border-radius: 1rem;
+    padding: 0.625rem;
+    margin-left: 0.875rem;
+}

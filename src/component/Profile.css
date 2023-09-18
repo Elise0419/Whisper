@@ -38,8 +38,10 @@
 
 .profilePic {
     display: flex;
-    justify-content: space-between; /* 水平方向均匀分布 */
-    align-items: center; /* 垂直居中 */
+    justify-content: space-between;
+    /* 水平方向均匀分布 */
+    align-items: center;
+    /* 垂直居中 */
     margin-bottom: 0px;
     margin-top: 0px;
     /* background-color: aqua; */
@@ -49,11 +51,12 @@
 .profilePic label {
     /* background-color: brown; */
     width: 100px;
-    margin-right: 10px; /* 添加右边距 */
+    margin-right: 10px;
+    /* 添加右边距 */
 }
 
 .editBtn {
-    margin-left:px;
+    margin-left: px;
     width: 78px;
     height: 28px;
     flex-shrink: 0;
@@ -66,10 +69,12 @@
 
 
 
-.profileuserName{
+.profileuserName {
     display: flex;
-    justify-content: space-between; /* 水平方向均匀分布 */
-    align-items: center; /* 垂直居中 */
+    justify-content: space-between;
+    /* 水平方向均匀分布 */
+    align-items: center;
+    /* 垂直居中 */
     margin-bottom: 0px;
     margin-top: 0px;
     /* background-color: aqua; */
@@ -79,12 +84,13 @@
 
     /* background-color: brown; */
     width: 100px;
-    margin-right: 10px; /* 添加右边距 */
+    margin-right: 10px;
+    /* 添加右边距 */
     margin-top: 20px;
     margin-bottom: 20px;
 }
 
-.ProfileForm input{
+.ProfileForm input {
     border-radius: 5px;
     height: 36px;
     width: 300px;
@@ -182,3 +188,5 @@
     width: 300px;
     border: none;
 }
+
+/* - - - - - - - - - - */

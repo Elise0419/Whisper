@@ -1,34 +1,34 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
+import { useRouteMatch } from "react-router-dom";
 import avatar from "../Img/avatar.png";
 
 function Comment() {
-  const [state, setState] = useState({
-    list: [
-      {
-        id: 1,
-        author: "劉德華",
-        comment: "給我一杯忘情水",
-        time: new Date("2023-10-10 09:09:00"),
-        attitude: 1,
-      },
-      {
-        id: 2,
-        author: "周杰倫",
-        comment: "哎喲，不錯哦",
-        time: new Date("2023-09-11 09:09:00"),
-        attitude: 0,
-      },
-      {
-        id: 3,
-        author: "五月天",
-        comment: "不打擾，是我的溫柔",
-        time: new Date("2023-03-11 10:09:00"),
-        attitude: -1,
-      },
-    ],
+  var [com, setCom] = useState({
+    comments: [], // 評論列表
     newComment: "", // 用於儲存新評論的文本
   });
+  const match = useRouteMatch();
+
+  useEffect(() => {
+    function fetchData() {
+      fetch(
+        `http://192.168.194.32:8000/api/v1/comtxts?post[eq]=${match.params.postId}`,
+        {
+          method: "GET",
+        }
+      )
+        .then((res) => {
+          return res.json();
+        })
+        .then((jsonData) => {
+          setCom({ ...com, comments: jsonData.data });
+        })
+        .catch((err) => {
+          console.log("錯誤:", err);
+        });
+    }
+    fetchData();
+  }, [match.params.postId, com]);
 
   function formatTime(time) {
     const year = time.getFullYear();
@@ -39,36 +39,35 @@ function Comment() {
     return `${year}-${month}-${date} ${hours}:${minutes}`;
   }
 
-  // 點擊 "like" 按鈕事件處理程序
   function handleLikeClick(index) {
-    const newList = [...state.list];
+    const newList = [...com.comments];
     newList[index].attitude = newList[index].attitude === 1 ? 0 : 1;
-    setState({ ...state, list: newList });
+    setCom({ ...com, comments: newList });
   }
 
-  // 提交評論事件處理程序
   function handleSubmitComment() {
-    if (state.newComment.trim() !== "") {
+    if (com.newComment.trim() !== "") {
       const newCommentObj = {
-        id: state.list.length + 1,
-        author: "新用户", // 設置新用戶
-        comment: state.newComment,
+        id: com.comments.length + 1,
+        author: "David", // 設置新用戶
+        comment: com.newComment,
         time: new Date(),
         attitude: 0,
       };
 
-      const newList = [...state.list, newCommentObj];
-      setState({ ...state, list: newList, newComment: "" });
+      setCom({
+        ...com,
+        comments: [...com.comments, newCommentObj],
+        newComment: "", // 清空新評論文本
+      });
     }
   }
 
   return (
     <div className="commentContainer">
-      {/* 評論數量 */}
       <div className="commentHead">
-        <span>評論 {state.list.length} </span>
+        <span>評論 {com.comments.length} </span>
       </div>
-      {/* 發表評論 */}
       <div className="commentSend">
         <div className="userFace">
           <img className="userHead" src={avatar} alt="" />
@@ -79,35 +78,35 @@ function Comment() {
             rows="5"
             placeholder="寫下你的評論"
             className="iptTxt"
-            value={state.newComment}
-            onChange={(e) => setState({ ...state, newComment: e.target.value })}
+            value={com.newComment}
+            onChange={(e) =>
+              setCom({ ...com, newComment: e.target.value })
+            }
           />
           <button className="commentSubmit" onClick={handleSubmitComment}>
             評論
           </button>
         </div>
       </div>
-      {/* 已評論留言排序 */}
       <div className="commentList">
-        {state.list.map((item, index) => (
-          <div className="listItem" key={item.id}>
-            {/* 留言頭像 */}
+        {com.comments.map((comment) => (
+          <div className="listItem" key={comment.id}>
             <div className="userFace">
               <img className="userHead" src={avatar} alt="" />
             </div>
-            {/* 留言文案 */}
             <div className="comment">
-              <div className="user">{item.author}</div>
-              <p className="text">{item.comment}</p>
+              <div className="user">{comment.author}</div>
+              <p className="text">{comment.comment}</p>
               <div className="info">
-                <span className="time">{formatTime(item.time)}</span>
+                <span className="time">{formatTime(comment.time)}</span>
                 <span
-                  className={item.attitude === 1 ? "like liked" : "like"}
-                  onClick={() => handleLikeClick(index)} // 添加點擊事件程序
+                  className={
+                    comment.attitude === 1 ? "like liked" : "like"
+                  }
+                  onClick={() => handleLikeClick(comment.id - 1)}
                 >
                   <i className="likeIcon" />
                 </span>
-                <span className="reply btnHover">是否還需要回复</span>
               </div>
             </div>
           </div>

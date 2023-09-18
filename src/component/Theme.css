@@ -37,54 +37,6 @@ article {
 
 /* - - - - - - - - - - */
 
-article {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-article a {
-    text-decoration: none;
-}
-
-.search {
-    width: 49.0625rem;
-    height: 5.375rem;
-    border: 2px solid var(--colorPink100);
-    display: flex;
-    margin-top: 1.25rem;
-    align-items: center;
-    border-radius: 1rem;
-    justify-content: flex-start;
-    background-color: var(--colorPink200);
-}
-
-.search img {
-    width: 2.875rem;
-    margin-left: 1.25rem;
-    border-radius: var(--circle);
-}
-
-.search input {
-    width: 36.0625rem;
-    height: 2.875rem;
-    border: none;
-    font-size: 0.875rem;
-    margin-left: 1.25rem;
-    border-radius: var(--radius);
-}
-
-.search button {
-    color: white;
-    border: none;
-    padding: 0.8125rem 1rem;
-    font-size: 0.875rem;
-    margin-left: 0.875rem;
-    border-radius: var(--radius);
-    background-color: var(--colorYellow);
-}
-
-/* - - - - - - - - - - */
 .section {
     margin-left: 2.5rem;
     margin-top: 1.25rem;

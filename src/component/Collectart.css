@@ -1,0 +1,112 @@
+
+/*  */
+.manageCount {
+    color: #FEA7AD;
+    display: flex;
+    margin-left: 40px;
+    padding: 0px;
+}
+
+.manageEdit {
+    width: 705px;
+    height: 96px;
+    margin-left: 40px;
+    margin-right: 40px;
+    justify-content: space-between;
+    display: flex;
+    /* background-color: #E7C65B; */
+}
+
+.manageContent {
+    width: 416px;
+    height: 96px;
+    display: flex;
+    /* background-color: aqua; */
+
+}
+
+.manageContent img {
+    width: 156px;
+    height: 96px;
+    display: flex;
+    border-radius: 12px;
+}
+
+.manageText {
+    margin-left: 10px;
+}
+
+.managePost {
+    display: flex;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 0px;
+
+}
+
+.manageTime {
+    display: flex;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.manageInteractions {
+    display: flex;
+    width: 100%;
+    height: 0.875rem;
+    font-size: 12px;
+    /* background-color: red; */
+}
+
+.manageInteractions i {
+    display: flex;
+    font-size: 16px;
+    align-items: center;
+    color: #9E9E9E;
+    margin-right: 10px;
+}
+
+.manageInteractions span {
+    align-items: center;
+    display: flex;
+    color: #9E9E9E;
+    margin-right: 10px;
+}
+
+
+
+.manageBtn {
+    display: flex;
+    /* background-color: aquamarine; */
+    justify-content: space-between;
+    /* align-items: center; */
+}
+
+.deleteBtn {
+    margin-left: 20px;
+    width: 78px;
+    height: 28px;
+    flex-shrink: 0;
+    border-radius: 14px;
+    border: none;
+    background: var(--yellow, #C8B2D6);
+    color: white;
+}
+
+.editBtn {
+    margin-left: px;
+    width: 78px;
+    height: 28px;
+    flex-shrink: 0;
+    border-radius: 14px;
+    border: none;
+    background: var(--pink-300, #FEA7AD);
+    color: white;
+}
+
+.manageEdit hr {
+    position: absolute;
+    width: 44rem;
+    margin-top: 110px;
+}
+

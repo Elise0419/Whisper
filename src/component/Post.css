@@ -44,9 +44,21 @@
   /* 添加 margin-left 来创建间距 */
 }
 
+/* 長度控制 */
+.postAll{
+  display: flex;
+  flex-direction: column;
+  /* background-color: red; */
+}
+
+
 .postArticle {
-  max-height: 32.5rem;
-  /* 设置容器的最大高度，你可以根据需要调整 */
+  /* background-color: #00a1d6; */
+   max-height: 32rem; /* 设置容器的最大高度 */
+   overflow-y: auto;
+   /* 添加垂直滚动条 */
+   overflow-x: hidden;
+   /* 禁用水平滚动条 */
   display: flex;
   flex-direction: column;
   /* 让子元素自上而下排列 */
@@ -55,10 +67,7 @@
   /* 20px / 16px = 1.25rem */
   padding: 0;
   font-family: 'SimHei', sans-serif;
-  overflow-y: auto;
-  /* 添加垂直滚动条 */
-  overflow-x: hidden;
-  /* 禁用水平滚动条 */
+
 }
 
 .postArticletitle h2 {
@@ -86,7 +95,7 @@
 }
 
 .postContainer hr {
-  width: 5.9375rem;
+  width: 95%;
   /* 95px / 16px = 5.9375rem */
   align-items: center;
   border-color: #d9d9d9;
@@ -151,34 +160,22 @@
   /* 使图标在按钮中垂直和水平居中 */
 }
 
+
+
+
 /* 以下是comment的css */
-
-.postComment {
-  width: 49.0625rem;
-  /* 785px / 16px = 49.0625rem */
-  min-height: 12.875rem;
-  /* 206px / 16px = 12.875rem */
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-  /* 自上而下排列 */
-  margin: 0.625rem;
-  /* 10px / 16px = 0.625rem */
-  padding: 0;
-  border-radius: 1rem;
-  /* 16px / 16px = 1rem */
-  font-size: 0.875rem;
-  /* 14px / 16px = 0.875rem */
-}
-
 .commentContainer {
-  max-height: 10.375rem;
+  min-height: 135px;
+  width: 95%;
+  /* max-height: rem; */
   /* 166px / 16px = 10.375rem */
   display: flex;
   flex-direction: column;
   /* 让子元素自上而下排列 */
   text-align: left;
-  margin: 1.25rem 1.25rem 1.25rem 1.25rem;
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
+  margin-top: 0px;
   /* 20px / 16px = 1.25rem */
   padding: 0;
   font-family: 'SimHei', sans-serif;
@@ -186,6 +183,7 @@
   /* 添加垂直滚动条 */
   overflow-x: hidden;
   /* 禁用水平滚动条 */
+  /* background-color: #e7c65b; */
 }
 
 .commentHead {
@@ -200,6 +198,7 @@
 
 .commentSend {
   margin-top: 0.625rem;
+  width: 99%;
   /* 10px / 16px = 0.625rem */
 }
 
@@ -221,6 +220,7 @@
 
 .textareaContainer {
   position: relative;
+
   margin-left: 4.125rem;
   /* 66px / 16px = 4.125rem */
   margin-right: 5rem;
@@ -289,6 +289,7 @@
 }
 
 .commentList .comment {
+  width: 89%;
   position: relative;
   margin-left: 4.375rem;
   /* 70px / 16px = 4.375rem */

@@ -26,10 +26,6 @@ header {
     width: 100%;
 }
 
-.ck-editor__editable {
-    min-height: 70vh;
-}
-
 :root {
     --colorPurple: #C8B2D6;
     --colorPink100: #FDF5F3;
@@ -53,9 +49,9 @@ header {
     padding: 5px 10px;
     background-color: white;
     border-radius: 10px;
-    float: right;
     margin: 5px;
     color: darkgray;
+    float: right;
 }
 
 .upBtn {
@@ -64,4 +60,9 @@ header {
 
 .reBtn {
     border: 1px solid salmon;
+}
+
+.quill-editor {
+    height: 500px;
+    margin-bottom: 50px;
 }

@@ -1,52 +1,41 @@
-// 引入React和useState钩子
 import React, { useState } from "react";
-// 引入Link组件用于路由导航
 import { Link } from "react-router-dom";
 
-// 引入LoginValidation（假设是一个用于验证登录表单的模块）
-import Validation from "./Validation/LoginValidation";
-// 引入Header和Footer组件
+import "./Forgotpw.css";
+import Validation from "./Validation/ForgotpwValidation";
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
 
-// 引入logo图片
 import logo from "./Img/logo.png";
 
-function Login() {
-  // 使用useState定义state变量values和errors
+function Forgotpw() {
   const [values, setValues] = useState({
     email: "",
-    password: "",
+    idNumber: "",
   });
 
   const [errors, setErrors] = useState({});
 
-  // 处理输入框的变化事件
   const handleInput = (event) => {
     setValues((prev) => ({ ...prev, [event.target.name]: event.target.value }));
   };
 
-  // 处理表单提交事件
   const handleSubmit = (event) => {
     event.preventDefault();
-    // 使用Validation函数验证表单数据，并将错误信息存储在errors状态中
     setErrors(Validation(values));
 
-    // 使用fetch发送POST请求
-    fetch("http://10.147.20.3:8000/projectmfee41/public/api/login", {
+    // 使用fetch來發送POST請求
+    fetch("实际的后端接口地址", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-
       },
       body: JSON.stringify(values),
     })
       .then((response) => response.json())
       .then((data) => {
-        // 在这里处理从后端返回的数据
+        // 在這裡處理從後端返回的數據
         console.log(data);
-        // 将Token存储在本地
-        localStorage.setItem('token', data.token);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -58,17 +47,18 @@ function Login() {
       <Header />
       <section></section>
       <article>
-        <div className="loginContainer">
-          <div className="loginText">
-            <h2>歡迎登入Whisper</h2>
+        <div className="fgtContainer">
+          <div className="fgtText">
+            <h2>歡迎Whisper用戶</h2>
+            {/* 這裡插入logo */}
+            {/* eslint-disable-next-line */}
             <img src={logo} alt="" width="100px" style={{ borderRadius: "50%" }} />
-            <p>目前還沒有帳號,請註冊新帳號～</p>
-            {/* 使用Link组件导航到注册页面 */}
+            <p>忘記密碼可以馬上找回，或者～</p>
             <Link to="/signup" className="btnDafaultborder">
-              註冊帳號
+              註冊新帳號
             </Link>
           </div>
-          <div className="loginMain">
+          <div className="fgtMain">
             <form action="" onSubmit={handleSubmit}>
               <div className="">
                 <label htmlFor="email">
@@ -83,27 +73,24 @@ function Login() {
                 />
                 {errors.email && <span className="error">{errors.email}</span>}
               </div>
+
               <div className="">
-                <label htmlFor="password">
-                  <strong>密碼</strong>
+                <label htmlFor="idNumber">
+                  <strong>身份證字號</strong>
                 </label>
                 <input
-                  type="password"
-                  placeholder="輸入密碼"
-                  name="password"
+                  type="text"
+                  placeholder="輸入身份證字號"
+                  name="idNumber"
                   onChange={handleInput}
-                  className=""
                 />
-                {errors.password && (
-                  <span className="error">{errors.password}</span>
+                {errors.idNumber && (
+                  <span className="errorMessage">{errors.idNumber}</span>
                 )}
               </div>
-              {/* 使用Link组件导航到忘记密码页面 */}
-              <Link to="/forgotpw" className="btnDafaultborder">
-                忘記密碼
-              </Link>
+
               <button type="submit" className="btnSuccess">
-                登入
+                找回密碼
               </button>
             </form>
           </div>
@@ -115,4 +102,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Forgotpw;

@@ -19,11 +19,9 @@ function Post({ userToken = null }) {
       fetch(`http://10.10.247.43:8000/api/v1/posts/${match.params.postId}`, {
         method: "GET",
       })
-        .then((res) => {
-          return res.json();
-        })
+        .then((res) => res.json())
         .then((jsonData) => {
-          setPost([jsonData.data]);
+          setPost([jsonData.data]); // 包裹成数组
         })
         .catch((err) => {
           console.log("錯誤:", err);
@@ -47,19 +45,20 @@ function Post({ userToken = null }) {
   const [isLiked, setIsLiked] = useState(false); // 初始状态为未点赞
   const [isFavorited, setIsFavorited] = useState(false); // 初始状态为未收藏
 
-  // 点赞按钮点击事件处理函数
-  const toggleLike = () => {
-    setIsLiked(!isLiked);
-  
+  // ...
+
+// 点赞按钮点击事件处理函数
+const toggleLike = () => {
+  if (post.length > 0) { // 确保 post 是一个数组且不为空
     const newThumbCount = isLiked ? post[0].thumb - 1 : post[0].thumb + 1;
-  
+
     const requestData = {
       postId: post[0].postId,
-      thumb: newThumbCount,
+      thumb: !isLiked, // 将点赞状态传递给后端
     };
-  
+
     fetch(`http://10.10.247.43:8000/api/posts/thumb`, {
-      method: "PATCH",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${userToken}`
@@ -68,43 +67,47 @@ function Post({ userToken = null }) {
     })
       .then((res) => res.json())
       .then((jsonData) => {
-        if (jsonData.data) {
-          setPost((prevPost) => ({ ...prevPost[0], thumb: jsonData.postId, thumb: jsonData.thumb }));
+        if (jsonData.message === 'updated!') {
+          setIsLiked(!isLiked); // 更新点赞状态
+          setPost((prevPost) => [{ ...prevPost[0], thumb: newThumbCount }]);
         }
       })
       .catch((err) => {
         console.log("点赞请求错误:", err);
       });
-  };
-  
-  // 收藏按钮点击事件处理函数
-  const toggleFavorite = () => {
+  }
+};
+
+// ...
+
+// 收藏按钮点击事件处理函数
+const toggleFavorite = () => {
+  if (post.length > 0) { // 确保 post 是一个数组且不为空
     setIsFavorited(!isFavorited);
-    const newSaveCount = isFavorited ? post.save - 1 : post.save + 1;
-  
-    // 更新服务器上的收藏数（假设你的 API 是这样设计的）
+    const newSaveCount = isFavorited ? post[0].save - 1 : post[0].save + 1;
+
     fetch(`http://10.10.247.43:8000/api/v1/posts/${match.params.postId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        // 假设你需要传递用户的 token
         "Authorization": `Bearer ${userToken}`
       },
       body: JSON.stringify({ save: newSaveCount })
     })
       .then((res) => res.json())
       .then((jsonData) => {
-        // 更新成功后，刷新页面或者更新相应的状态
-        // 这里假设返回的数据格式为 { data: { save: newSaveCount } }
         if (jsonData.data) {
-          setPost((prevPost) => ({ ...prevPost, save: jsonData.data.save }));
+          setPost((prevPost) => [{ ...prevPost[0], save: jsonData.data.save }]);
         }
       })
       .catch((err) => {
         console.log("收藏请求错误:", err);
       });
-  };
- 
+  }
+};
+
+// ...
+
 
   return (
     <div id="container">
@@ -113,7 +116,7 @@ function Post({ userToken = null }) {
       <article>
         {post.map((post) => {
           return (
-        <div className="postContainer" key={post.postId}>
+        <div className="postContainer"  key={post.postId}>
           {console.log(post)}
           <div className="postUseinfo">
             <div className="postUsepic">

@@ -17,7 +17,7 @@ function Article() {
 
   useEffect(() => {
     function fetchData() {
-      fetch(url, {
+      fetch("http://10.10.247.43:8000/api/v1/posts", {
         method: "GET",
       })
         .then((res) => {
@@ -25,7 +25,6 @@ function Article() {
         })
         .then((jsonData) => {
           setArt(jsonData.data);
-          console.log(jsonData.data);
         })
         .catch((err) => {
           console.log("錯誤:", err);

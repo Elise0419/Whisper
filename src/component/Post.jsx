@@ -47,67 +47,77 @@ function Post({ userToken = null }) {
 
   // ...
 
-// 点赞按钮点击事件处理函数
-const toggleLike = () => {
-  if (post.length > 0) { // 确保 post 是一个数组且不为空
-    const newThumbCount = isLiked ? post[0].thumb - 1 : post[0].thumb + 1;
+  // 点赞按钮点击事件处理函数
+  const toggleLike = () => {
+    if (post.length > 0) {
+      // 确保 post 是一个数组且不为空
+      const newThumbCount = isLiked ? post[0].thumb - 1 : post[0].thumb + 1;
 
-    const requestData = {
-      postId: post[0].postId,
-      thumb: !isLiked, // 将点赞状态传递给后端
-    };
+      const requestData = {
+        postId: post[0].postId,
+        thumb: !isLiked, // 将点赞状态传递给后端
+      };
 
-    fetch(`http://10.10.247.43:8000/api/posts/thumb`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${userToken}`
-      },
-      body: JSON.stringify(requestData)
-    })
-      .then((res) => res.json())
-      .then((jsonData) => {
-        if (jsonData.message === 'updated!') {
-          setIsLiked(!isLiked); // 更新点赞状态
-          setPost((prevPost) => [{ ...prevPost[0], thumb: newThumbCount }]);
-        }
+      fetch(`http://10.10.247.43:8000/api/posts/thumb`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userToken}`,
+        },
+        body: JSON.stringify(requestData),
       })
-      .catch((err) => {
-        console.log("点赞请求错误:", err);
-      });
-  }
-};
+        .then((res) => res.json())
+        .then((jsonData) => {
+          if (jsonData.message === "updated!") {
+            setIsLiked(!isLiked); // 更新点赞状态
+            setPost((prevPost) => [{ ...prevPost[0], thumb: newThumbCount }]);
+          }
+        })
+        .catch((err) => {
+          console.log("点赞请求错误:", err);
+        });
+    }
+  };
 
-// ...
+  // 收藏按钮点击事件处理函数
+  const toggleFavorite = () => {
+    console.log("post[0].userId:", post[0].userId);
+    if (post.length > 0) {
+      const newSaveCount = isFavorited ? post[0].save - 1 : post[0].save + 1;
 
-// 收藏按钮点击事件处理函数
-const toggleFavorite = () => {
-  if (post.length > 0) { // 确保 post 是一个数组且不为空
-    setIsFavorited(!isFavorited);
-    const newSaveCount = isFavorited ? post[0].save - 1 : post[0].save + 1;
+      const requestData = {
+        postId: post[0].postId,
+        userId: 3, 
+        // 控制userid的number
+      };
 
-    fetch(`http://10.10.247.43:8000/api/v1/posts/${match.params.postId}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${userToken}`
-      },
-      body: JSON.stringify({ save: newSaveCount })
-    })
-      .then((res) => res.json())
-      .then((jsonData) => {
-        if (jsonData.data) {
-          setPost((prevPost) => [{ ...prevPost[0], save: jsonData.data.save }]);
-        }
+      fetch(`http://10.10.247.43:8000/api/posts/save`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userToken}`,
+        },
+        body: JSON.stringify(requestData),
       })
-      .catch((err) => {
-        console.log("收藏请求错误:", err);
-      });
-  }
-};
-
-// ...
-
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return res.json();
+        })
+        .then((jsonData) => {
+          if (jsonData.message === "updated!") {
+            setIsFavorited(!isFavorited); // 更新收藏状态
+            setPost((prevPost) => [{ ...prevPost[0], save: newSaveCount }]);
+          } else {
+            // 处理其他情况
+          }
+        })
+        .catch((err) => {
+          console.log("收藏请求错误:", err);
+        });
+    }
+  };
 
   return (
     <div id="container">
@@ -116,52 +126,52 @@ const toggleFavorite = () => {
       <article>
         {post.map((post) => {
           return (
-        <div className="postContainer"  key={post.postId}>
-          {console.log(post)}
-          <div className="postUseinfo">
-            <div className="postUsepic">
-              <img className="userHead" src={avatar} />
+            <div className="postContainer" key={post.postId}>
+              {console.log(post)}
+              <div className="postUseinfo">
+                <div className="postUsepic">
+                  <img className="userHead" src={avatar} />
+                </div>
+                <div className="postUsertime">
+                  <span>
+                    {post.memName} {post.postTime}
+                  </span>
+                </div>
+              </div>
+              <div className="postAll">
+                <div className="postArticle">
+                  <div className="postArticletitle">
+                    <h2>{post.title}</h2>
+                  </div>
+                  <div className="postArticletext">
+                    <p>{post.content}</p>
+                    <img src={post.imgUrl} />
+                  </div>
+                </div>
+                <hr />
+                <div className="postInteractive">
+                  <button
+                    onClick={toggleLike}
+                    className={`postCustbutton ${isLiked ? "active" : ""}`}
+                  >
+                    <i className="material-icons">thumb_up</i>
+                  </button>
+                  <span>{post.thumb}</span>
+                  <button
+                    onClick={toggleFavorite} // 确保这里调用了 toggleFavorite 函数
+                    className={`postCustbutton ${isFavorited ? "active" : ""}`}
+                  >
+                    <i className="material-icons">favorite</i>
+                  </button>
+                  <span>{post.save}</span>
+                </div>
+                <div className="postComment">
+                  <Comment />
+                </div>
+              </div>
             </div>
-            <div className="postUsertime">
-              <span>
-                {post.memName} {post.postTime}
-              </span>
-            </div>
-          </div>
-          <div className="postAll">
-          <div className="postArticle">
-            <div className="postArticletitle">
-              <h2>{post.title}</h2>
-            </div>
-            <div className="postArticletext">
-              <p>{post.content}</p>
-              <img src={post.imgUrl} />
-            </div>
-          </div>
-          <hr />
-          <div className="postInteractive">
-            <button
-              onClick={toggleLike}
-              className={`postCustbutton ${isLiked ? "active" : ""}`}
-            >
-              <i className="material-icons">thumb_up</i>
-            </button>
-            <span>{post.thumb}</span>
-            <button
-              onClick={toggleFavorite}
-              className={`postCustbutton ${isFavorited ? "active" : ""}`}
-            >
-              <i className="material-icons">favorite</i>
-            </button>
-            <span>{post.save}</span>
-          </div>
-          <div className="postComment">
-            <Comment />
-          </div>
-          </div>
-        </div>
-);
-        })} 
+          );
+        })}
       </article>
       <Aside />
       <Footer />

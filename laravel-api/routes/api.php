@@ -50,10 +50,10 @@ Route::controller(PasswordResetController::class)->group(function () {
 Route::controller(ProfileController::class)->group(function () {
     Route::get('profile', 'profile');
     Route::post('emailchange', 'emailchange');
-    Route::get('users', 'index');
 });
 
-//api/v1
+Route::middleware(['auth'])->get('/user/posts', [PostController::class, 'getUserPosts']);
+
 Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\API\V1'], function () {
     Route::apiResource('posts', PostController::class);
     Route::apiResource('comtxts', ComtxtController::class);

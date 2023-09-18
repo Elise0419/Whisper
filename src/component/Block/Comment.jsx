@@ -79,9 +79,7 @@ function Comment() {
             placeholder="寫下你的評論"
             className="iptTxt"
             value={com.newComment}
-            onChange={(e) =>
-              setCom({ ...com, newComment: e.target.value })
-            }
+            onChange={(e) => setCom({ ...com, newComment: e.target.value })}
           />
           <button className="commentSubmit" onClick={handleSubmitComment}>
             評論
@@ -98,11 +96,9 @@ function Comment() {
               <div className="user">{comment.author}</div>
               <p className="text">{comment.comment}</p>
               <div className="info">
-                <span className="time">{formatTime(comment.time)}</span>
+                {/* <span className="time">{formatTime(comment.time)}</span> */}
                 <span
-                  className={
-                    comment.attitude === 1 ? "like liked" : "like"
-                  }
+                  className={comment.attitude === 1 ? "like liked" : "like"}
                   onClick={() => handleLikeClick(comment.id - 1)}
                 >
                   <i className="likeIcon" />

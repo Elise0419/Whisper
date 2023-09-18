@@ -16,7 +16,7 @@ function Love() {
 
   useEffect(() => {
     function fetchData() {
-      fetch("http://10.10.247.43:8000/api/topPosts/1", {
+      fetch("http://192.168.1.3:8000/api/topPosts/1", {
         method: "get",
       })
         .then((res) => {
@@ -28,7 +28,7 @@ function Love() {
         .catch((err) => {
           console.log("錯誤:", err);
         });
-      fetch("http://10.10.247.43:8000/api/topPosts/2", {
+      fetch("http://192.168.1.3:8000/api/topPosts/2", {
         method: "get",
       })
         .then((res) => {

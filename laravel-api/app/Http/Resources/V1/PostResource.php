@@ -17,6 +17,7 @@ class PostResource extends JsonResource
         return [
             'postId' => $this->post_id,
             'userId' => $this->user_id,
+            'headImg' => $this->users->headimg,
             'memName' => $this->users->mem_name,
             'type' => $this->type,
             'title' => $this->title,
@@ -24,7 +25,8 @@ class PostResource extends JsonResource
             'imgUrl' => $this->imgurl,
             'thumb' => $this->thumb,
             'save' => $this->save,
-            'comTxt' => $this->comtxts->count(),
+            'click' => $this->click,
+            'comtxtCount' => $this->comtxts->count(),
             'tag' => $this->tag,
             'postTime' => $this->post_time,
         ];

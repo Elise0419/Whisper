@@ -3,38 +3,37 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreAdRequest;
-use App\Http\Requests\UpdateAdRequest;
-use App\Http\Resources\V1\AdCollection;
-use App\Http\Resources\V1\AdResource;
-use App\Models\Ad;
-use App\Services\V1\AdQuery;
+use App\Http\Requests\StoreRuleRequest;
+use App\Http\Requests\UpdateRuleRequest;
+use App\Http\Resources\V1\RuleCollection;
+use App\Models\Rule;
+use App\Services\V1\RuleQuery;
 use Illuminate\Http\Request;
 
-class AdController extends Controller
+class RuleController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+
     public function index(Request $request)
     {
-        $filter = new AdQuery();
+        $filter = new RuleQuery();
         $queryItems = $filter->transform($request);
-        Ad::where($queryItems);
-        //check the input
+
+        Rule::where($queryItems);
+
         if (count($queryItems) == 0) {
 
-            return new AdCollection(Ad::all());
+            return new RuleCollection(Rule::all());
 
         } else {
 
-            return new AdCollection(Ad::where($queryItems)->inRandomOrder()->take(3)->get());
+            return new RuleCollection(Rule::where($queryItems)->get());
 
         }
-        // $posts = Post::all();
-        // return response()->json($posts);
+
     }
-    // return Ad::all();
 
     /**
      * Show the form for creating a new resource.
@@ -47,7 +46,7 @@ class AdController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreAdRequest $request)
+    public function store(StoreRuleRequest $request)
     {
         //
     }
@@ -55,16 +54,15 @@ class AdController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Ad $ad)
+    public function show(Rule $rule)
     {
-
-        return new AdResource($ad);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Ad $ad)
+    public function edit(Rule $rule)
     {
         //
     }
@@ -72,7 +70,7 @@ class AdController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAdRequest $request, Ad $ad)
+    public function update(UpdateRuleRequest $request, Rule $rule)
     {
         //
     }
@@ -80,7 +78,7 @@ class AdController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Ad $ad)
+    public function destroy(Rule $rule)
     {
         //
     }

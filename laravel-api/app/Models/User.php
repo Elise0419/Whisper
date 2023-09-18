@@ -18,6 +18,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comtxt::class);
     }
+    public function saveposts()
+    {
+        return $this->hasMany(Savepost::class);
+    }
     /**
      * The attributes that are mass assignable.
      *

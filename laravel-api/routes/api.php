@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\API\V1\AdController;
+use App\Http\Controllers\API\V1\ComtxtController;
+use App\Http\Controllers\API\V1\PostController;
+use App\Http\Controllers\API\V1\RuleController;
+use App\Http\Controllers\API\V1\SavepostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,20 +28,15 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\API\V1'], f
     Route::apiResource('posts', PostController::class);
     Route::apiResource('comtxts', ComtxtController::class);
     Route::apiResource('ads', AdController::class);
+    Route::apiResource('saveposts', SavepostController::class);
+    Route::apiResource('rules', RuleController::class);
 });
-
-// just read
-// Route::apiResource('posts', PostController::class)->only(['index', 'show']);
-
-// need to login
-// Route::middleware(['auth:sanctum'])->group(function () {
-//     Route::post('posts', [PostController::class, 'store']);
-// });
-
-//Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\API\V1'], function () {
-//     Route::get('/ads', [AdController::class, 'index']);
-//     Route::post('/ads', [AdController::class, 'store']);
-//     Route::get('/ads/{id}', [AdController::class, 'show']);
-//     Route::put('/ads/{id}', [AdController::class, 'update']);
-//     Route::delete('/ads/{id}', [AdController::class, 'destroy']);
-// });
+Route::get('/topPosts/1', [PostController::class, 'topposts1']);
+Route::get('/topPosts/2', [PostController::class, 'topposts2']);
+Route::get('/posts/search', [PostController::class, 'search']);
+Route::post('/posts/click', [PostController::class, 'click']);
+Route::post('/posts/thumb', [PostController::class, 'thumb']);
+Route::post('/upload', [PostController::class, 'upload']);
+Route::post('/posts/save', [SavepostController::class, 'savepost']);
+Route::post('/posts/comments/{postId}', [ComtxtController::class, 'createcomtxt']);
+Route::delete('/posts/{id}', [PostController::class, 'destroy']);

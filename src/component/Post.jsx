@@ -87,7 +87,7 @@ function Post({ userToken = null }) {
 
       const requestData = {
         postId: post[0].postId,
-        userId: 3, 
+        userId: 6, 
         // 控制userid的number
       };
 

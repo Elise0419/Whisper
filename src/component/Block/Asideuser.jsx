@@ -1,15 +1,14 @@
 import React, { Component } from "react";
+import { useEffect, useState } from "react";
+
 import { Link } from "react-router-dom";
 
 import "./Asideuser.css";
 
-import user from "../Img/dog.jpeg";
-
 function Asideuser() {
   var [user, setUser] = useState([]);
-  const match = useRouteMatch();
 
-  var token = localStorage.setItem("token");
+  // var token = localStorage.setItem("token", );
   var token = localStorage.getItem("token");
   useEffect(() => {
     function fetchData() {
@@ -31,7 +30,7 @@ function Asideuser() {
         });
     }
     fetchData();
-  }, [match.params.type]);
+  }, []);
   return (
     <div className="aside">
       <img className="asideImg" src={user} />

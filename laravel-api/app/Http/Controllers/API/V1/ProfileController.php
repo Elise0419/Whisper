@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API\V1;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-
 
 class ProfileController extends Controller
 {
@@ -14,7 +14,6 @@ class ProfileController extends Controller
     {
         $this->middleware('auth:api');
     }
-
 
     public function profile()
     {
@@ -24,7 +23,6 @@ class ProfileController extends Controller
         }
         return response()->json(['user' => $user], 200);
     }
-
 
     public function emailchange(Request $req)
     {
@@ -39,7 +37,7 @@ class ProfileController extends Controller
         }
 
         $user->email = $req->email;
-        $user->email_verified_at = NULL;
+        $user->email_verified_at = null;
         $user->save();
         return response()->json(['message' => 'Email 已成功更新！請重新驗證信箱']);
     }

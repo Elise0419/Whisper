@@ -75,7 +75,7 @@ function Profile() {
 
   localStorage.setItem(
     "token",
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTAuMTAuMjQ3LjQzOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNjk1MDk0MTkwLCJleHAiOjE2OTUwOTc3OTAsIm5iZiI6MTY5NTA5NDE5MCwianRpIjoidGZ5NnBGaU1Nd3V6S21UQyIsInN1YiI6IjI4IiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.KecFIB_xX-cYAUvktHfYMVIybxm9j2jZTk6_xWIfsjo" );
+ "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTAuMTAuMjQ3LjQzOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNjk1MDk0MTkwLCJleHAiOjE2OTUwOTc3OTAsIm5iZiI6MTY5NTA5NDE5MCwianRpIjoidGZ5NnBGaU1Nd3V6S21UQyIsInN1YiI6IjI4IiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.KecFIB_xX-cYAUvktHfYMVIybxm9j2jZTk6_xWIfsjo" );
   var token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -111,38 +111,6 @@ function Profile() {
           <hr />
           <div className="ProfileForm">
             <form>
-              <div className="profilePic">
-                <label htmlFor="profilePic">頭像修改:</label>
-                {/* 選擇新頭像會顯示在網頁上 */}
-                <img
-                  className="userImg"
-                  src={
-                    selectedImage
-                      ? URL.createObjectURL(selectedImage)
-                      : user.headimg
-                  }
-                />
-
-                {isEditing.profilePic && (
-                  <div>
-                    <input
-                      type="file"
-                      id="profilePic"
-                      accept="image/*"
-                      onChange={handleImageChange}
-                    />
-                  </div>
-                )}
-                <button
-                  type="button"
-                  className={`editBtn ${isEditing.profilePic ? "saveBtn" : ""}`}
-                  onClick={() => handleEditClick("profilePic")}
-                >
-                  {isEditing.profilePic ? "保存" : "編輯"}
-                </button>
-              </div>
-              <hr />
-
               <div className="profileuserName">
                 <label htmlFor="username">用戶名稱:</label>
                 <input

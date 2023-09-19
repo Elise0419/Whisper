@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import "./CSS/Signup.css";
 import Validation from "./Validation/SignupValidation";
@@ -9,26 +9,60 @@ import Footer from "./Block/Footer";
 import logo from "./Img/logo.png";
 
 function Signup() {
+  // 使用useState定义state变量values和errors
   const [values, setValues] = useState({
     username: "",
     idNumber: "",
     email: "",
+    phoneNumber: "", // 添加了 phoneNumber 字段
     password: "",
   });
 
-  // 定義 errors 狀態
-  // eslint-disable-next-line no-unused-vars
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({}); // 定義 errors 狀態
+
+  const history = useHistory(); // 将useHistory移动到函数组件的顶层
 
   const handleInput = (event) => {
+    // 更新对应输入字段的值
     setValues({ ...values, [event.target.name]: event.target.value });
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setErrors(Validation(values));
-    // 使用 values.username, values.idNumber, values.email, values.password 来获取相应的值
-  };
+  // ... 其他部分不变 ...
+
+const handleSubmit = (event) => {
+  event.preventDefault();
+  setErrors(Validation(values));
+
+  if (Object.keys(errors).length === 0) {
+    const requestData = {
+      mem_name: values.username,
+      person_id: values.idNumber,
+      email: values.email,
+      phone: values.phoneNumber,
+      password: values.password,
+    };
+
+    fetch("http://10.10.247.43:8000/api/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        // 处理从后端返回的数据
+        // 例如，可以在这里处理注册成功后的逻辑
+        history.push("/verify"); // 注册成功后跳转到验证邮箱页面
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }
+};
+
+// ... 其他部分不变 ...
 
   return (
     <div id="container">
@@ -38,7 +72,6 @@ function Signup() {
         <div className="signupContainer">
           <div className="signupText">
             <h2>歡迎加入Whisper</h2>
-            {/* 這裡插入logo */}
             <img
               src={logo}
               alt=""
@@ -50,6 +83,7 @@ function Signup() {
               登入
             </Link>
           </div>
+
           <div className="signupMain">
             <form action="" onSubmit={handleSubmit}>
               <div className="">
@@ -127,9 +161,10 @@ function Signup() {
                 )}
               </div>
               <button className="btnSuccess">
-                <Link className="customLink" to="/verify">
+                註冊
+                {/* <Link className="customLink" to="/verify">
                   註冊
-                </Link>
+                </Link> */}
               </button>
             </form>
           </div>

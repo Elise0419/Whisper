@@ -16,7 +16,7 @@ function Post({ userToken = null }) {
 
   useEffect(() => {
     function fetchData() {
-      fetch(`http://192.168.1.3:8000/api/v1/posts/${match.params.postId}`, {
+      fetch(`http://10.10.247.43:8000/api/v1/posts/${match.params.postId}`, {
         method: "GET",
       })
         .then((res) => res.json())

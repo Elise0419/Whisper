@@ -41,15 +41,20 @@ class PasswordResetController extends Controller
         $user->save();
     }
 
-    public function pwdfoget(Request $req)
+    public function pwdforgot(Request $req)
     {
         $req->validate([
             'email' => 'required|string|email',
             'person_id' => 'required|string',
         ]);
 
-        $credentials = $req->only('email', 'person_id');
-        $token = Auth::attempt($credentials);
+
+        $additionalUser = User::where('email', $req->email)
+            ->where('person_id', $req->person_id)
+            ->first();
+
+        $token = JWTAuth::fromUser($additionalUser);
+
 
         if (!$token) {
             return response()->json([
@@ -57,10 +62,7 @@ class PasswordResetController extends Controller
             ]);
         }
 
-        $user = User::where('email', $req->email)
-            ->where('person_id', $req->person_id)
-            ->first();
-        $user->notify(new ForgotPasswordEmail($user, $token));
+        $additionalUser->notify(new ForgotPasswordEmail($token));
 
 
         return response()->json(['message' => '已將信件發送至信箱']);

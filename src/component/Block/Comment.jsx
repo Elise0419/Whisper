@@ -10,6 +10,22 @@ function Comment() {
   const match = useRouteMatch();
 
   useEffect(() => {
+    function formatTime(time) {
+      if (!time || typeof time !== 'string') {
+        return "Invalid Date";
+      }
+    
+      // 在這裡對日期字串進行格式化
+      const year = time.substring(0, 4);
+      const month = time.substring(5, 7);
+      const date = time.substring(8, 10);
+      const hours = time.substring(11, 13);
+      const minutes = time.substring(14, 16);
+    
+      return `${year}-${month}-${date} ${hours}:${minutes}`;
+    }
+    
+
     function fetchData() {
       fetch(
         `http://10.10.247.43:8000/api/v1/comtxts?post[eq]=${match.params.postId}`,
@@ -22,7 +38,13 @@ function Comment() {
         })
         .then((jsonData) => {
           console.log(jsonData);
-          setCom({ ...com, comments: jsonData.data });
+          const comments = jsonData.data.map(comment => {
+            return {
+              ...comment,
+              time: formatTime(comment.createdtime),
+            };
+          });
+          setCom({ ...com, comments });
         })
         .catch((err) => {
           console.log("錯誤:", err);
@@ -30,15 +52,6 @@ function Comment() {
     }
     fetchData();
   }, [match.params.postId]);
-
-  function formatTime(time) {
-    const year = time.getFullYear();
-    const month = (time.getMonth() + 1).toString().padStart(2, "0");
-    const date = time.getDate().toString().padStart(2, "0");
-    const hours = time.getHours().toString().padStart(2, "0");
-    const minutes = time.getMinutes().toString().padStart(2, "0");
-    return `${year}-${month}-${date} ${hours}:${minutes}`;
-  }
 
   function handleLikeClick(index) {
     const newList = [...com.comments];
@@ -97,7 +110,7 @@ function Comment() {
               <div className="user">{comment.author}</div>
               <p className="text">{comment.comment}</p>
               <div className="info">
-                {/* <span className="time">{formatTime(comment.time)}</span> */}
+                <span className="time">{comment.time}</span>
                 <span
                   className={comment.attitude === 1 ? "like liked" : "like"}
                   onClick={() => handleLikeClick(comment.id - 1)}

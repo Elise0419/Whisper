@@ -4,8 +4,11 @@ namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Notifications\CustomVerifyEmail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Notification;
 
 class CustomEmailVerificationController extends Controller
 {
@@ -18,7 +21,7 @@ class CustomEmailVerificationController extends Controller
     public function verify(Request $req, $user_id, $hash)
     {
         if (!URL::hasValidSignature($req)) {
-            return response()->json(['message' => '未授權簽證'], 400);
+            return response()->json(['message' => '未授權簽證'], 401);
         }
 
         $user = User::find($user_id);
@@ -34,5 +37,13 @@ class CustomEmailVerificationController extends Controller
         // 標記信箱為已驗證
         $user->email_verified_at = now();
         $user->save();
+        return response()->json(['message' => '已完成信箱驗證'], 200);
+    }
+
+    public function resendverify()
+    {
+        $user = Auth::user();
+        Notification::send($user, new CustomVerifyEmail($user));
+        return response()->json(['message' => '信件已發送，請至信箱確認']);
     }
 }

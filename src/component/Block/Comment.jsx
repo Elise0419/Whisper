@@ -63,10 +63,11 @@ function Comment() {
     if (com.newComment.trim() !== "") {
       const newCommentObj = {
         id: com.comments.length + 1,
-        author: "David", // 設置新用戶
+        author: "David", // 这里可以根据需要从用户状态中获取
         comment: com.newComment,
-        time: new Date(),
+        time: new Date().toISOString(), // 将日期格式化为ISO 8601格式
         attitude: 0,
+        headImg: avatar, // 添加头像
       };
 
       setCom({

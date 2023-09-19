@@ -12,11 +12,14 @@ class ForgotPasswordEmail extends Notification
 {
     use Queueable;
 
+
+    protected $token;
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct(string $token)
     {
+        $this->token = $token;
     }
 
     /**
@@ -34,17 +37,14 @@ class ForgotPasswordEmail extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
-        $token = $notifiable->token;
+        $token = $this->token;
+        $encodedToken = base64_encode($token);
 
         // 生成带签名的验证链接
-        $verificationUrl = URL::temporarySignedRoute(
-            'http://10.147.20.3/pwdreset/', // 路由的名称
-            now()->addMinutes(15), // 链接的有效期
-            [
-                'token' => $token,
-            ]
-        );
+        // $encodedToken = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($token));
 
+        // 生成带签名的验证链接，并将 {token} 替换為編碼後的令牌值
+        $verificationUrl = url('http://10.147.20.3/pwdreset' . '?token=' .  $encodedToken);
         return (new MailMessage)
             ->line('請點擊連結完成密碼重置作業。')
             ->action('密碼重設', $verificationUrl)

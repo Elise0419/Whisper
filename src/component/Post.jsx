@@ -122,7 +122,7 @@ function Post({ userToken = null }) {
             <div className="postContainer" key={post.postId}>
               <div className="postUseinfo">
                 <div className="postUsepic">
-                  <img className="userHead" src={avatar} />
+                  <img className="userHead" src={post.headImg} />
                 </div>
                 <div className="postUsertime">
                   <span>

@@ -37,6 +37,7 @@
 }
 
 .profilePic {
+    min-height: 50px;
     display: flex;
     justify-content: space-between;
     /* 水平方向均匀分布 */

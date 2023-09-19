@@ -75,13 +75,12 @@ function Profile() {
 
   localStorage.setItem(
     "token",
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTAuMTAuMjQ3LjkwL3Byb2plY3RtZmVlNDEvcHVibGljL2FwaS9sb2dpbiIsImlhdCI6MTY5NTAwOTI3MiwiZXhwIjoxNjk1MDEyODcyLCJuYmYiOjE2OTUwMDkyNzIsImp0aSI6IkhES3pVUGNTSEp3QzNtWm0iLCJzdWIiOiIyNSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.fcOJ5-_A44jUsGTCgZP8jJREAXUMjRpBmWqaHr87M0w"
-  );
+    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTAuMTAuMjQ3LjQzOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNjk1MDk0MTkwLCJleHAiOjE2OTUwOTc3OTAsIm5iZiI6MTY5NTA5NDE5MCwianRpIjoidGZ5NnBGaU1Nd3V6S21UQyIsInN1YiI6IjI4IiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.KecFIB_xX-cYAUvktHfYMVIybxm9j2jZTk6_xWIfsjo",);
   var token = localStorage.getItem("token");
 
   useEffect(() => {
     function fetchData() {
-      fetch("http://10.10.247.43/api/profile", {
+      fetch("http://10.10.247.43:8000/api/profile", {
         method: "get",
         headers: {
           Authorization: `Bearer ${token}`,

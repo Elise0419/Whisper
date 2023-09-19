@@ -33,27 +33,31 @@ function Login() {
     event.preventDefault();
     // 使用Validation函数验证表单数据，并将错误信息存储在errors状态中
     setErrors(Validation(values));
-
-    // 使用fetch发送POST请求
-    fetch("http://10.10.247.43:8000//api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(values),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // 在这里处理从后端返回的数据
-        console.log(data);
-        // 将Token存储在本地
-        localStorage.setItem("token", data.token);
-        history.push("/"); // 登录成功后跳转到首页
+  
+    if (Object.keys(errors).length === 0) {
+      // 只有当表单验证通过时才进行页面跳转
+      fetch("http://10.10.247.43:8000/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
       })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+        .then((response) => response.json())
+        .then((data) => {
+          // 在这里处理从后端返回的数据
+          console.log(data);
+          // 将Token存储在本地
+          localStorage.setItem("token", data.token);
+          history.push("/"); // 登录成功后跳转到首页
+          console.log("successfullogin");
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
   };
+  
 
   return (
     <div id="container">
@@ -112,7 +116,6 @@ function Login() {
               <button
                 type="submit"
                 className="btnSuccess"
-                onClick={() => history.push("/")}
               >
                 登入
               </button>

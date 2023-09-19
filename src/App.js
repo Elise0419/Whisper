@@ -20,6 +20,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Switch>
+          <Route path="/secret" component={Secret} exact />
           <Route path="/signup" component={Signup} exact />
           <Route path="/login" component={Login} exact />
           <Route path="/forgotpw" component={Forgotpw} exact />
@@ -35,7 +36,6 @@ class App extends Component {
           <Route path="/post/:postId" component={Post} exact />
           <Route path="/" component={Home} exact />
           <Route path="/:type" component={Theme} exact />
-          <Route path="/secret" component={Secret} exact />
         </Switch>
       </BrowserRouter>
     );

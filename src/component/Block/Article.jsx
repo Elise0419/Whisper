@@ -11,8 +11,8 @@ function Article() {
   const match = useRouteMatch();
 
   var url = match.params.type
-    ? `http://10.10.247.43:8000/api/v1/posts?type[eq]=${match.params.type}`
-    : `http://10.10.247.43:8000/api/v1/posts`;
+    ? `http://127.0.0.1:8000/api/v1/posts?type[eq]=${match.params.type}`
+    : `http://127.0.0.1:8000/api/v1/posts`;
 
   useEffect(() => {
     function fetchData() {
@@ -37,7 +37,7 @@ function Article() {
     try {
       //發送請求來更新點擊率 地址請後端提供
       const response = await fetch(
-        `http://192.168.1.3:8000/api/posts/${postId}/click`,
+        `http://127.0.0.1:8000/api/posts/${postId}/click`,
         {
           method: "POST",
         }

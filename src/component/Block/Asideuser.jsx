@@ -12,7 +12,7 @@ function Asideuser() {
   var token = localStorage.getItem("token");
   useEffect(() => {
     function fetchData() {
-      fetch("http://192.168.1.3:8000/projectmfee41/public/api/login", {
+      fetch("http://10.10.247.43:8000/projectmfee41/public/api/login", {
         method: "GET",
         headers: {
           Authorization: token,

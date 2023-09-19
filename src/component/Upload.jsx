@@ -60,7 +60,7 @@ class Quill extends Component {
     fetch("http://10.10.247.43:8000/api/upload", {
       method: "POST",
       body: formData,
-      mode: "no-cors",
+      // mode: "no-cors",
     })
       .then((response) => {
         console.log(response);

@@ -12,7 +12,7 @@ import Profile from "./component/Profile";
 import Manage from "./component/Manage";
 import Restpwd from "./component/Restpwd";
 import Verify from "./component/Verify";
-
+import Secret from "./component/Secret";
 
 class App extends Component {
   state = {};
@@ -35,6 +35,7 @@ class App extends Component {
           <Route path="/post/:postId" component={Post} exact />
           <Route path="/" component={Home} exact />
           <Route path="/:type" component={Theme} exact />
+          <Route path="/secret" component={Secret} exact />
         </Switch>
       </BrowserRouter>
     );

@@ -35,7 +35,7 @@ function Login() {
     setErrors(Validation(values));
 
     // 使用fetch发送POST请求
-    fetch("http://10.147.20.3:8000/projectmfee41/public/api/login", {
+    fetch("http://10.10.247.43:8000//api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

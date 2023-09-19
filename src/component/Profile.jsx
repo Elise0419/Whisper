@@ -81,7 +81,7 @@ function Profile() {
 
   useEffect(() => {
     function fetchData() {
-      fetch("http://192.168.1.3/projectmfee41/public/api/profile", {
+      fetch("http://10.10.247.43/projectmfee41/public/api/profile", {
         method: "get",
         headers: {
           Authorization: `Bearer ${token}`,

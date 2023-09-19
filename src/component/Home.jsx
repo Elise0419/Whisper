@@ -63,7 +63,7 @@ function Love() {
           <p>流行貼文排行榜</p>
           {pop.map((pop) => {
             return (
-              <Link to="/post" key={pop.postId}>
+              <Link to={`/post/${pop.postId}`} key={pop.postId}>
                 <img className="rankNum" src={pop.headImg} />
                 <p className="rankList">{pop.title}</p>
                 <img className="rankArrow" src={redArrow} />
@@ -75,7 +75,7 @@ function Love() {
           <p>點贊貼文排行榜</p>
           {like.map((like) => {
             return (
-              <Link to="/post" key={like.postId}>
+              <Link to={`/post/${like.postId}`} key={like.postId}>
                 <img className="rankNum" src={like.headImg} />
                 <p className="rankList">{like.title}</p>
                 <img className="rankArrow" src={redArrow} />

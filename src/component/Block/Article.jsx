@@ -81,7 +81,7 @@ function Article() {
                 <span className="cardTitle">{art.title}</span>
               </span>
               <span className="cardBtm">
-                <span>#{art.type}</span>
+                <span>#{art.tag}</span>
                 <span>
                   <img src={comment} />
                   {art.save}

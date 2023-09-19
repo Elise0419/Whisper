@@ -21,6 +21,7 @@ function Comment() {
           return res.json();
         })
         .then((jsonData) => {
+          console.log(jsonData);
           setCom({ ...com, comments: jsonData.data });
         })
         .catch((err) => {
@@ -90,7 +91,7 @@ function Comment() {
         {com.comments.map((comment) => (
           <div className="listItem" key={comment.id}>
             <div className="userFace">
-              <img className="userHead" src={avatar} alt="" />
+              <img className="userHead" src={comment.headImg} alt="" />
             </div>
             <div className="comment">
               <div className="user">{comment.author}</div>

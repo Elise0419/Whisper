@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\PostCollection;
 use App\Http\Resources\V1\PostResource;
 use App\Models\Post;
+use App\Models\Tag;
 use App\Services\V1\PostQuery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -83,7 +84,7 @@ class PostController extends Controller
     public function search(Request $request) //need check
     {
         $query = $request->input('query');
-        var_dump($query);
+        // var_dump($query);
 
         $searchResults = Post::where('content', 'like', "%$query%")
             ->orWhere('title', 'like', "%$query%")
@@ -93,7 +94,7 @@ class PostController extends Controller
             return response()->json(['message' => 'Post not found!']);
         }
 
-        return response()->json($searchResults);
+        return PostResource::collection($searchResults);
     }
 
     public function upload(Request $request)
@@ -135,7 +136,8 @@ class PostController extends Controller
     {
         $userId = Auth::user()->user_id;
         $posts = Post::where('user_id', $userId)->get();
-        return response()->json($posts);
+        return PostResource::collection($posts);
+
     }
     /**
      * Display the specified resource.
@@ -156,15 +158,6 @@ class PostController extends Controller
         }
         $post->update($request->all());
         return response()->json(['message' => 'Post updated successfully', 'data' => $post]);
-    }
-
-    public function getPostsByTag($tag)
-    {
-        $posts = Post::whereHas('tag', function ($query) use ($tag) {
-            $query->where('tag', $tag);
-        })->get();
-
-        return response()->json(['posts' => $posts]);
     }
     /**
      * Remove the specified resource from storage.

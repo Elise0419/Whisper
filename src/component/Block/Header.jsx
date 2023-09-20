@@ -7,6 +7,7 @@ import logo from "../Img/logo.png";
 import whiteArrow from "../Img/whiteArrow.png";
 import purpleArrow from "../Img/purpleArrow.png";
 import rabbit from "../Img/rabbit.png";
+import crown from "../Img/crown.png";
 
 function Header() {
   return (
@@ -37,12 +38,15 @@ function Header() {
             <img className="userImg" src={rabbit} />
           </Link>
           <Link to="/profile">
-            <span className="userName">David.one</span>
+            <span className="userName">Alice</span>
           </Link>
           <button className="userBtn">
             <img className="userArrow" src={whiteArrow} />
             <span className="userItem">
-              <Link to="/profile">我的主頁</Link>
+              <Link to="/profile">
+                我的主頁
+                <img src={crown} className="crown" />
+              </Link>
               <Link to="/profile">編輯信息</Link>
               <Link to="/manage">管理貼文</Link>
               <hr />

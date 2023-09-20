@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import "../CSS/Asideuser.css";
+import rabbit from "../Img/rabbit.png";
 
 function Asideuser() {
   var [user, setUser] = useState([]);
@@ -33,8 +34,8 @@ function Asideuser() {
   }, []);
   return (
     <div className="aside">
-      <img className="asideImg" src={user} />
-      <span className="asideName">David.one</span>
+      <img className="asideImg" src={rabbit} />
+      <span className="asideName">Alice</span>
       <hr />
       <span className="asideMsg">致力於打造美好生活</span>
       <br />

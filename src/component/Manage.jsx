@@ -12,6 +12,7 @@ import Asideuser from "./Block/Asideuser";
 import Postart from "./Postart";
 // 收藏貼文組件
 import Collectart from "./Collectart";
+import heart from "./Img/heart.png";
 
 function Manage() {
   const [selectedTab, setSelectedTab] = useTabs([
@@ -40,7 +41,8 @@ function Manage() {
                 isActive={selectedTab === "collectArticle"}
                 onClick={() => setSelectedTab("collectArticle")}
               >
-                收藏貼文
+                收藏貼文 &nbsp;
+                <img src={heart} className="saveImg" />
               </TabSelector>
             </nav>
           </div>

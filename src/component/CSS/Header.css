@@ -139,3 +139,8 @@ header a {
 .userItem>hr {
     margin-top: 26rem;
 }
+
+.crown {
+    width: 30px;
+    vertical-align: middle;
+}

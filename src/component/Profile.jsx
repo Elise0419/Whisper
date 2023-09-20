@@ -26,41 +26,40 @@ function Profile() {
   });
 
   // 在 handleSaveClick 中调整传递的字段
-// 省略其他部分...
+  // 省略其他部分...
 
-const handleSaveClick = async (field) => {
-  setIsEditing({ ...isEditing, [field]: false });
+  const handleSaveClick = async (field) => {
+    setIsEditing({ ...isEditing, [field]: false });
 
-  const dataToSend = { [field]: formData[field] };
+    const dataToSend = { [field]: formData[field] };
 
-  try {
-    const token = localStorage.getItem("token");
-    const response = await fetch(`http://10.10.247.43:8000/api/profile/mem-name/change`, {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(dataToSend),
-    });
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(
+        `http://10.10.247.43:8000/api/profile/mem-name/change`,
+        {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(dataToSend),
+        }
+      );
 
-    if (response.ok) {
-      const jsonData = await response.json();
-      console.log(jsonData);
-    } else {
-      console.log("更新失败");
-      throw new Error("API request failed");
+      if (response.ok) {
+        const jsonData = await response.json();
+        console.log(jsonData);
+      } else {
+        console.log("更新失败");
+        throw new Error("API request failed");
+      }
+    } catch (error) {
+      console.error("Error:", error);
     }
-  } catch (error) {
-    console.error("Error:", error);
-  }
-};
+  };
 
-// 省略其他部分...
-
-
-  
-  
+  // 省略其他部分...
 
   const handleImageUpload = (event) => {
     setSelectedImage(event.target.files[0]);
@@ -71,14 +70,17 @@ const handleSaveClick = async (field) => {
     formData.append("head_img", selectedImage);
 
     try {
-      const token = localStorage.getItem('token');
-      const response = await fetch(`http://10.10.247.43:8000/api/headimgchange`, {
-        method: "post",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
-      });
+      const token = localStorage.getItem("token");
+      const response = await fetch(
+        `http://10.10.247.43:8000/api/headimgchange`,
+        {
+          method: "post",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        }
+      );
 
       if (response.ok) {
         const jsonData = await response.json();
@@ -97,7 +99,7 @@ const handleSaveClick = async (field) => {
     console.log(`Updating ${field} with value: ${value}`);
     setFormData({ ...formData, [field]: value });
   };
-// 編輯資料
+  // 編輯資料
   const handleEditClick = (field) => {
     console.log(`Editing ${field}`);
     setIsEditing({ ...isEditing, [field]: true });
@@ -107,7 +109,7 @@ const handleSaveClick = async (field) => {
     function fetchData() {
       const token = localStorage.getItem("token");
       console.log("Token in Profile:", token);
-  
+
       fetch("http://10.10.247.43:8000/api/profile", {
         method: "get",
         headers: {
@@ -116,7 +118,7 @@ const handleSaveClick = async (field) => {
       })
         .then((res) => {
           if (!res.ok) {
-            throw new Error('API request failed');
+            throw new Error("API request failed");
           }
           return res.json();
         })
@@ -128,14 +130,11 @@ const handleSaveClick = async (field) => {
             setUser(jsonData.user);
             setFormData({
               mem_name_change: jsonData.user.mem_name, // 添加此行
-                email_change: jsonData.user.email,
-                phone_change: jsonData.user.phone,
-                person_id_change: jsonData.user.person_id,
-                userDeclaration: jsonData.user.userDeclaration,
-
-              });
-              
-
+              email_change: jsonData.user.email,
+              phone_change: jsonData.user.phone,
+              person_id_change: jsonData.user.person_id,
+              userDeclaration: jsonData.user.userDeclaration,
+            });
           }
         })
         .catch((err) => {
@@ -144,9 +143,6 @@ const handleSaveClick = async (field) => {
     }
     fetchData();
   }, []);
-  
-        
-
 
   return (
     <div id="container">
@@ -179,7 +175,14 @@ const handleSaveClick = async (field) => {
                     className="profilePic"
                   />
                 )}
-                <button type="button" onClick={() => setIsEditing({ ...isEditing, profilePic: true })}>編輯</button>
+                <button
+                  type="button"
+                  onClick={() =>
+                    setIsEditing({ ...isEditing, profilePic: true })
+                  }
+                >
+                  編輯
+                </button>
               </div>
               <hr />
 

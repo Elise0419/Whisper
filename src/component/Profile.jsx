@@ -6,81 +6,72 @@ import Asideuser from "./Block/Asideuser";
 
 function Profile() {
   const [user, setUser] = useState({});
+
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const [formData, setFormData] = useState({
-    email_change: "", // 新增 email_change 字段
-    mem_name_change: "", // 新增 mem_name_change 字段
-    phone_change: "", // 新增 phone_change 字段
-    person_id_change: "", // 新增 person_id_change 字段
-    userDeclaration: "",
-  });
-
   const [isEditing, setIsEditing] = useState({
-    profilePic: false,
-    username: false,
-    userDeclaration: false,
+    mem_name: false,
+    promise: false,
     email: false,
-    idNumber: false,
-    phoneNumber: false,
+    person_id: false,
+    phone: false,
   });
 
   // 在 handleSaveClick 中调整传递的字段
-  // 省略其他部分...
+// 省略其他部分...
 
-  const handleSaveClick = async (field) => {
-    setIsEditing({ ...isEditing, [field]: false });
+const handleSaveClick = async (field) => {
+  
+  setIsEditing({ ...isEditing, [field]: false });
 
-    const dataToSend = { [field]: formData[field] };
+  const dataToSend = { data: user[field] };
+  console.log(dataToSend)
 
-    try {
-      const token = localStorage.getItem("token");
-      const response = await fetch(
-        `http://10.10.247.43:8000/api/profile/mem-name/change`,
-        {
-          method: "post",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(dataToSend),
-        }
-      );
+  try {
+    const token = localStorage.getItem("token");
+    const response = await fetch(`http://10.147.20.3:8000/api/profile/${field}/change`, {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(dataToSend),
+    });
 
-      if (response.ok) {
-        const jsonData = await response.json();
-        console.log(jsonData);
-      } else {
-        console.log("更新失败");
-        throw new Error("API request failed");
-      }
-    } catch (error) {
-      console.error("Error:", error);
+    if (response.ok) {
+      const jsonData = await response.json();
+      console.log(jsonData);
+    } else {
+      console.log("更新失败");
+      throw new Error("API request failed");
     }
-  };
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
 
-  // 省略其他部分...
+// 省略其他部分...
 
-  const handleImageUpload = (event) => {
-    setSelectedImage(event.target.files[0]);
+  const handleImageUpload = (e) => {
+    setSelectedImage(e.target.files[0]);
+    console.log(e.target.files[0])
   };
 
   const handleImageSave = async () => {
-    const formData = new FormData();
-    formData.append("head_img", selectedImage);
+    const formdata = new FormData();
+    formdata.append("file", selectedImage);
 
+    console.log(formdata)
     try {
-      const token = localStorage.getItem("token");
-      const response = await fetch(
-        `http://10.10.247.43:8000/api/headimgchange`,
-        {
-          method: "post",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          body: formData,
-        }
-      );
+      const token = localStorage.getItem('token');
+      const response = await fetch(`http://10.147.20.3:8000/api/profile/head/change`, {
+        method: "put",
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+        body: formdata,
+      });
 
       if (response.ok) {
         const jsonData = await response.json();
@@ -95,11 +86,12 @@ function Profile() {
   };
 
   // 輸入資料
-  const handleInputChange = (field, value) => {
-    console.log(`Updating ${field} with value: ${value}`);
-    setFormData({ ...formData, [field]: value });
+  const handleInputChange = (id, value) => {
+    console.log(`Updating ${id} with value: ${value}`);
+    setUser({ ...user, [id]: value });
   };
-  // 編輯資料
+
+// 編輯資料
   const handleEditClick = (field) => {
     console.log(`Editing ${field}`);
     setIsEditing({ ...isEditing, [field]: true });
@@ -109,8 +101,8 @@ function Profile() {
     function fetchData() {
       const token = localStorage.getItem("token");
       console.log("Token in Profile:", token);
-
-      fetch("http://10.10.247.43:8000/api/profile", {
+  
+      fetch("http://10.147.20.3/laravel-api/public/api/profile", {
         method: "get",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -118,7 +110,7 @@ function Profile() {
       })
         .then((res) => {
           if (!res.ok) {
-            throw new Error("API request failed");
+            throw new Error('API request failed');
           }
           return res.json();
         })
@@ -128,13 +120,6 @@ function Profile() {
           } else {
             console.log("API返回的数据:", jsonData);
             setUser(jsonData.user);
-            setFormData({
-              mem_name_change: jsonData.user.mem_name, // 添加此行
-              email_change: jsonData.user.email,
-              phone_change: jsonData.user.phone,
-              person_id_change: jsonData.user.person_id,
-              userDeclaration: jsonData.user.userDeclaration,
-            });
           }
         })
         .catch((err) => {
@@ -143,6 +128,9 @@ function Profile() {
     }
     fetchData();
   }, []);
+  
+        
+
 
   return (
     <div id="container">
@@ -154,97 +142,36 @@ function Profile() {
           <hr />
           <div className="ProfileForm">
             <form>
-              <div className="profilePic">
-                <label htmlFor="profilePic">頭像:</label>
-                {isEditing.profilePic ? (
+              <div className="headimg">
+                <label htmlFor="headimg">頭像:</label>
+                {isEditing.headimg ? (
                   <div>
-                    <input
-                      type="file"
-                      id="profilePic"
-                      accept="image/*"
-                      onChange={handleImageUpload}
-                    />
-                    <button type="button" onClick={handleImageSave}>
-                      保存
-                    </button>
+                    <input  type="file" id="profilePic" accept="image/*" onChange={handleImageUpload}/>
+                    <button type="button" onClick={handleImageSave}>保存</button>
                   </div>
                 ) : (
-                  <img
-                    src={user?.headimg || "/default-avatar.jpg"}
-                    alt="Profile Pic"
-                    className="profilePic"
-                  />
+                  <img src={user?.headimg || "/default-avatar.jpg"} alt="Profile Pic" className="profilePic"/>
                 )}
-                <button
-                  type="button"
-                  onClick={() =>
-                    setIsEditing({ ...isEditing, profilePic: true })
-                  }
-                >
-                  編輯
-                </button>
+                <button type="button" onClick={() => setIsEditing({ ...isEditing, headimg: true })}>編輯</button>
               </div>
               <hr />
 
               <div className="profileuserName">
-                <label htmlFor="username">用戶名稱:</label>
-                <input
-                  type="text"
-                  id="username"
-                  value={formData.mem_name_change}
-                  readOnly={!isEditing.username}
-                  onChange={(e) =>
-                    handleInputChange("mem_name_change", e.target.value)
-                  }
-                />
-                {isEditing.username ? (
-                  <button
-                    type="button"
-                    className="saveBtn"
-                    onClick={() => handleSaveClick("mem_name_change")}
-                  >
-                    保存
-                  </button>
+                <label htmlFor="mem_name">用戶名稱:</label>
+                <input type="text" id="mem_name" value={user.mem_name} readOnly={!isEditing.mem_name} onChange={(e) => handleInputChange("mem_name", e.target.value)}/>
+                {isEditing.mem_name ? (
+                  <button type="button" className="saveBtn" onClick={() => handleSaveClick("mem_name")}>保存</button>
                 ) : (
-                  <button
-                    type="button"
-                    className="editBtn"
-                    onClick={() => handleEditClick("username")}
-                  >
-                    編輯
-                  </button>
+                  <button type="button" className="editBtn" onClick={() => handleEditClick("mem_name")}>編輯</button>
                 )}
               </div>
               <hr />
 
               <div className="UserDeclaration">
                 <label htmlFor="UserDeclaration">用戶聲明:</label>
-                <input
-                  type="text"
-                  id="UserDeclaration"
-                  value={user?.promise || ""}
-                  readOnly={!isEditing.userDeclaration}
-                  onChange={(e) =>
-                    handleInputChange("userDeclaration", e.target.value)
-                  }
-                />
-                {isEditing.userDeclaration ? (
-                  <button
-                    type="button"
-                    className="saveBtn"
-                    onClick={() => handleSaveClick("userDeclaration")}
-                  >
-                    保存
-                  </button>
-                ) : (
-                  <button
-                    type="button"
-                    className="editBtn"
-                    onClick={() => handleEditClick("userDeclaration")}
-                  >
-                    編輯
-                  </button>
-                )}
+                <input type="text" id="UserDeclaration" value={user?.promise || ""} readOnly={!isEditing.promise} onChange={(e) => handleInputChange("promise", e.target.value)}/>
+                {isEditing.promise ? (<button type="button" className="saveBtn" onClick={() => handleSaveClick("promise")}>保存</button>
+                ) : (<button type="button" className="editBtn" onClick={() => handleEditClick("promise")}>編輯</button>)}
               </div>
               <hr />
 
@@ -254,17 +181,17 @@ function Profile() {
                   type="email"
                   id="email"
                   name="email"
-                  value={formData.email_change}
+                  value={user.email}
                   readOnly={!isEditing.email}
                   onChange={(e) =>
-                    handleInputChange("email_change", e.target.value)
+                    handleInputChange("email", e.target.value)
                   }
                 />
                 {isEditing.email ? (
                   <button
                     type="button"
                     className="saveBtn"
-                    onClick={() => handleSaveClick("email_change")}
+                    onClick={() => handleSaveClick("email")}
                   >
                     保存
                   </button>
@@ -281,25 +208,25 @@ function Profile() {
               <hr />
 
               <div className="profileidNumber">
-                <label htmlFor="idNumber">身份證字號:</label>
+                <label htmlFor="person_id">身份證字號:</label>
                 <input
                   type="text"
-                  id="idNumber"
-                  name="idNumber"
-                  value={formData.person_id_change}
+                  id="person_id"
+                  name="person_id"
+                  value={user.person_id}
                   pattern="^[A-Z][0-9]{9}$"
                   title="請輸入有效的身份證字號，格式為一個英文字母後接九位數字。"
                   required
-                  readOnly={!isEditing.idNumber}
+                  readOnly={!isEditing.person_id}
                   onChange={(e) =>
-                    handleInputChange("person_id_change", e.target.value)
+                    handleInputChange("person_id", e.target.value)
                   }
                 />
-                {isEditing.idNumber ? (
+                {isEditing.person_id ? (
                   <button
                     type="button"
                     className="saveBtn"
-                    onClick={() => handleSaveClick("person_id_change")}
+                    onClick={() => handleSaveClick("person_id")}
                   >
                     保存
                   </button>
@@ -307,7 +234,7 @@ function Profile() {
                   <button
                     type="button"
                     className="editBtn"
-                    onClick={() => handleEditClick("idNumber")}
+                    onClick={() => handleEditClick("person_id")}
                   >
                     編輯
                   </button>
@@ -321,19 +248,19 @@ function Profile() {
                   type="tel"
                   id="phoneNumber"
                   name="phoneNumber"
-                  value={formData.phone_change}
+                  value={user.phone}
                   pattern="^0\d{1,2}-?\d{6,7}$"
                   required
-                  readOnly={!isEditing.phoneNumber}
+                  readOnly={!isEditing.phone}
                   onChange={(e) =>
-                    handleInputChange("phone_change", e.target.value)
+                    handleInputChange("phone", e.target.value)
                   }
                 />
-                {isEditing.phoneNumber ? (
+                {isEditing.phone ? (
                   <button
                     type="button"
                     className="saveBtn"
-                    onClick={() => handleSaveClick("phone_change")}
+                    onClick={() => handleSaveClick("phone")}
                   >
                     保存
                   </button>
@@ -341,7 +268,7 @@ function Profile() {
                   <button
                     type="button"
                     className="editBtn"
-                    onClick={() => handleEditClick("phoneNumber")}
+                    onClick={() => handleEditClick("phone")}
                   >
                     編輯
                   </button>

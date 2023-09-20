@@ -34,14 +34,16 @@ Route::get('/unAuth', function () {
     return response()->json(['error' => '尚未登入']);
 })->name('login');
 
-Route::get('/api/email/verify', function () {
-    return redirect('http://10.147.20.3:3000/Login');
-})->middleware('auth:api')->name('verification.notice');
 
 Route::controller(CustomEmailVerificationController::class)->group(function () {
     Route::get('/email/verify/{user_id}/{hash}', 'verify')->middleware(['signed'])->name('verification.verify');
-    Route::get('/api/email/verification-notification', 'resendverify')->middleware(['auth:api', 'throttle:5,1'])->name('verification.send');
+    Route::get('/email/verification-notification', 'verifysending')->middleware(['auth:api', 'throttle:5,1'])->name('verification.send');
+    Route::get('/email/verify', 'verifynotice')->middleware('auth:api')->name('verification.notice');
 });
+
+// Route::get('/api/email/verify', function () {
+//     return redirect('http://10.147.20.3:3000/Login');
+// })->middleware('auth:api')->name('verification.notice');
 // Route::get('/email/verify/{user_id}/{hash}', [CustomEmailVerificationController::class, 'verify'])
 //     ->middleware(['signed'])
 //     ->name('verification.verify');

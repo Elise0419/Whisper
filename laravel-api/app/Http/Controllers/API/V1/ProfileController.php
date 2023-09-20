@@ -15,6 +15,7 @@ class ProfileController extends Controller
     public function __construct()
     {
         $this->middleware('auth:api');
+        $this->middleware('verified',['only' => ['profile']]);
         $this->middleware(function ($request, $next) {
             $this->user = Auth::user();
             return $next($request);

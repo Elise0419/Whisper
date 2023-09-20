@@ -59,7 +59,7 @@ Route::controller(PasswordResetController::class)->group(function () {
 });
 
 Route::controller(ProfileController::class)->group(function () {
-    Route::post('profile', 'profile');
+    Route::get('profile', 'profile');
     Route::put('profile/email/change', 'emailchange');
     Route::put('profile/phone/change', 'phonechange');
     Route::put('profile/head/change', 'headimgchange');

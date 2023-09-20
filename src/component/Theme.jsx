@@ -161,6 +161,7 @@ function Makeup() {
       })
       .then((jsonData) => {
         setCard(jsonData);
+        setFind(false);
       })
       .catch((err) => {
         console.log("錯誤:", err);

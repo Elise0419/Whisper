@@ -3,10 +3,7 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\V1\UserCollection;
-use App\Http\Resources\V1\UserResource;
 use App\Models\User;
-use App\Services\V1\UserQuery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -18,6 +15,7 @@ class ProfileController extends Controller
     public function __construct()
     {
         $this->middleware('auth:api');
+        $this->middleware('verified',['only' => ['profile']]);
         $this->middleware(function ($request, $next) {
             $this->user = Auth::user();
             return $next($request);
@@ -73,30 +71,11 @@ class ProfileController extends Controller
         $this->user->save();
         return response()->json(['message' => '已成功更改身分證字號'], 201);
     }
-
-
-
-
-    public function index(Request $request)
+    public function namechange(Request $req)
     {
-        $filter = new UserQuery();
-        $queryItems = $filter->transform($request);
-        //['column', 'operator', 'value']
-        // User::where(['column', 'operator', 'value']);
-        User::where($queryItems);
-
-        //check the input
-        if (count($queryItems) == 0) {
-
-            return new UserCollection(User::all());
-        } else {
-
-            return new UserCollection(User::where($queryItems)->get());
-        }
+        $this->user->mem_name = $req->mem_name;
+        $this->user->save();
+        return response()->json(['message' => '已成功更改用戶名稱'], 201);
     }
-    public function show(User $user)
-    {
-        return new UserResource($user);
-        //note use the url add /{id} could pick the specific data
-    }
+
 }

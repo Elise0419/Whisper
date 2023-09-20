@@ -9,7 +9,7 @@ use App\Http\Controllers\API\V1\PostController;
 use App\Http\Controllers\API\V1\ProfileController;
 use App\Http\Controllers\API\V1\RuleController;
 use App\Http\Controllers\API\V1\SavepostController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\API\V1\TagController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,14 +34,16 @@ Route::get('/unAuth', function () {
     return response()->json(['error' => '尚未登入']);
 })->name('login');
 
-Route::get('/api/email/verify', function () {
-    return redirect('http://10.147.20.3:3000/Login');
-})->middleware('auth:api')->name('verification.notice');
 
 Route::controller(CustomEmailVerificationController::class)->group(function () {
     Route::get('/email/verify/{user_id}/{hash}', 'verify')->middleware(['signed'])->name('verification.verify');
-    Route::get('/api/email/verification-notification', 'resendverify')->middleware(['auth:api', 'throttle:5,1'])->name('verification.send');
+    Route::get('/email/verification-notification', 'verifysending')->middleware(['auth:api', 'throttle:5,1'])->name('verification.send');
+    Route::get('/email/verify', 'verifynotice')->middleware('auth:api')->name('verification.notice');
 });
+
+// Route::get('/api/email/verify', function () {
+//     return redirect('http://10.147.20.3:3000/Login');
+// })->middleware('auth:api')->name('verification.notice');
 // Route::get('/email/verify/{user_id}/{hash}', [CustomEmailVerificationController::class, 'verify'])
 //     ->middleware(['signed'])
 //     ->name('verification.verify');
@@ -60,7 +62,11 @@ Route::controller(PasswordResetController::class)->group(function () {
 
 Route::controller(ProfileController::class)->group(function () {
     Route::get('profile', 'profile');
-    Route::post('emailchange', 'emailchange');
+    Route::put('profile/email/change', 'emailchange');
+    Route::put('profile/phone/change', 'phonechange');
+    Route::put('profile/head/change', 'headimgchange');
+    Route::put('profile/personid/change', 'idchange');
+    Route::put('profile/mem-name/change', 'namechange');
     Route::get('users', 'index');
 });
 
@@ -73,12 +79,17 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\API\V1'], f
     Route::apiResource('saveposts', SavepostController::class);
     Route::apiResource('rules', RuleController::class);
 });
+
 Route::get('/topPosts/1', [PostController::class, 'topposts1']);
 Route::get('/topPosts/2', [PostController::class, 'topposts2']);
+Route::get('/tags/{type}', [TagController::class, 'getTags']);
+
 Route::get('/posts/search', [PostController::class, 'search']);
+Route::get('/posts/tag/{tag}', [PostController::class, 'getPostsByTag']);
 Route::post('/posts/click', [PostController::class, 'click']);
 Route::post('/posts/thumb', [PostController::class, 'thumb']);
 Route::post('/upload', [PostController::class, 'upload']);
 Route::post('/posts/save', [SavepostController::class, 'savepost']);
 Route::post('/posts/comments/{postId}', [ComtxtController::class, 'createcomtxt']);
+Route::put('/posts/{id}', [PostController::class, 'updatepost']);
 Route::delete('/posts/{id}', [PostController::class, 'destroy']);

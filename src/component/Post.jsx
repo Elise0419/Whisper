@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouteMatch } from "react-router-dom";
 
 import "./CSS/Post.css";
@@ -8,15 +7,13 @@ import Header from "./Block/Header";
 import Footer from "./Block/Footer";
 import Aside from "./Block/Aside";
 
-import avatar from "./Img/avatar.png";
-
 function Post({ userToken = null }) {
-  const [post, setPost] = useState([]);
   const match = useRouteMatch();
+  let [post, setPost] = useState([]);
 
   useEffect(() => {
     function fetchData() {
-      fetch(`http://10.10.247.43:8000/api/v1/posts/${match.params.postId}`, {
+      fetch(`http://127.0.0.1:8000/api/v1/posts/${match.params.postId}`, {
         method: "GET",
       })
         .then((res) => res.json())
@@ -30,35 +27,19 @@ function Post({ userToken = null }) {
     fetchData();
   }, [match.params.postId]);
 
-  // const [post, setPost] = useState({
-  //   //假的的數據傳入
-  //   memName: "用戶的名字david",
-  //   postTime: "發布時間20230917",
-  //   title: "貼文標題:新手小白看這篇就夠‼️最好用的全臉開架彩妝大補帖，開架面膜百科全書",
-  //   content:
-  //     "内容這隻就是血統純正的茶棕色煙燻高冷又散發知性穩重的感覺粉霧感的質地也很搭最近流行的輕泰妝,上唇是奶霜順滑的質地而且不容易掉色内容這隻就是血統純正的茶棕色煙燻高冷又散發知性穩重的感覺粉霧感的質地也很搭最近流行的輕泰妝,上唇是奶霜順滑的質地而且不容易掉色内容這隻就是血統純正的茶棕色煙燻高冷又散發知性穩重的感覺粉霧感的質地也很搭最近流行的輕泰妝,上唇是奶霜順滑的質地而且不容易掉色内容這隻就是血統純正的茶棕色煙燻高冷又散發知性穩重的感覺粉霧感的質地也很搭最近流行的輕泰妝,上唇是奶霜順滑的質地而且不容易掉色,個人覺得推開後喝水也不會沾杯,溫馨提醒：用前要做好唇部保養 因為是霧面唇彩喔内容這隻就是血統純正的茶棕色煙燻高冷又散發知性穩重的感覺粉霧感的質地也很搭最近流行的輕泰妝,上唇是奶霜順滑的質地而且不容易掉色,個人覺得推開後喝水也不會沾杯,溫馨提醒：用前要做好唇部保養 因為是霧面唇彩喔内容這隻就是血統純正的茶棕色煙燻高冷又散發知性穩重的感覺粉霧感的質地也很搭最近流行的輕泰妝,上唇是奶霜順滑的質地而且不容易掉色,個人覺得推開後喝水也不會沾杯,溫馨提醒：用前要做好唇部保養 因為是霧面唇彩喔内容這隻就是血統純正的茶棕色煙燻高冷又散發知性穩重的感覺粉霧感的質地也很搭最近流行的輕泰妝,上唇是奶霜順滑的質地而且不容易掉色,個人覺得推開後喝水也不會沾杯,溫馨提醒：用前要做好唇部保養 因為是霧面唇彩喔",
-  //   imgUrl: "https://img95.699pic.com/photo/50046/0008.jpg_wh300.jpg",
-  //   thumb: 20,
-  //   save: 30,
-  // });
+  let [isLiked, setIsLiked] = useState(false);
+  let [isFavorited, setIsFavorited] = useState(false);
 
-  const [isLiked, setIsLiked] = useState(false); // 初始状态为未点赞
-  const [isFavorited, setIsFavorited] = useState(false); // 初始状态为未收藏
-
-  // ...
-
-  // 点赞按钮点击事件处理函数
   const toggleLike = () => {
+    console.log(post);
     if (post.length > 0) {
-      // 确保 post 是一个数组且不为空
       const newThumbCount = isLiked ? post[0].thumb - 1 : post[0].thumb + 1;
-
       const requestData = {
         postId: post[0].postId,
-        thumb: !isLiked, // 将点赞状态传递给后端
+        thumb: !isLiked,
       };
 
-      fetch(`http://10.10.247.43:8000/api/posts/thumb`, {
+      fetch(`http://127.0.0.1:8000/api/posts/thumb${match.params.postId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -79,17 +60,13 @@ function Post({ userToken = null }) {
     }
   };
 
-  // ...
-
-  // 收藏按钮点击事件处理函数
   const toggleFavorite = () => {
     if (post.length > 0) {
-      // 确保 post 是一个数组且不为空
       setIsFavorited(!isFavorited);
       const newSaveCount = isFavorited ? post[0].save - 1 : post[0].save + 1;
 
-      fetch(`http://127.0.0.1:8000/api/v1/posts/${match.params.postId}`, {
-        method: "PATCH",
+      fetch(`http://127.0.0.1:8000/api/posts/save`, {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${userToken}`,
@@ -109,8 +86,6 @@ function Post({ userToken = null }) {
         });
     }
   };
-
-  // ...
 
   return (
     <div id="container">

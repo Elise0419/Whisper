@@ -125,13 +125,15 @@ aside {
     width: 90%;
 }
 
+/* - - - - - - - - - - */
+
 .forumTag p {
     color: var(--colorPurple);
     font-size: 1.25rem;
     font-weight: bold;
 }
 
-.forumTag button {
+.tag {
     padding: 0.625rem;
     font-size: 0.875rem;
     border-radius: var(--radius);
@@ -139,18 +141,7 @@ aside {
     color: white;
     margin-right: 0.625rem;
     margin-bottom: 0.25rem;
-}
-
-.tagA {
     background-color: var(--colorPink300);
-}
-
-.tagB {
-    background-color: var(--colorYellow);
-}
-
-.tagC {
-    background-color: var(--colorPurple);
 }
 
 .forumTag span {

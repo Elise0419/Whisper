@@ -35,7 +35,7 @@ function Makeup() {
     if (searchVal == "") {
     } else {
       fetch(
-        `http://10.10.247.43:8000/api/posts/search?query=${searchVal}&type=${match.params.type}`,
+        `http://127.0.0.1:8000/api/posts/search?query=${searchVal}&type=${match.params.type}`,
         {
           method: "GET",
         }
@@ -59,12 +59,9 @@ function Makeup() {
 
   useEffect(() => {
     function fetchData() {
-      fetch(
-        `http://10.10.247.43:8000/api/v1/ads?type[eq]=${match.params.type}`,
-        {
-          method: "GET",
-        }
-      )
+      fetch(`http://127.0.0.1:8000/api/v1/ads?type[eq]=${match.params.type}`, {
+        method: "GET",
+      })
         .then((res) => {
           return res.json();
         })
@@ -76,7 +73,7 @@ function Makeup() {
         });
 
       fetch(
-        `http://10.10.247.43:8000/api/v1/posts?type[eq]=${match.params.type}`,
+        `http://127.0.0.1:8000/api/v1/posts?type[eq]=${match.params.type}`,
         {
           method: "GET",
         }
@@ -100,7 +97,7 @@ function Makeup() {
         });
 
       fetch(
-        `http://10.10.247.43:8000/api/v1/rules?type[eq]=${match.params.type}`,
+        `http://127.0.0.1:8000/api/v1/rules?type[eq]=${match.params.type}`,
         {
           method: "GET",
         }
@@ -115,15 +112,14 @@ function Makeup() {
           console.log("錯誤:", err);
         });
 
-      fetch(`http://10.10.247.43:8000/api/tags/${match.params.type}`, {
+      fetch(`http://127.0.0.1:8000/api/tags/${match.params.type}`, {
         method: "GET",
       })
         .then((res) => {
           return res.json();
         })
         .then((jsonData) => {
-          console.log(jsonData);
-          // setTag(jsonData);
+          setTag(jsonData.tags);
         })
         .catch((err) => {
           console.log("錯誤:", err);
@@ -134,7 +130,7 @@ function Makeup() {
 
   // 點擊率
   const cardClick = async (postId) => {
-    fetch(`http://10.10.247.43:8000/api/posts/click${postId}`, {
+    fetch(`http://127.0.0.1:8000/api/posts/click${postId}`, {
       method: "POST",
       postId: `${postId}`,
     })
@@ -153,6 +149,22 @@ function Makeup() {
   function deleteSearch() {
     setSearchMsg("");
     document.getElementById("searchBar").value = "";
+  }
+
+  function hashtag(t) {
+    document.getElementById("searchBar").value = "";
+    fetch(`http://127.0.0.1:8000/api/v1/posts?tag[eq]=${t}`, {
+      method: "GET",
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((jsonData) => {
+        setCard(jsonData);
+      })
+      .catch((err) => {
+        console.log("錯誤:", err);
+      });
   }
 
   return (
@@ -225,46 +237,84 @@ function Makeup() {
           <div style={{ display: find ? "block" : "none" }} className="find">
             <p>{searchMsg.message}</p>
           </div>
-          {card.map((card) => {
-            return (
-              // 增加一個onclick 點擊率事件
-              <Link
-                className="card"
-                to={`/post/${card.postId}`}
-                key={card.postId}
-                onClick={() => cardClick(card.postId)}
-              >
-                <span className="cardTop">
-                  {typeof card.imgUrl === "string" ? (
-                    <img
-                      className="cardImg"
-                      src={card.imgUrl}
-                      referrerPolicy="no-referrer"
-                    />
-                  ) : (
-                    <span className="cardTxt">
-                      <span className="paperTape">paperTapepaperTape</span>
-                      <br />
-                      {card.content}
-                    </span>
-                  )}
-                </span>
-                <span className="cardMid">
-                  <img src={card.headImg} />
-                  <span className="cardTitle">{card.title}</span>
-                </span>
-                <span className="cardBtm">
-                  <span>#{card.tag}</span>
-                  <span>
-                    <img src={comment} />
-                    {card.save}
-                    <img src={thumb} />
-                    {card.thumb}
+          {Array.isArray(card) ? (
+            card.map((card) => {
+              return (
+                // 增加一個onclick 點擊率事件
+                <Link
+                  className="card"
+                  to={`/post/${card.postId}`}
+                  key={card.postId}
+                  onClick={() => cardClick(card.postId)}
+                >
+                  <span className="cardTop">
+                    {typeof card.imgUrl === "string" ? (
+                      <img
+                        className="cardImg"
+                        src={card.imgUrl}
+                        referrerPolicy="no-referrer"
+                      />
+                    ) : (
+                      <span className="cardTxt">
+                        <span className="paperTape">paperTapepaperTape</span>
+                        <br />
+                        {card.content}
+                      </span>
+                    )}
                   </span>
+                  <span className="cardMid">
+                    <img src={card.headImg} />
+                    <span className="cardTitle">{card.title}</span>
+                  </span>
+                  <span className="cardBtm">
+                    <span>#{card.tag}</span>
+                    <span>
+                      <img src={comment} />
+                      {card.save}
+                      <img src={thumb} />
+                      {card.thumb}
+                    </span>
+                  </span>
+                </Link>
+              );
+            })
+          ) : (
+            <Link
+              className="card"
+              to={`/post/${card.postId}`}
+              key={card.postId}
+              onClick={() => cardClick(card.postId)}
+            >
+              <span className="cardTop">
+                {typeof card.data[0].imgUrl === "string" ? (
+                  <img
+                    className="cardImg"
+                    src={card.data[0].imgUrl}
+                    referrerPolicy="no-referrer"
+                  />
+                ) : (
+                  <span className="cardTxt">
+                    <span className="paperTape">paperTapepaperTape</span>
+                    <br />
+                    {card.data[0].content}
+                  </span>
+                )}
+              </span>
+              <span className="cardMid">
+                <img src={card.data[0].headImg} />
+                <span className="cardTitle">{card.data[0].title}</span>
+              </span>
+              <span className="cardBtm">
+                <span>#{card.data[0].tag}</span>
+                <span>
+                  <img src={comment} />
+                  {card.data[0].save}
+                  <img src={thumb} />
+                  {card.data[0].thumb}
                 </span>
-              </Link>
-            );
-          })}
+              </span>
+            </Link>
+          )}
         </div>
       </article>
       <aside>
@@ -293,6 +343,22 @@ function Makeup() {
             <img src={makeup2} />
           </div>
         </div>
+        <div className="forumTag">
+          <span>
+            <p>話題選擇器</p>
+            {tag.map((tag) => {
+              return (
+                <button
+                  className="tag"
+                  onClick={() => hashtag(tag.tag)}
+                  key={tag.tag_id}
+                >
+                  #{tag.tag}
+                </button>
+              );
+            })}
+          </span>
+        </div>
         <div className="forumRule">
           <p>個版規則</p>
           <ol>
@@ -304,25 +370,6 @@ function Makeup() {
               );
             })}
           </ol>
-        </div>
-        <div className="forumTag">
-          <span>
-            <p>話題選擇器</p>
-            {/* {tag.map((tag) => {
-              return (
-                <div key={tag.id}>
-                  <li>{tag}</li>
-                </div>
-              );
-            })} */}
-            <button className="tagA">#修護</button>
-            <button className="tagB">#美妝產品</button>
-            <button className="tagC">#美容科技</button>
-            <br />
-            <button className="tagA">#修護</button>
-            <button className="tagB">#美妝產品</button>
-            <button className="tagC">#美容科技</button>
-          </span>
         </div>
       </aside>
       <Footer />

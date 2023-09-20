@@ -9,11 +9,10 @@ function Profile() {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const [formData, setFormData] = useState({
-
-    username: "",
-    idNumber: "",
-    email: "",
-    phoneNumber: "", // 添加了 phoneNumber 字段
+    email_change: "", // 新增 email_change 字段
+    mem_name_change: "", // 新增 mem_name_change 字段
+    phone_change: "", // 新增 phone_change 字段
+    person_id_change: "", // 新增 person_id_change 字段
     userDeclaration: "",
   });
 
@@ -31,6 +30,7 @@ function Profile() {
 
     const dataToSend = { [field]: formData[field] };
     console.log("Data to send:", dataToSend);
+
 
     try {
       const token = localStorage.getItem("token");
@@ -184,16 +184,17 @@ function Profile() {
                 <input
                   type="text"
                   id="username"
-                  value={formData.username}
+                  value={formData.mem_name_change}
                   readOnly={!isEditing.username}
-                  onChange={(e) => handleInputChange("username", e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("mem_name_change", e.target.value)
+                  }
                 />
-
                 {isEditing.username ? (
                   <button
                     type="button"
                     className="saveBtn"
-                    onClick={() => handleSaveClick("username")}
+                    onClick={() => handleSaveClick("mem_name_change")}
                   >
                     保存
                   </button>
@@ -246,15 +247,17 @@ function Profile() {
                   type="email"
                   id="email"
                   name="email"
-                  value={user?.email || ""}
+                  value={formData.email_change}
                   readOnly={!isEditing.email}
-                  onChange={(e) => handleInputChange("email", e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("email_change", e.target.value)
+                  }
                 />
                 {isEditing.email ? (
                   <button
                     type="button"
                     className="saveBtn"
-                    onClick={() => handleSaveClick("email")}
+                    onClick={() => handleSaveClick("email_change")}
                   >
                     保存
                   </button>
@@ -276,20 +279,20 @@ function Profile() {
                   type="text"
                   id="idNumber"
                   name="idNumber"
-                  value={user?.person_id || ""}
+                  value={formData.person_id_change}
                   pattern="^[A-Z][0-9]{9}$"
                   title="請輸入有效的身份證字號，格式為一個英文字母後接九位數字。"
                   required
                   readOnly={!isEditing.idNumber}
                   onChange={(e) =>
-                    handleInputChange("idNumber", e.target.value)
+                    handleInputChange("person_id_change", e.target.value)
                   }
                 />
                 {isEditing.idNumber ? (
                   <button
                     type="button"
                     className="saveBtn"
-                    onClick={() => handleSaveClick("idNumber")}
+                    onClick={() => handleSaveClick("person_id_change")}
                   >
                     保存
                   </button>
@@ -311,19 +314,19 @@ function Profile() {
                   type="tel"
                   id="phoneNumber"
                   name="phoneNumber"
-                  value={user?.phone || ""}
+                  value={formData.phone_change}
                   pattern="^0\d{1,2}-?\d{6,7}$"
                   required
                   readOnly={!isEditing.phoneNumber}
                   onChange={(e) =>
-                    handleInputChange("phoneNumber", e.target.value)
+                    handleInputChange("phone_change", e.target.value)
                   }
                 />
                 {isEditing.phoneNumber ? (
                   <button
                     type="button"
                     className="saveBtn"
-                    onClick={() => handleSaveClick("phoneNumber")}
+                    onClick={() => handleSaveClick("phone_change")}
                   >
                     保存
                   </button>

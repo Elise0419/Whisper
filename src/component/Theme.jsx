@@ -149,6 +149,7 @@ function Makeup() {
       });
   };
 
+  // 重置 search bar
   function deleteSearch() {
     setSearchMsg("");
     document.getElementById("searchBar").value = "";

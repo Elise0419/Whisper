@@ -6,8 +6,8 @@ import { useRouteMatch } from "react-router-dom";
 import like from "../Img/like.png";
 import comment from "../Img/comment.png";
 
-function Article({ search }) {
-  var [art, setArt] = useState([]);
+function Article({ sea }) {
+  let [art, setArt] = useState([]);
   const match = useRouteMatch();
 
   var url = match.params.type
@@ -23,14 +23,15 @@ function Article({ search }) {
           return res.json();
         })
         .then((jsonData) => {
-          setArt(search.length == 0 ? jsonData.data : search);
+          // setArt(sea.length == 0 ? jsonData.data : sea);
+          setArt(jsonData.data);
         })
         .catch((err) => {
           console.log("錯誤:", err);
         });
     }
     fetchData();
-  }, [match.params.type, search]);
+  }, [match.params.type, sea]);
 
   // 在這裡發送請求，更新點擊率
   const handleCardClick = async (postId) => {
@@ -52,7 +53,6 @@ function Article({ search }) {
   return (
     <React.Fragment>
       <div className="cardContainer">
-        {console.log(art)}
         {art.map((art) => {
           return (
             // 增加一個onclick 點擊率事件

@@ -13,7 +13,6 @@ import redArrow from "./Img/redArrow.png";
 function Home() {
   let [pop, setPop] = useState([]);
   let [like, setLike] = useState([]);
-  // let [key, setKey] = useState({});
 
   useEffect(() => {
     function fetchData() {
@@ -47,11 +46,12 @@ function Home() {
 
   let [s, setS] = useState("");
   let [data, setData] = useState([]);
-  function searchI() {
-    var a = document.getElementById("search").value;
-    setS(a);
+  function si() {
+    console.log("hi");
+    // var a = document.getElementById("searchInput");
+    // setS(a);
   }
-  function searchB() {
+  function sb() {
     fetch(`http://10.10.247.43:8000/api/posts/search?query=${s}`, {
       method: "GET",
     })
@@ -76,14 +76,14 @@ function Home() {
         <div className="search">
           <img src={user} />
           <input
-            id="search"
+            id="searchInput"
             type="text"
             placeholder="熱門貼文搜尋"
-            onChange={searchI}
+            onInput={si}
           />
-          <button onClick={searchB}>Search</button>
+          <button onClick={sb}>Search</button>
         </div>
-        <Article search={data} />
+        <Article sea={data} />
       </article>
       <aside>
         <div className="aside">

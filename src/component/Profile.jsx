@@ -27,22 +27,25 @@ function Profile() {
 
   const handleSaveClick = async (field) => {
     setIsEditing({ ...isEditing, [field]: false });
-
+  
     const dataToSend = { [field]: formData[field] };
     console.log("Data to send:", dataToSend);
 
 
+
+    
+  
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`http://10.10.247.43:8000/api/${field}change`, {
-        method: "post",
+      const response = await fetch(`http://10.10.247.43:8000/api/profile`, {  // 注意修改此处的URL
+        method: "post",  // 修改为 POST 请求
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(dataToSend),
       });
-
+  
       if (response.ok) {
         const jsonData = await response.json();
         console.log(jsonData);
@@ -54,6 +57,7 @@ function Profile() {
       console.error("Error:", error);
     }
   };
+  
 
   const handleImageUpload = (event) => {
     setSelectedImage(event.target.files[0]);
@@ -85,11 +89,12 @@ function Profile() {
     }
   };
 
+  // 輸入資料
   const handleInputChange = (field, value) => {
     console.log(`Updating ${field} with value: ${value}`);
     setFormData({ ...formData, [field]: value });
   };
-
+// 編輯資料
   const handleEditClick = (field) => {
     console.log(`Editing ${field}`);
     setIsEditing({ ...isEditing, [field]: true });
@@ -101,7 +106,7 @@ function Profile() {
       console.log("Token in Profile:", token);
   
       fetch("http://10.10.247.43:8000/api/profile", {
-        method: "GET",
+        method: "post",
         headers: {
           Authorization: `Bearer ${token}`,
         },

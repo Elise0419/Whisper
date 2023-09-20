@@ -9,14 +9,15 @@ import Asideuser from "./Block/Asideuser";
 function Profile() {
   const [user, setUser] = useState({});
   const [selectedImage, setSelectedImage] = useState(null);
+
   const [formData, setFormData] = useState({
-    username: "David",
-    userDeclaration: "致力于打造美好生活",
-    email: "user@example.com",
-    idNumber: "A247850405",
-    phoneNumber: "0916888888",
+    username: " ",
+    userDeclaration: " ",
+    email: " ",
+    idNumber: " ",
+    phoneNumber: " ",
   });
-  
+
   const [isEditing, setIsEditing] = useState({
     profilePic: false,
     username: false,
@@ -26,55 +27,77 @@ function Profile() {
     phoneNumber: false,
   });
 
-  
-
-  const handleEditClick = (field) => {
-    setUser({ ...user, [field]: true });
-  };
-
   const handleSaveClick = async (field) => {
-    setUser({ ...user, [field]: false });
+    setIsEditing({ ...isEditing, [field]: false });
 
-    
-  };
-  // 處理圖片更改的事件
-  const handleImageChange = (event) => {
-    const file = event.target.files[0]; // 從事件物件中獲取選擇的檔案
-    setSelectedImage(file); // 將選擇的檔案設定為 selectedImage 的狀態
+    const dataToSend = { [field]: formData[field] };
+    console.log("Data to send:", dataToSend);
+
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch("http://10.10.247.43:8000/api/profile", {
+        method: "put",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(dataToSend),
+      });
+
+      if (response.ok) {
+        const jsonData = await response.json();
+        console.log(jsonData);
+      } else {
+        console.log("失敗上傳")
+        throw new Error("API request failed");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
-  // 處理輸入變化的事件
+  //輸入框狀態
   const handleInputChange = (field, value) => {
-    setFormData({ ...formData, [field]: value }); // 根據使用者的輸入更新特定欄位的值
+    console.log(`Updating ${field} with value: ${value}`);
+    setFormData({ ...formData, [field]: value });
   };
 
-  localStorage.setItem(
-    "token",
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTAuMTAuMjQ3LjQzOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNjk1MTc1MzEyLCJleHAiOjE2OTUxNzg5MTIsIm5iZiI6MTY5NTE3NTMxMiwianRpIjoiUjFLdmJHM0dmYXNhc1NzZyIsInN1YiI6IjI4IiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.hXfc_CeJLx0fyOve1HdWkn235zRVdx1X4RdZ-B-bCm4");
-  var token = localStorage.getItem("token");
+  // 編輯狀態
+  const handleEditClick = (field) => {
+    console.log(`Editing ${field}`);
+    setIsEditing({ ...isEditing, [field]: true });
+  };
+
+
 
   useEffect(() => {
     function fetchData() {
+      const token = localStorage.getItem("token");
       fetch("http://10.10.247.43:8000/api/profile", {
         method: "get",
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-        .then((res) => {
-          return res.json();
-        })
+        .then((res) => res.json())
         .then((jsonData) => {
           console.log(jsonData.user);
           setUser(jsonData.user);
-          console.log(user);
+          setFormData({
+            username: jsonData.user.mem_name,
+            userDeclaration: jsonData.user.promise,
+            email: jsonData.user.email,
+            idNumber: jsonData.user.person_id,
+            phoneNumber: jsonData.user.phone,
+          });
         })
         .catch((err) => {
-          console.log("錯誤:", err);
+          console.log("Error:", err);
         });
     }
     fetchData();
   }, []);
+  
 
   return (
     <div id="container">
@@ -91,7 +114,7 @@ function Profile() {
                 <input
                   type="text"
                   id="username"
-                  value={user?.mem_name || ""} // 使用 optional chaining 和空字符串作为默认值
+                  value={formData.username}  // 使用formData中的值
                   readOnly={!isEditing.username}
                   onChange={(e) =>
                     handleInputChange("username", e.target.value)

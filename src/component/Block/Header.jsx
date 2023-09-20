@@ -8,6 +8,7 @@ import whiteArrow from "../Img/whiteArrow.png";
 import purpleArrow from "../Img/purpleArrow.png";
 import rabbit from "../Img/rabbit.png";
 import crown from "../Img/crown.png";
+import mail from "../Img/love3.png";
 
 function Header() {
   return (
@@ -44,10 +45,13 @@ function Header() {
             <img className="userArrow" src={whiteArrow} />
             <span className="userItem">
               <Link to="/profile">
-                我的主頁
-                <img src={crown} className="crown" />
+                我的主頁&nbsp;&nbsp;
+                <img src={crown} className="myImg" />
               </Link>
-              <Link to="/profile">編輯信息</Link>
+              <Link to="/profile">
+                編輯信息&nbsp;&nbsp;
+                <img src={mail} className="myImg" />
+              </Link>
               <Link to="/manage">管理貼文</Link>
               <hr />
               <Link to="/logout">登出</Link>

@@ -71,5 +71,11 @@ class ProfileController extends Controller
         $this->user->save();
         return response()->json(['message' => '已成功更改身分證字號'], 201);
     }
+    public function namechange(Request $req)
+    {
+        $this->user->mem_name = $req->mem_name;
+        $this->user->save();
+        return response()->json(['message' => '已成功更改用戶名稱'], 201);
+    }
 
 }

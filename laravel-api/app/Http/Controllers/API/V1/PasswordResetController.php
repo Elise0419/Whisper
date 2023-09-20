@@ -13,7 +13,7 @@ class PasswordResetController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['pwdfoget']]);
+        $this->middleware('auth:api', ['except' => ['pwdfogot']]);
     }
 
     public function pwdreset(Request $req)
@@ -39,6 +39,10 @@ class PasswordResetController extends Controller
 
         $user->password = Hash::make($req->new_password);
         $user->save();
+        Auth::logout();
+        return response()->json([
+            'message' => '密碼已修改成功，請重新登入',
+        ],200);
     }
 
     public function pwdforgot(Request $req)

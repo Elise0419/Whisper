@@ -6,10 +6,13 @@ import { useRouteMatch } from "react-router-dom";
 import like from "../Img/like.png";
 import comment from "../Img/comment.png";
 
+function Article({ search }) {
   var [art, setArt] = useState([]);
   const match = useRouteMatch();
 
   var url = match.params.type
+    ? `http://10.10.247.43:8000/api/v1/posts?type[eq]=${match.params.type}`
+    : `http://10.10.247.43:8000/api/v1/posts`;
 
   useEffect(() => {
     function fetchData() {
@@ -20,19 +23,21 @@ import comment from "../Img/comment.png";
           return res.json();
         })
         .then((jsonData) => {
-          setArt(jsonData.data);
+          setArt(search.length == 0 ? jsonData.data : search);
         })
         .catch((err) => {
           console.log("錯誤:", err);
         });
     }
     fetchData();
+  }, [match.params.type, search]);
 
   // 在這裡發送請求，更新點擊率
   const handleCardClick = async (postId) => {
     try {
       //發送請求來更新點擊率 地址請後端提供
       const response = await fetch(
+        `http://10.10.247.43:8000/api/posts/${postId}/click`,
         {
           method: "POST",
         }
@@ -47,6 +52,7 @@ import comment from "../Img/comment.png";
   return (
     <React.Fragment>
       <div className="cardContainer">
+        {console.log(art)}
         {art.map((art) => {
           return (
             // 增加一個onclick 點擊率事件

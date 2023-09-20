@@ -29,46 +29,44 @@ function Login() {
   };
 
   // 处理表单提交事件
-const handleSubmit = (event) => {
-  event.preventDefault();
-  // 使用Validation函数验证表单数据，并将错误信息存储在errors状态中
-  setErrors(Validation(values));
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // 使用Validation函数验证表单数据，并将错误信息存储在errors状态中
+    setErrors(Validation(values));
 
-  if (Object.keys(errors).length === 0) {
-    const requestData = {
-      email: values.email,
-      password: values.password,
-    };
+    if (Object.keys(errors).length === 0) {
+      const requestData = {
+        email: values.email,
+        password: values.password,
+      };
 
-    // 只有当表单验证通过时才进行页面跳转
-    fetch("http://10.10.247.43:8000/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(requestData),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
+      // 只有当表单验证通过时才进行页面跳转
+      fetch("http://127.0.0.1:8000/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestData),
       })
-      .then((data) => {
-        // 在这里处理从后端返回的数据
-        console.log(data);
-        // 将Token存储在本地
-        localStorage.setItem("token", data.token);
-        history.push("/"); // 登录成功后跳转到首页
-        console.log("successfullogin");
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }
-};
-
-  
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          // 在这里处理从后端返回的数据
+          console.log(data);
+          // 将Token存储在本地
+          localStorage.setItem("token", data.token);
+          history.push("/"); // 登录成功后跳转到首页
+          console.log("successfullogin");
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
+  };
 
   return (
     <div id="container">
@@ -124,10 +122,7 @@ const handleSubmit = (event) => {
               <Link to="/forgotpw" className="btnDafaultborder">
                 忘記密碼
               </Link>
-              <button
-                type="submit"
-                className="btnSuccess"
-              >
+              <button type="submit" className="btnSuccess">
                 登入
               </button>
             </form>

@@ -13,7 +13,7 @@ function Aside() {
   useEffect(() => {
     function fetchData() {
       fetch(
-        `http://10.10.247.43:8000/api/v1/rules?type[eq]=${match.params.type}`,
+        `http://127.0.0.1:8000/api/v1/rules?type[eq]=${match.params.type}`,
         {
           method: "GET",
         }
@@ -34,34 +34,40 @@ function Aside() {
   return (
     <aside>
       <div className="aside">
-        <span>
-          <p className="forumTitle">
-            <img src={makeup2} />
-            <span>化妝品論壇</span>
-          </p>
-          <p className="forumIntro">
-            化妝品使用教學論壇，給你帶來什麼體驗？化妝品使用教學論壇，給你帶來什麼體驗？
-          </p>
-          <p className="forumCreate">創建時間 2022-10-1</p>
+        <span className="voteTopic">
+          <img src={makeup2} />
+          <span>美妝保養</span>
         </span>
-        <hr color="lightgray" width="80%" />
-        <span className="forumBtm">
+        <div className="vote">
+          <span className="voteTitle">最好用的評價口紅!!!😍</span>
           <span>
-            <p>8630</p>
-            <p>瀏覽人數</p>
+            <div class="mydict">
+              <div>
+                <label>
+                  <input type="radio" name="radio" />
+                  <span>heme</span>
+                </label>
+                <label>
+                  <input type="radio" name="radio" />
+                  <span>Romand</span>
+                </label>
+              </div>
+            </div>
           </span>
-          <span>
-            <p>25</p>
-            <p>貼文新增</p>
-          </span>
-        </span>
-        <hr color="lightgray" width="80%" />
+          <img src={makeup2} />
+          <img src={makeup2} />
+        </div>
       </div>
       <div className="forumRule">
         <p>個版規則</p>
         <ol href="">
           {forum.map((forum) => {
-            return <li key={forum.id}>{forum.content}</li>;
+            return (
+              <div>
+                <li key={forum.id}>{forum.content}</li>
+                {console.log(forum)}
+              </div>
+            );
           })}
         </ol>
       </div>

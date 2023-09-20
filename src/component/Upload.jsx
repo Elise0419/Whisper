@@ -57,7 +57,7 @@ class Quill extends Component {
     });
 
     // Laravel
-    fetch("http://10.10.247.43:8000/api/upload", {
+    fetch("http://127.0.0.1:8000/api/upload", {
       method: "POST",
       body: formData,
       // mode: "no-cors",

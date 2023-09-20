@@ -59,11 +59,4 @@ class SavepostController extends Controller
         return new SavepostResource($savepost);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Savepost $savepost)
-    {
-        //
-    }
 }

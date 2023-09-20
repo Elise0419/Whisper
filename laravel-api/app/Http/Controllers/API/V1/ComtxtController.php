@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdateComtxtRequest;
 use App\Http\Resources\V1\ComtxtCollection;
 use App\Http\Resources\V1\ComtxtResource;
 use App\Models\Comtxt;
@@ -71,27 +70,4 @@ class ComtxtController extends Controller
 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Comtxt $comtxt)
-    {
-
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateComtxtRequest $request, Comtxt $comtxt)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Comtxt $comtxt)
-    {
-        //
-    }
 }

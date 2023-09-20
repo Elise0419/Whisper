@@ -47,9 +47,8 @@ class PostController extends Controller
 
     }
 
-    public function click(Request $request) //NEED POSTID
+    public function click(Request $request, $postId) //NEED POSTID
     {
-        $postId = $request->input('postId');
         $post = Post::find($postId);
 
         if ($post) {
@@ -61,11 +60,10 @@ class PostController extends Controller
         }
     }
 
-    public function thumb(Request $request) //NEED POSTID
+    public function thumb(Request $request, $postId) //NEED POSTID
     {
-        $postId = $request->input('postId');
-        $thumb = $request->input('thumb');
         $post = Post::find($postId);
+        $thumb = $request->input('thumb');
         if ($post) {
             if ($thumb) {
                 $post->thumb += 1;

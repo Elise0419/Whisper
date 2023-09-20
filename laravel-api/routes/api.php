@@ -84,10 +84,10 @@ Route::get('/tags/{type}', [TagController::class, 'getTags']);
 
 Route::get('/posts/search', [PostController::class, 'search']);
 Route::get('/posts/{tag}', [PostController::class, 'getPostsByTag']);
-Route::post('/posts/click', [PostController::class, 'click']);
-Route::post('/posts/thumb', [PostController::class, 'thumb']);
+Route::post('/posts/click{postId}', [PostController::class, 'click']);
+Route::post('/posts/thumb{postId}', [PostController::class, 'thumb']);
+Route::post('/posts/comments/{postId}', [ComtxtController::class, 'createcomtxt']);
 Route::post('/upload', [PostController::class, 'upload']);
 Route::post('/posts/save', [SavepostController::class, 'savepost']);
-Route::post('/posts/comments/{postId}', [ComtxtController::class, 'createcomtxt']);
 Route::put('/posts/{id}', [PostController::class, 'updatepost']);
 Route::delete('/posts/{id}', [PostController::class, 'destroy']);

@@ -44,26 +44,32 @@ function Home() {
     fetchData();
   }, []);
 
-  let [s, setS] = useState("");
-  let [data, setData] = useState([]);
-  function si() {
-    console.log("hi");
-    // var a = document.getElementById("searchInput");
-    // setS(a);
+  let [searchInput, setSearchInput] = useState("");
+  let [searchQuery, setSearchQuery] = useState({});
+  function sI() {
+    var s = document.getElementById("sI").value;
+    setSearchInput(s);
   }
-  function sb() {
-    fetch(`http://10.10.247.43:8000/api/posts/search?query=${s}`, {
-      method: "GET",
-    })
-      .then((res) => {
-        return res.json();
+  function sB() {
+    if (searchInput == "") {
+    } else {
+      fetch(`http://10.10.247.43:8000/api/posts/search?query=${searchInput}`, {
+        method: "GET",
       })
-      .then((jsonData) => {
-        setData(jsonData);
-      })
-      .catch((err) => {
-        console.log("錯誤:", err);
-      });
+        .then((res) => {
+          return res.json();
+        })
+        .then((jsonData) => {
+          if (jsonData.message == "Post not found!") {
+            setSearchQuery({ message: `無法搜尋到 ${searchInput} 相關貼文` });
+          } else {
+            setSearchQuery(jsonData);
+          }
+        })
+        .catch((err) => {
+          console.log("錯誤:", err);
+        });
+    }
   }
 
   return (
@@ -75,15 +81,10 @@ function Home() {
       <article>
         <div className="search">
           <img src={user} />
-          <input
-            id="searchInput"
-            type="text"
-            placeholder="熱門貼文搜尋"
-            onInput={si}
-          />
-          <button onClick={sb}>Search</button>
+          <input id="sI" type="text" placeholder="熱門貼文搜尋" onChange={sI} />
+          <button onClick={sB}>Search</button>
         </div>
-        <Article sea={data} />
+        <Article searchQuery={searchQuery} />
       </article>
       <aside>
         <div className="aside">

@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./CSS/Profile.css";
-// import Axios from "axios";
-
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
 import Asideuser from "./Block/Asideuser";
@@ -11,11 +9,11 @@ function Profile() {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const [formData, setFormData] = useState({
-    username: " ",
-    userDeclaration: " ",
-    email: " ",
-    idNumber: " ",
-    phoneNumber: " ",
+    email_change: "", // 新增 email_change 字段
+    mem_name_change: "", // 新增 mem_name_change 字段
+    phone_change: "", // 新增 phone_change 字段
+    person_id_change: "", // 新增 person_id_change 字段
+    userDeclaration: "",
   });
 
   const [isEditing, setIsEditing] = useState({
@@ -33,10 +31,11 @@ function Profile() {
     const dataToSend = { [field]: formData[field] };
     console.log("Data to send:", dataToSend);
 
+
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://10.10.247.43:8000/api/profile", {
-        method: "put",
+      const response = await fetch(`http://10.10.247.43:8000/api/${field}change`, {
+        method: "post",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -48,7 +47,7 @@ function Profile() {
         const jsonData = await response.json();
         console.log(jsonData);
       } else {
-        console.log("失敗上傳");
+        console.log("更新失败");
         throw new Error("API request failed");
       }
     } catch (error) {
@@ -56,18 +55,41 @@ function Profile() {
     }
   };
 
-  //輸入框狀態
+  const handleImageUpload = (event) => {
+    setSelectedImage(event.target.files[0]);
+  };
+
+  const handleImageSave = async () => {
+    const formData = new FormData();
+    formData.append("head_img", selectedImage);
+
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`http://10.10.247.43:8000/api/headimgchange`, {
+        method: "post",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
+
+      if (response.ok) {
+        const jsonData = await response.json();
+        console.log(jsonData);
+      } else {
+        console.log("上传头像失败");
+        throw new Error("API request failed");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   const handleInputChange = (field, value) => {
     console.log(`Updating ${field} with value: ${value}`);
     setFormData({ ...formData, [field]: value });
   };
 
-  localStorage.setItem(
-    "token",
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTAuMTAuMjQ3LjQzOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNjk1MDk0MTkwLCJleHAiOjE2OTUwOTc3OTAsIm5iZiI6MTY5NTA5NDE5MCwianRpIjoidGZ5NnBGaU1Nd3V6S21UQyIsInN1YiI6IjI4IiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.KecFIB_xX-cYAUvktHfYMVIybxm9j2jZTk6_xWIfsjo"
-  );
-  var token = localStorage.getItem("token");
-  // 編輯狀態
   const handleEditClick = (field) => {
     console.log(`Editing ${field}`);
     setIsEditing({ ...isEditing, [field]: true });
@@ -76,26 +98,42 @@ function Profile() {
   useEffect(() => {
     function fetchData() {
       const token = localStorage.getItem("token");
+      console.log("Token in Profile:", token); // Check if the token is obtained correctly
+
+      
       fetch("http://10.10.247.43:8000/api/profile", {
-        method: "get",
+        method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-        .then((res) => res.json())
-        .then((jsonData) => {
-          console.log(jsonData.user);
-          setUser(jsonData.user);
-          setFormData({
-            username: jsonData.user.mem_name,
-            userDeclaration: jsonData.user.promise,
-            email: jsonData.user.email,
-            idNumber: jsonData.user.person_id,
-            phoneNumber: jsonData.user.phone,
-          });
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error('API request failed');
+          }
+          return res.json();
         })
+        .then((jsonData) => {
+          if (jsonData.error) {
+            console.log("API 返回了一个错误:", jsonData.error);
+            // 可以在这里采取一些处理措施，例如跳转到登录页面
+          } else {
+            console.log("API返回的数据:", jsonData);
+            setUser(jsonData.user);
+            setFormData({
+              username: jsonData.user.mem_name,
+              userDeclaration: jsonData.user.promise,
+              email: jsonData.user.email,
+              idNumber: jsonData.user.person_id,
+              phoneNumber: jsonData.user.phone,
+            });
+          }
+        })
+        
+        
         .catch((err) => {
           console.log("Error:", err);
+          // 在这里可以做错误处理，比如显示一个错误提示
         });
     }
     fetchData();
@@ -111,23 +149,52 @@ function Profile() {
           <hr />
           <div className="ProfileForm">
             <form>
+              <div className="profilePic">
+                <label htmlFor="profilePic">頭像:</label>
+                {isEditing.profilePic ? (
+                  <div>
+                    <input
+                      type="file"
+                      id="profilePic"
+                      accept="image/*"
+                      onChange={handleImageUpload}
+                    />
+                    <button type="button" onClick={handleImageSave}>
+                      保存
+                    </button>
+                  </div>
+                ) : (
+                  <img
+                    src={user?.headimg || "/default-avatar.jpg"}
+                    alt="Profile Pic"
+                    className="profilePic"
+                  />
+                )}
+                <button
+                  type="button"
+                  onClick={() => setIsEditing({ ...isEditing, profilePic: true })}
+                >
+                  編輯
+                </button>
+              </div>
+              <hr />
+
               <div className="profileuserName">
                 <label htmlFor="username">用戶名稱:</label>
                 <input
                   type="text"
                   id="username"
-                  value={formData.username} // 使用formData中的值
+                  value={formData.mem_name_change}
                   readOnly={!isEditing.username}
                   onChange={(e) =>
-                    handleInputChange("username", e.target.value)
+                    handleInputChange("mem_name_change", e.target.value)
                   }
                 />
-
                 {isEditing.username ? (
                   <button
                     type="button"
                     className="saveBtn"
-                    onClick={() => handleSaveClick("username")}
+                    onClick={() => handleSaveClick("mem_name_change")}
                   >
                     保存
                   </button>
@@ -180,15 +247,17 @@ function Profile() {
                   type="email"
                   id="email"
                   name="email"
-                  value={user?.email || ""}
+                  value={formData.email_change}
                   readOnly={!isEditing.email}
-                  onChange={(e) => handleInputChange("email", e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("email_change", e.target.value)
+                  }
                 />
                 {isEditing.email ? (
                   <button
                     type="button"
                     className="saveBtn"
-                    onClick={() => handleSaveClick("email")}
+                    onClick={() => handleSaveClick("email_change")}
                   >
                     保存
                   </button>
@@ -210,20 +279,20 @@ function Profile() {
                   type="text"
                   id="idNumber"
                   name="idNumber"
-                  value={user?.person_id || ""}
+                  value={formData.person_id_change}
                   pattern="^[A-Z][0-9]{9}$"
                   title="請輸入有效的身份證字號，格式為一個英文字母後接九位數字。"
                   required
                   readOnly={!isEditing.idNumber}
                   onChange={(e) =>
-                    handleInputChange("idNumber", e.target.value)
+                    handleInputChange("person_id_change", e.target.value)
                   }
                 />
                 {isEditing.idNumber ? (
                   <button
                     type="button"
                     className="saveBtn"
-                    onClick={() => handleSaveClick("idNumber")}
+                    onClick={() => handleSaveClick("person_id_change")}
                   >
                     保存
                   </button>
@@ -245,19 +314,19 @@ function Profile() {
                   type="tel"
                   id="phoneNumber"
                   name="phoneNumber"
-                  value={user?.phone || ""}
+                  value={formData.phone_change}
                   pattern="^0\d{1,2}-?\d{6,7}$"
                   required
                   readOnly={!isEditing.phoneNumber}
                   onChange={(e) =>
-                    handleInputChange("phoneNumber", e.target.value)
+                    handleInputChange("phone_change", e.target.value)
                   }
                 />
                 {isEditing.phoneNumber ? (
                   <button
                     type="button"
                     className="saveBtn"
-                    onClick={() => handleSaveClick("phoneNumber")}
+                    onClick={() => handleSaveClick("phone_change")}
                   >
                     保存
                   </button>
@@ -276,7 +345,6 @@ function Profile() {
         </div>
       </article>
       <aside>
-        {/* 側邊欄內容 */}
         <Asideuser />
       </aside>
       <Footer />

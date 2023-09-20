@@ -6,9 +6,10 @@ import { useRouteMatch } from "react-router-dom";
 import like from "../Img/like.png";
 import comment from "../Img/comment.png";
 
-function Article({ sea }) {
+function Article({ searchQuery }) {
   let [art, setArt] = useState([]);
   const match = useRouteMatch();
+  let [showInfo, setShowInfo] = useState(false);
 
   var url = match.params.type
     ? `http://10.10.247.43:8000/api/v1/posts?type[eq]=${match.params.type}`
@@ -23,15 +24,21 @@ function Article({ sea }) {
           return res.json();
         })
         .then((jsonData) => {
-          // setArt(sea.length == 0 ? jsonData.data : sea);
-          setArt(jsonData.data);
+          if (searchQuery.message) {
+            setShowInfo(true);
+            setArt([]);
+          } else {
+            setArt(
+              searchQuery.data == undefined ? jsonData.data : searchQuery.data
+            );
+          }
         })
         .catch((err) => {
           console.log("錯誤:", err);
         });
     }
     fetchData();
-  }, [match.params.type, sea]);
+  }, [match.params.type, searchQuery]);
 
   // 在這裡發送請求，更新點擊率
   const handleCardClick = async (postId) => {
@@ -53,6 +60,9 @@ function Article({ sea }) {
   return (
     <React.Fragment>
       <div className="cardContainer">
+        <div style={{ display: showInfo ? "block" : "none" }} className="find">
+          <p>{searchQuery.message}</p>
+        </div>
         {art.map((art) => {
           return (
             // 增加一個onclick 點擊率事件

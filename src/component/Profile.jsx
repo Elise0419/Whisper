@@ -28,17 +28,18 @@ function Profile() {
   const handleSaveClick = async (field) => {
     setIsEditing({ ...isEditing, [field]: false });
   
-    const dataToSend = { [field]: formData[field] };
-    console.log("Data to send:", dataToSend);
-
-
-
-    
+    const dataToSend = { 
+      email_change: formData.email_change,
+      mem_name_change: formData.mem_name_change,
+      phone_change: formData.phone_change,
+      person_id_change: formData.person_id_change,
+      userDeclaration: formData.userDeclaration
+    };
   
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`http://10.10.247.43:8000/api/profile`, {  // 注意修改此处的URL
-        method: "post",  // 修改为 POST 请求
+      const response = await fetch(`http://10.10.247.43:8000/api/profile`, {
+        method: "post",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -57,6 +58,7 @@ function Profile() {
       console.error("Error:", error);
     }
   };
+  
   
 
   const handleImageUpload = (event) => {

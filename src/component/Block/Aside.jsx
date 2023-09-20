@@ -7,7 +7,11 @@ import "../CSS/Aside.css";
 import makeup2 from "../Img/makeup.jpeg";
 
 function Aside() {
-  const [forum, setForum] = useState([]);
+  let [forum, setForum] = useState([]);
+  let [searchInput, setSearchInput] = useState("");
+  let [searchQuery, setSearchQuery] = useState({});
+  let [art, setArt] = useState([]);
+  let [showInfo, setShowInfo] = useState(false);
   const match = useRouteMatch();
 
   useEffect(() => {

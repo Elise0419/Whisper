@@ -119,6 +119,7 @@ article a {
     margin-right: 0.375rem;
     border-radius: 1rem;
     background-color: white;
+    text-decoration: none;
 }
 
 .cardTop {

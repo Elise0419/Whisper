@@ -28,6 +28,7 @@ function Article({ searchQuery }) {
             setShowInfo(true);
             setArt([]);
           } else {
+            setShowInfo(false);
             setArt(
               searchQuery.data == undefined ? jsonData.data : searchQuery.data
             );

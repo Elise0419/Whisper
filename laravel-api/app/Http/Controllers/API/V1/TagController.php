@@ -10,8 +10,8 @@ class TagController extends Controller
     public function getTags($type)
     {
 
-        $tags = Tag::where('type', $type)->distinct()->inRandomOrder()->take(6)->pluck('tag');
-        // $tags = Tag::where('type', $type)->inRandomOrder()->take(6)->get();
+        // $tags = Tag::where('type', $type)->distinct()->inRandomOrder()->take(6)->pluck('tag');
+        $tags = Tag::where('type', $type)->inRandomOrder()->take(6)->get();
         return response()->json(['tags' => $tags]);
     }
 }

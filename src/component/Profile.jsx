@@ -179,12 +179,7 @@ const handleSaveClick = async (field) => {
                     className="profilePic"
                   />
                 )}
-                <button
-                  type="button"
-                  onClick={() => setIsEditing({ ...isEditing, profilePic: true })}
-                >
-                  編輯
-                </button>
+                <button type="button" onClick={() => setIsEditing({ ...isEditing, profilePic: true })}>編輯</button>
               </div>
               <hr />
 

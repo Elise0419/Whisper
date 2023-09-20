@@ -81,14 +81,24 @@ class PostController extends Controller
 
     }
 
-    public function search(Request $request) //need check
+    public function search(Request $request)
     {
-        $query = $request->input('query');
-        // var_dump($query);
+        //  let apiUrl = `/search?query=${query}`;
+        // if (type) {apiUrl += `&type=${type}`};
 
-        $searchResults = Post::where('content', 'like', "%$query%")
-            ->orWhere('title', 'like', "%$query%")
-            ->get();
+        $query = $request->input('query');
+        $type = $request->input('type');
+
+        $searchResults = Post::query();
+
+        if ($type) {
+            $searchResults->where('type', $type);
+        }
+
+        $searchResults = $searchResults->where(function ($queryBuilder) use ($query) {
+            $queryBuilder->where('content', 'like', "%$query%")
+                ->orWhere('title', 'like', "%$query%");
+        })->get();
 
         if ($searchResults->count() === 0) {
             return response()->json(['message' => 'Post not found!']);

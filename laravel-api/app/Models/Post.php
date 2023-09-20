@@ -30,6 +30,7 @@ class Post extends Model
     {
         return $this->hasMany(Savepost::class);
     }
+
     public function tags()
     {
         return $this->belongsTo(Tag::class, 'tag_id');

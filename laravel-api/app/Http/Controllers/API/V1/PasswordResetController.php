@@ -4,10 +4,12 @@ namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Notifications\ForgotPasswordEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class PasswordResetController extends Controller
 {
@@ -42,7 +44,7 @@ class PasswordResetController extends Controller
         Auth::logout();
         return response()->json([
             'message' => '密碼已修改成功，請重新登入',
-        ],200);
+        ], 200);
     }
 
     public function pwdforgot(Request $req)
@@ -52,13 +54,11 @@ class PasswordResetController extends Controller
             'person_id' => 'required|string',
         ]);
 
-
         $additionalUser = User::where('email', $req->email)
             ->where('person_id', $req->person_id)
             ->first();
 
         $token = JWTAuth::fromUser($additionalUser);
-
 
         if (!$token) {
             return response()->json([
@@ -67,7 +67,6 @@ class PasswordResetController extends Controller
         }
 
         $additionalUser->notify(new ForgotPasswordEmail($token));
-
 
         return response()->json(['message' => '已將信件發送至信箱']);
     }

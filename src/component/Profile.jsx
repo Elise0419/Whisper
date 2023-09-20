@@ -25,39 +25,40 @@ function Profile() {
     phoneNumber: false,
   });
 
-  const handleSaveClick = async (field) => {
-    setIsEditing({ ...isEditing, [field]: false });
-  
-    const dataToSend = { 
-      email_change: formData.email_change,
-      mem_name_change: formData.mem_name_change,
-      phone_change: formData.phone_change,
-      person_id_change: formData.person_id_change,
-      userDeclaration: formData.userDeclaration
-    };
-  
-    try {
-      const token = localStorage.getItem("token");
-      const response = await fetch(`http://10.10.247.43:8000/api/profile`, {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(dataToSend),
-      });
-  
-      if (response.ok) {
-        const jsonData = await response.json();
-        console.log(jsonData);
-      } else {
-        console.log("更新失败");
-        throw new Error("API request failed");
-      }
-    } catch (error) {
-      console.error("Error:", error);
+  // 在 handleSaveClick 中调整传递的字段
+// 省略其他部分...
+
+const handleSaveClick = async (field) => {
+  setIsEditing({ ...isEditing, [field]: false });
+
+  const dataToSend = { [field]: formData[field] };
+
+  try {
+    const token = localStorage.getItem("token");
+    const response = await fetch(`http://10.10.247.43:8000/api/profile/mem-name/change`, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(dataToSend),
+    });
+
+    if (response.ok) {
+      const jsonData = await response.json();
+      console.log(jsonData);
+    } else {
+      console.log("更新失败");
+      throw new Error("API request failed");
     }
-  };
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
+
+// 省略其他部分...
+
+
   
   
 
@@ -108,7 +109,7 @@ function Profile() {
       console.log("Token in Profile:", token);
   
       fetch("http://10.10.247.43:8000/api/profile", {
-        method: "post",
+        method: "get",
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -9,7 +9,7 @@ use App\Http\Controllers\API\V1\PostController;
 use App\Http\Controllers\API\V1\ProfileController;
 use App\Http\Controllers\API\V1\RuleController;
 use App\Http\Controllers\API\V1\SavepostController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\API\V1\TagController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -59,7 +59,6 @@ Route::controller(PasswordResetController::class)->group(function () {
 Route::controller(ProfileController::class)->group(function () {
     Route::get('profile', 'profile');
     Route::post('emailchange', 'emailchange');
-    Route::get('users', 'index');
 });
 
 Route::middleware(['auth'])->get('/user/posts', [PostController::class, 'getUserPosts']);
@@ -71,12 +70,17 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\API\V1'], f
     Route::apiResource('saveposts', SavepostController::class);
     Route::apiResource('rules', RuleController::class);
 });
+
 Route::get('/topPosts/1', [PostController::class, 'topposts1']);
 Route::get('/topPosts/2', [PostController::class, 'topposts2']);
+Route::get('/tags/{type}', [TagController::class, 'getTags']);
+
 Route::get('/posts/search', [PostController::class, 'search']);
+Route::get('/posts/tag/{tag}', [PostController::class, 'getPostsByTag']);
 Route::post('/posts/click', [PostController::class, 'click']);
 Route::post('/posts/thumb', [PostController::class, 'thumb']);
 Route::post('/upload', [PostController::class, 'upload']);
 Route::post('/posts/save', [SavepostController::class, 'savepost']);
 Route::post('/posts/comments/{postId}', [ComtxtController::class, 'createcomtxt']);
+Route::put('/posts/{id}', [PostController::class, 'updatepost']);
 Route::delete('/posts/{id}', [PostController::class, 'destroy']);

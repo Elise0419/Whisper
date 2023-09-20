@@ -24,7 +24,7 @@ class ProfileController extends Controller
 
     public function profile(Request $req)
     {
-        if (!$req->email_change) {
+        if (!$req->email_change !== null) {
             $validator = Validator::make($req->email_change, [
                 'email' => 'required|email|unique:users,email',
             ]);
@@ -37,7 +37,7 @@ class ProfileController extends Controller
             $this->user->email_verified_at = null;
             $this->user->save();
         }
-        if (!$req->mem_name_change) {
+        if (!$req->mem_name_change !== null) {
             $validator = Validator::make($req->mem_name_change, [
                 'mem_name_change' => 'required|string|max:20',
             ]);
@@ -47,7 +47,7 @@ class ProfileController extends Controller
             $this->user->mem_name = $req->mem_name_change;
             $this->user->save();
         }
-        if (!$req->phone_change) {
+        if (!$req->phone_change !== null) {
             $validator = Validator::make($req->phone_change, [
                 'phone_change' => 'required|string|max:20',
             ]);
@@ -57,7 +57,7 @@ class ProfileController extends Controller
             $this->user->phone = $req->phone_change;
             $this->user->save();
         }
-        if (!$req->id_change) {
+        if (!$req->id_change !== null) {
             $validator = Validator::make($req->person_id_change, [
                 'person_id_change' => 'required|string|max:20',
             ]);
@@ -67,7 +67,7 @@ class ProfileController extends Controller
             $this->user->person_id = $req->person_id_change;
             $this->user->save();
         }
-        if (!$req->haedimg_change) {
+        if (!$req->haedimg_change !== null) {
             if ($req->hasFile('head_img')) {
                 $head_img = $req->file('head_img');
                 $head_Path = $head_img->storeAs('public/user_head', 'user_' . $this->user->user_id . '.' . $head_img->getClientOriginalExtension());

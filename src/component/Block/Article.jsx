@@ -6,13 +6,10 @@ import { useRouteMatch } from "react-router-dom";
 import like from "../Img/like.png";
 import comment from "../Img/comment.png";
 
-function Article() {
   var [art, setArt] = useState([]);
   const match = useRouteMatch();
 
   var url = match.params.type
-    ? `http://127.0.0.1:8000/api/v1/posts?type[eq]=${match.params.type}`
-    : `http://127.0.0.1:8000/api/v1/posts`;
 
   useEffect(() => {
     function fetchData() {
@@ -30,14 +27,12 @@ function Article() {
         });
     }
     fetchData();
-  }, [match.params.type]);
 
   // 在這裡發送請求，更新點擊率
   const handleCardClick = async (postId) => {
     try {
       //發送請求來更新點擊率 地址請後端提供
       const response = await fetch(
-        `http://127.0.0.1:8000/api/posts/${postId}/click`,
         {
           method: "POST",
         }

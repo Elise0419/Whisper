@@ -13,7 +13,7 @@ function Aside() {
   useEffect(() => {
     function fetchData() {
       fetch(
-        `http://127.0.0.1:8000/api/v1/rules?type[eq]=${match.params.type}`,
+        `http://10.10.247.43:8000/api/v1/rules?type[eq]=${match.params.type}`,
         {
           method: "GET",
         }

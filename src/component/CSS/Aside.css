@@ -43,10 +43,9 @@ aside {
     border-radius: var(--radius);
 }
 
-:focus {
+.mydict:focus {
     outline: 0;
     border-color: var(--colorPink300);
-    ;
     box-shadow: 0 0 0 4px var(--colorPink100);
 }
 
@@ -74,7 +73,7 @@ aside {
     color: var(--colorPink300);
 }
 
-label span {
+.mydict label span {
     display: block;
     cursor: pointer;
     padding: 0.375em .75em;
@@ -87,11 +86,11 @@ label span {
     transition: background-color .5s ease;
 }
 
-label:first-child span {
+.mydict label:first-child span {
     border-radius: .375em 0 0 .375em;
 }
 
-label:last-child span {
+.mydict label:last-child span {
     border-radius: 0 .375em .375em 0;
 }
 

@@ -98,7 +98,8 @@ function Profile() {
   useEffect(() => {
     function fetchData() {
       const token = localStorage.getItem("token");
-      console.log("Token in Profile:", token); // 检查是否能正确获取到 token
+      console.log("Token in Profile:", token); // Check if the token is obtained correctly
+
       
       fetch("http://10.10.247.43:8000/api/profile", {
         method: "GET",
@@ -137,7 +138,6 @@ function Profile() {
     }
     fetchData();
   }, []);
-  
 
   return (
     <div id="container">

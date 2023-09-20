@@ -6,13 +6,14 @@ import { useRouteMatch } from "react-router-dom";
 import like from "../Img/like.png";
 import comment from "../Img/comment.png";
 
-function Article() {
-  var [art, setArt] = useState([]);
+function Article({ searchQuery }) {
+  let [art, setArt] = useState([]);
   const match = useRouteMatch();
+  let [showInfo, setShowInfo] = useState(false);
 
   var url = match.params.type
-    ? `http://127.0.0.1:8000/api/v1/posts?type[eq]=${match.params.type}`
-    : `http://127.0.0.1:8000/api/v1/posts`;
+    ? `http://10.10.247.43:8000/api/v1/posts?type[eq]=${match.params.type}`
+    : `http://10.10.247.43:8000/api/v1/posts`;
 
   useEffect(() => {
     function fetchData() {
@@ -23,21 +24,28 @@ function Article() {
           return res.json();
         })
         .then((jsonData) => {
-          setArt(jsonData.data);
+          if (searchQuery.message) {
+            setShowInfo(true);
+            setArt([]);
+          } else {
+            setArt(
+              searchQuery.data == undefined ? jsonData.data : searchQuery.data
+            );
+          }
         })
         .catch((err) => {
           console.log("錯誤:", err);
         });
     }
     fetchData();
-  }, [match.params.type]);
+  }, [match.params.type, searchQuery]);
 
   // 在這裡發送請求，更新點擊率
   const handleCardClick = async (postId) => {
     try {
       //發送請求來更新點擊率 地址請後端提供
       const response = await fetch(
-        `http://127.0.0.1:8000/api/posts/${postId}/click`,
+        `http://10.10.247.43:8000/api/posts/${postId}/click`,
         {
           method: "POST",
         }
@@ -52,6 +60,9 @@ function Article() {
   return (
     <React.Fragment>
       <div className="cardContainer">
+        <div style={{ display: showInfo ? "block" : "none" }} className="find">
+          <p>{searchQuery.message}</p>
+        </div>
         {art.map((art) => {
           return (
             // 增加一個onclick 點擊率事件

@@ -13,7 +13,7 @@ function Aside() {
   useEffect(() => {
     function fetchData() {
       fetch(
-        `http://127.0.0.1:8000/api/v1/rules?type[eq]=${match.params.type}`,
+        `http://10.10.247.43:8000/api/v1/rules?type[eq]=${match.params.type}`,
         {
           method: "GET",
         }
@@ -41,7 +41,7 @@ function Aside() {
         <div className="vote">
           <span className="voteTitle">最好用的評價口紅!!!😍</span>
           <span>
-            <div class="mydict">
+            <div className="mydict">
               <div>
                 <label>
                   <input type="radio" name="radio" />
@@ -63,9 +63,8 @@ function Aside() {
         <ol href="">
           {forum.map((forum) => {
             return (
-              <div>
-                <li key={forum.id}>{forum.content}</li>
-                {console.log(forum)}
+              <div key={forum.id}>
+                <li>{forum.content}</li>
               </div>
             );
           })}

@@ -34,7 +34,6 @@ Route::get('/unAuth', function () {
     return response()->json(['error' => '尚未登入']);
 })->name('login');
 
-
 Route::controller(CustomEmailVerificationController::class)->group(function () {
     Route::get('/email/verify/{user_id}/{hash}', 'verify')->middleware(['signed'])->name('verification.verify');
     Route::get('/email/verification-notification', 'verifysending')->middleware(['auth:api', 'throttle:5,1'])->name('verification.send');
@@ -53,7 +52,6 @@ Route::controller(CustomEmailVerificationController::class)->group(function () {
 //     return back()->with('message', 'Verification link sent!');
 // })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-
 Route::controller(PasswordResetController::class)->group(function () {
     Route::post('password/reset', 'pwdreset');
     Route::post('password/forgot/mail', 'pwdforgot');
@@ -66,6 +64,7 @@ Route::controller(ProfileController::class)->group(function () {
     Route::put('profile/phone/change', 'phonechange');
     Route::put('profile/head/change', 'headimgchange');
     Route::put('profile/personid/change', 'idchange');
+    Route::put('profile/mem-name/change', 'namechange');
     Route::get('users', 'index');
 });
 
@@ -84,7 +83,7 @@ Route::get('/topPosts/2', [PostController::class, 'topposts2']);
 Route::get('/tags/{type}', [TagController::class, 'getTags']);
 
 Route::get('/posts/search', [PostController::class, 'search']);
-Route::get('/posts/tag/{tag}', [PostController::class, 'getPostsByTag']);
+Route::get('/posts/{tag}', [PostController::class, 'getPostsByTag']);
 Route::post('/posts/click', [PostController::class, 'click']);
 Route::post('/posts/thumb', [PostController::class, 'thumb']);
 Route::post('/upload', [PostController::class, 'upload']);

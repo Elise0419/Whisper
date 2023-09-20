@@ -10,13 +10,13 @@ import Section from "./Block/Section";
 import user from "./Img/dog.jpeg";
 import redArrow from "./Img/redArrow.png";
 
-function Love() {
+function Home() {
   let [pop, setPop] = useState([]);
   let [like, setLike] = useState([]);
 
   useEffect(() => {
     function fetchData() {
-      fetch("http://127.0.0.1:8000/api/topPosts/1", {
+      fetch("http://10.10.247.43:8000/api/topPosts/1", {
         method: "get",
       })
         .then((res) => {
@@ -28,7 +28,7 @@ function Love() {
         .catch((err) => {
           console.log("錯誤:", err);
         });
-      fetch("http://127.0.0.1:8000/api/topPosts/2", {
+      fetch("http://10.10.247.43:8000/api/topPosts/2", {
         method: "get",
       })
         .then((res) => {
@@ -44,6 +44,34 @@ function Love() {
     fetchData();
   }, []);
 
+  let [searchInput, setSearchInput] = useState("");
+  let [searchQuery, setSearchQuery] = useState({});
+  function sI() {
+    var s = document.getElementById("sI").value;
+    setSearchInput(s);
+  }
+  function sB() {
+    if (searchInput == "") {
+    } else {
+      fetch(`http://10.10.247.43:8000/api/posts/search?query=${searchInput}`, {
+        method: "GET",
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((jsonData) => {
+          if (jsonData.message == "Post not found!") {
+            setSearchQuery({ message: `無法搜尋到 ${searchInput} 相關貼文` });
+          } else {
+            setSearchQuery(jsonData);
+          }
+        })
+        .catch((err) => {
+          console.log("錯誤:", err);
+        });
+    }
+  }
+
   return (
     <div id="container">
       <Header />
@@ -52,11 +80,11 @@ function Love() {
       </section>
       <article>
         <div className="search">
-          <img src={user} alt="" />
-          <input type="text" placeholder="熱門貼文搜尋" />
-          <button>Search</button>
+          <img src={user} />
+          <input id="sI" type="text" placeholder="熱門貼文搜尋" onChange={sI} />
+          <button onClick={sB}>Search</button>
         </div>
-        <Article />
+        <Article searchQuery={searchQuery} />
       </article>
       <aside>
         <div className="aside">
@@ -89,4 +117,4 @@ function Love() {
   );
 }
 
-export default Love;
+export default Home;

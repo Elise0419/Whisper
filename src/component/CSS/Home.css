@@ -347,3 +347,8 @@ article a {
     width: 1.25rem;
     margin-left: 4rem;
 }
+
+.find {
+    text-align: center;
+    width: 100%;
+}

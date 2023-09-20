@@ -88,7 +88,7 @@ function Post({ userToken = null }) {
       setIsFavorited(!isFavorited);
       const newSaveCount = isFavorited ? post[0].save - 1 : post[0].save + 1;
 
-      fetch(`http://192.168.1.3:8000/api/v1/posts/${match.params.postId}`, {
+      fetch(`http://127.0.0.1:8000/api/v1/posts/${match.params.postId}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

@@ -11,20 +11,19 @@ function Comment() {
 
   useEffect(() => {
     function formatTime(time) {
-      if (!time || typeof time !== 'string') {
+      if (!time || typeof time !== "string") {
         return "Invalid Date";
       }
-    
+
       // 在這裡對日期字串進行格式化
       const year = time.substring(0, 4);
       const month = time.substring(5, 7);
       const date = time.substring(8, 10);
       const hours = time.substring(11, 13);
       const minutes = time.substring(14, 16);
-    
+
       return `${year}-${month}-${date} ${hours}:${minutes}`;
     }
-    
 
     function fetchData() {
       fetch(
@@ -38,7 +37,7 @@ function Comment() {
         })
         .then((jsonData) => {
           console.log(jsonData);
-          const comments = jsonData.data.map(comment => {
+          const comments = jsonData.data.map((comment) => {
             return {
               ...comment,
               time: formatTime(comment.createdtime),

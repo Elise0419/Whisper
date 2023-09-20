@@ -90,7 +90,7 @@ class PostController extends Controller
             ->get();
 
         if ($searchResults->count() === 0) {
-            return response()->json(['message' => '查無此貼文']);
+            return response()->json(['message' => 'Post not found!']);
         }
 
         return response()->json($searchResults);
@@ -147,11 +147,25 @@ class PostController extends Controller
 
     }
 
-    public function edit(Post $post)
+    public function updatepost(Request $request, $id)
     {
+        $post = Post::find($id);
 
+        if (!$post) {
+            return response()->json(['error' => 'Post not found']);
+        }
+        $post->update($request->all());
+        return response()->json(['message' => 'Post updated successfully', 'data' => $post]);
     }
 
+    public function getPostsByTag($tag)
+    {
+        $posts = Post::whereHas('tag', function ($query) use ($tag) {
+            $query->where('tag', $tag);
+        })->get();
+
+        return response()->json(['posts' => $posts]);
+    }
     /**
      * Remove the specified resource from storage.
      */

@@ -3,10 +3,7 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\V1\UserCollection;
-use App\Http\Resources\V1\UserResource;
 use App\Models\User;
-use App\Services\V1\UserQuery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -74,29 +71,4 @@ class ProfileController extends Controller
         return response()->json(['message' => '已成功更改身分證字號'], 201);
     }
 
-
-
-
-    public function index(Request $request)
-    {
-        $filter = new UserQuery();
-        $queryItems = $filter->transform($request);
-        //['column', 'operator', 'value']
-        // User::where(['column', 'operator', 'value']);
-        User::where($queryItems);
-
-        //check the input
-        if (count($queryItems) == 0) {
-
-            return new UserCollection(User::all());
-        } else {
-
-            return new UserCollection(User::where($queryItems)->get());
-        }
-    }
-    public function show(User $user)
-    {
-        return new UserResource($user);
-        //note use the url add /{id} could pick the specific data
-    }
 }

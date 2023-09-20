@@ -21,14 +21,14 @@ function Header() {
             <span className="whisper">WHISPER</span>
           </Link>
           <button className="ddBtn">
-            創建貼文
+            <p className="ddName">創建貼文</p>
             <img className="ddArrow" src={purpleArrow} />
             <span className="ddItem">
-              <Link to="/upload">美妝保養</Link>
-              <Link to="/upload">時尚穿搭</Link>
-              <Link to="/upload">美食情報</Link>
-              <Link to="/upload">健康生活</Link>
-              <Link to="/upload">感情生活</Link>
+              <Link to="/upload/mkup">美妝保養</Link>
+              <Link to="/upload/fashion">時尚穿搭</Link>
+              <Link to="/upload/food">美食情報</Link>
+              <Link to="/upload/life">健康生活</Link>
+              <Link to="/upload/love">感情生活</Link>
             </span>
           </button>
         </div>

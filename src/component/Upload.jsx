@@ -85,6 +85,35 @@ class Quill extends Component {
           ref={(el) => {
             this.quillRef = el;
           }}
+          value={this.state.text}
+          onChange={this.handleChange}
+          modules={{
+            toolbar: [
+              [{ header: "1" }, { header: "2" }],
+              ["bold", "italic", "underline", "strike"],
+              [{ list: "ordered" }, { list: "bullet" }],
+              ["blockquote", "code-block"],
+              [{ align: [] }],
+              ["link", "image"],
+              ["color", "background"],
+              ["clean"],
+              ["code"],
+            ],
+          }}
+        />
+        <button onClick={this.handleImageUpload} className="upBtn">
+          送出
+        </button>
+        <input
+          type="reset"
+          value="重置"
+          onClick={this.handleReset}
+          className="reBtn"
+        />
+        <ReactQuill
+          ref={(el) => {
+            this.quillRef = el;
+          }}
           className="quill-editor"
           value={this.state.text}
           onChange={this.handleChange}

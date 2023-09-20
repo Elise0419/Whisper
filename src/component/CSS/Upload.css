@@ -46,20 +46,21 @@ header {
 .upBtn,
 .reBtn {
     font-size: large;
-    padding: 5px 10px;
-    background-color: white;
-    border-radius: 10px;
-    margin: 5px;
-    color: darkgray;
-    float: right;
+    padding: 0.1rem 0.75rem;
+    border-radius: var(--radius);
+    margin: 0.5rem;
 }
 
 .upBtn {
-    border: 1px solid darkseagreen;
+    color: var(--colorPurple);
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
 }
 
 .reBtn {
-    border: 1px solid salmon;
+    color: var(--colorGray200);
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
 }
 
 .quill-editor {

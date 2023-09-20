@@ -172,36 +172,51 @@ function Makeup() {
     <div id="container">
       <Header />
       <section>
-        <div className="topicTitle">
-          <p>推薦的個人論壇</p>
+        <div className="topic">
+          <p>主題個版</p>
           <Link to="/mkup" onClick={deleteSearch}>
             <img className="topicImg" src={lip} />
-            <p className="topicList">美妝保養</p>
-            {/* <p>各種美妝技巧貼文</p> */}
+            <span className="topicList">
+              美妝保養
+              <br />
+              <span>各種美妝技巧貼文</span>
+            </span>
             <img className="topicArrow" src={redArrow} />
           </Link>
           <Link to="/food" onClick={deleteSearch}>
             <img className="topicImg" src={cake} />
-            <p className="topicList">美食情報</p>
-            {/* <p>好食物好味道</p> */}
+            <span className="topicList">
+              美食情報
+              <br />
+              <span>好食物好味道</span>
+            </span>
             <img className="topicArrow" src={redArrow} />
           </Link>
           <Link to="/life" onClick={deleteSearch}>
             <img className="topicImg" src={yoga} />
-            <p className="topicList">健康生活</p>
-            {/* <p>綠色出行綠色生活</p> */}
+            <span className="topicList">
+              健康生活
+              <br />
+              <span>綠色出行綠色生活</span>
+            </span>
             <img className="topicArrow" src={redArrow} />
           </Link>
           <Link to="/fashion" onClick={deleteSearch}>
             <img className="topicImg" src={dress} />
-            <p className="topicList">時尚穿搭</p>
-            {/* <p>fashion前言趨勢</p> */}
+            <span className="topicList">
+              時尚穿搭
+              <br />
+              <span>fashion前言趨勢</span>
+            </span>
             <img className="topicArrow" src={redArrow} />
           </Link>
           <Link to="/love" onClick={deleteSearch}>
             <img className="topicImg" src={love} />
-            <p className="topicList">感情生活</p>
-            {/* <p>各種抱怨聚集地</p> */}
+            <span className="topicList">
+              感情生活
+              <br />
+              <span>各種抱怨聚集地</span>
+            </span>
             <img className="topicArrow" src={redArrow} />
           </Link>
         </div>
@@ -321,48 +336,44 @@ function Makeup() {
       <aside>
         <div className="aside">
           <span className="voteTopic">
-            <img src={makeup2} />
-            <span>美妝保養</span>
+            <p>
+              <img src={makeup2} />
+              &nbsp;&nbsp;美妝保養
+            </p>
           </span>
           <div className="vote">
             <span className="voteTitle">最好用的評價口紅!!!😍</span>
-            <span>
-              <div className="mydict">
-                <div>
-                  <label>
-                    <input type="radio" name="radio" />
-                    <span>heme</span>
-                  </label>
-                  <label>
-                    <input type="radio" name="radio" />
-                    <span>Romand</span>
-                  </label>
-                </div>
+            <div className="choice">
+              <div>
+                <label>
+                  <input type="radio" name="radio" />
+                  <span>heme</span>
+                </label>
+                <label>
+                  <input type="radio" name="radio" />
+                  <span>Romand</span>
+                </label>
               </div>
-            </span>
+            </div>
             <img src={makeup2} />
             <img src={makeup2} />
           </div>
         </div>
-        <div className="forumTag">
-          <span>
-            <p>話題選擇器</p>
+        <div className="aside">
+          <p>話題選擇器</p>
+          <span className="tag">
             {tag.map((tag) => {
               return (
-                <button
-                  className="tag"
-                  onClick={() => hashtag(tag.tag)}
-                  key={tag.tag_id}
-                >
+                <button onClick={() => hashtag(tag.tag)} key={tag.tag_id}>
                   #{tag.tag}
                 </button>
               );
             })}
           </span>
         </div>
-        <div className="forumRule">
+        <div className="aside">
           <p>個版規則</p>
-          <ol>
+          <ol className="rule">
             {rule.map((rule) => {
               return (
                 <div key={rule.id}>

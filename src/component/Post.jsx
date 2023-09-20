@@ -5,11 +5,14 @@ import "./CSS/Post.css";
 import Comment from "./Block/Comment";
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
-import Aside from "./Block/Aside";
+
+import makeup2 from "./Img/makeup.jpeg";
 
 function Post({ userToken = null }) {
   const match = useRouteMatch();
   let [post, setPost] = useState([]);
+  let [rule, setRule] = useState([]);
+  let [tag, setTag] = useState([]);
 
   useEffect(() => {
     function fetchData() {
@@ -87,6 +90,23 @@ function Post({ userToken = null }) {
     }
   };
 
+  function hashtag(t) {
+    document.getElementById("searchBar").value = "";
+    fetch(`http://127.0.0.1:8000/api/v1/posts?tag[eq]=${t}`, {
+      method: "GET",
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((jsonData) => {
+        // setCard(jsonData);
+        // setFind(false);
+      })
+      .catch((err) => {
+        console.log("錯誤:", err);
+      });
+  }
+
   return (
     <div id="container">
       <Header />
@@ -140,7 +160,61 @@ function Post({ userToken = null }) {
           );
         })}
       </article>
-      <Aside />
+      <aside>
+        <div className="aside">
+          <span className="voteTopic">
+            <img src={makeup2} />
+            <span>美妝保養</span>
+          </span>
+          <div className="vote">
+            <span className="voteTitle">最好用的評價口紅!!!😍</span>
+            <span>
+              <div className="mydict">
+                <div>
+                  <label>
+                    <input type="radio" name="radio" />
+                    <span>heme</span>
+                  </label>
+                  <label>
+                    <input type="radio" name="radio" />
+                    <span>Romand</span>
+                  </label>
+                </div>
+              </div>
+            </span>
+            <img src={makeup2} />
+            <img src={makeup2} />
+          </div>
+        </div>
+        <div className="forumTag">
+          <span>
+            <p>話題選擇器</p>
+            {tag.map((tag) => {
+              return (
+                <button
+                  className="tag"
+                  onClick={() => hashtag(tag.tag)}
+                  key={tag.tag_id}
+                >
+                  #{tag.tag}
+                </button>
+              );
+            })}
+          </span>
+        </div>
+        <div className="forumRule">
+          <p>個版規則</p>
+          <ol>
+            {rule.map((rule) => {
+              return (
+                <div key={rule.id}>
+                  <li>{rule.content}</li>
+                </div>
+              );
+            })}
+          </ol>
+        </div>
+      </aside>
       <Footer />
     </div>
   );

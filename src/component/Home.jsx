@@ -130,36 +130,51 @@ function Home() {
     <div id="container">
       <Header />
       <section>
-        <div className="topicTitle">
-          <p>推薦的個人論壇</p>
+        <div className="topic">
+          <p>主題個版</p>
           <Link to="/mkup" onClick={deleteSearch}>
             <img className="topicImg" src={lip} />
-            <p className="topicList">美妝保養</p>
-            {/* <p>各種美妝技巧貼文</p> */}
+            <span className="topicList">
+              美妝保養
+              <br />
+              <span>各種美妝技巧貼文</span>
+            </span>
             <img className="topicArrow" src={redArrow} />
           </Link>
           <Link to="/food" onClick={deleteSearch}>
             <img className="topicImg" src={cake} />
-            <p className="topicList">美食情報</p>
-            {/* <p>好食物好味道</p> */}
+            <span className="topicList">
+              美食情報
+              <br />
+              <span>好食物好味道</span>
+            </span>
             <img className="topicArrow" src={redArrow} />
           </Link>
           <Link to="/life" onClick={deleteSearch}>
             <img className="topicImg" src={yoga} />
-            <p className="topicList">健康生活</p>
-            {/* <p>綠色出行綠色生活</p> */}
+            <span className="topicList">
+              健康生活
+              <br />
+              <span>綠色出行綠色生活</span>
+            </span>
             <img className="topicArrow" src={redArrow} />
           </Link>
           <Link to="/fashion" onClick={deleteSearch}>
             <img className="topicImg" src={dress} />
-            <p className="topicList">時尚穿搭</p>
-            {/* <p>fashion前言趨勢</p> */}
+            <span className="topicList">
+              時尚穿搭
+              <br />
+              <span>fashion前言趨勢</span>
+            </span>
             <img className="topicArrow" src={redArrow} />
           </Link>
           <Link to="/love" onClick={deleteSearch}>
             <img className="topicImg" src={love} />
-            <p className="topicList">感情生活</p>
-            {/* <p>各種抱怨聚集地</p> */}
+            <span className="topicList">
+              感情生活
+              <br />
+              <span>各種抱怨聚集地</span>
+            </span>
             <img className="topicArrow" src={redArrow} />
           </Link>
         </div>
@@ -190,13 +205,9 @@ function Home() {
               >
                 <span className="cardTop">
                   {typeof card.imgUrl === "string" ? (
-                    <img
-                      className="cardImg"
-                      src={card.imgUrl}
-                      referrerPolicy="no-referrer"
-                    />
+                    <img src={card.imgUrl} referrerPolicy="no-referrer" />
                   ) : (
-                    <span className="cardTxt">
+                    <span>
                       <span className="paperTape">paperTapepaperTape</span>
                       <br />
                       {card.content}
@@ -205,7 +216,7 @@ function Home() {
                 </span>
                 <span className="cardMid">
                   <img src={card.headImg} />
-                  <span className="cardTitle">{card.title}</span>
+                  <span>{card.title}</span>
                 </span>
                 <span className="cardBtm">
                   <span>#{card.tag}</span>
@@ -227,8 +238,8 @@ function Home() {
           {pop.map((pop) => {
             return (
               <Link to={`/post/${pop.postId}`} key={pop.postId}>
-                <img className="rankNum" src={pop.headImg} />
-                <p className="rankList">{pop.title}</p>
+                <img className="rankImg" src={pop.headImg} />
+                <span className="rankList">{pop.title}</span>
                 <img className="rankArrow" src={redArrow} />
               </Link>
             );
@@ -239,8 +250,8 @@ function Home() {
           {like.map((like) => {
             return (
               <Link to={`/post/${like.postId}`} key={like.postId}>
-                <img className="rankNum" src={like.headImg} />
-                <p className="rankList">{like.title}</p>
+                <img className="rankImg" src={like.headImg} />
+                <span className="rankList">{like.title}</span>
                 <img className="rankArrow" src={redArrow} />
               </Link>
             );

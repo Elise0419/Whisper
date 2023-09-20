@@ -3,16 +3,13 @@
     src: url('../Inter/Inter-VariableFont_slnt\,wght.ttf');
 }
 
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Inter;
-}
-
 #container {
     width: 100%;
+    margin: 0;
+    padding: 0;
     display: flex;
     flex-wrap: wrap;
+    font-family: Inter;
     flex-direction: row;
     justify-content: center;
 }
@@ -25,6 +22,10 @@ section {
 article {
     width: 806px;
     min-height: 920px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: start;
+    justify-content: center;
 }
 
 aside {
@@ -49,20 +50,6 @@ aside {
 
 /* - - - - - - - - - - */
 
-article {
-    display: flex;
-    flex-wrap: wrap;
-    align-content: start;
-    justify-content: center;
-}
-
-.cardContainer {
-    width: 50rem;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-}
-
 article a {
     text-decoration: none;
 }
@@ -72,8 +59,8 @@ article a {
     height: 5.375rem;
     border: 2px solid var(--colorPink100);
     display: flex;
-    margin-top: 1.25rem;
     box-sizing: border-box;
+    margin-top: 1.25rem;
     align-items: center;
     margin-left: 0.375rem;
     margin-right: 0.375rem;
@@ -109,6 +96,20 @@ article a {
     background-color: var(--colorYellow);
 }
 
+.find {
+    text-align: center;
+    width: 100%;
+}
+
+/* - - - - - - - - - - */
+
+.cardContainer {
+    width: 50rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
 .card {
     width: 11.75rem;
     height: 11.75rem;
@@ -119,7 +120,6 @@ article a {
     margin-right: 0.375rem;
     border-radius: 1rem;
     background-color: white;
-    text-decoration: none;
 }
 
 .cardTop {
@@ -130,7 +130,14 @@ article a {
     background-color: var(--colorPink100);
 }
 
-.cardTxt {
+.cardTop img {
+    width: 11.5rem;
+    height: 8.25rem;
+    object-fit: cover;
+    border-radius: 0.9rem 0.9rem 0 0;
+}
+
+.cardTop>span {
     color: var(--colorGray300);
     width: 11.5rem;
     height: 8.25rem;
@@ -141,13 +148,6 @@ article a {
     text-align: center;
     padding-left: 0.625rem;
     padding-right: 0.625rem;
-}
-
-.cardImg {
-    width: 11.5rem;
-    height: 8.25rem;
-    object-fit: cover;
-    border-radius: 0.9rem 0.9rem 0 0;
 }
 
 .paperTape {
@@ -172,7 +172,7 @@ article a {
     height: 1.5rem;
 }
 
-.cardTitle {
+.cardMid span {
     color: black;
     display: -webkit-box;
     overflow: hidden;
@@ -251,10 +251,11 @@ article a {
 }
 
 /* - - - - - - - - - - */
-.topicTitle {
+.topic,
+.aside {
     width: 13.125rem;
-    height: 19.8125rem;
-    border: 2px solid var(--colorPink200);
+    padding-bottom: 1.25rem;
+    border: var(--colorPink200) solid 2px;
     box-sizing: border-box;
     margin-top: 1.25rem;
     margin-left: 2.5rem;
@@ -262,20 +263,26 @@ article a {
     background-color: var(--colorPink100);
 }
 
-.topicTitle>p {
+.topic>p,
+.aside p {
     color: var(--colorYellow);
     font-size: 1.25rem;
     font-weight: bold;
     margin-left: 1.25rem;
 }
 
-.topicTitle>a {
+.topic>a,
+.aside>a {
     color: var(--colorGray200);
     display: flex;
     font-size: 0.875rem;
-    font-weight: bold;
     align-items: center;
     text-decoration: none;
+}
+
+.topic>a {
+    margin-top: 1.25rem;
+    font-weight: bold;
 }
 
 .topicImg {
@@ -287,53 +294,37 @@ article a {
 
 .topicList {
     margin-left: 1rem;
+    width: 6.5rem;
+}
+
+.topicList span {
+    font-size: 0.625rem;
+    font-weight: normal;
 }
 
 .topicArrow {
     width: 1.25rem;
-    margin-left: 3.0625rem;
 }
 
 /* - - - - - - - - - - */
 .aside {
     width: 20.25rem;
     height: fit-content;
-    border: var(--colorPink200) solid 2px;
-    box-sizing: border-box;
-    margin-top: 1.25rem;
     margin-left: 0.625rem;
     padding-bottom: 1rem;
-    border-radius: 1rem;
-    background-color: var(--colorPink100);
 }
 
-.aside>p {
-    color: var(--colorYellow);
-    font-size: 1.25rem;
-    font-weight: bold;
+.aside p {
     margin-left: 1.5rem;
 }
 
-.aside>a {
-    color: var(--colorGray300);
-    display: flex;
-    font-size: 0.875rem;
-    align-items: center;
-    text-decoration: none;
-}
-
-.rankNum {
+.rankImg {
     width: 3rem;
     height: 3rem;
-    color: white;
     margin: 0.3125rem 0.875rem 0.3125rem 1.5rem;
     display: flex;
     object-fit: cover;
-    font-weight: bold;
-    align-items: center;
     border-radius: var(--circle);
-    justify-content: center;
-    background-color: var(--colorPink300);
 }
 
 .rankList {
@@ -347,9 +338,4 @@ article a {
 .rankArrow {
     width: 1.25rem;
     margin-left: 4rem;
-}
-
-.find {
-    text-align: center;
-    width: 100%;
 }

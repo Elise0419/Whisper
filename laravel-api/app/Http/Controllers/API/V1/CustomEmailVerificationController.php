@@ -46,4 +46,8 @@ class CustomEmailVerificationController extends Controller
         Notification::send($user, new CustomVerifyEmail($user));
         return response()->json(['message' => '信件已發送，請至信箱確認']);
     }
+    public function verifynotice()
+    {
+        return response()->json(['mseeage' => '請先完成信箱驗證'], 403);
+    }
 }

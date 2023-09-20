@@ -40,7 +40,7 @@ class CustomEmailVerificationController extends Controller
         return response()->json(['message' => '已完成信箱驗證'], 200);
     }
 
-    public function resendverify()
+    public function verifysending()
     {
         $user = Auth::user();
         Notification::send($user, new CustomVerifyEmail($user));

@@ -40,7 +40,7 @@ Route::get('/api/email/verify', function () {
 
 Route::controller(CustomEmailVerificationController::class)->group(function () {
     Route::get('/email/verify/{user_id}/{hash}', 'verify')->middleware(['signed'])->name('verification.verify');
-    Route::get('/api/email/verification-notification', 'resendverify')->middleware(['auth:api', 'throttle:5,1'])->name('verification.send');
+    Route::get('/email/verification-notification', 'verifysending')->middleware(['auth:api', 'throttle:5,1'])->name('verification.send');
 });
 // Route::get('/email/verify/{user_id}/{hash}', [CustomEmailVerificationController::class, 'verify'])
 //     ->middleware(['signed'])

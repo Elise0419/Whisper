@@ -16,6 +16,7 @@ function Profile() {
     idNumber: "A247850405",
     phoneNumber: "0916888888",
   });
+  
   const [isEditing, setIsEditing] = useState({
     profilePic: false,
     username: false,
@@ -25,14 +26,7 @@ function Profile() {
     phoneNumber: false,
   });
 
-  // const [isEditing, setIsEditing] = useState({
-  //   profilePic: false, // 是否編輯頭像
-  //   username: false, // 是否編輯用戶名稱
-  //   userDeclaration: false, // 是否編輯用戶聲明
-  //   email: false, // 是否編輯電子郵件
-  //   idNumber: false, // 是否編輯身份證字號
-  //   phoneNumber: false, // 是否編輯手機號碼
-  // });
+  
 
   const handleEditClick = (field) => {
     setUser({ ...user, [field]: true });
@@ -41,26 +35,7 @@ function Profile() {
   const handleSaveClick = async (field) => {
     setUser({ ...user, [field]: false });
 
-    // if (field === "profilePic" && selectedImage) {
-    //   const formData = new FormData();
-    //   formData.append("profilePic", selectedImage);
-
-    //   try {
-    //     const response = await Axios.post(
-    //       "http://example.com/upload_profile_pic.php", // 替换成你的后端 API 地址
-    //       formData,
-    //       {
-    //         headers: {
-    //           "Content-Type": "multipart/form-data",
-    //         },
-    //       }
-    //     );
-
-    //     // 更新成功后进行一些操作
-    //   } catch (error) {
-    //     console.error("Error updating profile pic:", error);
-    //   }
-    // }
+    
   };
   // 處理圖片更改的事件
   const handleImageChange = (event) => {
@@ -75,12 +50,12 @@ function Profile() {
 
   localStorage.setItem(
     "token",
- "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTAuMTAuMjQ3LjQzOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNjk1MDk0MTkwLCJleHAiOjE2OTUwOTc3OTAsIm5iZiI6MTY5NTA5NDE5MCwianRpIjoidGZ5NnBGaU1Nd3V6S21UQyIsInN1YiI6IjI4IiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.KecFIB_xX-cYAUvktHfYMVIybxm9j2jZTk6_xWIfsjo" );
+    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTAuMTAuMjQ3LjQzOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNjk1MTc1MzEyLCJleHAiOjE2OTUxNzg5MTIsIm5iZiI6MTY5NTE3NTMxMiwianRpIjoiUjFLdmJHM0dmYXNhc1NzZyIsInN1YiI6IjI4IiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.hXfc_CeJLx0fyOve1HdWkn235zRVdx1X4RdZ-B-bCm4");
   var token = localStorage.getItem("token");
 
   useEffect(() => {
     function fetchData() {
-      fetch("http://10.10.247.43/api/profile", {
+      fetch("http://10.10.247.43:8000/api/profile", {
         method: "get",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -116,12 +91,13 @@ function Profile() {
                 <input
                   type="text"
                   id="username"
-                  value={user.mem_name}
+                  value={user?.mem_name || ""} // 使用 optional chaining 和空字符串作为默认值
                   readOnly={!isEditing.username}
                   onChange={(e) =>
                     handleInputChange("username", e.target.value)
                   }
                 />
+
                 {isEditing.username ? (
                   <button
                     type="button"
@@ -147,7 +123,7 @@ function Profile() {
                 <input
                   type="text"
                   id="UserDeclaration"
-                  value={formData.userDeclaration}
+                  value={user?.promise || ""}
                   readOnly={!isEditing.userDeclaration}
                   onChange={(e) =>
                     handleInputChange("userDeclaration", e.target.value)
@@ -179,7 +155,7 @@ function Profile() {
                   type="email"
                   id="email"
                   name="email"
-                  value={user.email}
+                  value={user?.email || ""}
                   readOnly={!isEditing.email}
                   onChange={(e) => handleInputChange("email", e.target.value)}
                 />
@@ -209,7 +185,7 @@ function Profile() {
                   type="text"
                   id="idNumber"
                   name="idNumber"
-                  value={user.person_id}
+                  value={user?.person_id || ""}
                   pattern="^[A-Z][0-9]{9}$"
                   title="請輸入有效的身份證字號，格式為一個英文字母後接九位數字。"
                   required
@@ -244,7 +220,7 @@ function Profile() {
                   type="tel"
                   id="phoneNumber"
                   name="phoneNumber"
-                  value={user.phone}
+                  value={user?.phone || ""}
                   pattern="^0\d{1,2}-?\d{6,7}$"
                   required
                   readOnly={!isEditing.phoneNumber}

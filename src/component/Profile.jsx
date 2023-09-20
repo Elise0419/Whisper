@@ -98,9 +98,8 @@ function Profile() {
   useEffect(() => {
     function fetchData() {
       const token = localStorage.getItem("token");
-      console.log("Token in Profile:", token); // Check if the token is obtained correctly
-
-      
+      console.log("Token in Profile:", token);
+  
       fetch("http://10.10.247.43:8000/api/profile", {
         method: "GET",
         headers: {
@@ -116,28 +115,30 @@ function Profile() {
         .then((jsonData) => {
           if (jsonData.error) {
             console.log("API 返回了一个错误:", jsonData.error);
-            // 可以在这里采取一些处理措施，例如跳转到登录页面
           } else {
             console.log("API返回的数据:", jsonData);
             setUser(jsonData.user);
             setFormData({
-              username: jsonData.user.mem_name,
-              userDeclaration: jsonData.user.promise,
-              email: jsonData.user.email,
-              idNumber: jsonData.user.person_id,
-              phoneNumber: jsonData.user.phone,
-            });
+              mem_name_change: jsonData.user.mem_name, // 添加此行
+                email_change: jsonData.user.email,
+                phone_change: jsonData.user.phone,
+                person_id_change: jsonData.user.person_id,
+                userDeclaration: jsonData.user.userDeclaration,
+
+              });
+              
+
           }
         })
-        
-        
         .catch((err) => {
           console.log("Error:", err);
-          // 在这里可以做错误处理，比如显示一个错误提示
         });
     }
     fetchData();
   }, []);
+  
+        
+
 
   return (
     <div id="container">

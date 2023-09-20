@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./CSS/Profile.css";
-// import Axios from "axios";
-
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
 import Asideuser from "./Block/Asideuser";
@@ -11,11 +9,12 @@ function Profile() {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const [formData, setFormData] = useState({
-    username: " ",
-    userDeclaration: " ",
-    email: " ",
-    idNumber: " ",
-    phoneNumber: " ",
+
+    username: "",
+    idNumber: "",
+    email: "",
+    phoneNumber: "", // 添加了 phoneNumber 字段
+    userDeclaration: "",
   });
 
   const [isEditing, setIsEditing] = useState({
@@ -35,8 +34,8 @@ function Profile() {
 
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://10.10.247.43:8000/api/profile", {
-        method: "put",
+      const response = await fetch(`http://10.10.247.43:8000/api/${field}change`, {
+        method: "post",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -48,7 +47,7 @@ function Profile() {
         const jsonData = await response.json();
         console.log(jsonData);
       } else {
-        console.log("失敗上傳")
+        console.log("更新失败");
         throw new Error("API request failed");
       }
     } catch (error) {
@@ -56,43 +55,84 @@ function Profile() {
     }
   };
 
-  //輸入框狀態
+  const handleImageUpload = (event) => {
+    setSelectedImage(event.target.files[0]);
+  };
+
+  const handleImageSave = async () => {
+    const formData = new FormData();
+    formData.append("head_img", selectedImage);
+
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`http://10.10.247.43:8000/api/headimgchange`, {
+        method: "post",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
+
+      if (response.ok) {
+        const jsonData = await response.json();
+        console.log(jsonData);
+      } else {
+        console.log("上传头像失败");
+        throw new Error("API request failed");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   const handleInputChange = (field, value) => {
     console.log(`Updating ${field} with value: ${value}`);
     setFormData({ ...formData, [field]: value });
   };
 
-  // 編輯狀態
   const handleEditClick = (field) => {
     console.log(`Editing ${field}`);
     setIsEditing({ ...isEditing, [field]: true });
   };
 
-
-
   useEffect(() => {
     function fetchData() {
       const token = localStorage.getItem("token");
+      console.log("Token in Profile:", token); // 检查是否能正确获取到 token
+      
       fetch("http://10.10.247.43:8000/api/profile", {
-        method: "get",
+        method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-        .then((res) => res.json())
-        .then((jsonData) => {
-          console.log(jsonData.user);
-          setUser(jsonData.user);
-          setFormData({
-            username: jsonData.user.mem_name,
-            userDeclaration: jsonData.user.promise,
-            email: jsonData.user.email,
-            idNumber: jsonData.user.person_id,
-            phoneNumber: jsonData.user.phone,
-          });
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error('API request failed');
+          }
+          return res.json();
         })
+        .then((jsonData) => {
+          if (jsonData.error) {
+            console.log("API 返回了一个错误:", jsonData.error);
+            // 可以在这里采取一些处理措施，例如跳转到登录页面
+          } else {
+            console.log("API返回的数据:", jsonData);
+            setUser(jsonData.user);
+            setFormData({
+              username: jsonData.user.mem_name,
+              userDeclaration: jsonData.user.promise,
+              email: jsonData.user.email,
+              idNumber: jsonData.user.person_id,
+              phoneNumber: jsonData.user.phone,
+            });
+          }
+        })
+        
+        
         .catch((err) => {
           console.log("Error:", err);
+          // 在这里可以做错误处理，比如显示一个错误提示
         });
     }
     fetchData();
@@ -109,16 +149,44 @@ function Profile() {
           <hr />
           <div className="ProfileForm">
             <form>
+              <div className="profilePic">
+                <label htmlFor="profilePic">頭像:</label>
+                {isEditing.profilePic ? (
+                  <div>
+                    <input
+                      type="file"
+                      id="profilePic"
+                      accept="image/*"
+                      onChange={handleImageUpload}
+                    />
+                    <button type="button" onClick={handleImageSave}>
+                      保存
+                    </button>
+                  </div>
+                ) : (
+                  <img
+                    src={user?.headimg || "/default-avatar.jpg"}
+                    alt="Profile Pic"
+                    className="profilePic"
+                  />
+                )}
+                <button
+                  type="button"
+                  onClick={() => setIsEditing({ ...isEditing, profilePic: true })}
+                >
+                  編輯
+                </button>
+              </div>
+              <hr />
+
               <div className="profileuserName">
                 <label htmlFor="username">用戶名稱:</label>
                 <input
                   type="text"
                   id="username"
-                  value={formData.username}  // 使用formData中的值
+                  value={formData.username}
                   readOnly={!isEditing.username}
-                  onChange={(e) =>
-                    handleInputChange("username", e.target.value)
-                  }
+                  onChange={(e) => handleInputChange("username", e.target.value)}
                 />
 
                 {isEditing.username ? (
@@ -274,7 +342,6 @@ function Profile() {
         </div>
       </article>
       <aside>
-        {/* 側邊欄內容 */}
         <Asideuser />
       </aside>
       <Footer />

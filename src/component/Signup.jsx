@@ -49,7 +49,13 @@ const handleSubmit = (event) => {
       },
       body: JSON.stringify(requestData),
     })
-      .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('API request failed');
+      }
+      return response.json();
+    })
+    
       .then((data) => {
         console.log(data);
         // 处理从后端返回的数据

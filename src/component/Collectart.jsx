@@ -27,7 +27,6 @@ function Collectart() {
           </div>
         </div>
         <div className="manageBtn">
-          <button className="editBtn">編輯</button>
           <button className="deleteBtn">刪除</button>
         </div>
         <hr />

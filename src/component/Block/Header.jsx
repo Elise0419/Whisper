@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 
 import "../CSS/Header.css";
 
-import user from "../Img/dog.jpeg";
 import logo from "../Img/logo.png";
 import whiteArrow from "../Img/whiteArrow.png";
 import purpleArrow from "../Img/purpleArrow.png";
+import rabbit from "../Img/rabbit.png";
 
 function Header() {
   return (
@@ -34,7 +34,7 @@ function Header() {
         </div>
         <div>
           <Link to="/profile">
-            <img className="userImg" src={user} />
+            <img className="userImg" src={rabbit} />
           </Link>
           <Link to="/profile">
             <span className="userName">David.one</span>

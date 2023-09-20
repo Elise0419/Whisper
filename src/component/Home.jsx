@@ -5,15 +5,15 @@ import "./CSS/Home.css";
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
 
-import lip from "./Img/lip.jpg";
-import love from "./Img/love.jpg";
-import dress from "./Img/dress.jpg";
-import cake from "./Img/cake.jpg";
-import yoga from "./Img/yoga.jpg";
-import user from "./Img/dog.jpeg";
 import thumb from "./Img/thumb.png";
 import redArrow from "./Img/redArrow.png";
 import comment from "./Img/comment.png";
+import aroma from "./Img/aroma.png";
+import dress from "./Img/dress.png";
+import makeup from "./Img/makeup.png";
+import cake from "./Img/cake.png";
+import rose from "./Img/rose.png";
+import rabbit from "./Img/rabbit.png";
 
 function Home() {
   const match = useRouteMatch();
@@ -133,7 +133,7 @@ function Home() {
         <div className="topic">
           <p>主題個版</p>
           <Link to="/mkup" onClick={deleteSearch}>
-            <img className="topicImg" src={lip} />
+            <img className="topicImg" src={makeup} />
             <span className="topicList">
               美妝保養
               <br />
@@ -151,7 +151,7 @@ function Home() {
             <img className="topicArrow" src={redArrow} />
           </Link>
           <Link to="/life" onClick={deleteSearch}>
-            <img className="topicImg" src={yoga} />
+            <img className="topicImg" src={aroma} />
             <span className="topicList">
               健康生活
               <br />
@@ -169,7 +169,7 @@ function Home() {
             <img className="topicArrow" src={redArrow} />
           </Link>
           <Link to="/love" onClick={deleteSearch}>
-            <img className="topicImg" src={love} />
+            <img className="topicImg" src={rose} />
             <span className="topicList">
               感情生活
               <br />
@@ -181,7 +181,7 @@ function Home() {
       </section>
       <article>
         <div className="search">
-          <img src={user} />
+          <img src={rabbit} />
           <input
             id="searchBar"
             type="text"

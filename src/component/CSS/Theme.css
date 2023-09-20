@@ -38,7 +38,7 @@
     height: 3.75rem;
     object-fit: cover;
     vertical-align: middle;
-    border-radius: var(--circle);
+    /* border-radius: var(--circle); */
 }
 
 .vote {
@@ -118,6 +118,10 @@
 }
 
 /* - - - - - - - - - - */
+.bite {
+    width: 40px;
+    vertical-align: middle;
+}
 
 .tag {
     display: inline-block;

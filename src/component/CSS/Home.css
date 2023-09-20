@@ -3,6 +3,10 @@
     src: url('../Inter/Inter-VariableFont_slnt\,wght.ttf');
 }
 
+* {
+    cursor: url(../Img/rose2.png), auto;
+}
+
 #container {
     width: 100%;
     margin: 0;
@@ -72,6 +76,7 @@ article a {
     width: 2.875rem;
     margin-left: 1.25rem;
     border-radius: var(--circle);
+    background-color: white;
 }
 
 .search input {
@@ -286,10 +291,10 @@ article a {
 }
 
 .topicImg {
-    width: 1.875rem;
-    height: 1.875rem;
+    width: 2rem;
+    height: 2rem;
     margin-left: 1.25rem;
-    border-radius: var(--circle);
+    /* border-radius: var(--circle); */
 }
 
 .topicList {

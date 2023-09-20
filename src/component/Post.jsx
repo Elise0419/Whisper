@@ -7,6 +7,8 @@ import Header from "./Block/Header";
 import Footer from "./Block/Footer";
 
 import makeup2 from "./Img/makeup.jpeg";
+import bite from "./Img/bite.png";
+import makeup from "./Img/makeup.png";
 
 function Post({ userToken = null }) {
   const match = useRouteMatch();
@@ -163,48 +165,47 @@ function Post({ userToken = null }) {
       <aside>
         <div className="aside">
           <span className="voteTopic">
-            <img src={makeup2} />
-            <span>美妝保養</span>
+            <p>
+              <img src={makeup} />
+              &nbsp;&nbsp;美妝保養
+            </p>
           </span>
           <div className="vote">
             <span className="voteTitle">最好用的評價口紅!!!😍</span>
-            <span>
-              <div className="mydict">
-                <div>
-                  <label>
-                    <input type="radio" name="radio" />
-                    <span>heme</span>
-                  </label>
-                  <label>
-                    <input type="radio" name="radio" />
-                    <span>Romand</span>
-                  </label>
-                </div>
+            <div className="choice">
+              <div>
+                <label>
+                  <input type="radio" name="radio" />
+                  <span>heme</span>
+                </label>
+                <label>
+                  <input type="radio" name="radio" />
+                  <span>Romand</span>
+                </label>
               </div>
-            </span>
+            </div>
             <img src={makeup2} />
             <img src={makeup2} />
           </div>
         </div>
-        <div className="forumTag">
-          <span>
-            <p>話題選擇器</p>
+        <div className="aside">
+          <p>
+            話題選擇器&nbsp;&nbsp;
+            <img src={bite} className="bite" />
+          </p>
+          <span className="tag">
             {tag.map((tag) => {
               return (
-                <button
-                  className="tag"
-                  onClick={() => hashtag(tag.tag)}
-                  key={tag.tag_id}
-                >
+                <button onClick={() => hashtag(tag.tag)} key={tag.tag_id}>
                   #{tag.tag}
                 </button>
               );
             })}
           </span>
         </div>
-        <div className="forumRule">
+        <div className="aside">
           <p>個版規則</p>
-          <ol>
+          <ol className="rule">
             {rule.map((rule) => {
               return (
                 <div key={rule.id}>

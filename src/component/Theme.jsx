@@ -9,13 +9,14 @@ import thumb from "./Img/thumb.png";
 import comment from "./Img/comment.png";
 import user from "./Img/dog.jpeg";
 import adArrow from "./Img/adArrow.png";
-import makeup2 from "./Img/makeup.jpeg";
 import redArrow from "./Img/redArrow.png";
-import lip from "./Img/lip.jpg";
-import love from "./Img/love.jpg";
-import dress from "./Img/dress.jpg";
-import cake from "./Img/cake.jpg";
-import yoga from "./Img/yoga.jpg";
+import makeup2 from "./Img/makeup.jpeg";
+import aroma from "./Img/aroma.png";
+import dress from "./Img/dress.png";
+import makeup from "./Img/makeup.png";
+import cake from "./Img/cake.png";
+import rose from "./Img/rose.png";
+import bite from "./Img/bite.png";
 
 function Makeup() {
   const match = useRouteMatch();
@@ -175,7 +176,7 @@ function Makeup() {
         <div className="topic">
           <p>主題個版</p>
           <Link to="/mkup" onClick={deleteSearch}>
-            <img className="topicImg" src={lip} />
+            <img className="topicImg" src={makeup} />
             <span className="topicList">
               美妝保養
               <br />
@@ -193,7 +194,7 @@ function Makeup() {
             <img className="topicArrow" src={redArrow} />
           </Link>
           <Link to="/life" onClick={deleteSearch}>
-            <img className="topicImg" src={yoga} />
+            <img className="topicImg" src={aroma} />
             <span className="topicList">
               健康生活
               <br />
@@ -211,7 +212,7 @@ function Makeup() {
             <img className="topicArrow" src={redArrow} />
           </Link>
           <Link to="/love" onClick={deleteSearch}>
-            <img className="topicImg" src={love} />
+            <img className="topicImg" src={rose} />
             <span className="topicList">
               感情生活
               <br />
@@ -337,7 +338,7 @@ function Makeup() {
         <div className="aside">
           <span className="voteTopic">
             <p>
-              <img src={makeup2} />
+              <img src={makeup} />
               &nbsp;&nbsp;美妝保養
             </p>
           </span>
@@ -360,7 +361,10 @@ function Makeup() {
           </div>
         </div>
         <div className="aside">
-          <p>話題選擇器</p>
+          <p>
+            話題選擇器&nbsp;&nbsp;
+            <img src={bite} className="bite" />
+          </p>
           <span className="tag">
             {tag.map((tag) => {
               return (

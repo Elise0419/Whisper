@@ -14,6 +14,7 @@ import makeup from "./Img/makeup.png";
 import cake from "./Img/cake.png";
 import rose from "./Img/rose.png";
 import rabbit from "./Img/rabbit.png";
+import ice from "./Img/ice.png";
 
 function Home() {
   const match = useRouteMatch();
@@ -234,7 +235,10 @@ function Home() {
       </article>
       <aside>
         <div className="aside">
-          <p>流行貼文排行榜</p>
+          <p>
+            流行貼文排行榜&nbsp;
+            <img src={ice} className="sideImg" />
+          </p>
           {pop.map((pop) => {
             return (
               <Link to={`/post/${pop.postId}`} key={pop.postId}>

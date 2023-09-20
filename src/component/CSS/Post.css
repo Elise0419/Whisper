@@ -29,10 +29,14 @@
 
 .postUseinfo .postUsepic img {
 
-  width: 2.875rem; /* 46px / 16px = 2.875rem */
-  height: 2.875rem; /* 46px / 16px = 2.875rem */
-  border-radius: 50%; /* 將圖片剪裁成圓形 */
-  object-fit: cover; /* 控制圖片的填充方式 */
+  width: 2.875rem;
+  /* 46px / 16px = 2.875rem */
+  height: 2.875rem;
+  /* 46px / 16px = 2.875rem */
+  border-radius: 50%;
+  /* 將圖片剪裁成圓形 */
+  object-fit: cover;
+  /* 控制圖片的填充方式 */
 }
 
 .postUseinfo .postUsertime {

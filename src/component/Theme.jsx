@@ -363,7 +363,7 @@ function Makeup() {
         <div className="aside">
           <p>
             話題選擇器&nbsp;&nbsp;
-            <img src={bite} className="bite" />
+            <img src={bite} className="sideImg" />
           </p>
           <span className="tag">
             {tag.map((tag) => {

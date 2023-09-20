@@ -344,3 +344,8 @@ article a {
     width: 1.25rem;
     margin-left: 4rem;
 }
+
+.sideImg {
+    width: 40px;
+    vertical-align: middle;
+}

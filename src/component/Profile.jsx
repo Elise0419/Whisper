@@ -61,15 +61,15 @@ function Profile() {
       const fileContent = event.target.result;
       // 將user.headimg為fileContent
       setUser({ ...user, headimg: fileContent });
-      console.log('文件内容:', fileContent);
     };
     // 讀取
     reader.readAsDataURL(file);
   };
 
   const handleImageSave = async () => {
+    console.log( e.target.files[0]);
     const formdata = new FormData();
-    formdata.append("file", selectedImage);
+    formdata.append("file", e.target.files[0]);
 
     console.log(formdata)
     try {
@@ -159,8 +159,7 @@ function Profile() {
                     <input type="file" id="profilePic" accept="image/*" onChange={handleImageUpload} />
                     <button type="button" onClick={handleImageSave}>保存</button>
                   </div>
-                ) : (
-                  <img src={user?.headimg || "/default-avatar.jpg"} alt="Profile Pic" className="profilePic" />
+                ) : (<img src={user?.headimg || "/default-avatar.jpg"} alt="Profile Pic" className="profilePic" />
                 )}
                 <button type="button" onClick={() => setIsEditing({ ...isEditing, headimg: true })}>編輯</button>
               </div>
@@ -178,8 +177,8 @@ function Profile() {
               <hr />
 
               <div className="UserDeclaration">
-                <label htmlFor="UserDeclaration">用戶聲明:</label>
-                <input type="text" id="UserDeclaration" value={user?.promise || ""} readOnly={!isEditing.promise} onChange={(e) => handleInputChange("promise", e.target.value)} />
+                <label htmlFor="promise">用戶聲明:</label>
+                <input type="text" id="promise" value={user?.promise || ""} readOnly={!isEditing.promise} onChange={(e) => handleInputChange("promise", e.target.value)} />
                 {isEditing.promise ? (<button type="button" className="saveBtn" onClick={() => handleSaveClick("promise")}>保存</button>
                 ) : (<button type="button" className="editBtn" onClick={() => handleEditClick("promise")}>編輯</button>)}
               </div>

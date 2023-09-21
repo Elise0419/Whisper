@@ -14,4 +14,11 @@ class TagController extends Controller
         $tags = Tag::where('type', $type)->inRandomOrder()->take(6)->get();
         return response()->json(['tags' => $tags]);
     }
+
+    public function getAllTags($type)
+    {
+        $tags = Tag::where('type', $type)->get();
+        return response()->json(['tags' => $tags]);
+    }
+
 }

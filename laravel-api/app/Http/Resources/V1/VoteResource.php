@@ -12,8 +12,19 @@ class VoteResource extends JsonResource
      *
      * @return array<string, mixed>
      */
+
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'voteId' => $this->vote_id,
+            'title' => $this->title,
+            'type' => $this->type,
+            'ansOne' => $this->ans_one,
+            'ansTwo' => $this->ans_two,
+            'ansOnePoint' => $this->ans_one_point,
+            'ansTwoPoint' => $this->ans_two_point,
+
+        ];
+
     }
 }

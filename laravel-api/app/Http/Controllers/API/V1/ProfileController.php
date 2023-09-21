@@ -48,8 +48,8 @@ class ProfileController extends Controller
         if(!$req){
             return response()->json(['message' => '未接受檔案'], 400);
         }
-        if ($req->hasFile('FILE')) {
-            $head_img = $req->file('FILE');
+        if ($req->hasFile('file')) {
+            $head_img = $req->file('file');
             $head_Path = $head_img->storeAs('public/user_head', 'user_' . $this->user->user_id . '.' . $head_img->getClientOriginalExtension());
 
             // 更新用戶的頭像路徑

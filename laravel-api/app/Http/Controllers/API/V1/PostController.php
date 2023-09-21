@@ -105,13 +105,13 @@ class PostController extends Controller
         return PostResource::collection($searchResults);
     }
 
-    public function upload(Request $request)
+    public function upload(Request $request, $type)
     {
         $userId = Auth::user()->user_id;
         if (!$userId) {
             return 'login';
         };
-        $type = $request->input('type');
+        $type = Post::find($type);
         $title = $request->input('title');
         $content = $request->input('content');
         $tag = $request->input('tag');
@@ -157,9 +157,9 @@ class PostController extends Controller
 
     }
 
-    public function updatepost(Request $request, $id)
+    public function updatepost(Request $request, $postId)
     {
-        $post = Post::find($id);
+        $post = Post::find($postId);
 
         if (!$post) {
             return response()->json(['error' => 'Post not found']);
@@ -170,9 +170,9 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy($postId)
     {
-        $post = Post::find($id);
+        $post = Post::find($postId);
         if ($post) {
             $post->delete();
 

@@ -12,10 +12,6 @@ use Illuminate\Support\Facades\Auth;
 
 class SavepostController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
 
     /**
      * Display a listing of the resource.
@@ -29,6 +25,9 @@ class SavepostController extends Controller
     {
 
         $userId = Auth::user()->user_id; //
+        if (!$userId) {
+            return response()->json(['message' => '你沒登入'], 403);
+        }
 
         // 檢查用戶是否已經保存了這個貼文
         $existingSave = Savepost::where('user_id', $userId)

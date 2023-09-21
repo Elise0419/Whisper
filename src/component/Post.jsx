@@ -18,7 +18,7 @@ function Post({ userToken = null }) {
 
   useEffect(() => {
     function fetchData() {
-      fetch(`http://127.0.0.1:8000/api/v1/posts/${match.params.postId}`, {
+      fetch(`http://10.10.247.43:8000/api/v1/posts/${match.params.postId}`, {
         method: "GET",
       })
         .then((res) => res.json())
@@ -44,7 +44,7 @@ function Post({ userToken = null }) {
         thumb: !isLiked,
       };
 
-      fetch(`http://127.0.0.1:8000/api/posts/thumb${match.params.postId}`, {
+      fetch(`http://10.10.247.43:8000/api/posts/thumb${match.params.postId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

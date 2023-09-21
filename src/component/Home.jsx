@@ -62,14 +62,16 @@ function Home() {
         })
         .then((jsonData) => {
           jsonData.data.forEach((ele) => {
-            if (ele.content) {
-              console.log("ok");
-              // var myDiv = document.getElementById("div");
-              // myDiv.innerHTML = ele.content;
-            } else {
-              console.log("ok");
-              // myDiv.innerHTML = "ok";
-            }
+            console.log(ele.content);
+            // if (ele.content) {
+            //   console.log("ok");
+            //   var myDiv = document.getElementById("div");
+            //   myDiv.innerHTML = ele.content;
+            //   console.log(myDiv);
+            // } else {
+            //   console.log("ok");
+            //   myDiv.innerHTML = "ok";
+            // }
           });
 
           if (searchMsg.message) {
@@ -217,7 +219,7 @@ function Home() {
                   onClick={() => cardClick(card.postId)}
                 >
                   <span className="cardTop">
-                    <p id="myDiv">{card}</p>
+                    <p id="myDiv"></p>
                     {/* {typeof card.imgUrl === "string" ? (
                       <img src={card.imgUrl} referrerPolicy="no-referrer" />
                     ) : (

@@ -13,11 +13,15 @@ import mail from "../img/love3.png";
 function Header() {
   return (
     <div id="container">
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+      />
       <div className="nav">nav</div>
       <header>
         <div>
           <Link to="/">
-            <img className="logo" src={logo} />
+            <img className="logo " src={logo} />
           </Link>
           <Link to="/">
             <span className="whisper">WHISPER</span>
@@ -35,6 +39,12 @@ function Header() {
           </button>
         </div>
         <div>
+          <Link to="/secret">
+            <img
+              src={mail}
+              className="secret animate__animated animate__heartBeat animate__infinite"
+            />
+          </Link>
           <Link to="/profile">
             <img className="userImg" src={rabbit} />
           </Link>
@@ -48,10 +58,7 @@ function Header() {
                 我的主頁&nbsp;&nbsp;
                 <img src={crown} className="myImg" />
               </Link>
-              <Link to="/profile">
-                編輯信息&nbsp;&nbsp;
-                <img src={mail} className="myImg" />
-              </Link>
+              <Link to="/profile">編輯信息&nbsp;&nbsp;</Link>
               <Link to="/manage">管理貼文</Link>
               <hr />
               <Link to="/logout">登出</Link>

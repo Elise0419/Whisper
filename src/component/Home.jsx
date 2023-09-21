@@ -32,7 +32,7 @@ function Home() {
   function searchButton() {
     if (searchVal == "") {
     } else {
-      fetch(`http://127.0.0.1:8000/api/posts/search?query=${searchVal}`, {
+      fetch(`http://10.10.247.43:8000/api/posts/search?query=${searchVal}`, {
         method: "GET",
       })
         .then((res) => {
@@ -54,7 +54,7 @@ function Home() {
   // 貼文渲染 & 主頁右側欄
   useEffect(() => {
     function fetchData() {
-      fetch("http://127.0.0.1:8000/api/v1/posts", {
+      fetch("http://10.10.247.43:8000/api/v1/posts", {
         method: "GET",
       })
         .then((res) => {
@@ -75,7 +75,7 @@ function Home() {
           console.log("錯誤:", err);
         });
 
-      fetch("http://127.0.0.1:8000/api/topPosts/1", {
+      fetch("http://10.10.247.43:8000/api/topPosts/1", {
         method: "get",
       })
         .then((res) => {
@@ -88,7 +88,7 @@ function Home() {
           console.log("錯誤:", err);
         });
 
-      fetch("http://127.0.0.1:8000/api/topPosts/2", {
+      fetch("http://10.10.247.43:8000/api/topPosts/2", {
         method: "get",
       })
         .then((res) => {
@@ -106,7 +106,7 @@ function Home() {
 
   // 點擊率
   const cardClick = async (postId) => {
-    fetch(`http://127.0.0.1:8000/api/posts/click${postId}`, {
+    fetch(`http://10.10.247.43:8000/api/posts/click${postId}`, {
       method: "POST",
       postId: `${postId}`,
     })

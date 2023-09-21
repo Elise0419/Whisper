@@ -12,6 +12,10 @@ class Quill extends Component {
     super(props);
     this.state = {
       text: "",
+      type: "",
+      title: "hello",
+      text: "",
+      tag: "",
     };
   }
 
@@ -56,11 +60,16 @@ class Quill extends Component {
       formData.append(`image${index}`, blob, `image${index}.png`);
     });
 
+    const token = localStorage.getItem("token");
+    console.log("Token in Profile:", token);
     // Laravel
-    fetch("http://10.10.247.43:8000/api/upload", {
+    fetch("http://10.10.247.43:8000/api/upload/mkup", {
       method: "POST",
       body: formData,
       // mode: "no-cors",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
       .then((response) => {
         console.log(response);
@@ -75,13 +84,17 @@ class Quill extends Component {
       });
 
     // window.location.assign("http://");
+    formData.append("type", this.state.type);
+    // formData.append("title", this.state.title);
+    formData.append("content", this.state.text);
+    formData.append("tag", this.state.tag);
   };
 
   render() {
     return (
       <div>
         <Header />
-        <ReactQuill
+        {/* <ReactQuill
           ref={(el) => {
             this.quillRef = el;
           }}
@@ -100,16 +113,16 @@ class Quill extends Component {
               ["code"],
             ],
           }}
-        />
-        <button onClick={this.handleImageUpload} className="upBtn">
+        /> */}
+        {/* <button onClick={this.handleImageUpload} className="upBtn">
           送出
-        </button>
-        <input
+        </button> */}
+        {/* <input
           type="reset"
           value="重置"
           onClick={this.handleReset}
           className="reBtn"
-        />
+        /> */}
         <ReactQuill
           ref={(el) => {
             this.quillRef = el;

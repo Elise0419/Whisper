@@ -144,3 +144,11 @@ header a {
     width: 30px;
     vertical-align: top;
 }
+
+.secret {
+    width: 40px;
+    vertical-align: top;
+    margin-right: 2rem;
+    animation: heartBeat;
+    animation-duration: 2s;
+}

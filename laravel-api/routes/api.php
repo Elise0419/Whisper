@@ -66,7 +66,6 @@ Route::controller(ProfileController::class)->group(function () {
     Route::put('profile/person_id/change', 'idchange');
     Route::put('profile/mem_name/change', 'namechange');
     Route::put('profile/promise/change', 'peromise');
-    Route::get('users', 'index');
 });
 
 Route::middleware(['auth'])->get('/user/posts', [PostController::class, 'getUserPosts']);
@@ -88,7 +87,7 @@ Route::get('/posts/{tag}', [PostController::class, 'getPostsByTag']);
 Route::post('/posts/click{postId}', [PostController::class, 'click']);
 Route::post('/posts/thumb{postId}', [PostController::class, 'thumb']);
 Route::post('/posts/comments/{postId}', [ComtxtController::class, 'createcomtxt']);
-Route::post('/upload', [PostController::class, 'upload']);
-Route::post('/posts/save', [SavepostController::class, 'savepost']);
-Route::put('/posts/{id}', [PostController::class, 'updatepost']);
-Route::delete('/posts/{id}', [PostController::class, 'destroy']);
+Route::post('/upload/{type}', [PostController::class, 'upload']);
+Route::post('/posts/save/{postId}', [SavepostController::class, 'savepost']);
+Route::put('/posts/postId}', [PostController::class, 'updatepost']);
+Route::delete('/posts/{postId}', [PostController::class, 'destroy']);

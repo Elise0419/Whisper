@@ -6,9 +6,9 @@ import Comment from "./Block/Comment";
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
 
-import makeup2 from "./Img/makeup.jpeg";
-import bite from "./Img/bite.png";
-import makeup from "./Img/makeup.png";
+import makeup2 from "./img/makeup.jpeg";
+import bite from "./img/bite.png";
+import makeup from "./img/makeup.png";
 
 function Post({ userToken = null }) {
   const match = useRouteMatch();

@@ -6,7 +6,7 @@ import Validation from "./Validation/SignupValidation";
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
 
-import logo from "./Img/logo.png";
+import logo from "./img/logo.png";
 
 function Signup() {
   // 使用useState定义state变量values和errors
@@ -42,7 +42,7 @@ const handleSubmit = (event) => {
       password: values.password,
     };
 
-    fetch("http://10.10.247.43:8000/api/register", {
+    fetch("http://10.10.247.90:8000/api/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

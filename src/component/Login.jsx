@@ -10,7 +10,7 @@ import Header from "./Block/Header";
 import Footer from "./Block/Footer";
 
 // 引入logo图片
-import logo from "./Img/logo.png";
+import logo from "./img/logo.png";
 
 function Login() {
   // 使用useState定义state变量values和errors

@@ -21,10 +21,9 @@ class SavepostController extends Controller
         return new SavepostCollection(Savepost::all());
     }
 
-    public function savepost(Request $request)
+    public function savepost(Request $request, $postId)
     {
 
-        $postId = $request->input('postId'); //
         $userId = Auth::user()->user_id; //
 
         // 檢查用戶是否已經保存了這個貼文

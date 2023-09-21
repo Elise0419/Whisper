@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 
 import "../CSS/Header.css";
 
-import logo from "../Img/logo.png";
-import whiteArrow from "../Img/whiteArrow.png";
-import purpleArrow from "../Img/purpleArrow.png";
-import rabbit from "../Img/rabbit.png";
-import crown from "../Img/crown.png";
-import mail from "../Img/love3.png";
+import logo from "../img/logo.png";
+import whiteArrow from "../img/whiteArrow.png";
+import purpleArrow from "../img/purpleArrow.png";
+import rabbit from "../img/rabbit.png";
+import crown from "../img/crown.png";
+import mail from "../img/love3.png";
 
 function Header() {
   return (

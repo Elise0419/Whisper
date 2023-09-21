@@ -12,7 +12,7 @@ import Asideuser from "./Block/Asideuser";
 import Postart from "./Postart";
 // 收藏貼文組件
 import Collectart from "./Collectart";
-import heart from "./Img/heart.png";
+import heart from "./img/heart.png";
 
 function Manage() {
   const [selectedTab, setSelectedTab] = useTabs([

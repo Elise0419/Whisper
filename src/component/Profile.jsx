@@ -29,7 +29,7 @@ const handleSaveClick = async (field) => {
 
   try {
     const token = localStorage.getItem("token");
-    const response = await fetch(`http://10.147.20.3:8000/api/profile/${field}/change`, {
+    const response = await fetch(`http://10.10.247.90:8000/api/profile/${field}/change`, {
       method: "put",
       headers: {
         "Content-Type": "application/json",
@@ -64,7 +64,7 @@ const handleSaveClick = async (field) => {
     console.log(formdata)
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://10.147.20.3:8000/api/profile/head/change`, {
+      const response = await fetch(`http://10.10.247.90:8000/api/profile/head/change`, {
         method: "put",
         headers: {
           "Content-Type": "multipart/form-data",
@@ -102,7 +102,7 @@ const handleSaveClick = async (field) => {
       const token = localStorage.getItem("token");
       console.log("Token in Profile:", token);
   
-      fetch("http://10.147.20.3/laravel-api/public/api/profile", {
+      fetch("http://10.10.247.90/laravel-api/public/api/profile", {
         method: "get",
         headers: {
           Authorization: `Bearer ${token}`,

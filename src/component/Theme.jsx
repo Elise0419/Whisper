@@ -5,18 +5,18 @@ import "./CSS/Theme.css";
 import Header from "./Block/Header.jsx";
 import Footer from "./Block/Footer";
 
-import thumb from "./Img/thumb.png";
-import comment from "./Img/comment.png";
-import user from "./Img/dog.jpeg";
-import adArrow from "./Img/adArrow.png";
-import redArrow from "./Img/redArrow.png";
-import makeup2 from "./Img/makeup.jpeg";
-import aroma from "./Img/aroma.png";
-import dress from "./Img/dress.png";
-import makeup from "./Img/makeup.png";
-import cake from "./Img/cake.png";
-import rose from "./Img/rose.png";
-import bite from "./Img/bite.png";
+import thumb from "./img/thumb.png";
+import comment from "./img/comment.png";
+import user from "./img/dog.jpeg";
+import adArrow from "./img/adArrow.png";
+import redArrow from "./img/redArrow.png";
+import makeup2 from "./img/makeup.jpeg";
+import aroma from "./img/aroma.png";
+import dress from "./img/dress.png";
+import makeup from "./img/makeup.png";
+import cake from "./img/cake.png";
+import rose from "./img/rose.png";
+import bite from "./img/bite.png";
 
 function Makeup() {
   const match = useRouteMatch();

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import "../CSS/Asideuser.css";
-import rabbit from "../Img/rabbit.png";
+import rabbit from "../img/rabbit.png";
 
 function Asideuser() {
   var [user, setUser] = useState([]);

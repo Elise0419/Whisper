@@ -6,7 +6,7 @@ import Validation from "./Validation/RestpwdValidation";
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
 
-import logo from "./Img/logo.png";
+import logo from "./img/logo.png";
 
 function Restpwd() {
   const [values, setValues] = useState({

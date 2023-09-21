@@ -5,16 +5,16 @@ import "./CSS/Home.css";
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
 
-import thumb from "./Img/thumb.png";
-import redArrow from "./Img/redArrow.png";
-import comment from "./Img/comment.png";
-import aroma from "./Img/aroma.png";
-import dress from "./Img/dress.png";
-import makeup from "./Img/makeup.png";
-import cake from "./Img/cake.png";
-import rose from "./Img/rose.png";
-import rabbit from "./Img/rabbit.png";
-import ice from "./Img/ice.png";
+import thumb from "./img/thumb.png";
+import redArrow from "./img/redArrow.png";
+import comment from "./img/comment.png";
+import aroma from "./img/aroma.png";
+import dress from "./img/dress.png";
+import makeup from "./img/makeup.png";
+import cake from "./img/cake.png";
+import rose from "./img/rose.png";
+import rabbit from "./img/rabbit.png";
+import ice from "./img/ice.png";
 
 function Home() {
   const match = useRouteMatch();

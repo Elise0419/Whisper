@@ -6,7 +6,7 @@ import Validation from "./Validation/SignupValidation";
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
 
-import logo from "./Img/logo.png";
+import logo from "./img/logo.png";
 
 function Signup() {
   // 使用useState定义state变量values和errors

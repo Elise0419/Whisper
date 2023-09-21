@@ -36,20 +36,6 @@ function Profile() {
 
     try {
       const token = localStorage.getItem("token");
-<<<<<<< Updated upstream
-      const response = await fetch(
-        `http://10.10.247.90:8000/api/profile/${field}/change`,
-        {
-          method: "put",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(dataToSend),
-        }
-      );
-
-=======
       const response = await fetch(`http://10.10.247.90:8000/api/profile/${field}/change`, {
         method: "put",
         headers: {
@@ -59,7 +45,6 @@ function Profile() {
         body: JSON.stringify(dataToSend),
       });
       
->>>>>>> Stashed changes
       if (response.ok) {
         const jsonData = await response.json();
         console.log(jsonData);
@@ -82,66 +67,41 @@ function Profile() {
     reader.onload = function (event) {
       // const fileContent = event.target.result;
       // 將user.headimg為fileContent
-      setUser({ ...user, headimg: file });
+      setUser({ ...user, headimg: e.target.files[0] });
     };
     // 讀取
     reader.readAsDataURL(file);
   };
 
-<<<<<<< Updated upstream
-  const handleImageSave = async () => {
-    // console.log(e.target.files[0]);
-    const formdata = new FormData();
-    // formdata.append("file", e.target.files[0]);
-
-    console.log(formdata);
-    try {
-      const token = localStorage.getItem("token");
-      const response = await fetch(
-        `http://10.10.247.90:8000/api/profile/head/change`,
-        {
-=======
   const handleImageSave = () => {
     const file = user.headimg;
+    console.log(file);
     const reader = new FileReader();
     reader.onload =async function (event) {
       console.log('文件加载完成');
       const formdata = new FormData();
-      formdata.append("FILE", file);
+      formdata.append("file", file);
       console.log(formdata)
       try {
         const token = localStorage.getItem('token');
         const response = await fetch(`http://10.10.247.90:8000/api/profile/head/change`, {
->>>>>>> Stashed changes
           method: "put",
           headers: {
             "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${token}`,
           },
           body: formdata,
-<<<<<<< Updated upstream
-        }
-      );
-
-      if (response.ok) {
-        const jsonData = await response.json();
-        console.log(jsonData);
-      } else {
-        console.log("上传头像失败");
-        throw new Error("API request failed");
-=======
         });
   
         if (response.ok) {
           const jsonData = await response.json();
           console.log(jsonData);
         } else {
-          console.log("上传头像失败");
+          console.log("上傳失敗，請重新上傳");
           throw new Error("API request failed");
         }
       } catch (error) {
         console.error("Error:", error);
->>>>>>> Stashed changes
       }
     }
     reader.readAsDataURL(file);

@@ -189,7 +189,17 @@ function Home() {
             placeholder="熱門貼文搜尋"
             onChange={searchInput}
           />
-          <button onClick={searchButton}>Search</button>
+          <a
+            href="javascript: void(0)"
+            class="searchBtn"
+            onClick={searchButton}
+          >
+            Search
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </a>
         </div>
         <div className="cardContainer">
           <div style={{ display: find ? "block" : "none" }} className="find">
@@ -198,8 +208,10 @@ function Home() {
           {Array.isArray(card) ? (
             card.map((card) => {
               // 將收到的 HTML 轉成 Text
-              const tempDiv = document.createElement("div");
-              tempDiv.innerHTML = card.content;
+              const myContent = document.createElement("div");
+              const myTitle = document.createElement("div");
+              myContent.innerHTML = card.content;
+              myTitle.innerHTML = card.title;
 
               // 是否符合 img 標籤 且不得為 null 值
               // 若未符合 或是為 null 值 則會渲染 Text
@@ -245,13 +257,13 @@ function Home() {
                       <span className="cardTxt">
                         <span className="paperTape">paperTapepaperTape</span>
                         <br />
-                        {tempDiv.textContent}
+                        {myContent.textContent}
                       </span>
                     )}
                   </span>
                   <span className="cardMid">
                     <img src={card.headImg} alt={`Image ${card.postId}`} />
-                    <span>{card.title}</span>
+                    <span>{myTitle.textContent}</span>
                   </span>
                   <span className="cardBtm">
                     <span>#{card.tag}</span>

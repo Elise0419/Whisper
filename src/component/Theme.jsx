@@ -248,7 +248,17 @@ function Makeup() {
             placeholder="熱門貼文搜尋"
             onChange={searchInput}
           />
-          <button onClick={searchButton}>Search</button>
+          <a
+            href="javascript: void(0)"
+            class="searchBtn"
+            onClick={searchButton}
+          >
+            Search
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </a>
         </div>
         <div className="cardContainer">
           <div style={{ display: find ? "block" : "none" }} className="find">
@@ -256,8 +266,25 @@ function Makeup() {
           </div>
           {Array.isArray(card) ? (
             card.map((card) => {
+              // 將收到的 HTML 轉成 Text
+              const myContent = document.createElement("div");
+              const myTitle = document.createElement("div");
+              myContent.innerHTML = card.content;
+              myTitle.innerHTML = card.title;
+
+              // 是否符合 img 標籤 且不得為 null 值
+              // 若未符合 或是為 null 值 則會渲染 Text
+              const isStringValid =
+                card.content && card.content.includes("base64");
+
+              const parser = new DOMParser();
+              const doc = parser.parseFromString(card.content, "text/html");
+              const imgElements = doc.querySelectorAll("img");
+              const urls = Array.from(imgElements).map((img) =>
+                img.getAttribute("src")
+              );
+
               return (
-                // 增加一個onclick 點擊率事件
                 <Link
                   className="card"
                   to={`/post/${card.postId}`}
@@ -265,23 +292,37 @@ function Makeup() {
                   onClick={() => cardClick(card.postId)}
                 >
                   <span className="cardTop">
-                    {typeof card.imgUrl === "string" ? (
-                      <img
-                        className="cardImg"
-                        src={card.imgUrl}
-                        referrerPolicy="no-referrer"
-                      />
+                    {card.imgUrl || isStringValid ? (
+                      <div>
+                        {card.imgUrl ? (
+                          <img
+                            src={card.imgUrl}
+                            key={`${card.postId}`}
+                            referrerPolicy="no-referrer"
+                          />
+                        ) : (
+                          urls.map((url, index) => (
+                            <div key={`${card.postId}`}>
+                              <img
+                                key={index}
+                                src={url}
+                                alt={`Image ${index}`}
+                              />
+                            </div>
+                          ))
+                        )}
+                      </div>
                     ) : (
                       <span className="cardTxt">
                         <span className="paperTape">paperTapepaperTape</span>
                         <br />
-                        {card.content}
+                        {myContent.textContent}
                       </span>
                     )}
                   </span>
                   <span className="cardMid">
-                    <img src={card.headImg} />
-                    <span className="cardTitle">{card.title}</span>
+                    <img src={card.headImg} alt={`Image ${card.postId}`} />
+                    <span>{myTitle.textContent}</span>
                   </span>
                   <span className="cardBtm">
                     <span>#{card.tag}</span>
@@ -296,41 +337,7 @@ function Makeup() {
               );
             })
           ) : (
-            <Link
-              className="card"
-              to={`/post/${card.postId}`}
-              key={card.postId}
-              onClick={() => cardClick(card.postId)}
-            >
-              <span className="cardTop">
-                {typeof card.data[0].imgUrl === "string" ? (
-                  <img
-                    className="cardImg"
-                    src={card.data[0].imgUrl}
-                    referrerPolicy="no-referrer"
-                  />
-                ) : (
-                  <span className="cardTxt">
-                    <span className="paperTape">paperTapepaperTape</span>
-                    <br />
-                    {card.data[0].content}
-                  </span>
-                )}
-              </span>
-              <span className="cardMid">
-                <img src={card.data[0].headImg} />
-                <span className="cardTitle">{card.data[0].title}</span>
-              </span>
-              <span className="cardBtm">
-                <span>#{card.data[0].tag}</span>
-                <span>
-                  <img src={comment} />
-                  {card.data[0].save}
-                  <img src={thumb} />
-                  {card.data[0].thumb}
-                </span>
-              </span>
-            </Link>
+            <div>hi</div>
           )}
         </div>
       </article>

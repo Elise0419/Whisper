@@ -1,5 +1,6 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useRouteMatch } from "react-router-dom";
 
 import "../CSS/Header.css";
 
@@ -11,6 +12,29 @@ import crown from "../img/crown.png";
 import mail from "../img/love3.png";
 
 function Header() {
+  let [dd, setDd] = useState("創建貼文");
+  const m = useRouteMatch().params.type;
+  useEffect(
+    function () {
+      if (m) {
+        if (m == "love") {
+          setDd("感情生活");
+        } else if (m == "life") {
+          setDd("健康生活");
+        } else if (m == "food") {
+          setDd("美食情報");
+        } else if (m == "fashion") {
+          setDd("時尚穿搭");
+        } else if (m == "mkup") {
+          setDd("美妝保養");
+        }
+      } else {
+        setDd("創建貼文");
+      }
+    },
+    [m]
+  );
+
   return (
     <div id="container">
       <link
@@ -27,7 +51,7 @@ function Header() {
             <span className="whisper">WHISPER</span>
           </Link>
           <button className="ddBtn">
-            <p className="ddName">創建貼文</p>
+            <p className="ddName">{dd}</p>
             <img className="ddArrow" src={purpleArrow} />
             <span className="ddItem">
               <Link to="/upload/mkup">美妝保養</Link>

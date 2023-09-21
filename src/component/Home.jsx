@@ -61,6 +61,17 @@ function Home() {
           return res.json();
         })
         .then((jsonData) => {
+          jsonData.data.forEach((ele) => {
+            if (ele.content) {
+              console.log("ok");
+              // var myDiv = document.getElementById("div");
+              // myDiv.innerHTML = ele.content;
+            } else {
+              console.log("ok");
+              // myDiv.innerHTML = "ok";
+            }
+          });
+
           if (searchMsg.message) {
             setFind(true);
             setCard([]);
@@ -206,7 +217,8 @@ function Home() {
                   onClick={() => cardClick(card.postId)}
                 >
                   <span className="cardTop">
-                    {typeof card.imgUrl === "string" ? (
+                    <p id="myDiv">{card}</p>
+                    {/* {typeof card.imgUrl === "string" ? (
                       <img src={card.imgUrl} referrerPolicy="no-referrer" />
                     ) : (
                       <span>
@@ -214,7 +226,7 @@ function Home() {
                         <br />
                         {card.content}
                       </span>
-                    )}
+                    )} */}
                   </span>
                   <span className="cardMid">
                     <img src={card.headImg} />

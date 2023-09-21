@@ -7,7 +7,7 @@ import Asideuser from "./Block/Asideuser";
 function Profile() {
   const [user, setUser] = useState({});
 
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState({});
 
   const [isEditing, setIsEditing] = useState({
     mem_name: false,
@@ -18,43 +18,53 @@ function Profile() {
   });
 
   // 在 handleSaveClick 中调整传递的字段
-// 省略其他部分...
+  // 省略其他部分...
 
-const handleSaveClick = async (field) => {
-  
-  setIsEditing({ ...isEditing, [field]: false });
+  const handleSaveClick = async (field) => {
 
-  const dataToSend = { data: user[field] };
-  console.log(dataToSend)
+    setIsEditing({ ...isEditing, [field]: false });
 
-  try {
-    const token = localStorage.getItem("token");
-    const response = await fetch(`http://10.10.247.90:8000/api/profile/${field}/change`, {
-      method: "put",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(dataToSend),
-    });
+    const dataToSend = { data: user[field] };
+    console.log(dataToSend)
 
-    if (response.ok) {
-      const jsonData = await response.json();
-      console.log(jsonData);
-    } else {
-      console.log("更新失败");
-      throw new Error("API request failed");
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(`http://10.10.247.90:8000/api/profile/${field}/change`, {
+        method: "put",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(dataToSend),
+      });
+
+      if (response.ok) {
+        const jsonData = await response.json();
+        console.log(jsonData);
+      } else {
+        console.log("更新失败");
+        throw new Error("API request failed");
+      }
+    } catch (error) {
+      console.error("Error:", error);
     }
-  } catch (error) {
-    console.error("Error:", error);
-  }
-};
+  };
 
-// 省略其他部分...
+  // 省略其他部分...
 
   const handleImageUpload = (e) => {
-    setSelectedImage(e.target.files[0]);
-    console.log(e.target.files[0])
+    // 取得檔案
+    const file =  e.target.files[0];
+    const reader = new FileReader()
+    // 上傳
+    reader.onload = function (event) {
+      const fileContent = event.target.result;
+      // 將user.headimg為fileContent
+      setUser({ ...user, headimg: fileContent });
+      console.log('文件内容:', fileContent);
+    };
+    // 讀取
+    reader.readAsDataURL(file);
   };
 
   const handleImageSave = async () => {
@@ -91,7 +101,7 @@ const handleSaveClick = async (field) => {
     setUser({ ...user, [id]: value });
   };
 
-// 編輯資料
+  // 編輯資料
   const handleEditClick = (field) => {
     console.log(`Editing ${field}`);
     setIsEditing({ ...isEditing, [field]: true });
@@ -101,8 +111,8 @@ const handleSaveClick = async (field) => {
     function fetchData() {
       const token = localStorage.getItem("token");
       console.log("Token in Profile:", token);
-  
-      fetch("http://10.10.247.90/laravel-api/public/api/profile", {
+
+      fetch("http://10.10.247.90:8000/api/profile", {
         method: "get",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -128,8 +138,8 @@ const handleSaveClick = async (field) => {
     }
     fetchData();
   }, []);
-  
-        
+
+
 
 
   return (
@@ -142,15 +152,15 @@ const handleSaveClick = async (field) => {
           <hr />
           <div className="ProfileForm">
             <form>
-              <div className="headimg">
+              <div className="profilePic">
                 <label htmlFor="headimg">頭像:</label>
                 {isEditing.headimg ? (
                   <div>
-                    <input  type="file" id="profilePic" accept="image/*" onChange={handleImageUpload}/>
+                    <input type="file" id="profilePic" accept="image/*" onChange={handleImageUpload} />
                     <button type="button" onClick={handleImageSave}>保存</button>
                   </div>
                 ) : (
-                  <img src={user?.headimg || "/default-avatar.jpg"} alt="Profile Pic" className="profilePic"/>
+                  <img src={user?.headimg || "/default-avatar.jpg"} alt="Profile Pic" className="profilePic" />
                 )}
                 <button type="button" onClick={() => setIsEditing({ ...isEditing, headimg: true })}>編輯</button>
               </div>
@@ -158,7 +168,7 @@ const handleSaveClick = async (field) => {
 
               <div className="profileuserName">
                 <label htmlFor="mem_name">用戶名稱:</label>
-                <input type="text" id="mem_name" value={user.mem_name} readOnly={!isEditing.mem_name} onChange={(e) => handleInputChange("mem_name", e.target.value)}/>
+                <input type="text" id="mem_name" value={user.mem_name} readOnly={!isEditing.mem_name} onChange={(e) => handleInputChange("mem_name", e.target.value)} />
                 {isEditing.mem_name ? (
                   <button type="button" className="saveBtn" onClick={() => handleSaveClick("mem_name")}>保存</button>
                 ) : (
@@ -169,7 +179,7 @@ const handleSaveClick = async (field) => {
 
               <div className="UserDeclaration">
                 <label htmlFor="UserDeclaration">用戶聲明:</label>
-                <input type="text" id="UserDeclaration" value={user?.promise || ""} readOnly={!isEditing.promise} onChange={(e) => handleInputChange("promise", e.target.value)}/>
+                <input type="text" id="UserDeclaration" value={user?.promise || ""} readOnly={!isEditing.promise} onChange={(e) => handleInputChange("promise", e.target.value)} />
                 {isEditing.promise ? (<button type="button" className="saveBtn" onClick={() => handleSaveClick("promise")}>保存</button>
                 ) : (<button type="button" className="editBtn" onClick={() => handleEditClick("promise")}>編輯</button>)}
               </div>

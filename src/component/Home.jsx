@@ -61,19 +61,6 @@ function Home() {
           return res.json();
         })
         .then((jsonData) => {
-          jsonData.data.forEach((ele) => {
-            console.log(ele.content);
-            // if (ele.content) {
-            //   console.log("ok");
-            //   var myDiv = document.getElementById("div");
-            //   myDiv.innerHTML = ele.content;
-            //   console.log(myDiv);
-            // } else {
-            //   console.log("ok");
-            //   myDiv.innerHTML = "ok";
-            // }
-          });
-
           if (searchMsg.message) {
             setFind(true);
             setCard([]);
@@ -210,8 +197,23 @@ function Home() {
           </div>
           {Array.isArray(card) ? (
             card.map((card) => {
+              // 將收到的 HTML 轉成 Text
+              const tempDiv = document.createElement("div");
+              tempDiv.innerHTML = card.content;
+
+              // 是否符合 img 標籤 且不得為 null 值
+              // 若未符合 或是為 null 值 則會渲染 Text
+              const isStringValid =
+                card.content && card.content.includes("base64");
+
+              const parser = new DOMParser();
+              const doc = parser.parseFromString(card.content, "text/html");
+              const imgElements = doc.querySelectorAll("img");
+              const urls = Array.from(imgElements).map((img) =>
+                img.getAttribute("src")
+              );
+
               return (
-                // 增加一個onclick 點擊率事件
                 <Link
                   className="card"
                   to={`/post/${card.postId}`}
@@ -219,19 +221,36 @@ function Home() {
                   onClick={() => cardClick(card.postId)}
                 >
                   <span className="cardTop">
-                    <p id="myDiv"></p>
-                    {/* {typeof card.imgUrl === "string" ? (
-                      <img src={card.imgUrl} referrerPolicy="no-referrer" />
+                    {card.imgUrl || isStringValid ? (
+                      <div>
+                        {card.imgUrl ? (
+                          <img
+                            src={card.imgUrl}
+                            key={`${card.postId}`}
+                            referrerPolicy="no-referrer"
+                          />
+                        ) : (
+                          urls.map((url, index) => (
+                            <div key={`${card.postId}`}>
+                              <img
+                                key={index}
+                                src={url}
+                                alt={`Image ${index}`}
+                              />
+                            </div>
+                          ))
+                        )}
+                      </div>
                     ) : (
-                      <span>
+                      <span className="cardTxt">
                         <span className="paperTape">paperTapepaperTape</span>
                         <br />
-                        {card.content}
+                        {tempDiv.textContent}
                       </span>
-                    )} */}
+                    )}
                   </span>
                   <span className="cardMid">
-                    <img src={card.headImg} />
+                    <img src={card.headImg} alt={`Image ${card.postId}`} />
                     <span>{card.title}</span>
                   </span>
                   <span className="cardBtm">

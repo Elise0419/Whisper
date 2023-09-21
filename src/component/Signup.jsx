@@ -29,46 +29,46 @@ function Signup() {
 
   // ... 其他部分不变 ...
 
-const handleSubmit = (event) => {
-  event.preventDefault();
-  setErrors(Validation(values));
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setErrors(Validation(values));
 
-  if (Object.keys(errors).length === 0) {
-    const requestData = {
-      mem_name: values.username,
-      person_id: values.idNumber,
-      email: values.email,
-      phone: values.phoneNumber,
-      password: values.password,
-    };
+    if (Object.keys(errors).length === 0) {
+      const requestData = {
+        mem_name: values.username,
+        person_id: values.idNumber,
+        email: values.email,
+        phone: values.phoneNumber,
+        password: values.password,
+      };
 
-    fetch("http://10.10.247.90:8000/api/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(requestData),
-    })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error('API request failed');
-      }
-      return response.json();
-    })
-    
-      .then((data) => {
-        console.log(data);
-        // 处理从后端返回的数据
-        // 例如，可以在这里处理注册成功后的逻辑
-        history.push("/verify"); // 注册成功后跳转到验证邮箱页面
+      fetch("http://127.0.0.1:8000/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestData),
       })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }
-};
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("API request failed");
+          }
+          return response.json();
+        })
 
-// ... 其他部分不变 ...
+        .then((data) => {
+          console.log(data);
+          // 处理从后端返回的数据
+          // 例如，可以在这里处理注册成功后的逻辑
+          history.push("/verify"); // 注册成功后跳转到验证邮箱页面
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
+  };
+
+  // ... 其他部分不变 ...
 
   return (
     <div id="container">

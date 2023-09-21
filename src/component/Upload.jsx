@@ -33,7 +33,8 @@ function Quill() {
     console.log("Token in Profile:", token);
 
     console.log(q);
-    fetch("http://10.10.247.43:8000/api/upload/love", {
+    // 淳嫻：這邊測試要加埠號，不然會有cors跟404的問題
+    fetch("http://127.0.0.1:8000/api/upload/love", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

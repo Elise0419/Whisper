@@ -7,8 +7,6 @@ import Asideuser from "./Block/Asideuser";
 function Profile() {
   const [user, setUser] = useState({});
 
-  const [selectedImage, setSelectedImage] = useState({});
-
   const [isEditing, setIsEditing] = useState({
     mem_name: false,
     promise: false,
@@ -76,13 +74,19 @@ function Profile() {
 
   const handleImageSave = () => {
     const file = user.headimg;
+
     console.log(file);
+    
     const reader = new FileReader();
+
     reader.onload = async function (event) {
+
       console.log("文件加载完成");
+
       const formdata = new FormData();
+
       formdata.append("file", file);
-      console.log(formdata);
+      console.log(formdata)
       try {
         const token = localStorage.getItem("token");
         const response = await fetch(

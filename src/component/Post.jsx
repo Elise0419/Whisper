@@ -20,7 +20,9 @@ function Post({ userToken = null }) {
       fetch(`http://127.0.0.1:8000/api/v1/posts/${match.params.postId}`, {
         method: "GET",
       })
-        .then((res) => res.json())
+        .then((res) => {
+          return res.json();
+        })
         .then((jsonData) => {
           setPost([jsonData.data]);
         })
@@ -245,7 +247,6 @@ function Post({ userToken = null }) {
             {rule.map((rule) => {
               return (
                 <div key={rule.id}>
-                  {console.log(rule)}
                   <li>{rule.content}</li>
                 </div>
               );

@@ -20,6 +20,12 @@ function Profile() {
   // 在 handleSaveClick 中调整传递的字段
   // 省略其他部分...
 
+  // 輸入資料
+  const handleInputChange = (id, value) => {
+    console.log(`Updating ${id} with value: ${value}`);
+    setUser({ ...user, [id]: value });
+  };
+
   const handleSaveClick = async (field) => {
     setIsEditing({ ...isEditing, [field]: false });
 
@@ -60,50 +66,49 @@ function Profile() {
     const reader = new FileReader();
     // 上傳
     reader.onload = function (event) {
-      const fileContent = event.target.result;
+      // const fileContent = event.target.result;
       // 將user.headimg為fileContent
-      setUser({ ...user, headimg: fileContent });
+      setUser({ ...user, headimg: e.target.files[0] });
     };
     // 讀取
     reader.readAsDataURL(file);
   };
 
-  const handleImageSave = async (e) => {
-    console.log(e.target.files[0]);
-    const formdata = new FormData();
-    formdata.append("file", e.target.files[0]);
+  const handleImageSave = () => {
+    const file = user.headimg;
+    console.log(file);
+    const reader = new FileReader();
+    reader.onload = async function (event) {
+      console.log("文件加载完成");
+      const formdata = new FormData();
+      formdata.append("file", file);
+      console.log(formdata);
+      try {
+        const token = localStorage.getItem("token");
+        const response = await fetch(
+          `http://10.10.247.90:8000/api/profile/head/change`,
+          {
+            method: "put",
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${token}`,
+            },
+            body: formdata,
+          }
+        );
 
-    console.log(formdata);
-    try {
-      const token = localStorage.getItem("token");
-      const response = await fetch(
-        `http://10.10.247.90:8000/api/profile/head/change`,
-        {
-          method: "put",
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${token}`,
-          },
-          body: formdata,
+        if (response.ok) {
+          const jsonData = await response.json();
+          console.log(jsonData);
+        } else {
+          console.log("上傳失敗，請重新上傳");
+          throw new Error("API request failed");
         }
-      );
-
-      if (response.ok) {
-        const jsonData = await response.json();
-        console.log(jsonData);
-      } else {
-        console.log("上传头像失败");
-        throw new Error("API request failed");
+      } catch (error) {
+        console.error("Error:", error);
       }
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
-
-  // 輸入資料
-  const handleInputChange = (id, value) => {
-    console.log(`Updating ${id} with value: ${value}`);
-    setUser({ ...user, [id]: value });
+    };
+    reader.readAsDataURL(file);
   };
 
   // 編輯資料

@@ -56,15 +56,18 @@ function Login() {
         })
         .then((data) => {
           // 在这里处理从后端返回的数据
-          console.log(data);
+          localStorage.setItem("token", data.authorization.token); // 将Token存储在本地
+          const token = localStorage.getItem("token");
+          if (data.status === 403) {
+            history.push("/verify", { token: data.authorization.token });
+          }
 
           // 将Token存储在本地
-          localStorage.setItem("token", data.authorization.token); // 将Token存储在本地
-
-          const token = localStorage.getItem("token");
           console.log("Token:", token);
 
-          history.push("/", { token: data.authorization.token }); // 登录成功后跳转到首页
+          // history.push("/", { token: data.authorization.token });
+          // 登录成功后跳转到首页
+
           history.push("/profile", { token: data.authorization.token });
           console.log("successfullogin");
         })

@@ -250,8 +250,8 @@ function Makeup() {
             onChange={searchInput}
           />
           <a
-            href="javascript: void(0)"
-            class="searchBtn"
+            // href="javascript: void(0)"
+            className="searchBtn"
             onClick={searchButton}
           >
             Search
@@ -334,7 +334,41 @@ function Makeup() {
               );
             })
           ) : (
-            <div>hi</div>
+            <Link
+              className="card"
+              to={`/post/${card.postId}`}
+              key={card.postId}
+              onClick={() => cardClick(card.postId)}
+            >
+              <span className="cardTop">
+                {typeof card.data[0].imgUrl === "string" ? (
+                  <img
+                    className="cardImg"
+                    src={card.data[0].imgUrl}
+                    referrerPolicy="no-referrer"
+                  />
+                ) : (
+                  <span className="cardTxt">
+                    <span className="paperTape">paperTapepaperTape</span>
+                    <br />
+                    {card.data[0].content}
+                  </span>
+                )}
+              </span>
+              <span className="cardMid">
+                <img src={card.data[0].headImg} />
+                <span className="cardTitle">{card.data[0].title}</span>
+              </span>
+              <span className="cardBtm">
+                <span>#{card.data[0].tag}</span>
+                <span>
+                  <img src={comment} />
+                  {card.data[0].save}
+                  <img src={thumb} />
+                  {card.data[0].thumb}
+                </span>
+              </span>
+            </Link>
           )}
         </div>
       </article>

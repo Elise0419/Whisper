@@ -14,7 +14,6 @@ function Post({ userToken = null }) {
   const match = useRouteMatch();
   let [post, setPost] = useState([]);
   let [rule, setRule] = useState([]);
-  let [tag, setTag] = useState([]);
 
   useEffect(() => {
     function fetchData() {
@@ -23,7 +22,20 @@ function Post({ userToken = null }) {
       })
         .then((res) => res.json())
         .then((jsonData) => {
-          setPost([jsonData.data]); // 包裹成数组
+          setPost([jsonData.data]);
+        })
+        .catch((err) => {
+          console.log("錯誤:", err);
+        });
+
+      fetch(`http://127.0.0.1:8000/api/v1/rules?type[eq]=fashion`, {
+        method: "GET",
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((jsonData) => {
+          setRule(jsonData.data);
         })
         .catch((err) => {
           console.log("錯誤:", err);
@@ -93,7 +105,6 @@ function Post({ userToken = null }) {
   };
 
   function hashtag(t) {
-    document.getElementById("searchBar").value = "";
     fetch(`http://127.0.0.1:8000/api/v1/posts?tag[eq]=${t}`, {
       method: "GET",
     })
@@ -101,8 +112,7 @@ function Post({ userToken = null }) {
         return res.json();
       })
       .then((jsonData) => {
-        // setCard(jsonData);
-        // setFind(false);
+        console.log(jsonData);
       })
       .catch((err) => {
         console.log("錯誤:", err);
@@ -119,8 +129,6 @@ function Post({ userToken = null }) {
           const myTitle = document.createElement("div");
           myContent.innerHTML = post.content;
           myTitle.innerHTML = post.title;
-
-          const isStringValid = post.content && post.content.includes("base64");
 
           const parser = new DOMParser();
           const doc = parser.parseFromString(post.content, "text/html");
@@ -222,10 +230,10 @@ function Post({ userToken = null }) {
             <img src={bite} className="sideImg" />
           </p>
           <span className="tag">
-            {tag.map((tag) => {
+            {post.map((post) => {
               return (
-                <button onClick={() => hashtag(tag.tag)} key={tag.tag_id}>
-                  #{tag.tag}
+                <button onClick={() => hashtag(post.tag)} key={post.tag_id}>
+                  #{post.tag}
                 </button>
               );
             })}
@@ -237,6 +245,7 @@ function Post({ userToken = null }) {
             {rule.map((rule) => {
               return (
                 <div key={rule.id}>
+                  {console.log(rule)}
                   <li>{rule.content}</li>
                 </div>
               );

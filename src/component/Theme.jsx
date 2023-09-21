@@ -169,6 +169,7 @@ function Makeup() {
       });
   }
 
+  let url;
   return (
     <div id="container">
       <Header />
@@ -280,9 +281,11 @@ function Makeup() {
               const parser = new DOMParser();
               const doc = parser.parseFromString(card.content, "text/html");
               const imgElements = doc.querySelectorAll("img");
-              const urls = Array.from(imgElements).map((img) =>
-                img.getAttribute("src")
-              );
+              if (imgElements.length > 0) {
+                const firstImgElement = imgElements[0];
+                url = firstImgElement.getAttribute("src");
+              } else {
+              }
 
               return (
                 <Link
@@ -295,21 +298,15 @@ function Makeup() {
                     {card.imgUrl || isStringValid ? (
                       <div>
                         {card.imgUrl ? (
+                          // 這邊是資料庫 imgUrl 預設貼文的照片處理
                           <img
                             src={card.imgUrl}
                             key={`${card.postId}`}
                             referrerPolicy="no-referrer"
                           />
                         ) : (
-                          urls.map((url, index) => (
-                            <div key={`${card.postId}`}>
-                              <img
-                                key={index}
-                                src={url}
-                                alt={`Image ${index}`}
-                              />
-                            </div>
-                          ))
+                          // 這邊是用戶上傳的照片處理
+                          <img className="multipleImg" src={url} />
                         )}
                       </div>
                     ) : (

@@ -126,7 +126,7 @@ function Home() {
     setSearchMsg("");
     document.getElementById("searchBar").value = "";
   }
-
+  let url;
   return (
     <div id="container">
       <Header />
@@ -189,11 +189,7 @@ function Home() {
             placeholder="熱門貼文搜尋"
             onChange={searchInput}
           />
-          <a
-            href="javascript: void(0)"
-            class="searchBtn"
-            onClick={searchButton}
-          >
+          <a className="searchBtn" onClick={searchButton}>
             Search
             <span></span>
             <span></span>
@@ -221,9 +217,11 @@ function Home() {
               const parser = new DOMParser();
               const doc = parser.parseFromString(card.content, "text/html");
               const imgElements = doc.querySelectorAll("img");
-              const urls = Array.from(imgElements).map((img) =>
-                img.getAttribute("src")
-              );
+              if (imgElements.length > 0) {
+                const firstImgElement = imgElements[0];
+                url = firstImgElement.getAttribute("src");
+              } else {
+              }
 
               return (
                 <Link
@@ -236,21 +234,15 @@ function Home() {
                     {card.imgUrl || isStringValid ? (
                       <div>
                         {card.imgUrl ? (
+                          // 這邊是資料庫 imgUrl 預設貼文的照片處理
                           <img
                             src={card.imgUrl}
                             key={`${card.postId}`}
                             referrerPolicy="no-referrer"
                           />
                         ) : (
-                          urls.map((url, index) => (
-                            <div key={`${card.postId}`}>
-                              <img
-                                key={index}
-                                src={url}
-                                alt={`Image ${index}`}
-                              />
-                            </div>
-                          ))
+                          // 這邊是用戶上傳的照片處理
+                          <img className="multipleImg" src={url} />
                         )}
                       </div>
                     ) : (

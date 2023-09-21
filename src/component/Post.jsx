@@ -115,6 +115,20 @@ function Post({ userToken = null }) {
       <section></section>
       <article>
         {post.map((post) => {
+          const myContent = document.createElement("div");
+          const myTitle = document.createElement("div");
+          myContent.innerHTML = post.content;
+          myTitle.innerHTML = post.title;
+
+          const isStringValid = post.content && post.content.includes("base64");
+
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(post.content, "text/html");
+          const imgElements = doc.querySelectorAll("img");
+          const urls = Array.from(imgElements).map((img) =>
+            img.getAttribute("src")
+          );
+
           return (
             <div className="postContainer" key={post.postId}>
               <div className="postUseinfo">
@@ -130,11 +144,25 @@ function Post({ userToken = null }) {
               <div className="postAll">
                 <div className="postArticle">
                   <div className="postArticletitle">
-                    <h2>{post.title}</h2>
+                    <h2>{myTitle.textContent}</h2>
                   </div>
                   <div className="postArticletext">
-                    <p>{post.content}</p>
-                    <img src={post.imgUrl} />
+                    <p>{myContent.textContent}</p>
+                    {post.imgUrl ? (
+                      // 這邊是資料庫 imgUrl 預設貼文的照片處理
+                      <img
+                        src={post.imgUrl}
+                        key={`${post.postId}`}
+                        referrerPolicy="no-referrer"
+                      />
+                    ) : (
+                      urls.map((url, index) => (
+                        <div key={index}>
+                          {console.log(url)}
+                          <img src={url} alt={`Image ${index}`} />
+                        </div>
+                      ))
+                    )}
                   </div>
                 </div>
                 <hr />

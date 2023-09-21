@@ -1,162 +1,118 @@
-import React, { Component } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import "quill/dist/quill.core.css";
-
 import "./CSS/Upload.css";
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
+import { useRouteMatch } from "react-router-dom";
+import { useState, useRef } from "react";
 
-class Quill extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      text: "",
-      type: "",
+function Quill() {
+  const match = useRouteMatch();
+
+  const [q, setQ] = useState({
+    title: "hello",
+    content: "",
+    tag: match.params.type,
+  });
+
+  const c = (value) => {
+    setQ({ ...q, content: value });
+  };
+
+  const re = () => {
+    setQ({
       title: "hello",
-      text: "",
+      content: "",
       tag: "",
-    };
-  }
-
-  // 存文字
-  handleChange = (value) => {
-    this.setState({ text: value });
-  };
-
-  // 清除文字
-  handleReset = () => {
-    this.setState({ text: "" });
-  };
-
-  // 存照片
-  handleImageUpload = () => {
-    const formData = new FormData();
-    formData.append("text", this.state.text);
-
-    // 轉blob的函式
-    const dataURItoBlob = (dataURI) => {
-      const byteString = atob(dataURI.split(",")[1]);
-      const mimeString = dataURI.split(",")[0].split(":")[1].split(";")[0];
-      const ab = new ArrayBuffer(byteString.length);
-      const ia = new Uint8Array(ab);
-
-      for (let i = 0; i < byteString.length; i++) {
-        ia[i] = byteString.charCodeAt(i);
-      }
-
-      return new Blob([ab], { type: mimeString });
-    };
-
-    // 取得Quill編輯器
-    const quill = this.quillRef.getEditor();
-    // 取得Quill編輯器裡的照片
-    const images = document.querySelectorAll(".quill-editor img");
-
-    // 照片轉blob格式 並存進formData裡
-    images.forEach((image, index) => {
-      const dataURI = image.getAttribute("src");
-      const blob = dataURItoBlob(dataURI);
-      formData.append(`image${index}`, blob, `image${index}.png`);
+      imgurl: "",
     });
+  };
 
+  const up = () => {
     const token = localStorage.getItem("token");
     console.log("Token in Profile:", token);
-    // Laravel
-    fetch("http://10.10.247.43:8000/api/upload/mkup", {
+
+    console.log(q);
+    fetch("http://10.10.247.43:8000/api/upload/love", {
       method: "POST",
-      body: formData,
-      // mode: "no-cors",
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
+      body: JSON.stringify(q),
     })
-      .then((response) => {
-        console.log(response);
-        if (response.ok) {
-          // 上傳成功要幹嘛
-        } else {
-          // 上傳失敗要幹嘛
-        }
+      .then((res) => {
+        return res.json();
+      })
+      .then((jsonData) => {
+        console.log(jsonData);
       })
       .catch((error) => {
         console.log(error);
       });
-
-    // window.location.assign("http://");
-    formData.append("type", this.state.type);
-    // formData.append("title", this.state.title);
-    formData.append("content", this.state.text);
-    formData.append("tag", this.state.tag);
   };
 
-  render() {
-    return (
-      <div>
-        <Header />
-        {/* <ReactQuill
-          ref={(el) => {
-            this.quillRef = el;
-          }}
-          value={this.state.text}
-          onChange={this.handleChange}
-          modules={{
-            toolbar: [
-              [{ header: "1" }, { header: "2" }],
-              ["bold", "italic", "underline", "strike"],
-              [{ list: "ordered" }, { list: "bullet" }],
-              ["blockquote", "code-block"],
-              [{ align: [] }],
-              ["link", "image"],
-              ["color", "background"],
-              ["clean"],
-              ["code"],
-            ],
-          }}
-        /> */}
-        {/* <button onClick={this.handleImageUpload} className="upBtn">
-          送出
-        </button> */}
-        {/* <input
-          type="reset"
-          value="重置"
-          onClick={this.handleReset}
-          className="reBtn"
-        /> */}
-        <ReactQuill
-          ref={(el) => {
-            this.quillRef = el;
-          }}
-          className="quill-editor"
-          value={this.state.text}
-          onChange={this.handleChange}
-          modules={{
-            toolbar: [
-              [{ header: "1" }, { header: "2" }],
-              ["bold", "italic", "underline", "strike"],
-              [{ list: "ordered" }, { list: "bullet" }],
-              ["blockquote", "code-block"],
-              [{ align: [] }],
-              ["link", "image"],
-              ["color", "background"],
-              ["clean"],
-              ["code"],
-            ],
-          }}
-        />
-        <button onClick={this.handleImageUpload} className="upBtn">
-          送出
-        </button>
-        <input
-          type="reset"
-          value="重置"
-          onClick={this.handleReset}
-          className="reBtn"
-        />
-        <Footer />
-      </div>
-    );
-  }
+  // const handleImageUpload = async (file) => {
+  //   // 创建一个 FormData 对象用于将图片文件上传到服务器
+  //   const formData = new FormData();
+  //   formData.append("image", file);
+
+  //   try {
+  //     // 发送 POST 请求将图片上传到服务器，此处需要替换成你的服务器端上传逻辑
+  //     const response = await fetch("YOUR_UPLOAD_URL", {
+  //       method: "POST",
+  //       body: formData,
+  //     });
+
+  //     if (response.ok) {
+  //       // 上传成功，获取服务器返回的图片 URL
+  //       const imageUrl = await response.json();
+
+  //       // 将图片 URL 插入到 Quill 编辑器中
+  //       // const editor = quillRef.current.getEditor();
+  //       // const range = editor.getSelection(true);
+  //       // editor.insertEmbed(range.index, "image", imageUrl);
+  //     } else {
+  //       console.error(
+  //         "Image upload failed:",
+  //         response.status,
+  //         response.statusText
+  //       );
+  //     }
+  //   } catch (error) {
+  //     console.error("Image upload error:", error);
+  //   }
+  // };
+
+  return (
+    <div>
+      <Header />
+      <ReactQuill
+        // ref={quillRef}
+        className="quill-editor"
+        value={q.content}
+        onChange={c}
+        modules={{
+          toolbar: [
+            [{ header: "1" }, { header: "2" }],
+            ["bold", "italic", "underline", "strike"],
+            [{ list: "ordered" }, { list: "bullet" }],
+            ["blockquote", "code-block"],
+            [{ align: [] }],
+            ["link", "image"],
+            ["color", "background"],
+            ["clean"],
+            ["code"],
+          ],
+        }}
+      />
+      <button onClick={up} className="upBtn">
+        送出
+      </button>
+      <input type="reset" value="重置" onClick={re} className="reBtn" />
+      <Footer />
+    </div>
+  );
 }
 
 export default Quill;

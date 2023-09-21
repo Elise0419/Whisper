@@ -68,10 +68,10 @@ function Profile() {
     reader.readAsDataURL(file);
   };
 
-  const handleImageSave = async () => {
-    // console.log(e.target.files[0]);
+  const handleImageSave = async (e) => {
+    console.log(e.target.files[0]);
     const formdata = new FormData();
-    // formdata.append("file", e.target.files[0]);
+    formdata.append("file", e.target.files[0]);
 
     console.log(formdata);
     try {

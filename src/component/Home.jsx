@@ -195,42 +195,46 @@ function Home() {
           <div style={{ display: find ? "block" : "none" }} className="find">
             <p>{searchMsg.message}</p>
           </div>
-          {card.map((card) => {
-            return (
-              // 增加一個onclick 點擊率事件
-              <Link
-                className="card"
-                to={`/post/${card.postId}`}
-                key={card.postId}
-                onClick={() => cardClick(card.postId)}
-              >
-                <span className="cardTop">
-                  {typeof card.imgUrl === "string" ? (
-                    <img src={card.imgUrl} referrerPolicy="no-referrer" />
-                  ) : (
-                    <span>
-                      <span className="paperTape">paperTapepaperTape</span>
-                      <br />
-                      {card.content}
-                    </span>
-                  )}
-                </span>
-                <span className="cardMid">
-                  <img src={card.headImg} />
-                  <span>{card.title}</span>
-                </span>
-                <span className="cardBtm">
-                  <span>#{card.tag}</span>
-                  <span>
-                    <img src={comment} />
-                    {card.save}
-                    <img src={thumb} />
-                    {card.thumb}
+          {Array.isArray(card) ? (
+            card.map((card) => {
+              return (
+                // 增加一個onclick 點擊率事件
+                <Link
+                  className="card"
+                  to={`/post/${card.postId}`}
+                  key={card.postId}
+                  onClick={() => cardClick(card.postId)}
+                >
+                  <span className="cardTop">
+                    {typeof card.imgUrl === "string" ? (
+                      <img src={card.imgUrl} referrerPolicy="no-referrer" />
+                    ) : (
+                      <span>
+                        <span className="paperTape">paperTapepaperTape</span>
+                        <br />
+                        {card.content}
+                      </span>
+                    )}
                   </span>
-                </span>
-              </Link>
-            );
-          })}
+                  <span className="cardMid">
+                    <img src={card.headImg} />
+                    <span>{card.title}</span>
+                  </span>
+                  <span className="cardBtm">
+                    <span>#{card.tag}</span>
+                    <span>
+                      <img src={comment} />
+                      {card.save}
+                      <img src={thumb} />
+                      {card.thumb}
+                    </span>
+                  </span>
+                </Link>
+              );
+            })
+          ) : (
+            <div>hi</div>
+          )}
         </div>
       </article>
       <aside>
@@ -239,27 +243,35 @@ function Home() {
             流行貼文排行榜&nbsp;
             <img src={ice} className="sideImg" />
           </p>
-          {pop.map((pop) => {
-            return (
-              <Link to={`/post/${pop.postId}`} key={pop.postId}>
-                <img className="rankImg" src={pop.headImg} />
-                <span className="rankList">{pop.title}</span>
-                <img className="rankArrow" src={redArrow} />
-              </Link>
-            );
-          })}
+          {Array.isArray(pop) ? (
+            pop.map((pop) => {
+              return (
+                <Link to={`/post/${pop.postId}`} key={pop.postId}>
+                  <img className="rankImg" src={pop.headImg} />
+                  <span className="rankList">{pop.title}</span>
+                  <img className="rankArrow" src={redArrow} />
+                </Link>
+              );
+            })
+          ) : (
+            <div>hi</div>
+          )}
         </div>
         <div className="aside">
           <p>點贊貼文排行榜</p>
-          {like.map((like) => {
-            return (
-              <Link to={`/post/${like.postId}`} key={like.postId}>
-                <img className="rankImg" src={like.headImg} />
-                <span className="rankList">{like.title}</span>
-                <img className="rankArrow" src={redArrow} />
-              </Link>
-            );
-          })}
+          {Array.isArray(like) ? (
+            like.map((like) => {
+              return (
+                <Link to={`/post/${like.postId}`} key={like.postId}>
+                  <img className="rankImg" src={like.headImg} />
+                  <span className="rankList">{like.title}</span>
+                  <img className="rankArrow" src={redArrow} />
+                </Link>
+              );
+            })
+          ) : (
+            <div>hi</div>
+          )}
         </div>
       </aside>
       <Footer />

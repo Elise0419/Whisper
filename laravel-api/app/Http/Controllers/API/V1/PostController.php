@@ -6,17 +6,20 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\PostCollection;
 use App\Http\Resources\V1\PostResource;
 use App\Models\Post;
-use App\Models\Tag;
 use App\Services\V1\PostQuery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
-
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:api');
+    // }
     /**
      * Display a listing of the resource.
      */
+
     public function index(Request $request)
     {
         $filter = new PostQuery();
@@ -107,36 +110,36 @@ class PostController extends Controller
 
     public function upload(Request $request, $type)
     {
-        $userId = Auth::user()->user_id;
-        if (!$userId) {
-            return 'login';
-        };
-        $type = Post::find($type);
-        $title = $request->input('title');
-        $content = $request->input('content');
-        $tag = $request->input('tag');
-        $image = $request->file('image');
-        $postTime = now();
+        // echo $request;
+        // $userId = Auth::user();
+        // if (!$userId) {
+        //     return 'login';
+        // };
+        // $title = $request->input('title');
+        // $content = $request->input('content');
+        // $tag = $request->input('tag');
+        // $image = $request->file('image');
+        // $postTime = now();
 
-        if ($image) {
-            $imageName = $image->getClientOriginalName();
-            $image->storeAs('images', $imageName, 'public');
-            $imagePath = 'storage/images/' . $imageName;
-        } else {
-            $imagePath = null;
-        }
+        // if ($image) {
+        //     $imageName = $image->getClientOriginalName();
+        //     $image->storeAs('images', $imageName, 'public');
+        //     $imagePath = 'storage/images/' . $imageName;
+        // } else {
+        //     $imagePath = null;
+        // }
 
-        $post = new Post();
-        $post->user_id = $userId;
-        $post->type = $type;
-        $post->title = $title;
-        $post->content = $content;
-        $post->imgurl = $imagePath;
-        $post->tag = $tag;
-        $post->post_time = $postTime;
-        $post->save();
+        // $post = new Post();
+        // $post->user_id = $userId->user_id;
+        // $post->type = $type;
+        // $post->title = $title;
+        // $post->content = $content;
+        // // $post->imgurl = $imagePath;
+        // $post->tag = $tag;
+        // $post->post_time = $postTime;
+        // $post->save();
 
-        return response()->json(['message' => 'uploaded!']);
+        return response()->json(['message' => 'uploaded!', 'data' => $request->json()->all()]);
 
     }
 
@@ -159,6 +162,11 @@ class PostController extends Controller
 
     public function updatepost(Request $request, $postId)
     {
+        $userId = Auth::user()->user_id;
+        if (!$userId) {
+            return 'login';
+        };
+
         $post = Post::find($postId);
 
         if (!$post) {
@@ -172,6 +180,11 @@ class PostController extends Controller
      */
     public function destroy($postId)
     {
+        $userId = Auth::user()->user_id;
+        if (!$userId) {
+            return 'login';
+        };
+
         $post = Post::find($postId);
         if ($post) {
             $post->delete();

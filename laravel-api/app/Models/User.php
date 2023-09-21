@@ -29,6 +29,10 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     {
         return $this->hasMany(Savepost::class);
     }
+    public function votesdatas()
+    {
+        return $this->hasMany(Votesdata::class);
+    }
     /**
      * The attributes that are mass assignable.
      *

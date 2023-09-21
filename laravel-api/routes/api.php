@@ -10,6 +10,7 @@ use App\Http\Controllers\API\V1\ProfileController;
 use App\Http\Controllers\API\V1\RuleController;
 use App\Http\Controllers\API\V1\SavepostController;
 use App\Http\Controllers\API\V1\TagController;
+use App\Http\Controllers\API\V1\VoteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -81,6 +82,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\API\V1'], f
 Route::get('/topPosts/1', [PostController::class, 'topposts1']);
 Route::get('/topPosts/2', [PostController::class, 'topposts2']);
 Route::get('/tags/{type}', [TagController::class, 'getTags']);
+Route::get('/tags/all/{type}', [TagController::class, 'getAllTags']);
+Route::get('/votes/{type}', [VoteController::class, 'voteselect']);
 
 Route::get('/posts/search', [PostController::class, 'search']);
 Route::get('/posts/{tag}', [PostController::class, 'getPostsByTag']);

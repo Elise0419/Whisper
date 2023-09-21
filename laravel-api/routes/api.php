@@ -84,11 +84,10 @@ Route::get('/topPosts/2', [PostController::class, 'topposts2']);
 Route::get('/tags/{type}', [TagController::class, 'getTags']);
 Route::get('/tags/all/{type}', [TagController::class, 'getAllTags']);
 Route::get('/votes/{type}', [VoteController::class, 'voteselect']);
-
 Route::get('/posts/search', [PostController::class, 'search']);
-Route::get('/posts/{tag}', [PostController::class, 'getPostsByTag']);
 Route::post('/posts/click{postId}', [PostController::class, 'click']);
 Route::post('/posts/thumb{postId}', [PostController::class, 'thumb']);
+
 Route::post('/posts/comments/{postId}', [ComtxtController::class, 'createcomtxt']);
 Route::post('/upload/{type}', [PostController::class, 'upload']);
 Route::post('/posts/save/{postId}', [SavepostController::class, 'savepost']);

@@ -42,7 +42,7 @@ const handleSubmit = (event) => {
       password: values.password,
     };
 
-    fetch("http://10.10.247.43:8000/api/register", {
+    fetch("http://10.10.247.90:8000/api/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

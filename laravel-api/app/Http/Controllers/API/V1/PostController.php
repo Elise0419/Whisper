@@ -12,10 +12,10 @@ use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth:api');
-    // }
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -110,36 +110,35 @@ class PostController extends Controller
 
     public function upload(Request $request, $type)
     {
-        // echo $request;
-        // $userId = Auth::user();
-        // if (!$userId) {
-        //     return 'login';
-        // };
-        // $title = $request->input('title');
-        // $content = $request->input('content');
-        // $tag = $request->input('tag');
-        // $image = $request->file('image');
-        // $postTime = now();
 
-        // if ($image) {
-        //     $imageName = $image->getClientOriginalName();
-        //     $image->storeAs('images', $imageName, 'public');
-        //     $imagePath = 'storage/images/' . $imageName;
-        // } else {
-        //     $imagePath = null;
-        // }
+        $userId = Auth::user();
+        if (!$userId) {
+            return 'login';
+        };
+        $title = $request->input('title');
+        $content = $request->input('content');
+        $tag = $request->input('tag');
+        $image = $request->file('image');
+        $postTime = now();
 
-        // $post = new Post();
-        // $post->user_id = $userId->user_id;
-        // $post->type = $type;
-        // $post->title = $title;
-        // $post->content = $content;
-        // // $post->imgurl = $imagePath;
-        // $post->tag = $tag;
-        // $post->post_time = $postTime;
-        // $post->save();
+        if ($image) {
+            $imageName = $image->getClientOriginalName();
+            $image->storeAs('images', $imageName, 'public');
+            $imagePath = 'storage/images/' . $imageName;
+        } else {
+            $imagePath = null;
+        }
 
-        return response()->json(['message' => 'uploaded!', 'data' => $request->json()->all()]);
+        $post = new Post();
+        $post->user_id = $userId->user_id;
+        $post->type = $type;
+        $post->title = $title;
+        $post->content = $content;
+        // $post->imgurl = $imagePath;
+        $post->tag = $tag;
+        $post->post_time = $postTime;
+        $post->save();
+        return response()->json(['message' => 'uploaded!', 'data' => $request->json()->all()], 200);
 
     }
 

@@ -36,7 +36,7 @@ function Makeup() {
     if (searchVal == "") {
     } else {
       fetch(
-        `http://10.10.247.43:8000/api/posts/search?query=${searchVal}&type=${match.params.type}`,
+        `http://127.0.0.1:8000/api/posts/search?query=${searchVal}&type=${match.params.type}`,
         {
           method: "GET",
         }
@@ -60,12 +60,9 @@ function Makeup() {
 
   useEffect(() => {
     function fetchData() {
-      fetch(
-        `http://10.10.247.43:8000/api/v1/ads?type[eq]=${match.params.type}`,
-        {
-          method: "GET",
-        }
-      )
+      fetch(`http://127.0.0.1:8000/api/v1/ads?type[eq]=${match.params.type}`, {
+        method: "GET",
+      })
         .then((res) => {
           return res.json();
         })
@@ -77,7 +74,7 @@ function Makeup() {
         });
 
       fetch(
-        `http://10.10.247.43:8000/api/v1/posts?type[eq]=${match.params.type}`,
+        `http://127.0.0.1:8000/api/v1/posts?type[eq]=${match.params.type}`,
         {
           method: "GET",
         }
@@ -101,7 +98,7 @@ function Makeup() {
         });
 
       fetch(
-        `http://10.10.247.43:8000/api/v1/rules?type[eq]=${match.params.type}`,
+        `http://127.0.0.1:8000/api/v1/rules?type[eq]=${match.params.type}`,
         {
           method: "GET",
         }
@@ -116,7 +113,7 @@ function Makeup() {
           console.log("錯誤:", err);
         });
 
-      fetch(`http://10.10.247.43:8000/api/tags/${match.params.type}`, {
+      fetch(`http://127.0.0.1:8000/api/tags/${match.params.type}`, {
         method: "GET",
       })
         .then((res) => {
@@ -134,7 +131,7 @@ function Makeup() {
 
   // 點擊率
   const cardClick = async (postId) => {
-    fetch(`http://10.10.247.43:8000/api/posts/click${postId}`, {
+    fetch(`http://127.0.0.1:8000/api/posts/click${postId}`, {
       method: "POST",
       postId: `${postId}`,
     })
@@ -157,7 +154,7 @@ function Makeup() {
 
   function hashtag(t) {
     document.getElementById("searchBar").value = "";
-    fetch(`http://10.10.247.43:8000/api/v1/posts?tag[eq]=${t}`, {
+    fetch(`http://127.0.0.1:8000/api/v1/posts?tag[eq]=${t}`, {
       method: "GET",
     })
       .then((res) => {

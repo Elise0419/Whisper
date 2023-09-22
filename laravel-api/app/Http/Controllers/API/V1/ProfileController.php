@@ -45,7 +45,7 @@ class ProfileController extends Controller
 
     public function headimgchange(Request $req)
     {
-        if(!$req){
+        if (!$req) {
             return response()->json(['message' => '未接受檔案'], 400);
         }
         if ($req->hasFile('file')) {

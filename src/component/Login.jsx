@@ -49,10 +49,13 @@ function Login() {
         body: JSON.stringify(requestData),
       })
         .then((response) => {
-          if (!response.ok) {
+          if (response.status >= 200) {
+            console.log(response)
+            return response.json();
+          } else {
             throw new Error("Network response was not ok");
           }
-          return response.json();
+
         })
         .then((data) => {
           // 在这里处理从后端返回的数据
@@ -61,15 +64,10 @@ function Login() {
           console.log(data)
           // 将Token存储在本地
           console.log("Token:", token);
-          if (data.status === 403) {
-            // 400 切換至驗證email頁面
-            history.push("/verify", { token: data.authorization.token })
-          } else {
-            // history.push("/", { token: data.authorization.token });
-            // 登录成功后跳转到首页
-            history.push("/profile", { token: data.authorization.token });
-            console.log("successfullogin");
-          }
+          // history.push("/", { token: data.authorization.token });
+          // 登录成功后跳转到首页
+          history.push("/profile", { token: data.authorization.token });
+          console.log("successfullogin");
         }
         )
 

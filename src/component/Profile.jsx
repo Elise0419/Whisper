@@ -76,7 +76,7 @@ function Profile() {
     const file = user.headimg;
 
     console.log(file);
-    
+
     const reader = new FileReader();
 
     reader.onload = async function (event) {
@@ -126,17 +126,19 @@ function Profile() {
       const token = localStorage.getItem("token");
       console.log("Token in Profile:", token);
 
-      fetch("http://10.10.247.90:8000/api/profile", {
+      fetch("http://10.147.20.3:8000/api/profile", {
         method: "get",
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
         .then((res) => {
-          if (!res.ok) {
+          if (res.status === 403) {
+            history.push("/verify", { token: data.authorization.token });
             throw new Error("API request failed");
+          } else {
+            return res.json();
           }
-          return res.json();
         })
         .then((jsonData) => {
           if (jsonData.error) {

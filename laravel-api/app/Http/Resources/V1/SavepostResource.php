@@ -15,9 +15,9 @@ class SavepostResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'userId' => $this->user_id,
+            'userId' => $this->users->user_id,
             'userInfo' => $this->users->mem_name,
-            'postId' => $this->post_id,
+            'postId' => $this->posts->post_id,
             'postInfo' => new PostResource($this->posts),
         ];
     }

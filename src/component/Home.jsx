@@ -18,12 +18,90 @@ import ice from "./img/ice.png";
 
 function Home() {
   const match = useRouteMatch();
-  let [searchVal, setSearchVal] = useState("");
-  let [searchMsg, setSearchMsg] = useState({});
-  let [find, setFind] = useState(false);
+  let [topic, setTopic] = useState([
+    {
+      img: makeup,
+      list: "美妝保養",
+      describe: "各種美妝技巧貼文",
+      route: "/mkup",
+    },
+    { img: cake, list: "美食情報", describe: "好食物好味道", route: "/food" },
+    {
+      img: aroma,
+      list: "健康生活",
+      describe: "綠色出行綠色生活",
+      route: "/life",
+    },
+    {
+      img: dress,
+      list: "時尚穿搭",
+      describe: "fashion前言趨勢",
+      route: "/fashion",
+    },
+    { img: rose, list: "感情生活", describe: "各種抱怨聚集地", route: "/love" },
+  ]);
+  let [searchVal, setSearchVal] = useState(""); // search bar input value
+  let [searchMsg, setSearchMsg] = useState({}); // 宜珊的response;
+  let [find, setFind] = useState(false); // 無搜尋結果
   let [card, setCard] = useState([]);
   let [pop, setPop] = useState([]);
   let [like, setLike] = useState([]);
+
+  // 貼文渲染 & 主頁右側欄
+  useEffect(() => {
+    function fetchData() {
+      // 所有貼文
+      fetch("http://127.0.0.1:8000/api/v1/posts", {
+        method: "GET",
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((jsonData) => {
+          if (searchMsg.message) {
+            setFind(true);
+            setCard([]);
+          } else {
+            setFind(false);
+            setCard(
+              searchMsg.data == undefined ? jsonData.data : searchMsg.data
+            );
+          }
+        })
+        .catch((err) => {
+          console.log("錯誤:", err);
+        });
+
+      // 流行貼文
+      fetch("http://127.0.0.1:8000/api/topPosts/1", {
+        method: "get",
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((jsonData) => {
+          setPop(jsonData.data);
+        })
+        .catch((err) => {
+          console.log("錯誤:", err);
+        });
+
+      // 點讚貼文
+      fetch("http://127.0.0.1:8000/api/topPosts/2", {
+        method: "get",
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((jsonData) => {
+          setLike(jsonData.data);
+        })
+        .catch((err) => {
+          console.log("錯誤:", err);
+        });
+    }
+    fetchData();
+  }, [match.params.type, searchMsg]);
 
   // 搜尋
   function searchInput() {
@@ -51,58 +129,11 @@ function Home() {
     }
   }
 
-  // 貼文渲染 & 主頁右側欄
-  useEffect(() => {
-    function fetchData() {
-      fetch("http://127.0.0.1:8000/api/v1/posts", {
-        method: "GET",
-      })
-        .then((res) => {
-          return res.json();
-        })
-        .then((jsonData) => {
-          if (searchMsg.message) {
-            setFind(true);
-            setCard([]);
-          } else {
-            setFind(false);
-            setCard(
-              searchMsg.data == undefined ? jsonData.data : searchMsg.data
-            );
-          }
-        })
-        .catch((err) => {
-          console.log("錯誤:", err);
-        });
-
-      fetch("http://127.0.0.1:8000/api/topPosts/1", {
-        method: "get",
-      })
-        .then((res) => {
-          return res.json();
-        })
-        .then((jsonData) => {
-          setPop(jsonData.data);
-        })
-        .catch((err) => {
-          console.log("錯誤:", err);
-        });
-
-      fetch("http://127.0.0.1:8000/api/topPosts/2", {
-        method: "get",
-      })
-        .then((res) => {
-          return res.json();
-        })
-        .then((jsonData) => {
-          setLike(jsonData.data);
-        })
-        .catch((err) => {
-          console.log("錯誤:", err);
-        });
-    }
-    fetchData();
-  }, [match.params.type, searchMsg]);
+  // 重置 search bar
+  function deleteSearch() {
+    setSearchMsg("");
+    document.getElementById("searchBar").value = "";
+  }
 
   // 點擊率
   const cardClick = async (postId) => {
@@ -121,11 +152,6 @@ function Home() {
       });
   };
 
-  // 重置 search bar
-  function deleteSearch() {
-    setSearchMsg("");
-    document.getElementById("searchBar").value = "";
-  }
   let url;
   return (
     <div id="container">
@@ -133,51 +159,19 @@ function Home() {
       <section>
         <div className="topic">
           <p>主題個版</p>
-          <Link to="/mkup" onClick={deleteSearch}>
-            <img className="topicImg" src={makeup} />
-            <span className="topicList">
-              美妝保養
-              <br />
-              <span>各種美妝技巧貼文</span>
-            </span>
-            <img className="topicArrow" src={redArrow} />
-          </Link>
-          <Link to="/food" onClick={deleteSearch}>
-            <img className="topicImg" src={cake} />
-            <span className="topicList">
-              美食情報
-              <br />
-              <span>好食物好味道</span>
-            </span>
-            <img className="topicArrow" src={redArrow} />
-          </Link>
-          <Link to="/life" onClick={deleteSearch}>
-            <img className="topicImg" src={aroma} />
-            <span className="topicList">
-              健康生活
-              <br />
-              <span>綠色出行綠色生活</span>
-            </span>
-            <img className="topicArrow" src={redArrow} />
-          </Link>
-          <Link to="/fashion" onClick={deleteSearch}>
-            <img className="topicImg" src={dress} />
-            <span className="topicList">
-              時尚穿搭
-              <br />
-              <span>fashion前言趨勢</span>
-            </span>
-            <img className="topicArrow" src={redArrow} />
-          </Link>
-          <Link to="/love" onClick={deleteSearch}>
-            <img className="topicImg" src={rose} />
-            <span className="topicList">
-              感情生活
-              <br />
-              <span>各種抱怨聚集地</span>
-            </span>
-            <img className="topicArrow" src={redArrow} />
-          </Link>
+          {topic.map((topic) => {
+            return (
+              <Link to="/mkup" onClick={deleteSearch}>
+                <img className="topicImg" src={topic.img} />
+                <span className="topicList">
+                  {topic.list}
+                  <br />
+                  <span>{topic.describe}</span>
+                </span>
+                <img className="topicArrow" src={redArrow} />
+              </Link>
+            );
+          })}
         </div>
       </section>
       <article>
@@ -201,22 +195,25 @@ function Home() {
           </a>
         </div>
         <div className="cardContainer">
+          {/* 這邊是當 無搜尋結果 時 */}
           <div style={{ display: find ? "block" : "none" }} className="find">
             <p>{searchMsg.message}</p>
           </div>
           {Array.isArray(card) ? (
             card.map((card) => {
-              // 將收到的 HTML 轉成 Text
+              // 將 MySQL 的 HTML 轉成 Text
               const myContent = document.createElement("div");
               const myTitle = document.createElement("div");
               myContent.innerHTML = card.content;
               myTitle.innerHTML = card.title;
 
-              // 是否符合 img 標籤 且不得為 null 值
-              // 若未符合 或是為 null 值 則會渲染 Text
+              // 檢查是否包含 base64 字串 且不得為 null 值
+              // 是則渲染 img 否則渲染 Text
               const isStringValid =
                 card.content && card.content.includes("base64");
 
+              // HTML 篩選器 判斷是否含 img 標籤
+              // 是則抓出第一張照片
               const parser = new DOMParser();
               const doc = parser.parseFromString(card.content, "text/html");
               const imgElements = doc.querySelectorAll("img");
@@ -273,6 +270,7 @@ function Home() {
               );
             })
           ) : (
+            // 這邊是單篇 card 處理
             <Link
               className="card"
               to={`/post/${card.postId}`}
@@ -317,35 +315,27 @@ function Home() {
             流行貼文排行榜&nbsp;
             <img src={ice} className="sideImg" />
           </p>
-          {Array.isArray(pop) ? (
-            pop.map((pop) => {
-              return (
-                <Link to={`/post/${pop.postId}`} key={pop.postId}>
-                  <img className="rankImg" src={pop.headImg} />
-                  <span className="rankList">{pop.title}</span>
-                  <img className="rankArrow" src={redArrow} />
-                </Link>
-              );
-            })
-          ) : (
-            <div>hi</div>
-          )}
+          {pop.map((pop) => {
+            return (
+              <Link to={`/post/${pop.postId}`} key={pop.postId}>
+                <img className="rankImg" src={pop.headImg} />
+                <span className="rankList">{pop.title}</span>
+                <img className="rankArrow" src={redArrow} />
+              </Link>
+            );
+          })}
         </div>
         <div className="aside">
-          <p>點贊貼文排行榜</p>
-          {Array.isArray(like) ? (
-            like.map((like) => {
-              return (
-                <Link to={`/post/${like.postId}`} key={like.postId}>
-                  <img className="rankImg" src={like.headImg} />
-                  <span className="rankList">{like.title}</span>
-                  <img className="rankArrow" src={redArrow} />
-                </Link>
-              );
-            })
-          ) : (
-            <div>hi</div>
-          )}
+          <p>點讚貼文排行榜</p>
+          {like.map((like) => {
+            return (
+              <Link to={`/post/${like.postId}`} key={like.postId}>
+                <img className="rankImg" src={like.headImg} />
+                <span className="rankList">{like.title}</span>
+                <img className="rankArrow" src={redArrow} />
+              </Link>
+            );
+          })}
         </div>
       </aside>
       <Footer />

@@ -13,10 +13,6 @@ use Illuminate\Support\Facades\Auth;
 class PostController extends Controller
 {
 
-    /**
-     * Display a listing of the resource.
-     */
-
     public function index(Request $request)
     {
         $filter = new PostQuery();
@@ -146,14 +142,17 @@ class PostController extends Controller
         return PostResource::collection($posts);
 
     }
-    /**
-     * Display the specified resource.
-     */
-    public function show($id)
-    {
-        $post = Post::with('users')->find($id);
-        return new PostResource($post);
 
+    public function poststype($postId, $type)
+    {
+
+        $post = Post::with('users')->where('post_id', $postId)->where('type', $type)->first();
+
+        if (!$post) {
+            return response()->json(['message' => 'not found !'], 404);
+        }
+
+        return new PostResource($post);
     }
 
     public function updatepost(Request $request, $postId)
@@ -171,9 +170,15 @@ class PostController extends Controller
         $post->update($request->all());
         return response()->json(['message' => 'Post updated successfully', 'data' => $post]);
     }
-    /**
-     * Remove the specified resource from storage.
-     */
+
+    public function show($id)
+    {
+        $post = Post::with('users')->find($id);
+
+        return new PostResource($post);
+
+    }
+
     public function destroy($postId)
     {
         $userId = Auth::user()->user_id;

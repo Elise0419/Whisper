@@ -8,12 +8,10 @@ use App\Http\Resources\V1\ComtxtResource;
 use App\Models\Comtxt;
 use App\Services\V1\ComtxtQuery;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ComtxtController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
         $filter = new ComtxtQuery();
@@ -32,14 +30,8 @@ class ComtxtController extends Controller
 
         }
 
-        // $comtxts = Comtxt::orderBy('created_at', 'desc')->get();
-        // return ComtxtResource::collection($comtxts);
-        // return new ComtxtCollection(Comtxt::all());
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function createcomtxt(Request $request, $postId)
     {
         // var_dump($request);
@@ -50,23 +42,39 @@ class ComtxtController extends Controller
 
         $comment = new Comtxt();
         $comment->post_id = $postId;
-        $comment->user_id = $request->input('userId');
+        $comment->user_id = Auth::user()->user_id;
         $comment->comment = $request->input('comment');
         $comment->save();
 
         return response()->json(['message' => '評論已新增！']);
     }
 
-    /**
-     * Display the specified resource.
-     */
+    public function updatecomtxt(Request $request, $id)
+    { //$request is json
+        if (!Auth::check()) {
+            return response()->json(['message' => 'You need to login !'], 401);
+        }
+
+        $comment = Comtxt::find($id);
+
+        if (!$comment) {
+            return response()->json(['message' => 'not found'], 404);
+        }
+        if ($comment->user_id !== Auth::user()->user_id) {
+            return response()->json(['message' => 'You are not the original user'], 403);
+        }
+        $comment->comment = $request->input('comment');
+        $comment->save();
+
+        return response()->json(['message' => 'comtxt updated !']);
+
+    }
+
     public function show($id)
     {
         $comtxt = Comtxt::with(['users', 'posts'])->findOrFail($id);
 
         return new ComtxtResource($comtxt);
-
-        // return new ComtxtResource($comtxt);
 
     }
 

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\SavepostCollection;
-use App\Http\Resources\V1\SavepostResource;
 use App\Models\Post;
 use App\Models\Savepost;
 use Illuminate\Http\Request;
@@ -54,11 +53,19 @@ class SavepostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function userSaveposts()
     {
-        $savepost = Savepost::with(['users', 'posts'])->findOrFail($id);
+        $user = Auth::user();
+        $savepost = Savepost::with(['users', 'posts'])->where('user_id', $user->user_id)->get();
 
-        return new SavepostResource($savepost);
+        return new SavepostCollection($savepost);
     }
+
+    // public function show($id)
+    // {
+    //     $savepost = Savepost::with(['users', 'posts'])->findOrFail($id);
+
+    //     return new SavepostResource($savepost);
+    // }
 
 }

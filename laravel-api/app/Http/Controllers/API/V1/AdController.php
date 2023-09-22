@@ -29,14 +29,8 @@ class AdController extends Controller
             return new AdCollection(Ad::where($queryItems)->inRandomOrder()->take(3)->get());
 
         }
-        // $posts = Post::all();
-        // return response()->json($posts);
     }
-    // return Ad::all();
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Ad $ad)
     {
 

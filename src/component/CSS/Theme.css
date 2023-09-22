@@ -136,6 +136,10 @@
     background-color: var(--colorPink300);
 }
 
+.tag button:active {
+    transform: scale(0.96);
+}
+
 /* - - - - - - - - - - */
 
 .rule li {

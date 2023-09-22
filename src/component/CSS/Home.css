@@ -102,7 +102,6 @@ article a {
     color: var(--colorYellow);
     font-size: 1rem;
     text-transform: uppercase;
-    /* font-weight: bold; */
     text-align: center;
     text-decoration: none;
     overflow: hidden;
@@ -128,6 +127,10 @@ article a {
 .searchBtn:focus {
     color: white;
     font-weight: bold;
+}
+
+.searchBtn:active {
+    transform: scale(0.96);
 }
 
 .searchBtn:hover span {

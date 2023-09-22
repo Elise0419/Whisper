@@ -102,11 +102,10 @@ function Secreat() {
           </div>
         </div>
       </div>
-      <a
-        // href="javascript: void(0)"
+      <a // href="javascript: void(0)"
         class="secretBtn"
       >
-        <span>Button</span>
+        <span>whisper</span>
         <svg width="13px" height="10px" viewBox="0 0 13 10">
           <path d="M1,5 L11,5"></path>
           <polyline points="8 1 12 5 8 9"></polyline>
@@ -137,9 +136,9 @@ function Secreat() {
             id=""
             placeholder="What truth do you want to hear?..."
           />
+          <button className="sendSecret">send</button>
         </form>
       )}
-      <button className="sendSecret">send</button>
       <Footer />
     </div>
   );

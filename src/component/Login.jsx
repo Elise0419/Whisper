@@ -41,7 +41,7 @@ function Login() {
       };
 
       // 只有当表单验证通过时才进行页面跳转
-      fetch("http://10.147.20.3:8000/api/login", {
+      fetch("http://127.0.0.1:8000/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -50,26 +50,24 @@ function Login() {
       })
         .then((response) => {
           if (response.status >= 200) {
-            console.log(response)
+            console.log(response);
             return response.json();
           } else {
             throw new Error("Network response was not ok");
           }
-
         })
         .then((data) => {
           // 在这里处理从后端返回的数据
           localStorage.setItem("token", data.authorization.token); // 将Token存储在本地
           const token = localStorage.getItem("token");
-          console.log(data)
+          console.log(data);
           // 将Token存储在本地
           console.log("Token:", token);
           // history.push("/", { token: data.authorization.token });
           // 登录成功后跳转到首页
           history.push("/profile", { token: data.authorization.token });
           console.log("successfullogin");
-        }
-        )
+        })
 
         .catch((error) => {
           console.error("Error:", error);

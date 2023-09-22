@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useRouteMatch } from "react-router-dom";
 
 import "./CSS/Post.css";
-import Comment from "./Block/Comment";
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
+import Comment from "./Block/Comment";
 
 import makeup2 from "./img/makeup.jpeg";
 import bite from "./img/bite.png";
@@ -14,9 +14,12 @@ function Post({ userToken = null }) {
   const match = useRouteMatch();
   let [post, setPost] = useState([]);
   let [rule, setRule] = useState([]);
+  let [isLiked, setIsLiked] = useState(false);
+  let [isFavorited, setIsFavorited] = useState(false);
 
   useEffect(() => {
     function fetchData() {
+      // 取單篇文章
       fetch(`http://127.0.0.1:8000/api/v1/posts/${match.params.postId}`, {
         method: "GET",
       })
@@ -30,6 +33,7 @@ function Post({ userToken = null }) {
           console.log("錯誤:", err);
         });
 
+      // 個版規則
       fetch(`http://127.0.0.1:8000/api/v1/rules?type[eq]=fashion`, {
         method: "GET",
       })
@@ -42,12 +46,23 @@ function Post({ userToken = null }) {
         .catch((err) => {
           console.log("錯誤:", err);
         });
+
+      // 取隨機投票
+      //   fetch(`http://127.0.0.1:8000/api/votes/{}`, {
+      //   method: "GET",
+      // })
+      //   .then((res) => {
+      //     return res.json();
+      //   })
+      //   .then((jsonData) => {
+      //     setRule(jsonData.data);
+      //   })
+      //   .catch((err) => {
+      //     console.log("錯誤:", err);
+      //   });
     }
     fetchData();
   }, [match.params.postId]);
-
-  let [isLiked, setIsLiked] = useState(false);
-  let [isFavorited, setIsFavorited] = useState(false);
 
   const toggleLike = () => {
     console.log(post);
@@ -106,20 +121,20 @@ function Post({ userToken = null }) {
     }
   };
 
-  function hashtag(t) {
-    fetch(`http://127.0.0.1:8000/api/v1/posts?tag[eq]=${t}`, {
-      method: "GET",
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((jsonData) => {
-        console.log(jsonData);
-      })
-      .catch((err) => {
-        console.log("錯誤:", err);
-      });
-  }
+  // function hashtag(t) {
+  //   fetch(`http://127.0.0.1:8000/api/v1/posts?tag[eq]=${t}`, {
+  //     method: "GET",
+  //   })
+  //     .then((res) => {
+  //       return res.json();
+  //     })
+  //     .then((jsonData) => {
+  //       console.log(jsonData);
+  //     })
+  //     .catch((err) => {
+  //       console.log("錯誤:", err);
+  //     });
+  // }
 
   return (
     <div id="container">
@@ -166,6 +181,7 @@ function Post({ userToken = null }) {
                         referrerPolicy="no-referrer"
                       />
                     ) : (
+                      // 這邊是用戶上傳的照片處理
                       urls.map((url, index) => (
                         <div key={index}>
                           {console.log(url)}
@@ -185,7 +201,7 @@ function Post({ userToken = null }) {
                   </button>
                   <span>{post.thumb}</span>
                   <button
-                    onClick={toggleFavorite} // 确保这里调用了 toggleFavorite 函数
+                    onClick={toggleFavorite}
                     className={`postCustbutton ${isFavorited ? "active" : ""}`}
                   >
                     <i className="material-icons">favorite</i>
@@ -234,7 +250,10 @@ function Post({ userToken = null }) {
           <span className="tag">
             {post.map((post) => {
               return (
-                <button onClick={() => hashtag(post.tag)} key={post.tag_id}>
+                <button
+                  // onClick={() => hashtag(post.tag)}
+                  key={post.tag_id}
+                >
                   #{post.tag}
                 </button>
               );

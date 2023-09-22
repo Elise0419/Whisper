@@ -45,7 +45,7 @@ class ProfileController extends Controller
 
     public function headimgchange(Request $req)
     {
-        if ($req->hasFile('file')) {
+        if ($req->hasFile('File')) {
             $head_img = $req->file('File');
             $head_Path = $head_img->storeAs('public/user_head', 'user_' . $this->user->user_id . '.' . $head_img->getClientOriginalExtension());
 

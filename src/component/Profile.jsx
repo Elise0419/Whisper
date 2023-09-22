@@ -65,8 +65,7 @@ function Profile() {
     const reader = new FileReader();
     // 上傳
     reader.onload = function (event) {
-      // const fileContent = event.target.result;
-      // 將user.headimg為fileContent
+      // 更新用户头像
       setUser({ ...user, headimg: e.target.files[0] });
     };
     // 讀取
@@ -79,45 +78,37 @@ function Profile() {
 
     console.log(head);
 
-    const reader = new FileReader();
+    const formdata = new FormData();
 
-    reader.onload = function (event) {
+    formdata.append("File", head);
 
-      console.log("文件加载完成");
+    console.log(...formdata);
 
-      const formdata = new FormData();
-
-      formdata.append("File", head);
-
-      console.log(...formdata)
-
-      try {
-        const token = localStorage.getItem("token");
-        const response = fetch(
-          `http://10.147.20.3:8000/api/profile/head/change`,
-          {
-            method: "post",
-            headers: {
-              "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${token}`,
-            },
-            body: formdata,
-          }
-        );
-
-        if (response.ok) {
-          const jsonData = response.json();
-          console.log(jsonData);
+    const token = localStorage.getItem("token");
+    fetch(`http://10.147.20.3:8000/api/profile/head/change`, {
+      method: "put",
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+      body: formdata,
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
         } else {
           console.log("上傳失敗，請重新上傳");
           throw new Error("API request failed");
         }
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
-    reader.readAsDataURL(head);
+      })
+      .then((jsonData) => {
+        console.log(jsonData);
+      })
+      .catch((err) => {
+        console.log("Error:", err);
+      });
   };
+
 
   // 編輯資料
   const handleEditClick = (field) => {

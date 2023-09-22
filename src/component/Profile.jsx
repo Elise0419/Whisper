@@ -14,6 +14,7 @@ function Profile() {
     email: false,
     person_id: false,
     phone: false,
+    head_img: false,
   });
 
   // 在 handleSaveClick 中调整传递的字段
@@ -66,7 +67,8 @@ function Profile() {
     // 上傳
     reader.onload = function (event) {
       // 更新用户头像
-      setUser({ ...user, headimg: e.target.files[0] });
+      console.log(event.target.result);
+      setUser({ ...user, headimg: event.target.result });
     };
     // 讀取
     reader.readAsDataURL(file);
@@ -74,24 +76,28 @@ function Profile() {
 
   const handleImageSave = () => {
 
+    setIsEditing({ ...isEditing, headimg: false });
+
     const head = user.headimg;
 
-    console.log(head);
+    // console.log(head);
 
-    const formdata = new FormData();
+    // const formdata = new FormData();
 
-    formdata.append("File", head);
+    // formdata.append("File", head);
 
-    console.log(...formdata);
+    // console.log(...formdata);
 
     const token = localStorage.getItem("token");
     fetch(`http://10.147.20.3:8000/api/profile/head/change`, {
       method: "put",
       headers: {
-        "Content-Type": "multipart/form-data",
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: formdata,
+      body: JSON.stringify({
+        base64Image: head,
+      }),
     })
       .then((res) => {
         if (res.ok) {
@@ -108,7 +114,6 @@ function Profile() {
         console.log("Error:", err);
       });
   };
-
 
   // 編輯資料
   const handleEditClick = (field) => {
@@ -162,11 +167,12 @@ function Profile() {
             <form>
               <div className="profilePic">
                 <label htmlFor="headimg">頭像:</label>
+                <img src={user.headimg || "/default-avatar.jpg"} alt="Profile Pic" className="profilePic" />
                 {isEditing.headimg ? (
                   <div>
                     <input
                       type="file"
-                      id="profilePic"
+                      id="headimg"
                       accept="image/*"
                       onChange={handleImageUpload}
                     />
@@ -174,19 +180,8 @@ function Profile() {
                       保存
                     </button>
                   </div>
-                ) : (
-                  <img
-                    src={user?.headimg || "/default-avatar.jpg"}
-                    alt="Profile Pic"
-                    className="profilePic"
-                  />
-                )}
-                <button
-                  type="button"
-                  onClick={() => setIsEditing({ ...isEditing, headimg: true })}
-                >
-                  編輯
-                </button>
+                ) : (<button type="button" onClick={() => setIsEditing({ ...isEditing, headimg: true })}>編輯</button>)}
+
               </div>
               <hr />
 

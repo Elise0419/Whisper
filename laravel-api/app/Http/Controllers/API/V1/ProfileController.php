@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -45,17 +46,18 @@ class ProfileController extends Controller
 
     public function headimgchange(Request $req)
     {
-        if ($req->hasFile('File')) {
-            $head_img = $req->file('File');
-            $head_Path = $head_img->storeAs('public/user_head', 'user_' . $this->user->user_id . '.' . $head_img->getClientOriginalExtension());
+        // $base64Image = $req->input('base64Image'); // 获取Base64编码的图像数据
+        $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $req->base64Image)); // 解码Base64数据
+        $head_Path = 'user_head/' . 'user_' . $this->user->user_id . '.jpg';
+        Storage::put($head_Path, $imageData);
 
-            // 更新用戶的頭像路徑
-            $this->user->headimg = $head_Path;
-            $this->user->save();
-            return response()->json(['message' => '已更換新的頭像'], 201);
-        }
+        // 更新用戶的頭像路徑
+        $this->user->headimg = 'http://10.147.20.3:8000/storage/' . $head_Path;
+        $this->user->save();
+        // return response()->json(['message' => '已更換新的頭像'], 201);
 
-        return response()->json(['message' => '未上傳頭像文件'], 401);
+
+        return response()->json(['message' => '上傳成功'], 200);
     }
 
     public function phonechange(Request $req)

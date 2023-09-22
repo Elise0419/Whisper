@@ -63,7 +63,7 @@ Route::controller(ProfileController::class)->group(function () {
     Route::get('profile', 'profile');
     Route::put('profile/email/change', 'emailchange');
     Route::put('profile/phone/change', 'phonechange');
-    Route::put('profile/head/change', 'headimgchange');
+    Route::post('profile/head/change', 'headimgchange');
     Route::put('profile/person_id/change', 'idchange');
     Route::put('profile/mem_name/change', 'namechange');
     Route::put('profile/promise/change', 'peromise');

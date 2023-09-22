@@ -14,16 +14,30 @@ function Post({ userToken = null }) {
   const match = useRouteMatch();
   let [post, setPost] = useState([]);
   let [rule, setRule] = useState([]);
-  let [tag, setTag] = useState([]);
 
   useEffect(() => {
     function fetchData() {
       fetch(`http://127.0.0.1:8000/api/v1/posts/${match.params.postId}`, {
         method: "GET",
       })
-        .then((res) => res.json())
+        .then((res) => {
+          return res.json();
+        })
         .then((jsonData) => {
-          setPost([jsonData.data]); // 包裹成数组
+          setPost([jsonData.data]);
+        })
+        .catch((err) => {
+          console.log("錯誤:", err);
+        });
+
+      fetch(`http://127.0.0.1:8000/api/v1/rules?type[eq]=fashion`, {
+        method: "GET",
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((jsonData) => {
+          setRule(jsonData.data);
         })
         .catch((err) => {
           console.log("錯誤:", err);
@@ -93,7 +107,6 @@ function Post({ userToken = null }) {
   };
 
   function hashtag(t) {
-    document.getElementById("searchBar").value = "";
     fetch(`http://127.0.0.1:8000/api/v1/posts?tag[eq]=${t}`, {
       method: "GET",
     })
@@ -101,8 +114,7 @@ function Post({ userToken = null }) {
         return res.json();
       })
       .then((jsonData) => {
-        // setCard(jsonData);
-        // setFind(false);
+        console.log(jsonData);
       })
       .catch((err) => {
         console.log("錯誤:", err);
@@ -115,6 +127,18 @@ function Post({ userToken = null }) {
       <section></section>
       <article>
         {post.map((post) => {
+          const myContent = document.createElement("div");
+          const myTitle = document.createElement("div");
+          myContent.innerHTML = post.content;
+          myTitle.innerHTML = post.title;
+
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(post.content, "text/html");
+          const imgElements = doc.querySelectorAll("img");
+          const urls = Array.from(imgElements).map((img) =>
+            img.getAttribute("src")
+          );
+
           return (
             <div className="postContainer" key={post.postId}>
               <div className="postUseinfo">
@@ -130,11 +154,25 @@ function Post({ userToken = null }) {
               <div className="postAll">
                 <div className="postArticle">
                   <div className="postArticletitle">
-                    <h2>{post.title}</h2>
+                    <h2>{myTitle.textContent}</h2>
                   </div>
                   <div className="postArticletext">
-                    <p>{post.content}</p>
-                    <img src={post.imgUrl} />
+                    <p>{myContent.textContent}</p>
+                    {post.imgUrl ? (
+                      // 這邊是資料庫 imgUrl 預設貼文的照片處理
+                      <img
+                        src={post.imgUrl}
+                        key={`${post.postId}`}
+                        referrerPolicy="no-referrer"
+                      />
+                    ) : (
+                      urls.map((url, index) => (
+                        <div key={index}>
+                          {console.log(url)}
+                          <img src={url} alt={`Image ${index}`} />
+                        </div>
+                      ))
+                    )}
                   </div>
                 </div>
                 <hr />
@@ -194,10 +232,10 @@ function Post({ userToken = null }) {
             <img src={bite} className="sideImg" />
           </p>
           <span className="tag">
-            {tag.map((tag) => {
+            {post.map((post) => {
               return (
-                <button onClick={() => hashtag(tag.tag)} key={tag.tag_id}>
-                  #{tag.tag}
+                <button onClick={() => hashtag(post.tag)} key={post.tag_id}>
+                  #{post.tag}
                 </button>
               );
             })}

@@ -3,6 +3,7 @@ import "./CSS/Profile.css";
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
 import Asideuser from "./Block/Asideuser";
+import { useHistory } from 'react-router-dom';
 
 function Profile() {
   const [user, setUser] = useState({});
@@ -33,7 +34,7 @@ function Profile() {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://10.10.247.90:8000/api/profile/${field}/change`,
+        `http://10.147.20.3:8000/api/profile/${field}/change`,
         {
           method: "put",
           headers: {
@@ -73,26 +74,29 @@ function Profile() {
   };
 
   const handleImageSave = () => {
-    const file = user.headimg;
 
-    console.log(file);
-    
+    const head = user.headimg;
+
+    console.log(head);
+
     const reader = new FileReader();
 
-    reader.onload = async function (event) {
+    reader.onload = function (event) {
 
       console.log("文件加载完成");
 
       const formdata = new FormData();
 
-      formdata.append("file", file);
-      console.log(formdata)
+      formdata.append("File", head);
+
+      console.log(...formdata)
+
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch(
-          `http://10.10.247.90:8000/api/profile/head/change`,
+        const response = fetch(
+          `http://10.147.20.3:8000/api/profile/head/change`,
           {
-            method: "put",
+            method: "post",
             headers: {
               "Content-Type": "multipart/form-data",
               Authorization: `Bearer ${token}`,
@@ -102,7 +106,7 @@ function Profile() {
         );
 
         if (response.ok) {
-          const jsonData = await response.json();
+          const jsonData = response.json();
           console.log(jsonData);
         } else {
           console.log("上傳失敗，請重新上傳");
@@ -112,7 +116,7 @@ function Profile() {
         console.error("Error:", error);
       }
     };
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(head);
   };
 
   // 編輯資料
@@ -120,23 +124,25 @@ function Profile() {
     console.log(`Editing ${field}`);
     setIsEditing({ ...isEditing, [field]: true });
   };
+  const history = useHistory();
 
   useEffect(() => {
     function fetchData() {
       const token = localStorage.getItem("token");
       console.log("Token in Profile:", token);
 
-      fetch("http://10.10.247.90:8000/api/profile", {
-        method: "get",
+      fetch("http://10.147.20.3:8000/api/profile", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
         .then((res) => {
-          if (!res.ok) {
+          if (res.status === 403) {
+            history.push("/verify");
             throw new Error("API request failed");
+          } else if (res.status >= 200) {
+            return res.json();
           }
-          return res.json();
         })
         .then((jsonData) => {
           if (jsonData.error) {

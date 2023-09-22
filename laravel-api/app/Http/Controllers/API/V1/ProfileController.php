@@ -45,11 +45,8 @@ class ProfileController extends Controller
 
     public function headimgchange(Request $req)
     {
-        if (!$req) {
-            return response()->json(['message' => '未接受檔案'], 400);
-        }
         if ($req->hasFile('file')) {
-            $head_img = $req->file('file');
+            $head_img = $req->file('File');
             $head_Path = $head_img->storeAs('public/user_head', 'user_' . $this->user->user_id . '.' . $head_img->getClientOriginalExtension());
 
             // 更新用戶的頭像路徑
@@ -58,7 +55,7 @@ class ProfileController extends Controller
             return response()->json(['message' => '已更換新的頭像'], 201);
         }
 
-        return response()->json(['message' => '未上傳頭像文件'], 400);
+        return response()->json(['message' => '未上傳頭像文件'], 401);
     }
 
     public function phonechange(Request $req)

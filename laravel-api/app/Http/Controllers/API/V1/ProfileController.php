@@ -46,17 +46,15 @@ class ProfileController extends Controller
 
     public function headimgchange(Request $req)
     {
-        // $base64Image = $req->input('base64Image'); // 获取Base64编码的图像数据
+        if (!$req->base64Image) {
+            return response()->json(['message' => '上傳失敗'], 400);
+        }
         $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $req->base64Image)); // 解码Base64数据
-        $head_Path = 'user_head/' . 'user_' . $this->user->user_id . '.jpg';
+        $filename = 'user_' . $this->user->user_id . '.jpg';
+        $head_Path = 'public/user_head/'  . $filename;
         Storage::put($head_Path, $imageData);
-
-        // 更新用戶的頭像路徑
-        $this->user->headimg = 'http://10.147.20.3:8000/storage/' . $head_Path;
+        $this->user->headimg = 'http://10.147.20.3:8000/storage/user_head/' . $filename;
         $this->user->save();
-        // return response()->json(['message' => '已更換新的頭像'], 201);
-
-
         return response()->json(['message' => '上傳成功'], 200);
     }
 

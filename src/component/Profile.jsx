@@ -14,6 +14,7 @@ function Profile() {
     email: false,
     person_id: false,
     phone: false,
+    head_img: false,
   });
 
   // 在 handleSaveClick 中调整传递的字段
@@ -65,56 +66,57 @@ function Profile() {
     const reader = new FileReader();
     // 上傳
     reader.onload = function (event) {
-      // const fileContent = event.target.result;
-      // 將user.headimg為fileContent
-      setUser({ ...user, headimg: e.target.files[0] });
+      // 更新用户头像
+      console.log(event.target.result);
+      setUser({ ...user, headimg: event.target.result });
     };
     // 讀取
     reader.readAsDataURL(file);
   };
 
   const handleImageSave = () => {
+
     const head = user.headimg;
 
-    console.log(head);
+    // console.log(head);
 
     const reader = new FileReader();
 
     reader.onload = function (event) {
+
       console.log("文件加载完成");
 
       const formdata = new FormData();
 
-      formdata.append("File", head);
+    // formdata.append("File", head);
 
-      console.log(...formdata);
+    // console.log(...formdata);
 
-      try {
-        const token = localStorage.getItem("token");
-        const response = fetch(
-          `http://127.0.0.1:8000/api/profile/head/change`,
-          {
-            method: "post",
-            headers: {
-              "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${token}`,
-            },
-            body: formdata,
-          }
-        );
-
-        if (response.ok) {
-          const jsonData = response.json();
-          console.log(jsonData);
+    const token = localStorage.getItem("token");
+    fetch(`http://10.147.20.3:8000/api/profile/head/change`, {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        base64Image: head,
+      }),
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
         } else {
           console.log("上傳失敗，請重新上傳");
           throw new Error("API request failed");
         }
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
-    reader.readAsDataURL(head);
+      })
+      .then((jsonData) => {
+        console.log(jsonData);
+      })
+      .catch((err) => {
+        console.log("Error:", err);
+      });
   };
 
   // 編輯資料
@@ -169,11 +171,12 @@ function Profile() {
             <form>
               <div className="profilePic">
                 <label htmlFor="headimg">頭像:</label>
+                <img src={user.headimg || "/default-avatar.jpg"} alt="Profile Pic" className="profilePic" />
                 {isEditing.headimg ? (
                   <div>
                     <input
                       type="file"
-                      id="profilePic"
+                      id="headimg"
                       accept="image/*"
                       onChange={handleImageUpload}
                     />
@@ -181,19 +184,8 @@ function Profile() {
                       保存
                     </button>
                   </div>
-                ) : (
-                  <img
-                    src={user?.headimg || "/default-avatar.jpg"}
-                    alt="Profile Pic"
-                    className="profilePic"
-                  />
-                )}
-                <button
-                  type="button"
-                  onClick={() => setIsEditing({ ...isEditing, headimg: true })}
-                >
-                  編輯
-                </button>
+                ) : (<button type="button" onClick={() => setIsEditing({ ...isEditing, headimg: true })}>編輯</button>)}
+
               </div>
               <hr />
 

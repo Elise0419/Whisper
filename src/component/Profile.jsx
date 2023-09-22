@@ -3,6 +3,7 @@ import "./CSS/Profile.css";
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
 import Asideuser from "./Block/Asideuser";
+import { useHistory } from 'react-router-dom';
 
 function Profile() {
   const [user, setUser] = useState({});
@@ -120,6 +121,7 @@ function Profile() {
     console.log(`Editing ${field}`);
     setIsEditing({ ...isEditing, [field]: true });
   };
+  const history = useHistory();
 
   useEffect(() => {
     function fetchData() {
@@ -127,16 +129,15 @@ function Profile() {
       console.log("Token in Profile:", token);
 
       fetch("http://10.147.20.3:8000/api/profile", {
-        method: "get",
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
         .then((res) => {
           if (res.status === 403) {
-            history.push("/verify", { token: data.authorization.token });
+            history.push("/verify");
             throw new Error("API request failed");
-          } else {
+          } else if (res.status >= 200) {
             return res.json();
           }
         })

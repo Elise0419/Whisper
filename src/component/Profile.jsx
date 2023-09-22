@@ -3,7 +3,7 @@ import "./CSS/Profile.css";
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
 import Asideuser from "./Block/Asideuser";
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 
 function Profile() {
   const [user, setUser] = useState({});
@@ -35,7 +35,7 @@ function Profile() {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://10.147.20.3:8000/api/profile/${field}/change`,
+        `http://127.0.0.1:8000/api/profile/${field}/change`,
         {
           method: "put",
           headers: {
@@ -76,13 +76,17 @@ function Profile() {
 
   const handleImageSave = () => {
 
-    setIsEditing({ ...isEditing, headimg: false });
-
     const head = user.headimg;
 
     // console.log(head);
 
-    // const formdata = new FormData();
+    const reader = new FileReader();
+
+    reader.onload = function (event) {
+
+      console.log("文件加载完成");
+
+      const formdata = new FormData();
 
     // formdata.append("File", head);
 
@@ -127,7 +131,7 @@ function Profile() {
       const token = localStorage.getItem("token");
       console.log("Token in Profile:", token);
 
-      fetch("http://10.147.20.3:8000/api/profile", {
+      fetch("http://127.0.0.1:8000/api/profile", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

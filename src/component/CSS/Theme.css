@@ -67,7 +67,7 @@
 .choice div {
     display: flex;
     flex-wrap: wrap;
-    margin-top: 0.5rem;
+    margin-top: 1rem;
     justify-content: center;
 }
 
@@ -100,6 +100,7 @@
     color: #3e4963;
     text-align: center;
     transition: background-color .5s ease;
+    width: 119px;
 }
 
 .choice label:first-child span {

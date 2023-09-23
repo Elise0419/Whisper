@@ -17,7 +17,7 @@ import rabbit from "./img/rabbit.png";
 import ice from "./img/ice.png";
 
 function Home() {
-  const match = useRouteMatch();
+  const m = useRouteMatch().params.type;
   let [topic, setTopic] = useState([
     {
       img: makeup,
@@ -101,7 +101,7 @@ function Home() {
         });
     }
     fetchData();
-  }, [match.params.type, searchMsg]);
+  }, [m, searchMsg]);
 
   // 搜尋
   function searchInput() {
@@ -226,7 +226,7 @@ function Home() {
               return (
                 <Link
                   className="card"
-                  to={`/post/${card.postId}`}
+                  to={`/post/${card.postId}/${card.type}`}
                   key={card.postId}
                   onClick={() => cardClick(card.postId)}
                 >
@@ -273,7 +273,7 @@ function Home() {
             // 這邊是單篇 card 處理
             <Link
               className="card"
-              to={`/post/${card.postId}`}
+              to={`/post/${card.postId}/${card.type}`}
               key={card.postId}
               onClick={() => cardClick(card.postId)}
             >

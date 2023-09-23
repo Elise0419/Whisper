@@ -131,7 +131,7 @@ class PostController extends Controller
         $post->tag = $tag;
         $post->post_time = $postTime;
         $post->save();
-        return response()->json(['message' => 'uploaded!', 'data' => $request->json()->all()], 200);
+        return new PostResource($post);
 
     }
 

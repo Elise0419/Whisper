@@ -321,11 +321,7 @@ function Makeup() {
             placeholder="熱門貼文搜尋"
             onChange={searchInput}
           />
-          <a
-            // href="javascript: void(0)"
-            className="searchBtn"
-            onClick={searchButton}
-          >
+          <a className="searchBtn" onClick={searchButton}>
             Search
             <span></span>
             <span></span>

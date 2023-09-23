@@ -48,6 +48,9 @@ function Makeup() {
   let [find, setFind] = useState(false); // 無搜尋結果
   let [card, setCard] = useState([]);
   let [vote, setVote] = useState([]);
+  let [oneWidth, setOneWidth] = useState(50);
+  let [twoWidth, setTwoWidth] = useState(50);
+  const [disabled, setDisabled] = useState(false);
   let [tag, setTag] = useState([]);
   let [rule, setRule] = useState([]);
 
@@ -100,7 +103,7 @@ function Makeup() {
           return res.json();
         })
         .then((jsonData) => {
-          console.log(jsonData);
+          // 只要切換個版 就重新渲染
           setVote(jsonData.data[0]);
         })
         .catch((err) => {
@@ -137,6 +140,26 @@ function Makeup() {
     }
     fetchData();
   }, [m, searchMsg]);
+
+  useEffect(() => {
+    if (vote.voteId) {
+      let record = localStorage.getItem(`vote${vote.voteId}`);
+      record = JSON.parse(record);
+      console.log(record);
+      if (record != null) {
+        setOneWidth(record.one);
+        setTwoWidth(record.two);
+        setDisabled(true);
+        document.getElementById(record.ans).checked = true;
+      } else {
+        document.getElementById("ansOne").checked = false;
+        document.getElementById("ansTwo").checked = false;
+        setOneWidth(50);
+        setTwoWidth(50);
+        setDisabled(false);
+      }
+    }
+  }, [vote]);
 
   // 搜尋
   function searchInput() {
@@ -192,25 +215,43 @@ function Makeup() {
   };
 
   // vote
-  // function (e) {
-  //   const token = localStorage.getItem("token");
-  //   console.log("Token in Profile:", token);
-  //   fetch(`http://127.0.0.1:8000/api/votes/click/${vote.voteId}?ansOne=true`, {
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   })
-  //     .then((res) => {
-  //       return res.json();
-  //     })
-  //     .then((jsonData) => {
-  //     })
-  //     .catch((err) => {
-  //       console.log("錯誤:", err);
-  //     });
-  // }
+  function widthChange(e) {
+    const token = localStorage.getItem("token");
+    console.log("Token in Profile:", token);
+
+    fetch(
+      `http://127.0.0.1:8000/api/votes/click/${vote.voteId}?${e.target.id}=true`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+      .then((res) => {
+        return res.json();
+      })
+      .then((jsonData) => {
+        if ((jsonData.message = "投票成功！")) {
+          setOneWidth(vote.ansOnePoint);
+          setTwoWidth(vote.ansTwoPoint);
+          setDisabled(true);
+
+          let voteData = {
+            id: vote.voteId,
+            ans: e.target.id,
+            one: vote.ansOnePoint,
+            two: vote.ansTwoPoint,
+          };
+          voteData = JSON.stringify(voteData);
+          localStorage.setItem(`vote${vote.voteId}`, voteData);
+        }
+      })
+      .catch((err) => {
+        console.log("錯誤:", err);
+      });
+  }
 
   // 點擊標籤
   function hashtag(t) {
@@ -317,7 +358,6 @@ function Makeup() {
               if (imgElements.length > 0) {
                 const firstImgElement = imgElements[0];
                 url = firstImgElement.getAttribute("src");
-              } else {
               }
 
               return (
@@ -418,12 +458,24 @@ function Makeup() {
             <span className="voteTitle">{vote.title}</span>
             <div className="choice">
               <div>
-                <label>
-                  <input type="radio" name="radio" />
+                <label style={{ width: oneWidth + "%" }}>
+                  <input
+                    type="radio"
+                    name="radio"
+                    id="ansOne"
+                    onClick={widthChange}
+                    disabled={disabled}
+                  />
                   <span>{vote.ansOne}</span>
                 </label>
-                <label>
-                  <input type="radio" name="radio" />
+                <label style={{ width: twoWidth + "%" }}>
+                  <input
+                    type="radio"
+                    name="radio"
+                    id="ansTwo"
+                    onClick={widthChange}
+                    disabled={disabled}
+                  />
                   <span>{vote.ansTwo}</span>
                 </label>
               </div>

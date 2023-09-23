@@ -14,6 +14,9 @@ function Post({ userToken = null }) {
   const match = useRouteMatch();
   let [post, setPost] = useState([]);
   let [vote, setVote] = useState([]);
+  let [oneWidth, setOneWidth] = useState(50);
+  let [twoWidth, setTwoWidth] = useState(50);
+  const [disabled, setDisabled] = useState(false);
   let [rule, setRule] = useState([]);
   let [isLiked, setIsLiked] = useState(false);
   let [isFavorited, setIsFavorited] = useState(false);
@@ -70,6 +73,27 @@ function Post({ userToken = null }) {
     }
     fetchData();
   }, [match.params.postId]);
+
+  // 投票區域處理
+  useEffect(() => {
+    if (vote.voteId) {
+      let record = localStorage.getItem(`vote${vote.voteId}`);
+      record = JSON.parse(record);
+      console.log(record);
+      if (record != null) {
+        setOneWidth(record.one);
+        setTwoWidth(record.two);
+        setDisabled(true);
+        document.getElementById(record.ans).checked = true;
+      } else {
+        document.getElementById("ansOne").checked = false;
+        document.getElementById("ansTwo").checked = false;
+        setOneWidth(50);
+        setTwoWidth(50);
+        setDisabled(false);
+      }
+    }
+  }, [vote]);
 
   const toggleLike = () => {
     console.log(post);
@@ -129,18 +153,38 @@ function Post({ userToken = null }) {
   };
 
   // vote
-  function voted(e) {
+  function widthChange(e) {
+    const token = localStorage.getItem("token");
+    console.log("Token in Profile:", token);
+
     fetch(
-      `http://192.168.194.32:8000/api/votes/click/${vote.voteId}?${e.target.name}=true`,
+      `http://127.0.0.1:8000/api/votes/click/${vote.voteId}?${e.target.id}=true`,
       {
         method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       }
     )
       .then((res) => {
         return res.json();
       })
       .then((jsonData) => {
-        console.log(jsonData);
+        if ((jsonData.message = "投票成功！")) {
+          setOneWidth(vote.ansOnePoint);
+          setTwoWidth(vote.ansTwoPoint);
+          setDisabled(true);
+
+          let voteData = {
+            id: vote.voteId,
+            ans: e.target.id,
+            one: vote.ansOnePoint,
+            two: vote.ansTwoPoint,
+          };
+          voteData = JSON.stringify(voteData);
+          localStorage.setItem(`vote${vote.voteId}`, voteData);
+        }
       })
       .catch((err) => {
         console.log("錯誤:", err);
@@ -254,12 +298,24 @@ function Post({ userToken = null }) {
             <span className="voteTitle">{vote.title}</span>
             <div className="choice">
               <div>
-                <label>
-                  <input type="radio" name="ansOne" onInput={voted} />
+                <label style={{ width: oneWidth + "%" }}>
+                  <input
+                    type="radio"
+                    name="radio"
+                    id="ansOne"
+                    onClick={widthChange}
+                    disabled={disabled}
+                  />
                   <span>{vote.ansOne}</span>
                 </label>
-                <label>
-                  <input type="radio" name="ansTwo" onInput={voted} />
+                <label style={{ width: twoWidth + "%" }}>
+                  <input
+                    type="radio"
+                    name="radio"
+                    id="ansTwo"
+                    onClick={widthChange}
+                    disabled={disabled}
+                  />
                   <span>{vote.ansTwo}</span>
                 </label>
               </div>

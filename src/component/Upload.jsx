@@ -39,7 +39,7 @@ function Quill() {
       const token = localStorage.getItem("token");
       console.log("Token in Profile:", token);
 
-      // 淳嫻 這邊測試要加埠號 不然會有cors跟404的問題
+      // 淳嫻 這邊測試要加埠號 不然會有 cors 跟 404 的問題
       // 還有 照片檔案不能過大 不然會出現net::ERR_FAILED
       fetch(`http://127.0.0.1:8000/api/upload/${match.params.type}`, {
         method: "POST",
@@ -58,6 +58,7 @@ function Quill() {
         .catch((error) => {
           console.log(error);
         });
+      window.location.href = "/";
     }
   };
 

@@ -141,6 +141,7 @@ function Makeup() {
     fetchData();
   }, [m, searchMsg]);
 
+  // 投票區域處理
   useEffect(() => {
     if (vote.voteId) {
       let record = localStorage.getItem(`vote${vote.voteId}`);

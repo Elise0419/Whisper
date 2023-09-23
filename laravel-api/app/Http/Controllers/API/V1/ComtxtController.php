@@ -34,16 +34,16 @@ class ComtxtController extends Controller
 
     public function createcomtxt(Request $request, $postId)
     {
-        // var_dump($request);
-        // $validatedData = $request->validate([
-        //     'comment' => 'required|string|',
-        //     'userId' => 'required|integer',
-        // ]);
-
+        $userId = Auth::user();
+        if (!$userId) {
+            return 'login';
+        };
         $comment = new Comtxt();
         $comment->post_id = $postId;
         $comment->user_id = Auth::user()->user_id;
         $comment->comment = $request->input('comment');
+        $comment->created_at = now();
+        $comment->updated_at = now();
         $comment->save();
 
         return response()->json(['message' => '評論已新增！']);
@@ -64,6 +64,7 @@ class ComtxtController extends Controller
             return response()->json(['message' => 'You are not the original user'], 403);
         }
         $comment->comment = $request->input('comment');
+        $comment->updated_at = now();
         $comment->save();
 
         return response()->json(['message' => 'comtxt updated !']);

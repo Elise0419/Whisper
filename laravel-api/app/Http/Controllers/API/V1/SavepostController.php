@@ -21,8 +21,8 @@ class SavepostController extends Controller
 
         $userId = Auth::user()->user_id;
         if (!$userId) {
-            return response()->json(['message' => '你沒登入'], 403);
-        }
+            return 'login';
+        };
 
         $existingSave = Savepost::where('user_id', $userId)
             ->where('post_id', $postId)
@@ -47,8 +47,11 @@ class SavepostController extends Controller
 
     public function userSaveposts()
     {
-        $user = Auth::user();
-        $savepost = Savepost::with(['users', 'posts'])->where('user_id', $user->user_id)->get();
+        $userId = Auth::user()->user_id;
+        if (!$userId) {
+            return 'login';
+        };
+        $savepost = Savepost::with(['users', 'posts'])->where('user_id', $userId->user_id)->get();
 
         if ($savepost->isEmpty()) {
             return response()->json(['message' => '没有蒐藏任何貼文']);

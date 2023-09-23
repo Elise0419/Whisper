@@ -17,6 +17,7 @@ class VoteResource extends JsonResource
     {
         return [
             'voteId' => $this->vote_id,
+            'forumTitle' => $this->forumtitle,
             'title' => $this->title,
             'type' => $this->type,
             'ansOne' => $this->ans_one,

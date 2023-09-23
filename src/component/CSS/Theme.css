@@ -71,6 +71,10 @@
     justify-content: center;
 }
 
+.choice label {
+    width: 50%;
+}
+
 .choice input[type="radio"] {
     clip: rect(0 0 0 0);
     clip-path: inset(100%);
@@ -100,7 +104,6 @@
     color: #3e4963;
     text-align: center;
     transition: background-color .5s ease;
-    width: 119px;
 }
 
 .choice label:first-child span {

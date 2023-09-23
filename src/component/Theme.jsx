@@ -100,6 +100,7 @@ function Makeup() {
           return res.json();
         })
         .then((jsonData) => {
+          console.log(jsonData);
           setVote(jsonData.data[0]);
         })
         .catch((err) => {
@@ -191,23 +192,25 @@ function Makeup() {
   };
 
   // vote
-  function voted(e) {
-    fetch(
-      `http://127.0.0.1:8000/api/votes/click/${vote.voteId}?${e.target.name}=true`,
-      {
-        method: "GET",
-      }
-    )
-      .then((res) => {
-        return res.json();
-      })
-      .then((jsonData) => {
-        console.log(jsonData);
-      })
-      .catch((err) => {
-        console.log("錯誤:", err);
-      });
-  }
+  // function (e) {
+  //   const token = localStorage.getItem("token");
+  //   console.log("Token in Profile:", token);
+  //   fetch(`http://127.0.0.1:8000/api/votes/click/${vote.voteId}?ansOne=true`, {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   })
+  //     .then((res) => {
+  //       return res.json();
+  //     })
+  //     .then((jsonData) => {
+  //     })
+  //     .catch((err) => {
+  //       console.log("錯誤:", err);
+  //     });
+  // }
 
   // 點擊標籤
   function hashtag(t) {
@@ -416,11 +419,11 @@ function Makeup() {
             <div className="choice">
               <div>
                 <label>
-                  <input type="radio" name="ansOne" onInput={voted} />
+                  <input type="radio" name="radio" />
                   <span>{vote.ansOne}</span>
                 </label>
                 <label>
-                  <input type="radio" name="ansTwo" onInput={voted} />
+                  <input type="radio" name="radio" />
                   <span>{vote.ansTwo}</span>
                 </label>
               </div>

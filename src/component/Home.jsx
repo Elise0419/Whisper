@@ -317,7 +317,7 @@ function Home() {
           </p>
           {pop.map((pop) => {
             return (
-              <Link to={`/post/${pop.postId}`} key={pop.postId}>
+              <Link to={`/post/${pop.postId}/${pop.type}`} key={pop.postId}>
                 <img className="rankImg" src={pop.headImg} />
                 <span className="rankList">{pop.title}</span>
                 <img className="rankArrow" src={redArrow} />
@@ -329,7 +329,7 @@ function Home() {
           <p>點讚貼文排行榜</p>
           {like.map((like) => {
             return (
-              <Link to={`/post/${like.postId}`} key={like.postId}>
+              <Link to={`/post/${like.postId}/${like.type}`} key={like.postId}>
                 <img className="rankImg" src={like.headImg} />
                 <span className="rankList">{like.title}</span>
                 <img className="rankArrow" src={redArrow} />

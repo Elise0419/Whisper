@@ -220,7 +220,6 @@ function Home() {
               if (imgElements.length > 0) {
                 const firstImgElement = imgElements[0];
                 url = firstImgElement.getAttribute("src");
-              } else {
               }
 
               return (

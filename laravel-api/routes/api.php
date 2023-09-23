@@ -86,8 +86,8 @@ Route::get('/tags/all/{type}', [TagController::class, 'getAllTags']);
 Route::get('/votes/{type}', [VoteController::class, 'voteselect']);
 Route::get('/votes/click/{voteId}', [VoteController::class, 'votesclick']);
 Route::get('/posts/search', [PostController::class, 'search']);
-Route::get('/posts/click{postId}', [PostController::class, 'click']);
-Route::get('/posts/thumb{postId}', [PostController::class, 'thumb']);
+Route::post('/posts/click{postId}', [PostController::class, 'click']);
+Route::post('/posts/thumb{postId}', [PostController::class, 'thumb']);
 
 Route::post('/posts/{postId}/comments', [ComtxtController::class, 'createcomtxt']);
 Route::put('/posts/comments/{id}', [ComtxtController::class, 'updatecomtxt']);

@@ -19,7 +19,7 @@ import rose from "./img/rose.png";
 import bite from "./img/bite.png";
 
 function Makeup() {
-  const match = useRouteMatch();
+  const m = useRouteMatch().params.type;
   let [topic, setTopic] = useState([
     {
       img: makeup,
@@ -47,6 +47,7 @@ function Makeup() {
   let [searchMsg, setSearchMsg] = useState({}); // 宜珊的response;
   let [find, setFind] = useState(false); // 無搜尋結果
   let [card, setCard] = useState([]);
+  let [vote, setVote] = useState([]);
   let [tag, setTag] = useState([]);
   let [rule, setRule] = useState([]);
 
@@ -54,7 +55,7 @@ function Makeup() {
   useEffect(() => {
     function fetchData() {
       // 廣告
-      fetch(`http://127.0.0.1:8000/api/v1/ads?type[eq]=${match.params.type}`, {
+      fetch(`http://127.0.0.1:8000/api/v1/ads?type[eq]=${m}`, {
         method: "GET",
       })
         .then((res) => {
@@ -68,12 +69,9 @@ function Makeup() {
         });
 
       // 個版
-      fetch(
-        `http://127.0.0.1:8000/api/v1/posts?type[eq]=${match.params.type}`,
-        {
-          method: "GET",
-        }
-      )
+      fetch(`http://127.0.0.1:8000/api/v1/posts?type[eq]=${m}`, {
+        method: "GET",
+      })
         .then((res) => {
           return res.json();
         })
@@ -94,8 +92,23 @@ function Makeup() {
           console.log("錯誤:", err);
         });
 
+      // 投票
+      fetch(`http://127.0.0.1:8000/api/votes/${m}`, {
+        method: "GET",
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((jsonData) => {
+          console.log(jsonData);
+          setVote(jsonData.data[0]);
+        })
+        .catch((err) => {
+          console.log("錯誤:", err);
+        });
+
       // 標籤
-      fetch(`http://127.0.0.1:8000/api/tags/${match.params.type}`, {
+      fetch(`http://127.0.0.1:8000/api/tags/${m}`, {
         method: "GET",
       })
         .then((res) => {
@@ -109,12 +122,9 @@ function Makeup() {
         });
 
       // 規則
-      fetch(
-        `http://127.0.0.1:8000/api/v1/rules?type[eq]=${match.params.type}`,
-        {
-          method: "GET",
-        }
-      )
+      fetch(`http://127.0.0.1:8000/api/v1/rules?type[eq]=${m}`, {
+        method: "GET",
+      })
         .then((res) => {
           return res.json();
         })
@@ -126,7 +136,7 @@ function Makeup() {
         });
     }
     fetchData();
-  }, [match.params.type, searchMsg]);
+  }, [m, searchMsg]);
 
   // 搜尋
   function searchInput() {
@@ -136,7 +146,7 @@ function Makeup() {
     if (searchVal == "") {
     } else {
       fetch(
-        `http://127.0.0.1:8000/api/posts/search?query=${searchVal}&type=${match.params.type}`,
+        `http://127.0.0.1:8000/api/posts/search?query=${searchVal}&type=${m}`,
         {
           method: "GET",
         }
@@ -180,6 +190,27 @@ function Makeup() {
         console.log("錯誤:", err);
       });
   };
+
+  // vote
+  // function (e) {
+  //   const token = localStorage.getItem("token");
+  //   console.log("Token in Profile:", token);
+  //   fetch(`http://127.0.0.1:8000/api/votes/click/${vote.voteId}?ansOne=true`, {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   })
+  //     .then((res) => {
+  //       return res.json();
+  //     })
+  //     .then((jsonData) => {
+  //     })
+  //     .catch((err) => {
+  //       console.log("錯誤:", err);
+  //     });
+  // }
 
   // 點擊標籤
   function hashtag(t) {
@@ -292,7 +323,7 @@ function Makeup() {
               return (
                 <Link
                   className="card"
-                  to={`/post/${card.postId}`}
+                  to={`/post/${card.postId}/${card.type}`}
                   key={card.postId}
                   onClick={() => cardClick(card.postId)}
                 >
@@ -339,7 +370,7 @@ function Makeup() {
             // 這邊是單篇 card 處理
             <Link
               className="card"
-              to={`/post/${card.postId}`}
+              to={`/post/${card.postId}/${card.type}`}
               key={card.postId}
               onClick={() => cardClick(card.postId)}
             >
@@ -380,20 +411,20 @@ function Makeup() {
           <span className="voteTopic">
             <p>
               <img src={makeup} />
-              &nbsp;&nbsp;美妝保養
+              &nbsp;&nbsp;{vote.type}
             </p>
           </span>
           <div className="vote">
-            <span className="voteTitle">最好用的評價口紅!!!😍</span>
+            <span className="voteTitle">{vote.title}</span>
             <div className="choice">
               <div>
                 <label>
                   <input type="radio" name="radio" />
-                  <span>heme</span>
+                  <span>{vote.ansOne}</span>
                 </label>
                 <label>
                   <input type="radio" name="radio" />
-                  <span>Romand</span>
+                  <span>{vote.ansTwo}</span>
                 </label>
               </div>
             </div>

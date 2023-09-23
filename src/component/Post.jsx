@@ -13,6 +13,7 @@ import makeup from "./img/makeup.png";
 function Post({ userToken = null }) {
   const match = useRouteMatch();
   let [post, setPost] = useState([]);
+  let [vote, setVote] = useState([]);
   let [rule, setRule] = useState([]);
   let [isLiked, setIsLiked] = useState(false);
   let [isFavorited, setIsFavorited] = useState(false);
@@ -20,9 +21,12 @@ function Post({ userToken = null }) {
   useEffect(() => {
     function fetchData() {
       // 取單篇文章
-      fetch(`http://127.0.0.1:8000/api/v1/posts/${match.params.postId}`, {
-        method: "GET",
-      })
+      fetch(
+        `http://192.168.194.32:8000/api/v1/posts/${match.params.postId}/${match.params.type}`,
+        {
+          method: "GET",
+        }
+      )
         .then((res) => {
           return res.json();
         })
@@ -33,10 +37,27 @@ function Post({ userToken = null }) {
           console.log("錯誤:", err);
         });
 
-      // 個版規則
-      fetch(`http://127.0.0.1:8000/api/v1/rules?type[eq]=fashion`, {
+      // 投票
+      fetch(`http://192.168.194.32:8000/api/votes/${match.params.type}`, {
         method: "GET",
       })
+        .then((res) => {
+          return res.json();
+        })
+        .then((jsonData) => {
+          setVote(jsonData.data[0]);
+        })
+        .catch((err) => {
+          console.log("錯誤:", err);
+        });
+
+      // 個版規則
+      fetch(
+        `http://192.168.194.32:8000/api/v1/rules?type[eq]=${match.params.type}`,
+        {
+          method: "GET",
+        }
+      )
         .then((res) => {
           return res.json();
         })
@@ -46,20 +67,6 @@ function Post({ userToken = null }) {
         .catch((err) => {
           console.log("錯誤:", err);
         });
-
-      // 取隨機投票
-      //   fetch(`http://127.0.0.1:8000/api/votes/{}`, {
-      //   method: "GET",
-      // })
-      //   .then((res) => {
-      //     return res.json();
-      //   })
-      //   .then((jsonData) => {
-      //     setRule(jsonData.data);
-      //   })
-      //   .catch((err) => {
-      //     console.log("錯誤:", err);
-      //   });
     }
     fetchData();
   }, [match.params.postId]);
@@ -99,7 +106,7 @@ function Post({ userToken = null }) {
       setIsFavorited(!isFavorited);
       const newSaveCount = isFavorited ? post[0].save - 1 : post[0].save + 1;
 
-      fetch(`http://127.0.0.1:8000/api/posts/save`, {
+      fetch(`http://192.168.194.32:8000/api/posts/save`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -120,6 +127,25 @@ function Post({ userToken = null }) {
         });
     }
   };
+
+  // vote
+  function voted(e) {
+    fetch(
+      `http://192.168.194.32:8000/api/votes/click/${vote.voteId}?${e.target.name}=true`,
+      {
+        method: "GET",
+      }
+    )
+      .then((res) => {
+        return res.json();
+      })
+      .then((jsonData) => {
+        console.log(jsonData);
+      })
+      .catch((err) => {
+        console.log("錯誤:", err);
+      });
+  }
 
   // function hashtag(t) {
   //   fetch(`http://127.0.0.1:8000/api/v1/posts?tag[eq]=${t}`, {
@@ -221,20 +247,20 @@ function Post({ userToken = null }) {
           <span className="voteTopic">
             <p>
               <img src={makeup} />
-              &nbsp;&nbsp;美妝保養
+              &nbsp;&nbsp;{vote.type}
             </p>
           </span>
           <div className="vote">
-            <span className="voteTitle">最好用的評價口紅!!!😍</span>
+            <span className="voteTitle">{vote.title}</span>
             <div className="choice">
               <div>
                 <label>
-                  <input type="radio" name="radio" />
-                  <span>heme</span>
+                  <input type="radio" name="ansOne" onInput={voted} />
+                  <span>{vote.ansOne}</span>
                 </label>
                 <label>
-                  <input type="radio" name="radio" />
-                  <span>Romand</span>
+                  <input type="radio" name="ansTwo" onInput={voted} />
+                  <span>{vote.ansTwo}</span>
                 </label>
               </div>
             </div>

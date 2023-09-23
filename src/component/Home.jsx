@@ -17,7 +17,7 @@ import rabbit from "./img/rabbit.png";
 import ice from "./img/ice.png";
 
 function Home() {
-  const match = useRouteMatch();
+  const m = useRouteMatch().params.type;
   let [topic, setTopic] = useState([
     {
       img: makeup,
@@ -101,7 +101,7 @@ function Home() {
         });
     }
     fetchData();
-  }, [match.params.type, searchMsg]);
+  }, [m, searchMsg]);
 
   // 搜尋
   function searchInput() {
@@ -226,7 +226,7 @@ function Home() {
               return (
                 <Link
                   className="card"
-                  to={`/post/${card.postId}`}
+                  to={`/post/${card.postId}/${card.type}`}
                   key={card.postId}
                   onClick={() => cardClick(card.postId)}
                 >
@@ -273,7 +273,7 @@ function Home() {
             // 這邊是單篇 card 處理
             <Link
               className="card"
-              to={`/post/${card.postId}`}
+              to={`/post/${card.postId}/${card.type}`}
               key={card.postId}
               onClick={() => cardClick(card.postId)}
             >
@@ -317,7 +317,7 @@ function Home() {
           </p>
           {pop.map((pop) => {
             return (
-              <Link to={`/post/${pop.postId}`} key={pop.postId}>
+              <Link to={`/post/${pop.postId}/${pop.type}`} key={pop.postId}>
                 <img className="rankImg" src={pop.headImg} />
                 <span className="rankList">{pop.title}</span>
                 <img className="rankArrow" src={redArrow} />
@@ -329,7 +329,7 @@ function Home() {
           <p>點讚貼文排行榜</p>
           {like.map((like) => {
             return (
-              <Link to={`/post/${like.postId}`} key={like.postId}>
+              <Link to={`/post/${like.postId}/${like.type}`} key={like.postId}>
                 <img className="rankImg" src={like.headImg} />
                 <span className="rankList">{like.title}</span>
                 <img className="rankArrow" src={redArrow} />

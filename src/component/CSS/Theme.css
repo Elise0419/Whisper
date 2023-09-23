@@ -67,8 +67,12 @@
 .choice div {
     display: flex;
     flex-wrap: wrap;
-    margin-top: 0.5rem;
+    margin-top: 1rem;
     justify-content: center;
+}
+
+.choice label {
+    width: 50%;
 }
 
 .choice input[type="radio"] {

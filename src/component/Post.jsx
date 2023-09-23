@@ -22,7 +22,7 @@ function Post({ userToken = null }) {
     function fetchData() {
       // 取單篇文章
       fetch(
-        `http://127.0.0.1:8000/api/v1/posts/${match.params.postId}/${match.params.type}`,
+        `http://192.168.194.32:8000/api/v1/posts/${match.params.postId}/${match.params.type}`,
         {
           method: "GET",
         }
@@ -38,7 +38,7 @@ function Post({ userToken = null }) {
         });
 
       // 投票
-      fetch(`http://127.0.0.1:8000/api/votes/${match.params.type}`, {
+      fetch(`http://192.168.194.32:8000/api/votes/${match.params.type}`, {
         method: "GET",
       })
         .then((res) => {
@@ -53,7 +53,7 @@ function Post({ userToken = null }) {
 
       // 個版規則
       fetch(
-        `http://127.0.0.1:8000/api/v1/rules?type[eq]=${match.params.type}`,
+        `http://192.168.194.32:8000/api/v1/rules?type[eq]=${match.params.type}`,
         {
           method: "GET",
         }
@@ -106,7 +106,7 @@ function Post({ userToken = null }) {
       setIsFavorited(!isFavorited);
       const newSaveCount = isFavorited ? post[0].save - 1 : post[0].save + 1;
 
-      fetch(`http://127.0.0.1:8000/api/posts/save`, {
+      fetch(`http://192.168.194.32:8000/api/posts/save`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -131,7 +131,7 @@ function Post({ userToken = null }) {
   // vote
   function voted(e) {
     fetch(
-      `http://127.0.0.1:8000/api/votes/click/${vote.voteId}?${e.target.name}=true`,
+      `http://192.168.194.32:8000/api/votes/click/${vote.voteId}?${e.target.name}=true`,
       {
         method: "GET",
       }

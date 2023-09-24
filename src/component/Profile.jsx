@@ -27,7 +27,6 @@ function Profile() {
   };
 
   const handleSaveClick = async (field) => {
-
     setIsEditing({ ...isEditing, [field]: false });
 
     console.log(user[field]);
@@ -114,11 +113,7 @@ function Profile() {
       const token = localStorage.getItem("token");
       console.log("Token in Profile:", token);
 
-<<<<<<< Updated upstream
-      fetch("http://118.233.222.23:8000/api/profile", {
-=======
       fetch("http://127.0.0.1:8000/api/profile", {
->>>>>>> Stashed changes
         headers: {
           Authorization: `Bearer ${token}`,
         },

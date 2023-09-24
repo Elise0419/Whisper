@@ -93,13 +93,14 @@ function Quill() {
 
   function create() {
     let newTag = document.querySelector(".inputTag").value;
-    let span = document.createElement("span");
-    let button = document.createElement("button");
-    button.textContent = "#" + newTag;
-    span.appendChild(button);
-    span.classList.add("yellowTag");
-    document.querySelector(".createTag").appendChild(span);
-    console.log(document.querySelector(".createTag"));
+    if (newTag) {
+      let span = document.createElement("span");
+      let button = document.createElement("button");
+      button.textContent = "#" + newTag;
+      span.appendChild(button);
+      span.classList.add("yellowTag");
+      document.querySelector(".createTag").appendChild(span);
+    }
   }
 
   return (

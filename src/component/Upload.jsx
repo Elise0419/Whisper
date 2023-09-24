@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouteMatch } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "./CSS/Upload.css";
@@ -7,32 +7,54 @@ import Header from "./Block/Header";
 import Footer from "./Block/Footer";
 
 function Quill() {
-  const match = useRouteMatch();
-
-  const [q, setQ] = useState({
+  const m = useRouteMatch().params.type;
+  let [q, setQ] = useState({
     title: "",
     content: "",
-    tag: match.params.type,
+    tag: m,
   });
+  let [tags, setTags] = useState([]);
 
-  const changeContent = (value) => {
-    setQ({ ...q, content: value });
-  };
+  useEffect(() => {
+    function fetchData() {
+      fetch(`http://127.0.0.1:8000/api/tags/all/${m}`, {
+        method: "GET",
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((jsonData) => {
+          setTags(jsonData.tags);
+          console.log(tags);
+        })
+        .catch((err) => {
+          console.log("錯誤:", err);
+        });
+    }
+    fetchData();
+  }, []);
 
-  const changeTitle = (value) => {
+  function changeTitle(value) {
     setQ({ ...q, title: value });
-  };
+  }
 
-  const re = () => {
+  function changeContent(value) {
+    setQ({ ...q, content: value });
+  }
+
+  function re() {
     setQ({
       title: "hello",
       content: "",
       tag: "",
       imgurl: "",
     });
-  };
+  }
 
   const up = () => {
+    var t = document.getElementsByClassName("t");
+    console.log(t);
+
     if (q.title == "") {
       alert("請輸入標題");
     } else {
@@ -41,7 +63,7 @@ function Quill() {
 
       // 淳嫻 這邊測試要加埠號 不然會有 cors 跟 404 的問題
       // 還有 照片檔案不能過大 不然會出現net::ERR_FAILED
-      fetch(`http://127.0.0.1:8000/api/upload/${match.params.type}`, {
+      fetch(`http://127.0.0.1:8000/api/upload/${m}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -61,6 +83,25 @@ function Quill() {
       window.location.href = "/";
     }
   };
+
+  function hashtag(e) {
+    let span = document.createElement("span");
+    span.classList.remove("grayTag");
+    span.appendChild(e.target);
+    span.classList.add("pinkTag", "t");
+    document.querySelector(".createTag").appendChild(span);
+  }
+
+  function create() {
+    let newTag = document.querySelector(".inputTag").value;
+    let span = document.createElement("span");
+    let button = document.createElement("button");
+    button.textContent = "#" + newTag;
+    span.appendChild(button);
+    span.classList.add("yellowTag", "t");
+    document.querySelector(".createTag").appendChild(span);
+    console.log(document.querySelector(".createTag"));
+  }
 
   return (
     <div>
@@ -105,6 +146,19 @@ function Quill() {
               ],
             }}
           />
+          <div>
+            Hashtag: <input type="text" className="inputTag" />
+            <button onClick={create}>create</button>
+            <div className="createTag"></div>
+            <hr />
+            <span className="grayTag">
+              {tags.map((tag, index) => (
+                <button key={index} value={tag.tag} onClick={hashtag}>
+                  #{tag.tag}
+                </button>
+              ))}
+            </span>
+          </div>
         </div>
       </div>
       <button role="reset" onClick={re} className="reBtn">

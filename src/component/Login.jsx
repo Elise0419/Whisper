@@ -49,11 +49,12 @@ function Login() {
         body: JSON.stringify(requestData),
       })
         .then((response) => {
-          if (response.status >= 200) {
-            console.log(response);
-            return response.json();
-          } else {
+          if (response.status >= 400) {
             throw new Error("Network response was not ok");
+          } else if (response.status >= 400) {
+            alert('帳號密碼錯誤');
+          } else {
+            return response.json();
           }
         })
         .then((data) => {

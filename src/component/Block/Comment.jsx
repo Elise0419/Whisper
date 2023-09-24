@@ -97,7 +97,8 @@ function Comment() {
       </div>
       <div className="commentSend">
         <div className="userFace">
-          <img className="userHead" src={avatar} alt="" />
+        <img className="userHead" src={comment.headImg} alt="" />
+          {/* <img className="userHead" src={avatar} alt="" /> */}
         </div>
         <div className="textareaContainer">
           <textarea

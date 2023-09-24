@@ -35,7 +35,7 @@ function Profile() {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://192.168.194.32:8000/api/profile/${field}/change`,
+        `http://127.0.0.1:8000/api/profile/${field}/change`,
         {
           method: "put",
           headers: {
@@ -76,7 +76,7 @@ function Profile() {
     const head = user.headimg;
     setIsEditing({ ...isEditing, headimg: false });
     const token = localStorage.getItem("token");
-    fetch(`http://192.168.194.32:8000/api/profile/head/change`, {
+    fetch(`http://127.0.0.1:8000/api/profile/head/change`, {
       method: "put",
       headers: {
         "Content-Type": "application/json",
@@ -114,7 +114,7 @@ function Profile() {
       const token = localStorage.getItem("token");
       console.log("Token in Profile:", token);
 
-      fetch("http://192.168.194.32:8000/api/profile", {
+      fetch("http://127.0.0.1:8000/api/profile", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -129,9 +129,8 @@ function Profile() {
         })
         .then((jsonData) => {
           if (jsonData.error) {
-            console.log("API 返回了一个错误:", jsonData.error);
+            console.log("錯誤訊息:", jsonData.error);
           } else {
-            console.log("API返回的数据:", jsonData);
             setUser(jsonData.user);
           }
         })

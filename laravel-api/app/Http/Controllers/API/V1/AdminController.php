@@ -15,5 +15,11 @@ class AdminController extends Controller
                 'message' => '無權造訪',
             ], 403);
         };
+
+        $posts = Post::paginate(20, ['*'], 'page', $page);
+
+        foreach ($posts as $post) {
+            echo $post->title; // 访问每个 Post 的属性，例如 title
+        }
     }
 }

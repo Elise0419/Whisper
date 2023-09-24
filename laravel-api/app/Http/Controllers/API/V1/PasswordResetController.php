@@ -68,7 +68,10 @@ class PasswordResetController extends Controller
 
         $additionalUser->notify(new ForgotPasswordEmail($token));
 
-        return response()->json(['message' => '已將信件發送至信箱']);
+        return response()->json(
+            ['message' => '已將信件發送至信箱'],
+            200
+        );
     }
 
     public function pwdfogetreset(Request $req)
@@ -85,5 +88,7 @@ class PasswordResetController extends Controller
         $user_pwd = Auth::user();
         $user_pwd->password = Hash::make($req->new_password);
         $user_pwd->save();
+        Auth::logout();
+        return response()->json(['message' => '已重新修改密碼，請重新登入'], 200);
     }
 }

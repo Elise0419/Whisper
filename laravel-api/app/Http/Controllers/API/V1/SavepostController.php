@@ -60,6 +60,24 @@ class SavepostController extends Controller
         return response()->json(['data' => new SavepostCollection($savepost), 'count' => $savepost->count()]);
     }
 
+    public function delete($postId)
+    {
+        $userId = Auth::user()->user_id;
+        if (!$userId) {
+            return 'login';
+        }
+
+        $savepost = Savepost::where('post_id', $postId)
+            ->where('user_id', $userId)
+            ->first();
+
+        if ($savepost) {
+            $savepost->delete();
+            return response()->json(['message' => 'Deleted!']);
+        } else {
+            return response()->json(['message' => 'Not found!'], 404);
+        }
+    }
     // public function show($id)
     // {
     //     $savepost = Savepost::with(['users', 'posts'])->findOrFail($id);

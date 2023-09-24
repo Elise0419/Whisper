@@ -9,9 +9,9 @@ function Collectart() {
   const { postId } = useParams();
 
   // 刪除貼文
- function handleDelete(postId) {
+  function handleDelete(postId) {
     const token = localStorage.getItem("token");
-    fetch(`http://192.168.194.32:8000/api/posts/delete/${postId}`, {
+    fetch(`http://118.233.222.23:8000/api/posts/delete/${postId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -23,9 +23,9 @@ function Collectart() {
         if (data.message === "deleted!") {
           // 删除成功
           console.log("删除成功！");
-          
+
           // 在删除成功后重新获取数据
-          fetch(`http://192.168.194.32:8000/api/posts/usersave`, {
+          fetch(`http://118.233.222.23:8000/api/posts/usersave`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -58,10 +58,10 @@ function Collectart() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     console.log("Token in Profile:", token);
-    
+
 
     // 目前收藏的貼文
-    fetch(`http://192.168.194.32:8000/api/posts/usersave`, {
+    fetch(`http://118.233.222.23:8000/api/posts/usersave`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -82,7 +82,7 @@ function Collectart() {
         console.error("抓取資料時發生錯誤:", error);
       });
 
-    
+
   }, [postId]);
 
   return (

@@ -11,7 +11,9 @@ use App\Http\Controllers\API\V1\RuleController;
 use App\Http\Controllers\API\V1\SavepostController;
 use App\Http\Controllers\API\V1\TagController;
 use App\Http\Controllers\API\V1\VoteController;
+use App\Http\Controllers\API\V1\AdminController;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -41,18 +43,6 @@ Route::controller(CustomEmailVerificationController::class)->group(function () {
     Route::get('/email/verify', 'verifynotice')->middleware('auth:api')->name('verification.notice');
 });
 
-// Route::get('/api/email/verify', function () {
-//     return redirect('http://10.147.20.3:3000/Login');
-// })->middleware('auth:api')->name('verification.notice');
-// Route::get('/email/verify/{user_id}/{hash}', [CustomEmailVerificationController::class, 'verify'])
-//     ->middleware(['signed'])
-//     ->name('verification.verify');
-
-// Route::post('/api/email/verification-notification', function (Request $req) {
-//     $req->user()->sendEmailVerificationNotification();
-//     return back()->with('message', 'Verification link sent!');
-// })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
-
 Route::controller(PasswordResetController::class)->group(function () {
     Route::post('password/reset', 'pwdreset');
     Route::post('password/forgot/mail', 'pwdforgot');
@@ -67,6 +57,10 @@ Route::controller(ProfileController::class)->group(function () {
     Route::put('profile/person_id/change', 'idchange');
     Route::put('profile/mem_name/change', 'namechange');
     Route::put('profile/promise/change', 'peromise');
+});
+
+Route::controller(AdminController::class)->group(function () {
+    Route::post('/admin/management/article/show/{page}', 'showarticle');
 });
 
 Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\API\V1'], function () {

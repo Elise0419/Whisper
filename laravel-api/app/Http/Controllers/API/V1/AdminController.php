@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Admin;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,16 +11,11 @@ class AdminController extends Controller
 {
     public function showarticle(Request $req, $page)
     {
-        if (!Auth::check()) {
-            return response()->json([
-                'message' => '無權造訪',
-            ], 403);
+        $admin = Admin::find(Auth::user()->user_id)->first();
+        if (!$admin) {
+            abort(403, '查無此身分');
         };
-
-        $posts = Post::paginate(20, ['*'], 'page', $page);
-
-        foreach ($posts as $post) {
-            echo $post->title; // 访问每个 Post 的属性，例如 title
-        }
+        $articles = Post::where('type', $admin->type)->paginate(20, ['*'], 'page', $page);
+        return response()->json($articles);
     }
 }

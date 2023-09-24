@@ -21,7 +21,7 @@ function Comment() {
 
   function fetchData() {
     fetch(
-      `http://192.168.194.32:8000/api/v1/comtxts?postId[eq]=${match.params.postId}`,
+      `http://118.233.222.23:8000/api/v1/comtxts?postId[eq]=${match.params.postId}`,
       {
         method: "GET",
       }
@@ -85,8 +85,8 @@ function Comment() {
       };
 
       submitCommentToBackend(newCommentObj);
-       // 清空新评论输入框
-    setCom({ ...com, newComment: "" });
+      // 清空新评论输入框
+      setCom({ ...com, newComment: "" });
     }
   }
 

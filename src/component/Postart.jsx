@@ -13,8 +13,8 @@ function Postart() {
   const history = useHistory();
 
   const handleEdit = (post) => {
-     // 将编辑的帖子数据保存在 localStorage 中
-     localStorage.setItem("editingPost", JSON.stringify(post));
+    // 将编辑的帖子数据保存在 localStorage 中
+    localStorage.setItem("editingPost", JSON.stringify(post));
     setEditingPost(post);
     // 跳转到上传页面
     history.push("/upload");
@@ -24,7 +24,7 @@ function Postart() {
   const handleUpdate = (postId, newData) => {
     const token = localStorage.getItem("token");
 
-    fetch(`http://192.168.194.32:8000/api/posts/edit/${postId}`, {
+    fetch(`http://118.233.222.23:8000/api/posts/edit/${postId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -45,11 +45,11 @@ function Postart() {
 
 
 
-// 貼文刪除
+  // 貼文刪除
   const handleDelete = (postId) => {
     const token = localStorage.getItem("token");
 
-    fetch(`http://192.168.194.32:8000/api/posts/delete/${postId}`, {
+    fetch(`http://118.233.222.23:8000/api/posts/delete/${postId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -72,7 +72,7 @@ function Postart() {
     const token = localStorage.getItem("token");
     console.log("Token in Profile:", token);
 
-    fetch(`http://192.168.194.32:8000/api/user/posts`, {
+    fetch(`http://118.233.222.23:8000/api/user/posts`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -98,7 +98,7 @@ function Postart() {
   }, [userId]);
 
 
-  
+
 
   return (
     <div className="postart">

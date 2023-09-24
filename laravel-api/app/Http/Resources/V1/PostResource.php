@@ -29,6 +29,7 @@ class PostResource extends JsonResource
             'comtxtCount' => $this->comtxts->count(),
             'tag' => $this->tag,
             'postTime' => $this->post_time,
+            'updateTime' => $this->updated_at ? $this->updated_at->format('Y-m-d H:i:s') : null,
         ];
 
     }

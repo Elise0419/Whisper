@@ -142,7 +142,12 @@ class PostController extends Controller
             return 'login';
         };
         $posts = Post::where('user_id', $userId)->get();
-        return PostResource::collection($posts);
+        $postCount = $posts->count();
+
+        return response()->json([
+            'postCount' => $postCount,
+            'posts' => PostResource::collection($posts),
+        ]);
 
     }
 
@@ -160,7 +165,7 @@ class PostController extends Controller
 
     public function updatepost(Request $request, $postId)
     {
-        $userId = Auth::user()->user_id;
+        $userId = Auth::user();
         if (!$userId) {
             return 'login';
         };
@@ -168,9 +173,13 @@ class PostController extends Controller
         $post = Post::find($postId);
 
         if (!$post) {
-            return response()->json(['error' => 'Post not found']);
+            return response()->json(['error' => 'Post not found'], 404);
         }
-        $post->update($request->all());
+
+        $originalData = $post->toArray();
+        $updatedData = array_merge($originalData, $request->all());
+        $post->update($updatedData);
+
         return response()->json(['message' => 'Post updated successfully', 'data' => $post]);
     }
 

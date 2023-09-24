@@ -47,17 +47,17 @@ class SavepostController extends Controller
 
     public function userSaveposts()
     {
-        $userId = Auth::user()->user_id;
+        $userId = Auth::user();
         if (!$userId) {
             return 'login';
         };
         $savepost = Savepost::with(['users', 'posts'])->where('user_id', $userId->user_id)->get();
 
         if ($savepost->isEmpty()) {
-            return response()->json(['message' => '没有蒐藏任何貼文']);
+            return response()->json(['message' => '没有蒐藏任何貼文', 'count' => 0]);
         }
 
-        return new SavepostCollection($savepost);
+        return response()->json(['data' => new SavepostCollection($savepost), 'count' => $savepost->count()]);
     }
 
     // public function show($id)

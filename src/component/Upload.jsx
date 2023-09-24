@@ -17,7 +17,7 @@ function Quill() {
 
   useEffect(() => {
     function fetchData() {
-      fetch(`http://127.0.0.1:8000/api/tags/all/${m}`, {
+      fetch(`http://118.233.222.23:8000/api/tags/all/${m}`, {
         method: "GET",
       })
         .then((res) => {
@@ -65,7 +65,7 @@ function Quill() {
 
       // 淳嫻 這邊測試要加埠號 不然會有 cors 跟 404 的問題
       // 還有 照片檔案不能過大 不然會出現net::ERR_FAILED
-      fetch(`http://127.0.0.1:8000/api/upload/${m}`, {
+      fetch(`http://118.233.222.23:8000/api/upload/${m}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

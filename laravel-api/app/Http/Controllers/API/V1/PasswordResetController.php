@@ -63,7 +63,7 @@ class PasswordResetController extends Controller
         if (!$token) {
             return response()->json([
                 'message' => '查無用戶資料，請重新輸入',
-            ]);
+            ], 404);
         }
 
         $additionalUser->notify(new ForgotPasswordEmail($token));

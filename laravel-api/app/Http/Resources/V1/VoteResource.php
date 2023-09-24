@@ -24,6 +24,8 @@ class VoteResource extends JsonResource
             'ansTwo' => $this->ans_two,
             'ansOnePoint' => $this->ans_one_point,
             'ansTwoPoint' => $this->ans_two_point,
+            'imgOne' => $this->img_one,
+            'imgTwo' => $this->img_two,
 
         ];
 

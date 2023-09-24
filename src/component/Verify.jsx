@@ -16,7 +16,7 @@ function Verifyemail() {
   };
 
   const handleSendVerification = () => {
-    fetch("http://192.168.194.32:8000/api/profile", {
+    fetch("http://118.233.222.23:8000/api/profile", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -48,20 +48,20 @@ function Verifyemail() {
             />
             <br /><br />
             <div className="">
-            <label htmlFor="email">
-                  <strong>郵箱輸入有誤,請輸入正確email</strong>
-                </label>
-                <input
-                  type="email"
-                  placeholder="請輸入正確email"
-                  name="email"
-                  onChange={handleEmailChange}
-                  value={email}
-                  className="verifyMain"
-                />
+              <label htmlFor="email">
+                <strong>郵箱輸入有誤,請輸入正確email</strong>
+              </label>
+              <input
+                type="email"
+                placeholder="請輸入正確email"
+                name="email"
+                onChange={handleEmailChange}
+                value={email}
+                className="verifyMain"
+              />
             </div>
 
-            <button onClick={handleSendVerification}  className="btnVerify">发送验证信息</button>
+            <button onClick={handleSendVerification} className="btnVerify">发送验证信息</button>
             <br />
             <p>完成Email驗證,帳號註冊完成～</p>
             <Link to="/login" className="btnDafaultborder">

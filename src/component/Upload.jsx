@@ -52,8 +52,8 @@ function Quill() {
   }
 
   const up = () => {
-    // var t = document.getElementsByClassName("t");
-    // console.log(t);
+    var t = document.getElementById("t");
+    console.log(t);
 
     if (q.title == "") {
       alert("請輸入標題");
@@ -86,17 +86,19 @@ function Quill() {
 
   function pinkTag(e) {
     let span = document.createElement("span");
+    e.target.id = "t";
     span.appendChild(e.target);
     span.classList.add("pinkTag");
     document.querySelector(".hashtagCreate").appendChild(span);
   }
 
   function yellowTag() {
-    let newTag = document.querySelector(".inputTag").value;
+    let newTag = document.querySelector(".hashtagInput").value;
     if (newTag) {
       let span = document.createElement("span");
       let button = document.createElement("button");
       button.textContent = "#" + newTag;
+      button.setAttribute("id", "t");
       span.appendChild(button);
       span.classList.add("yellowTag");
       document.querySelector(".hashtagCreate").appendChild(span);

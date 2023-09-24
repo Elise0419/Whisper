@@ -25,7 +25,7 @@ function Forgotpw() {
     setErrors(Validation(values));
 
     // 使用fetch來發送POST請求
-    fetch("实际的后端接口地址", {
+    fetch("http://192.168.194.32:8000/api/password/forgot/mail", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -34,8 +34,12 @@ function Forgotpw() {
     })
       .then((response) => response.json())
       .then((data) => {
-        // 在這裡處理從後端返回的數據
-        console.log(data);
+        if (data.message === "已將信件發送至信箱") {
+          alert("成功發送郵件到您的郵箱，請查收郵箱！");
+        } else {
+          alert("發送郵件失敗,請聯繫管理員。");
+          console.error("Error:", data.message);
+        }
       })
       .catch((error) => {
         console.error("Error:", error);

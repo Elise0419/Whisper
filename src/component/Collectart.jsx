@@ -1,57 +1,123 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"; // 引入 useParams
+import { useParams } from "react-router-dom";
 import "./CSS/Collectart.css";
 
 function Collectart() {
   const [posts, setPosts] = useState([]);
-  const { postId } = useParams(); // 使用 useParams 获取 postId
+  const [postCount, setPostCount] = useState(0); // 添加 postCount 状态
 
-  useEffect(() => {
+  const { postId } = useParams();
+
+  // 刪除貼文
+ function handleDelete(postId) {
     const token = localStorage.getItem("token");
-    console.log("Token in Profile:", token);
-
-    // 使用 fetch 請求後端 API 獲取數據
-    fetch(`http://192.168.194.32:8000/api/posts/usersave`, {
-      method: "POST",
+    fetch(`http://192.168.194.32:8000/api/posts/delete/${postId}`, {
+      method: "DELETE",
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => response.json())
       .then((data) => {
-        setPosts(data); // 將後端返回的數據設置到狀態中
+        if (data.message === "deleted!") {
+          // 删除成功
+          console.log("删除成功！");
+          
+          // 在删除成功后重新获取数据
+          fetch(`http://192.168.194.32:8000/api/posts/usersave`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.message === "没有蒐藏任何貼文") {
+                setPosts([]);
+                setPostCount(0);
+              } else {
+                setPosts(data.data);
+                setPostCount(data.count);
+              }
+            })
+            .catch((error) => {
+              console.error("抓取資料時發生錯誤:", error);
+            });
+
+        } else {
+          console.error("删除失败:", data.message);
+        }
+      })
+      .catch((error) => {
+        console.error("删除时发生错误:", error);
+      });
+  }
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    console.log("Token in Profile:", token);
+    
+
+    // 目前收藏的貼文
+    fetch(`http://192.168.194.32:8000/api/posts/usersave`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message === "没有蒐藏任何貼文") {
+          setPosts([]);
+          setPostCount(0); // 设置帖子数量为 0
+        } else {
+          setPosts(data.data);
+          setPostCount(data.count); // 设置帖子数量为返回的 count 值
+        }
       })
       .catch((error) => {
         console.error("抓取資料時發生錯誤:", error);
       });
-  }, [postId]); 
- // 注意，這裡的依賴列表是空的，表示它只在組件首次渲染時執行
+
+    
+  }, [postId]);
 
   return (
     <div className="collectart">
-      {Array.isArray(posts) ? (
+      <div className="manageCount">
+        <p>全部稿件 {postCount}</p>
+      </div>
+      {posts.length > 0 ? (
         posts.map((post) => (
-          <div className="manageEdit" key={post.postId}>
+          <div className="manageEdit" key={post.postInfo.postId}>
             <div className="manageContent">
-              <img src={post.imgUrl} alt="" />
+              <img src={post.postInfo.imgUrl} alt="" />
               <div className="manageText">
-                <p className="managePost">{post.title}</p>
+                <p className="managePost">{post.postInfo.title}</p>
                 <p className="manageTime">
-                  {post.memName}.發布者.{post.postTime}
+                  作者:{post.postInfo.memName}創作時間:{post.postInfo.postTime}
                 </p>
 
                 <div className="manageInteractions">
                   <span>
                     <i className="material-icons">thumb_up</i>
-                    <span>{post.thumb}</span>
+                    <span>{post.postInfo.thumb}</span>
                     <i className="material-icons">favorite</i>
-                    <span>{post.save}</span>
+                    <span>{post.postInfo.save}</span>
                   </span>
                 </div>
               </div>
             </div>
             <div className="manageBtn">
-              <button className="deleteBtn">刪除</button>
+              <button
+                className="deleteBtn"
+                onClick={() => handleDelete(post.postInfo.postId)}
+              >
+                刪除
+              </button>
             </div>
             <hr />
           </div>

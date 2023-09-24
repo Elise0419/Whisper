@@ -19,7 +19,7 @@
 }
 
 .manageContent {
-    width: 416px;
+    width: 500px;
     height: 96px;
     display: flex;
     /* background-color: aqua; */
@@ -27,14 +27,22 @@
 }
 
 .manageContent img {
-    width: 156px;
-    height: 96px;
-    display: flex;
+    width:50%;
+    max-height: 100%;
+    object-fit: cover;
+
     border-radius: 12px;
+    background-color: #C8B2D6;
 }
 
 .manageText {
     margin-left: 10px;
+    width: 400px; /* 设置元素的宽度 */
+    white-space: nowrap; /* 防止文本换行 */
+    overflow: hidden; /* 隐藏溢出的文本 */
+    text-overflow: ellipsis; /* 在文本溢出时显示省略号 */
+    /* background-color: red; */
+
 }
 
 .managePost {

@@ -3,52 +3,45 @@ import { useRouteMatch } from "react-router-dom";
 import avatar from "../img/avatar.png";
 
 function Comment() {
-  var [com, setCom] = useState({
+  const [com, setCom] = useState({
     comments: [], // 評論列表
     newComment: "", // 用於儲存新評論的文本
   });
+
   const match = useRouteMatch();
 
-  useEffect(() => {
-    function formatTime(time) {
-      if (!time || typeof time !== "string") {
-        return "Invalid Date";
+  function formatTime(time) {
+    if (!time || typeof time !== "string") {
+      return "Invalid Date";
+    }
+
+    const [year, month, date, hours, minutes] = time.split(/[-T:]/);
+    return `${year}-${month}-${date} ${hours}:${minutes}`;
+  }
+
+  function fetchData() {
+    fetch(
+      `http://192.168.194.32:8000/api/v1/comtxts?postId[eq]=${match.params.postId}`,
+      {
+        method: "GET",
       }
-
-      // 在這裡對日期字串進行格式化
-      const year = time.substring(0, 4);
-      const month = time.substring(5, 7);
-      const date = time.substring(8, 10);
-      const hours = time.substring(11, 13);
-      const minutes = time.substring(14, 16);
-
-      return `${year}-${month}-${date} ${hours}:${minutes}`;
-    }
-
-    function fetchData() {
-      fetch(
-        `http://192.168.194.32:8000/api/v1/comtxts?post[eq]=${match.params.postId}`,
-        {
-          method: "GET",
-        }
-      )
-        .then((res) => {
-          return res.json();
-        })
-        .then((jsonData) => {
-          console.log(jsonData);
-          const comments = jsonData.data.map((comment) => {
-            return {
-              ...comment,
-              time: formatTime(comment.createdtime),
-            };
-          });
-          setCom({ ...com, comments });
-        })
-        .catch((err) => {
-          console.log("錯誤:", err);
+    )
+      .then((res) => res.json())
+      .then((jsonData) => {
+        const comments = jsonData.data.map((comment) => {
+          return {
+            ...comment,
+            time: formatTime(comment.updateTime),
+          };
         });
-    }
+        setCom({ ...com, comments });
+      })
+      .catch((err) => {
+        console.log("Error:", err);
+      });
+  }
+
+  useEffect(() => {
     fetchData();
   }, [match.params.postId]);
 
@@ -58,22 +51,42 @@ function Comment() {
     setCom({ ...com, comments: newList });
   }
 
+  function submitCommentToBackend(newCommentObj) {
+    const token = localStorage.getItem("token");
+    fetch(`http://192.168.194.32:8000/api/posts/${match.params.postId}/comments`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(newCommentObj),
+    })
+      .then((res) => res.json())
+      .then((jsonData) => {
+        console.log("jsonData", jsonData)
+        if (
+          jsonData.message === "評論已新增！"
+        ) {
+          fetchData();
+        }
+      })
+      .catch((err) => {
+        console.log("Error:", err);
+      });
+  }
+
   function handleSubmitComment() {
     if (com.newComment.trim() !== "") {
       const newCommentObj = {
-        id: com.comments.length + 1,
-        author: "David", // 这里可以根据需要从用户状态中获取
+        comtxtName: " ", // 这里可能需要修改为合适的值
         comment: com.newComment,
-        time: new Date().toISOString(), // 将日期格式化为ISO 8601格式
+        updateTime: new Date().toISOString(),
         attitude: 0,
-        headImg: avatar, // 添加头像
       };
 
-      setCom({
-        ...com,
-        comments: [...com.comments, newCommentObj],
-        newComment: "", // 清空新評論文本
-      });
+      submitCommentToBackend(newCommentObj);
+       // 清空新评论输入框
+    setCom({ ...com, newComment: "" });
     }
   }
 
@@ -107,16 +120,10 @@ function Comment() {
               <img className="userHead" src={comment.headImg} alt="" />
             </div>
             <div className="comment">
-              <div className="user">{comment.author}</div>
+              <div className="user">{comment.comtxtName}</div>
               <p className="text">{comment.comment}</p>
               <div className="info">
                 <span className="time">{comment.time}</span>
-                <span
-                  className={comment.attitude === 1 ? "like liked" : "like"}
-                  onClick={() => handleLikeClick(comment.id - 1)}
-                >
-                  <i className="likeIcon" />
-                </span>
               </div>
             </div>
           </div>

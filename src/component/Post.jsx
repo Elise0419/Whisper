@@ -40,6 +40,7 @@ function Post({ postId, userToken}) {
           return res.json();
         })
         .then((jsonData) => {
+          console.log(jsonData.data)
           setPost([jsonData.data]);
         })
         .catch((err) => {
@@ -109,7 +110,7 @@ function Post({ postId, userToken}) {
         postId: postId,
         thumb: !isLiked,
       };
-  
+      console.log("userToken"+userToken)
       fetch(`http://192.168.194.32:8000/api/posts/thumb${match.params.postId}`, {
         method: "POST",
         headers: {
@@ -132,19 +133,22 @@ function Post({ postId, userToken}) {
   };
   
 
-  const toggleFavorite = () => {
+  const toggleFavorite = function () {
+    const userToken = localStorage.getItem("token");
     if (post.length > 0) {
       setIsFavorited(!isFavorited);
       const newSaveCount = isFavorited ? post[0].save - 1 : post[0].save + 1;
-  
-      fetch(`http://192.168.194.32:8000/api/posts/save/${match.params.postId}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${userToken}`,
-        },
-        body: JSON.stringify({ save: newSaveCount }),
-      })
+      fetch(
+        `http://192.168.194.32:8000/api/posts/save/${match.params.postId}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${userToken}`,
+          },
+          body: JSON.stringify({ save: newSaveCount }),
+        }
+      )
         .then((res) => {
           if (!res.ok) {
             throw new Error(`HTTP error! status: ${res.status}`);
@@ -152,9 +156,13 @@ function Post({ postId, userToken}) {
           return res.json();
         })
         .then((jsonData) => {
-          if (jsonData.message === '貼文已收藏' || jsonData.message === '貼文已經被收藏過') {
+          console.log("jsonData", jsonData);
+          if (
+            jsonData.message === "貼文已收藏" ||
+            jsonData.message === "貼文已經被收藏過"
+          ) {
             setPost((prevPost) => [
-              { ...prevPost[0], save: jsonData.data.save },
+              { ...prevPost[0], save: newSaveCount },
             ]);
           }
         })
@@ -283,6 +291,7 @@ function Post({ postId, userToken}) {
                     <i className="material-icons">thumb_up</i>
                   </button>
                   <span>{post.thumb}</span>
+                  {/* 收藏按鈕 */}
                   <button
                     onClick={toggleFavorite}
                     className={`postCustbutton ${isFavorited ? "active" : ""}`}

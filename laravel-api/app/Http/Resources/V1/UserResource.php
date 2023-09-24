@@ -22,6 +22,7 @@ class UserResource extends JsonResource
             "password" => $this->pwd,
             "phone" => $this->phone,
             "headImg" => $this->headimg,
+
         ]; //if wanna fill down all datas like that, need to use resource/Collection
     }
 }

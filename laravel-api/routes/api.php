@@ -90,3 +90,4 @@ Route::middleware(['auth'])->post('/posts/save/{postId}', [SavepostController::c
 Route::middleware(['auth'])->post('/posts/usersave', [SavepostController::class, 'userSaveposts']);
 Route::middleware(['auth'])->put('/posts/edit/{postId}', [PostController::class, 'updatepost']);
 Route::middleware(['auth'])->delete('/posts/delete/{postId}', [PostController::class, 'destroy']);
+Route::middleware(['auth'])->delete('/saveposts/delete/{postId}', [SavepostController::class, 'delete']);

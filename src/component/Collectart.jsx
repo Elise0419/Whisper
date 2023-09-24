@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 import "./CSS/Collectart.css";
 
 function Collectart() {
@@ -45,7 +47,6 @@ function Collectart() {
             .catch((error) => {
               console.error("抓取資料時發生錯誤:", error);
             });
-
         } else {
           console.error("删除失败:", data.message);
         }
@@ -58,7 +59,6 @@ function Collectart() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     console.log("Token in Profile:", token);
-
 
     // 目前收藏的貼文
     fetch(`http://118.233.222.23:8000/api/posts/usersave`, {
@@ -81,8 +81,6 @@ function Collectart() {
       .catch((error) => {
         console.error("抓取資料時發生錯誤:", error);
       });
-
-
   }, [postId]);
 
   return (
@@ -93,24 +91,28 @@ function Collectart() {
       {posts.length > 0 ? (
         posts.map((post) => (
           <div className="manageEdit" key={post.postInfo.postId}>
-            <div className="manageContent">
-              <img src={post.postInfo.imgUrl} alt="" />
-              <div className="manageText">
-                <p className="managePost">{post.postInfo.title}</p>
-                <p className="manageTime">
-                  作者:{post.postInfo.memName}創作時間:{post.postInfo.postTime}
-                </p>
+            {/* <div>{console.log("post", post)}</div> */}
+            <Link className="manageContent" to={`/post/${post.postInfo.postId}/${post.postInfo.type}` }>
+              {/* <div className="manageContent"> */}
+                <img src={post.postInfo.imgUrl} alt="" />
+                <div className="manageText">
+                  <p className="managePost">{post.postInfo.title}</p>
+                  <p className="manageTime">
+                    作者:{post.postInfo.memName}創作時間:
+                    {post.postInfo.postTime}
+                  </p>
 
-                <div className="manageInteractions">
-                  <span>
-                    <i className="material-icons">thumb_up</i>
-                    <span>{post.postInfo.thumb}</span>
-                    <i className="material-icons">favorite</i>
-                    <span>{post.postInfo.save}</span>
-                  </span>
+                  <div className="manageInteractions">
+                    <span>
+                      <i className="material-icons">thumb_up</i>
+                      <span>{post.postInfo.thumb}</span>
+                      <i className="material-icons">favorite</i>
+                      <span>{post.postInfo.save}</span>
+                    </span>
+                  </div>
                 </div>
-              </div>
-            </div>
+              {/* </div> */}
+            </Link>
             <div className="manageBtn">
               <button
                 className="deleteBtn"

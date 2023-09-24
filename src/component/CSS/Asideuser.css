@@ -32,6 +32,8 @@
     color: var(--colorRed);
     font-size: 1.25rem;
     text-align: center;
+    position: relative;
+    right: 10px;
 }
 
 .asideBtn {

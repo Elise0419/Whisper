@@ -7,7 +7,20 @@ import "../CSS/Asideuser.css";
 import rabbit from "../img/rabbit.png";
 
 function Asideuser() {
-  var [user, setUser] = useState([]);
+  let [user, setUser] = useState([]);
+  let dTSc = user.created_at;
+  let dTc = new Date(dTSc);
+  let yc = dTc.getFullYear();
+  let mc = (dTc.getMonth() + 1).toString().padStart(2, "0"); // 注意月份从 0 开始，需要加 1
+  let dc = dTc.getDate().toString().padStart(2, "0");
+  let fDc = `${yc}-${mc}-${dc}`;
+
+  let dTSu = user.updated_at;
+  let dTu = new Date(dTSu);
+  let yu = dTu.getFullYear();
+  let mu = (dTu.getMonth() + 1).toString().padStart(2, "0"); // 注意月份从 0 开始，需要加 1
+  let du = dTu.getDate().toString().padStart(2, "0");
+  let fDu = `${yu}-${mu}-${du}`;
 
   const token = localStorage.getItem("token");
   console.log("Token in Profile:", token);
@@ -57,9 +70,9 @@ function Asideuser() {
       <hr />
       <span className="asideMsg">致力於打造美好生活</span>
       <br />
-      <span className="asideTime">創建時間:{user.created_at}</span>
+      <span className="asideTime">創建時間: {fDc}</span>
       <br />
-      <span className="asideTime">最後更新時間:{user.updated_at}</span>
+      <span className="asideTime">最後更新時間: {fDu}</span>
       <div className="asideNum">
         <p>03</p>
         <p>當前貼文數量</p>

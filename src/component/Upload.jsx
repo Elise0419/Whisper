@@ -11,7 +11,7 @@ function Quill() {
   let [q, setQ] = useState({
     title: "",
     content: "",
-    tag: m,
+    tag: "",
   });
   let [tags, setTags] = useState([]);
 
@@ -52,8 +52,10 @@ function Quill() {
   }
 
   const up = () => {
-    var t = document.getElementById("t");
-    console.log(t);
+    var t = document.querySelectorAll("#t");
+    t.forEach((t) => {
+      // setQ({ ...q, tag: t.value });
+    });
 
     if (q.title == "") {
       alert("請輸入標題");
@@ -99,6 +101,7 @@ function Quill() {
       let button = document.createElement("button");
       button.textContent = "#" + newTag;
       button.setAttribute("id", "t");
+      button.setAttribute("value", newTag);
       span.appendChild(button);
       span.classList.add("yellowTag");
       document.querySelector(".hashtagCreate").appendChild(span);

@@ -8,6 +8,29 @@ import Footer from "./Block/Footer";
 import logo from "./img/logo.png";
 
 function Verifyemail() {
+  const [email, setEmail] = useState("");
+  const [sentVerification, setSentVerification] = useState(false);
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handleSendVerification = () => {
+    fetch("http://192.168.194.32:8000/api/profile", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setSentVerification(true);
+      })
+      .catch((error) => console.error("Error:", error));
+  };
+
   return (
     <div id="container">
       <Header />
@@ -23,9 +46,26 @@ function Verifyemail() {
               width="100px"
               style={{ borderRadius: "50%" }}
             />
+            <br /><br />
+            <div className="">
+            <label htmlFor="email">
+                  <strong>郵箱輸入有誤,請輸入正確email</strong>
+                </label>
+                <input
+                  type="email"
+                  placeholder="請輸入正確email"
+                  name="email"
+                  onChange={handleEmailChange}
+                  value={email}
+                  className="verifyMain"
+                />
+            </div>
+
+            <button onClick={handleSendVerification}  className="btnVerify">发送验证信息</button>
+            <br />
             <p>完成Email驗證,帳號註冊完成～</p>
-            <Link to="/signup" className="btnDafaultborder">
-              信息輸入錯誤,重新註冊帳號
+            <Link to="/login" className="btnDafaultborder">
+              email驗證完成,請直接登入
             </Link>
           </div>
         </div>

@@ -106,7 +106,7 @@ function Login() {
                   placeholder="輸入Email"
                   name="email"
                   onChange={handleInput}
-                  className=""
+                  className="verifyMain form input"
                 />
                 {errors.email && <span className="error">{errors.email}</span>}
               </div>

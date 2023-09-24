@@ -14,7 +14,7 @@ function Profile() {
     email: false,
     person_id: false,
     phone: false,
-    head_img: false,
+    headimg: false,
   });
 
   // 在 handleSaveClick 中调整传递的字段
@@ -27,10 +27,10 @@ function Profile() {
   };
 
   const handleSaveClick = async (field) => {
+
     setIsEditing({ ...isEditing, [field]: false });
 
-    const dataToSend = { data: user[field] };
-    console.log(dataToSend);
+    console.log(user[field]);
 
     try {
       const token = localStorage.getItem("token");
@@ -42,7 +42,7 @@ function Profile() {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(dataToSend),
+          body: JSON.stringify({ [field]: user[field] }),
         }
       );
 

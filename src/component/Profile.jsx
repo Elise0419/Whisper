@@ -35,7 +35,7 @@ function Profile() {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://118.233.222.23:8000/api/profile/${field}/change`,
+        `http://127.0.0.1:8000/api/profile/${field}/change`,
         {
           method: "put",
           headers: {
@@ -76,7 +76,7 @@ function Profile() {
     const head = user.headimg;
     setIsEditing({ ...isEditing, headimg: false });
     const token = localStorage.getItem("token");
-    fetch(`http://118.233.222.23:8000/api/profile/head/change`, {
+    fetch(`http://127.0.0.1:8000/api/profile/head/change`, {
       method: "put",
       headers: {
         "Content-Type": "application/json",
@@ -114,7 +114,11 @@ function Profile() {
       const token = localStorage.getItem("token");
       console.log("Token in Profile:", token);
 
+<<<<<<< Updated upstream
       fetch("http://118.233.222.23:8000/api/profile", {
+=======
+      fetch("http://127.0.0.1:8000/api/profile", {
+>>>>>>> Stashed changes
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -190,9 +194,7 @@ function Profile() {
                   id="promise"
                   value={user?.promise || ""}
                   readOnly={!isEditing.promise}
-                  onChange={(e) =>
-                    handleInputChange("promise", e.target.value)
-                  }
+                  onChange={(e) => handleInputChange("promise", e.target.value)}
                 />
                 {isEditing.promise ? (
                   <button
@@ -319,6 +321,6 @@ function Profile() {
       <Footer />
     </div>
   );
-};
+}
 
 export default Profile;

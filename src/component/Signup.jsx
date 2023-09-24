@@ -42,7 +42,7 @@ function Signup() {
         password: values.password,
       };
 
-      fetch("http://118.233.222.23:8000/api/register", {
+      fetch("http://127.0.0.1:8000/api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

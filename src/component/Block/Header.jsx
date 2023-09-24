@@ -13,6 +13,7 @@ import mail from "../img/love3.png";
 
 function Header() {
   let [dd, setDd] = useState("創建貼文");
+  let [user, setUser] = useState("創建貼文");
   const m = useRouteMatch().params.type;
   useEffect(
     function () {
@@ -31,6 +32,30 @@ function Header() {
       } else {
         setDd("創建貼文");
       }
+
+      function fetchData() {
+        const token = localStorage.getItem("token");
+        console.log("Token in Profile:", token);
+
+        fetch(`http://127.0.0.1:8000/api/profile`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then((res) => {
+            return res.json();
+          })
+          .then((jsonData) => {
+            setUser(jsonData.user);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+
+      fetchData();
     },
     [m]
   );
@@ -70,10 +95,10 @@ function Header() {
             />
           </Link>
           <Link to="/profile">
-            <img className="userImg" src={rabbit} />
+            <img className="userImg" src={user.headimg || rabbit} />
           </Link>
           <Link to="/profile">
-            <span className="userName">Alice</span>
+            <span className="userName">{user.mem_name}</span>
           </Link>
           <button className="userBtn">
             <img className="userArrow" src={whiteArrow} />

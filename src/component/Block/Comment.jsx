@@ -86,6 +86,7 @@ function Comment() {
 
   function submitCommentToBackend(newCommentObj) {
     const token = localStorage.getItem("token");
+<<<<<<< Updated upstream
     fetch(`http://118.233.222.23:8000/api/posts/${match.params.postId}/comments`, {
       method: "POST",
       headers: {
@@ -94,12 +95,23 @@ function Comment() {
       },
       body: JSON.stringify(newCommentObj),
     })
+=======
+    fetch(
+      `http://118.233.222.23:8000/api/posts/${match.params.postId}/comments`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(newCommentObj),
+      }
+    )
+>>>>>>> Stashed changes
       .then((res) => res.json())
       .then((jsonData) => {
-        console.log("jsonData", jsonData)
-        if (
-          jsonData.message === "評論已新增！"
-        ) {
+        console.log("jsonData", jsonData);
+        if (jsonData.message === "評論已新增！") {
           fetchData();
         }
       })

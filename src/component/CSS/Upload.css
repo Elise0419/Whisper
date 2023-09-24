@@ -133,42 +133,49 @@ header {
 
 /* - - - - - - - - - - */
 
-.pinkTag button,
-.grayTag button,
-.yellowTag button {
-    height: 2.375rem;
-    font-size: 0.875rem;
+.hashtagInput,
+.hashtagBtn {
+    margin: 0.5rem 0.5rem 0.5rem 0.5rem;
+    padding: 0.2rem 0.5rem;
+}
+
+.hashtagNew {
+    width: 100%;
+    display: inline-block;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.yellowTag,
+.pinkTag,
+.grayTag {
+    height: 2rem;
+    margin-right: 0.5rem;
     border-radius: var(--radius);
     border: none;
     color: white;
-    margin-right: 0.625rem;
-    margin-bottom: 0.25rem;
 }
 
-.pinkTag button {
-    background-color: var(--colorPink300);
-}
-
-.grayTag button {
-    background-color: var(--colorGray100);
-}
-
-.yellowTag button {
-    background-color: var(--colorYellow);
-}
-
-.pinkTag button:active,
-.grayTag button:active,
-.yellowTag button {
+.yellowTag:active,
+.pinkTag:active,
+.grayTag:active {
     transform: scale(0.96);
 }
 
-.hashtagInput,
-.hashtagBtn {
-    height: 2.5rem;
-    padding: 0.2rem 0.5rem;
-    margin-left: 0.5rem;
-    margin-top: 0.5rem;
-    box-sizing: border-box;
-    margin-bottom: 1rem;
+.yellowTag {
+    background-color: var(--colorYellow);
+}
+
+.pinkTag {
+    background-color: var(--colorPink300);
+}
+
+.grayTag {
+    background-color: var(--colorGray100);
+}
+
+.yellowTag::before,
+.grayTag::before,
+.pinkTag::before {
+    content: '#';
 }

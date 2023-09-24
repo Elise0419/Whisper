@@ -131,14 +131,7 @@ header {
     }
 }
 
-/* 
-.pinkTag,
-.grayTag,
-.yellowTag {
-    display: inline-block;
-    margin-left: 1.5rem;
-    margin-bottom: 1.25rem;
-} */
+/* - - - - - - - - - - */
 
 .pinkTag button,
 .grayTag button,
@@ -168,4 +161,14 @@ header {
 .grayTag button:active,
 .yellowTag button {
     transform: scale(0.96);
+}
+
+.hashtagInput,
+.hashtagBtn {
+    height: 2.5rem;
+    padding: 0.2rem 0.5rem;
+    margin-left: 0.5rem;
+    margin-top: 0.5rem;
+    box-sizing: border-box;
+    margin-bottom: 1rem;
 }

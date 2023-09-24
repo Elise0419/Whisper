@@ -84,14 +84,14 @@ function Quill() {
     }
   };
 
-  function hashtag(e) {
+  function pinkTag(e) {
     let span = document.createElement("span");
     span.appendChild(e.target);
     span.classList.add("pinkTag");
-    document.querySelector(".createTag").appendChild(span);
+    document.querySelector(".hashtagCreate").appendChild(span);
   }
 
-  function create() {
+  function yellowTag() {
     let newTag = document.querySelector(".inputTag").value;
     if (newTag) {
       let span = document.createElement("span");
@@ -99,7 +99,7 @@ function Quill() {
       button.textContent = "#" + newTag;
       span.appendChild(button);
       span.classList.add("yellowTag");
-      document.querySelector(".createTag").appendChild(span);
+      document.querySelector(".hashtagCreate").appendChild(span);
     }
   }
 
@@ -147,13 +147,15 @@ function Quill() {
             }}
           />
           <div>
-            Hashtag: <input type="text" className="inputTag" />
-            <button onClick={create}>create</button>
-            <div className="createTag"></div>
+            Hashtag: <input type="text" className="hashtagInput" />
+            <button onClick={yellowTag} className="hashtagBtn">
+              create
+            </button>
+            <div className="hashtagCreate"></div>
             <hr />
             <span className="grayTag">
               {tags.map((tag, index) => (
-                <button key={index} value={tag.tag} onClick={hashtag}>
+                <button key={index} value={tag.tag} onClick={pinkTag}>
                   #{tag.tag}
                 </button>
               ))}

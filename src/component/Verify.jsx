@@ -49,7 +49,7 @@ function Verifyemail() {
             <br /><br />
             <div className="">
               <label htmlFor="email">
-                <strong>郵箱輸入有誤,請輸入正確email</strong>
+                <strong>如果您剛剛輸入的郵箱輸入有誤,請輸入正確email</strong>
               </label>
               <input
                 type="email"
@@ -61,7 +61,7 @@ function Verifyemail() {
               />
             </div>
 
-            <button onClick={handleSendVerification} className="btnVerify">发送验证信息</button>
+            <button onClick={handleSendVerification} className="btnVerify">發送驗證信息</button>
             <br />
             <p>完成Email驗證,帳號註冊完成～</p>
             <Link to="/login" className="btnDafaultborder">

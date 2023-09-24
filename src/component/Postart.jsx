@@ -1,66 +1,145 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link, useHistory } from "react-router-dom";
 import "./CSS/Postart.css";
 
 function Postart() {
   const [posts, setPosts] = useState([]);
   const [postCount, setPostCount] = useState(0);
+  const [editingPost, setEditingPost] = useState(null);
 
   const { userId } = useParams(); // 从URL参数获取用户ID
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    console.log("Token in Profile:", token);
 
-    // 发送 POST 请求获取用户发布的帖子列表和已发布的帖子数量
-    fetch(`http://192.168.194.32:8000/api/user/posts`, {
-      method: 'POST',
+  const history = useHistory();
+
+  const handleEdit = (post) => {
+     // 将编辑的帖子数据保存在 localStorage 中
+     localStorage.setItem("editingPost", JSON.stringify(post));
+    setEditingPost(post);
+    // 跳转到上传页面
+    history.push("/upload");
+  };
+
+  // 貼文編輯
+  const handleUpdate = (postId, newData) => {
+    const token = localStorage.getItem("token");
+
+    fetch(`http://192.168.194.32:8000/api/posts/edit/${postId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(newData),
+    })
+      .then((response) => response.json())
+      .then((resJson) => {
+        console.log("Response from server:", resJson);
+        if (resJson.message === "Post updated successfully") {
+          fetchPosts();
+          setEditingPost(null);
+        }
+      })
+      .catch((error) => console.error("Error:", error));
+  };
+
+
+
+// 貼文刪除
+  const handleDelete = (postId) => {
+    const token = localStorage.getItem("token");
+
+    fetch(`http://192.168.194.32:8000/api/posts/delete/${postId}`, {
+      method: "DELETE",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     })
-    .then(response => response.json())
-    .then(data => {
-      if (data.message === "没有蒐藏任何貼文") {
-        setPosts([]);
-        setPostCount(0); // 设置帖子数量为 0
-      } else {
-        setPosts(data.data);
-        setPostCount(data.count); // 设置帖子数量为返回的 count 值
-      }
+      .then((response) => response.json())
+      .then((resJson) => {
+        console.log("Response from server:", resJson);
+        // 根据后端的返回结果，可以在这里进行相应的提示或更新页面等操作
+        if (resJson.message === "deleted!") {
+          // 在删除成功后重新获取数据
+          fetchPosts();
+        }
+      })
+      .catch((error) => console.error("Error:", error));
+  };
+
+  const fetchPosts = () => {
+    const token = localStorage.getItem("token");
+    console.log("Token in Profile:", token);
+
+    fetch(`http://192.168.194.32:8000/api/user/posts`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     })
-    .catch(error => console.error('Error:', error));
+      .then((response) => response.json())
+      .then((resJson) => {
+        console.log("Data from server:", resJson);
+        if (resJson.message === "没有蒐藏任何貼文") {
+          setPosts([]);
+          setPostCount(0);
+        } else {
+          setPosts(resJson.posts);
+          setPostCount(resJson.postCount);
+        }
+      })
+      .catch((error) => console.error("Error:", error));
+  };
+
+  useEffect(() => {
+    fetchPosts();
   }, [userId]);
+
+
+  
 
   return (
     <div className="postart">
       <div className="manageCount">
         <p>全部稿件: {postCount}</p> {/* 显示用户已发布的帖子数量 */}
       </div>
-      {posts.length > 0 ? (
+      {posts && posts.length > 0 ? (
         posts.map((post) => (
-          <div className="manageEdit" key={post.postInfo.postId}>
+          <div className="manageEdit" key={post.postId}>
+            <div>{console.log("post", post)}</div>
             <div className="manageContent">
-              <img src={post.postInfo.imgUrl} alt="" />
+              <img src={post.imgUrl} alt="" />
               <div className="manageText">
-                <p className="managePost">{post.postInfo.title}</p>
+                <p className="managePost">{post.title}</p>
                 <p className="manageTime">
-                  作者:{post.postInfo.memName}創作時間:{post.postInfo.postTime}
+                  作者:{post.memName}創作時間:{post.postTime}
                 </p>
                 <div className="manageInteractions">
                   <span>
                     <i className="material-icons">thumb_up</i>
-                    <span>{post.postInfo.thumb}</span>
+                    <span>{post.thumb}</span>
                     <i className="material-icons">favorite</i>
-                    <span>{post.postInfo.save}</span>
+                    <span>{post.save}</span>
                   </span>
                 </div>
               </div>
             </div>
             <div className="manageBtn">
-              <button className="editBtn">編輯</button>
-              <button className="deleteBtn">刪除</button>
+              <button
+                className="editBtn"
+                onClick={() => handleEdit(post)}
+                disabled={!!editingPost}
+              >
+                編輯
+              </button>
+              <button
+                className="deleteBtn"
+                onClick={() => handleDelete(post.postId)}
+              >
+                刪除
+              </button>
             </div>
             <hr />
           </div>

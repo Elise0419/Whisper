@@ -69,8 +69,6 @@ Route::controller(ProfileController::class)->group(function () {
     Route::put('profile/promise/change', 'peromise');
 });
 
-Route::middleware(['auth'])->get('/user/posts', [PostController::class, 'getUserPosts']);
-
 Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\API\V1'], function () {
     Route::apiResource('posts', PostController::class);
     Route::apiResource('comtxts', ComtxtController::class);
@@ -78,21 +76,23 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\API\V1'], f
     Route::apiResource('saveposts', SavepostController::class);
     Route::apiResource('rules', RuleController::class);
 });
+
 Route::get('/v1/posts/{postId}/{type}', [PostController::class, 'poststype']);
 Route::get('/topPosts/1', [PostController::class, 'topposts1']);
 Route::get('/topPosts/2', [PostController::class, 'topposts2']);
+Route::get('/posts/search', [PostController::class, 'search']);
+Route::post('/posts/click{postId}', [PostController::class, 'click']);
+Route::post('/posts/thumb{postId}', [PostController::class, 'thumb']);
 Route::get('/tags/{type}', [TagController::class, 'getTags']);
 Route::get('/tags/all/{type}', [TagController::class, 'getAllTags']);
 Route::get('/votes/{type}', [VoteController::class, 'voteselect']);
-Route::get('/votes/click/{voteId}', [VoteController::class, 'votesclick']);
-Route::get('/posts/search', [PostController::class, 'search']);
-Route::get('/posts/click{postId}', [PostController::class, 'click']);
-Route::get('/posts/thumb{postId}', [PostController::class, 'thumb']);
+Route::middleware(['auth'])->get('/votes/click/{voteId}', [VoteController::class, 'votesclick']);
 
-Route::post('/posts/{postId}/comments', [ComtxtController::class, 'createcomtxt']);
-Route::put('/posts/comments/{id}', [ComtxtController::class, 'updatecomtxt']);
-Route::post('/upload/{type}', [PostController::class, 'upload']);
-Route::post('/posts/save/{postId}', [SavepostController::class, 'savepost']);
-Route::post('/posts/usersave', [SavepostController::class, 'userSaveposts']);
-Route::put('/posts/postId}', [PostController::class, 'updatepost']);
-Route::delete('/posts/{postId}', [PostController::class, 'destroy']);
+Route::middleware(['auth'])->post('/posts/{postId}/comments', [ComtxtController::class, 'createcomtxt']);
+Route::middleware(['auth'])->put('/posts/comments/{id}', [ComtxtController::class, 'updatecomtxt']);
+Route::middleware(['auth'])->post('/upload/{type}', [PostController::class, 'upload']);
+Route::middleware(['auth'])->post('/user/posts', [PostController::class, 'getUserPosts']);
+Route::middleware(['auth'])->post('/posts/save/{postId}', [SavepostController::class, 'savepost']);
+Route::middleware(['auth'])->post('/posts/usersave', [SavepostController::class, 'userSaveposts']);
+Route::middleware(['auth'])->put('/posts/edit/{postId}', [PostController::class, 'updatepost']);
+Route::middleware(['auth'])->delete('/posts/delete/{postId}', [PostController::class, 'destroy']);

@@ -11,10 +11,6 @@ use Illuminate\Support\Facades\Auth;
 
 class SavepostController extends Controller
 {
-
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         return new SavepostCollection(Savepost::all());
@@ -23,12 +19,11 @@ class SavepostController extends Controller
     public function savepost(Request $request, $postId)
     {
 
-        $userId = Auth::user()->user_id; //
+        $userId = Auth::user()->user_id;
         if (!$userId) {
-            return response()->json(['message' => '你沒登入'], 403);
-        }
+            return 'login';
+        };
 
-        // 檢查用戶是否已經保存了這個貼文
         $existingSave = Savepost::where('user_id', $userId)
             ->where('post_id', $postId)
             ->first();
@@ -50,13 +45,17 @@ class SavepostController extends Controller
         return response()->json(['message' => '貼文已經被收藏過']);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function userSaveposts()
     {
-        $user = Auth::user();
-        $savepost = Savepost::with(['users', 'posts'])->where('user_id', $user->user_id)->get();
+        $userId = Auth::user()->user_id;
+        if (!$userId) {
+            return 'login';
+        };
+        $savepost = Savepost::with(['users', 'posts'])->where('user_id', $userId->user_id)->get();
+
+        if ($savepost->isEmpty()) {
+            return response()->json(['message' => '没有蒐藏任何貼文']);
+        }
 
         return new SavepostCollection($savepost);
     }

@@ -138,6 +138,9 @@ class PostController extends Controller
     public function getUserPosts(Request $request)
     {
         $userId = Auth::user()->user_id;
+        if (!$userId) {
+            return 'login';
+        };
         $posts = Post::where('user_id', $userId)->get();
         return PostResource::collection($posts);
 

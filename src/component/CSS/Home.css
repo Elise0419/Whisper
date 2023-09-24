@@ -221,12 +221,11 @@ article a {
 }
 
 .cardMid img {
-    width: 1.5rem;
     margin-left: 0.75rem;
-    object-fit: cover;
-    border-radius: var(--circle);
     width: 1.5rem;
     height: 1.5rem;
+    border-radius: var(--circle);
+    object-fit: cover;
 }
 
 .cardMid span {

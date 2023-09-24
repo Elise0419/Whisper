@@ -22,6 +22,9 @@ class VoteController extends Controller
     public function votesclick(Request $request, $voteId)
     {
         $userId = Auth::user()->user_id;
+        if (!$userId) {
+            return 'login';
+        };
         $existingVoteRecord = Votesdata::where('user_id', $userId)
             ->where('vote_id', $voteId)
             ->first();

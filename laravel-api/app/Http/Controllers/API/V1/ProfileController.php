@@ -82,6 +82,6 @@ class ProfileController extends Controller
     {
         $this->user->promise = $req->promise;
         $this->user->save();
-        return response()->json(['message' => '已成功更改你的用戶聲明', 'user' => $req->promise], 201);
+        return response()->json(['message' => '已成功更改你的用戶聲明'], 201);
     }
 }

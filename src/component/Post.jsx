@@ -10,15 +10,21 @@ import makeup2 from "./img/makeup.jpeg";
 import bite from "./img/bite.png";
 import makeup from "./img/makeup.png";
 
-function Post({ userToken = null }) {
+function Post({ postId, userToken}) {
   const match = useRouteMatch();
   let [post, setPost] = useState([]);
   let [vote, setVote] = useState([]);
   let [rule, setRule] = useState([]);
+  // 初始狀態未點讚 未收藏狀態
   let [isLiked, setIsLiked] = useState(false);
   let [isFavorited, setIsFavorited] = useState(false);
 
   useEffect(() => {
+
+    const token = localStorage.getItem("token");
+    console.log("Token in Profile:", token);
+
+
     function fetchData() {
       // 取單篇文章
       fetch(
@@ -72,15 +78,15 @@ function Post({ userToken = null }) {
   }, [match.params.postId]);
 
   const toggleLike = () => {
-    console.log(post);
     if (post.length > 0) {
       const newThumbCount = isLiked ? post[0].thumb - 1 : post[0].thumb + 1;
+      const postId = post[0].postId;
       const requestData = {
-        postId: post[0].postId,
+        postId: postId,
         thumb: !isLiked,
       };
-
-      fetch(`http://127.0.0.1:8000/api/posts/thumb${match.params.postId}`, {
+  
+      fetch(`http://192.168.194.32:8000/api/posts/thumb${match.params.postId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -91,22 +97,23 @@ function Post({ userToken = null }) {
         .then((res) => res.json())
         .then((jsonData) => {
           if (jsonData.message === "updated!") {
-            setIsLiked(!isLiked); // 更新点赞状态
+            setIsLiked(!isLiked);
             setPost((prevPost) => [{ ...prevPost[0], thumb: newThumbCount }]);
           }
         })
         .catch((err) => {
-          console.log("点赞请求错误:", err);
+          console.log("點讚請求錯誤:", err);
         });
     }
   };
+  
 
   const toggleFavorite = () => {
     if (post.length > 0) {
       setIsFavorited(!isFavorited);
       const newSaveCount = isFavorited ? post[0].save - 1 : post[0].save + 1;
-
-      fetch(`http://192.168.194.32:8000/api/posts/save`, {
+  
+      fetch(`http://192.168.194.32:8000/api/posts/save/${match.params.postId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -114,19 +121,25 @@ function Post({ userToken = null }) {
         },
         body: JSON.stringify({ save: newSaveCount }),
       })
-        .then((res) => res.json())
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+          }
+          return res.json();
+        })
         .then((jsonData) => {
-          if (jsonData.data) {
+          if (jsonData.message === '貼文已收藏' || jsonData.message === '貼文已經被收藏過') {
             setPost((prevPost) => [
               { ...prevPost[0], save: jsonData.data.save },
             ]);
           }
         })
         .catch((err) => {
-          console.log("收藏请求错误:", err);
+          console.error("收藏请求错误:", err);
         });
     }
   };
+  
 
   // vote
   function voted(e) {

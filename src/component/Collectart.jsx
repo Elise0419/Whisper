@@ -11,7 +11,7 @@ function Collectart() {
     console.log("Token in Profile:", token);
 
     // 使用 fetch 請求後端 API 獲取數據
-    fetch(`http://192.168.194.32:8000/api/usersave`, {
+    fetch(`http://192.168.194.32:8000/api/posts/usersave`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,

@@ -27,7 +27,7 @@ function Comment() {
 
     function fetchData() {
       fetch(
-        `http://10.10.247.43:8000/api/v1/comtxts?post[eq]=${match.params.postId}`,
+        `http://192.168.194.32:8000/api/v1/comtxts?post[eq]=${match.params.postId}`,
         {
           method: "GET",
         }

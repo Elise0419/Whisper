@@ -49,7 +49,6 @@ function Manage() {
           {/* 發布貼文內容 */}
           <div className="Article">
             <TabPanel hidden={selectedTab !== "postArticle"}>
-
               <Postart />
             </TabPanel>
             <div>

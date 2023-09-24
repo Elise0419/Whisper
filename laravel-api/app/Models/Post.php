@@ -13,8 +13,20 @@ class Post extends Model
     // use HasFactory;
     protected $primaryKey = 'post_id';
     protected $table = 'posts';
-    protected $fillable = ['click'];
+
     public $timestamps = false;
+    protected $fillable = [
+        'user_id',
+        'type',
+        'title',
+        'content',
+        'imgurl',
+        'tag',
+        'post_time',
+        'click',
+        'thumb',
+        'save',
+    ];
 
     public function users()
     {

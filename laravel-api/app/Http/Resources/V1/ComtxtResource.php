@@ -22,8 +22,8 @@ class ComtxtResource extends JsonResource
             'headImg' => $this->users->headimg,
             'comtxtName' => $this->users->mem_name,
             'comment' => $this->comment,
-            'createdTime' => $this->created_at,
-            'updateTime' => $this->updated_at,
+            'createdTime' => $this->created_at->format('Y-m-d H:i:s'),
+            'updateTime' => $this->updated_at ? $this->updated_at->format('Y-m-d H:i:s') : null,
 
         ];
 

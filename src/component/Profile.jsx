@@ -66,8 +66,6 @@ function Profile() {
     const reader = new FileReader();
     // 上傳
     reader.onload = function (event) {
-      // 更新用户头像
-      console.log(event.target.result);
       setUser({ ...user, headimg: event.target.result });
     };
     // 讀取
@@ -76,7 +74,6 @@ function Profile() {
 
   const handleImageSave = () => {
     const head = user.headimg;
-
     setIsEditing({ ...isEditing, headimg: false });
     const token = localStorage.getItem("token");
     fetch(`http://192.168.194.32:8000/api/profile/head/change`, {

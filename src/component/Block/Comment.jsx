@@ -53,7 +53,7 @@ function Comment() {
 
   function submitCommentToBackend(newCommentObj) {
     const token = localStorage.getItem("token");
-    fetch(`http://192.168.194.32:8000/api/posts/${match.params.postId}/comments`, {
+    fetch(`http://118.233.222.23:8000/api/posts/${match.params.postId}/comments`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

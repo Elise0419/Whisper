@@ -53,7 +53,7 @@ class ProfileController extends Controller
         $filename = 'user_' . $this->user->user_id . '.jpg';
         $head_Path = 'public/user_head/'  . $filename;
         Storage::put($head_Path, $imageData);
-        $this->user->headimg = 'http://10.147.20.3:8000/storage/user_head/' . $filename;
+        $this->user->headimg = 'http://118.233.222.23:8000/storage/user_head/' . $filename;
         $this->user->save();
         return response()->json(['message' => '上傳成功'], 200);
     }
@@ -78,61 +78,10 @@ class ProfileController extends Controller
         return response()->json(['message' => '已成功更改用戶名稱'], 201);
     }
 
-
-
-    // if (!$req->email_change !== null) {
-    //     $validator = Validator::make($req->email_change, [
-    //         'email' => 'required|email|unique:users,email',
-    //     ]);
-
-    //     if ($validator->fails()) {
-    //         return response()->json(['error' => $validator->errors()], 422);
-    //     }
-
-    //     $this->user->email = $req->email;
-    //     $this->user->email_verified_at = null;
-    //     $this->user->save();
-    // }
-    // if (!$req->mem_name_change !== null) {
-    //     $validator = Validator::make($req->mem_name_change, [
-    //         'mem_name_change' => 'required|string|max:20',
-    //     ]);
-    //     if ($validator->fails()) {
-    //         return response()->json(['error' => $validator->errors()], 422);
-    //     }
-    //     $this->user->mem_name = $req->mem_name_change;
-    //     $this->user->save();
-    // }
-    // if (!$req->phone_change !== null) {
-    //     $validator = Validator::make($req->phone_change, [
-    //         'phone_change' => 'required|string|max:20',
-    //     ]);
-    //     if ($validator->fails()) {
-    //         return response()->json(['error' => $validator->errors()], 422);
-    //     }
-    //     $this->user->phone = $req->phone_change;
-    //     $this->user->save();
-    // }
-    // if (!$req->id_change !== null) {
-    //     $validator = Validator::make($req->person_id_change, [
-    //         'person_id_change' => 'required|string|max:20',
-    //     ]);
-    //     if ($validator->fails()) {
-    //         return response()->json(['error' => $validator->errors()], 422);
-    //     }
-    //     $this->user->person_id = $req->person_id_change;
-    //     $this->user->save();
-    // }
-    // if (!$req->haedimg_change) {
-    //     if ($req->hasFile('head_img')) {
-    //         $head_img = $req->file('head_img');
-    //         $head_Path = $head_img->storeAs('public/user_head', 'user_' . $this->user->user_id . '.' . $head_img->getClientOriginalExtension());
-
-    //         // 更新用戶的頭像路徑
-    //         $this->user->headimg = $head_Path;
-    //         $this->user->save();
-    //     }
-    //     return response()->json(['message' => '未上傳頭像文件'], 400);
-    // }
-
+    public function promisechange(Request $req)
+    {
+        $this->user->promise = $req->promise;
+        $this->user->save();
+        return response()->json(['message' => '已成功更改你的用戶聲明'], 201);
+    }
 }

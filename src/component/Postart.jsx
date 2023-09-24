@@ -105,11 +105,13 @@ function Postart() {
       <div className="manageCount">
         <p>全部稿件: {postCount}</p> {/* 显示用户已发布的帖子数量 */}
       </div>
+      
       {posts && posts.length > 0 ? (
         posts.map((post) => (
           <div className="manageEdit" key={post.postId}>
-            <div>{console.log("post", post)}</div>
-            <div className="manageContent">
+            {/* <div>{console.log("post", post)}</div> */}
+
+            <Link to={`/post/${post.postId}/${post.type}`} className="manageContent"> {/* 到指定貼文 */}
               <img src={post.imgUrl} alt="" />
               <div className="manageText">
                 <p className="managePost">{post.title}</p>
@@ -125,7 +127,8 @@ function Postart() {
                   </span>
                 </div>
               </div>
-            </div>
+              </Link>
+
             <div className="manageBtn">
               <button
                 className="editBtn"

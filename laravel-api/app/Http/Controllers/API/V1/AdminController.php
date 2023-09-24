@@ -16,6 +16,7 @@ class AdminController extends Controller
             abort(403, '查無此身分');
         };
         $articles = Post::where('type', $admin->type)->paginate(20, ['*'], 'page', $page);
-        return response()->json($articles);
+        $totalPages = $articles->lastPage();
+        return response()->json(['data' => $articles, 'totalpage' => $totalPages]);
     }
 }

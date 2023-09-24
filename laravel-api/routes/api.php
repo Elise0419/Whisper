@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\V1\AdController;
+use App\Http\Controllers\API\V1\AdminController;
 use App\Http\Controllers\API\V1\AuthController;
 use App\Http\Controllers\API\V1\ComtxtController;
 use App\Http\Controllers\API\V1\CustomEmailVerificationController;
@@ -11,9 +12,7 @@ use App\Http\Controllers\API\V1\RuleController;
 use App\Http\Controllers\API\V1\SavepostController;
 use App\Http\Controllers\API\V1\TagController;
 use App\Http\Controllers\API\V1\VoteController;
-use App\Http\Controllers\API\V1\AdminController;
 use Illuminate\Support\Facades\Route;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -56,7 +55,7 @@ Route::controller(ProfileController::class)->group(function () {
     Route::put('profile/head/change', 'headimgchange');
     Route::put('profile/person_id/change', 'idchange');
     Route::put('profile/mem_name/change', 'namechange');
-    Route::put('profile/promise/change', 'peromise');
+    Route::put('profile/promise/change', 'promisechange');
 });
 
 Route::controller(AdminController::class)->group(function () {
@@ -90,3 +89,4 @@ Route::middleware(['auth'])->post('/posts/save/{postId}', [SavepostController::c
 Route::middleware(['auth'])->post('/posts/usersave', [SavepostController::class, 'userSaveposts']);
 Route::middleware(['auth'])->put('/posts/edit/{postId}', [PostController::class, 'updatepost']);
 Route::middleware(['auth'])->delete('/posts/delete/{postId}', [PostController::class, 'destroy']);
+Route::middleware(['auth'])->delete('/saveposts/delete/{postId}', [SavepostController::class, 'delete']);

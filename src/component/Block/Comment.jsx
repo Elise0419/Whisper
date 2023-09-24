@@ -3,6 +3,7 @@ import { useRouteMatch } from "react-router-dom";
 import avatar from "../img/avatar.png";
 
 function Comment() {
+  const [user, setUser] = useState({});
   const [com, setCom] = useState({
     comments: [], // 評論列表
     newComment: "", // 用於儲存新評論的文本
@@ -40,8 +41,39 @@ function Comment() {
         console.log("Error:", err);
       });
   }
+  
+  function getData() {
+    const token = localStorage.getItem("token");
+    console.log("Token in Profile:", token);
+
+    fetch("http://118.233.222.23:8000/api/profile", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        if (res.status === 403) {
+          // history.push("/verify");
+          throw new Error("API request failed");
+        } else if (res.status >= 200) {
+          return res.json();
+        }
+      })
+      .then((jsonData) => {
+        if (jsonData.error) {
+          console.log("錯誤訊息:", jsonData.error);
+        } else {
+          setUser(jsonData.user);
+        }
+      })
+      .catch((err) => {
+        console.log("Error:", err);
+      });
+  }
+  
 
   useEffect(() => {
+    getData();
     fetchData();
   }, [match.params.postId]);
 
@@ -51,9 +83,10 @@ function Comment() {
     setCom({ ...com, comments: newList });
   }
 
+
   function submitCommentToBackend(newCommentObj) {
     const token = localStorage.getItem("token");
-    fetch(`http://192.168.194.32:8000/api/posts/${match.params.postId}/comments`, {
+    fetch(`http://118.233.222.23:8000/api/posts/${match.params.postId}/comments`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -97,7 +130,9 @@ function Comment() {
       </div>
       <div className="commentSend">
         <div className="userFace">
-          <img className="userHead" src={avatar} alt="" />
+          <div>{console.log(user)}</div>
+        <img className="userHead" src={user.headimg} alt="" />
+          {/* <img className="userHead" src={avatar} alt="" /> */}
         </div>
         <div className="textareaContainer">
           <textarea

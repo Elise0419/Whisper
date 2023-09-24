@@ -13,6 +13,7 @@ import Manage from "./component/Manage";
 import Restpwd from "./component/Restpwd";
 import Verify from "./component/Verify";
 import Secret from "./component/Secret";
+import Admin from './component/Admin';
 
 class App extends Component {
   state = {};
@@ -26,7 +27,7 @@ class App extends Component {
           <Route path="/forgotpw" component={Forgotpw} exact />
           <Route path="/restpwd" component={Restpwd} exact />
           <Route path="/verify" component={Verify} exact />
-
+          <Route path="/admin/article/:page" component={Admin} exact />
           <Route path="/upload/:type" component={Upload} exact />
 
           <Route path="/profile" component={Profile} exact />

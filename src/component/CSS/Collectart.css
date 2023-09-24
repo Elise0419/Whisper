@@ -42,7 +42,11 @@
     overflow: hidden; /* 隐藏溢出的文本 */
     text-overflow: ellipsis; /* 在文本溢出时显示省略号 */
     /* background-color: red; */
+    color: black;
+}
 
+.manageText:hover {
+    color: #C8B2D6; /* Change to the color you want on hover */
 }
 
 .managePost {

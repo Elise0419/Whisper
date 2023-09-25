@@ -81,6 +81,7 @@ function Asideuser() {
       <div className="asideContainer">
         <div className="asideName">
           <div>{console.log("user", user)}</div>
+          {/* <img className="asideImg" src={user.headimg || rabbit} /> */}
           <img className="asideImg" src={user.headimg} />
           <span className="asideText">{user.mem_name}</span>
         </div>

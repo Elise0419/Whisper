@@ -138,6 +138,7 @@ function Profile() {
             console.log("錯誤訊息:", jsonData.error);
           } else {
             setUser(jsonData.user);
+            setLoading(false);
           }
         })
         .catch((err) => {

@@ -1,10 +1,11 @@
 <?php
 
 use App\Http\Controllers\API\V1\AdController;
-use App\Http\Controllers\API\V1\GroupAdminController;
 use App\Http\Controllers\API\V1\AuthController;
 use App\Http\Controllers\API\V1\ComtxtController;
 use App\Http\Controllers\API\V1\CustomEmailVerificationController;
+use App\Http\Controllers\API\V1\GroupAdminController;
+use App\Http\Controllers\API\V1\LikeController;
 use App\Http\Controllers\API\V1\PasswordResetController;
 use App\Http\Controllers\API\V1\PostController;
 use App\Http\Controllers\API\V1\ProfileController;
@@ -62,6 +63,7 @@ Route::controller(GroupAdminController::class)->group(function () {
     Route::get('admin/management/articles/show/{page}', 'showarticles');
     Route::get('admin/management/comments/show/post_{id}/{page}', 'showcomments');
     Route::delete('admin/management/articles/delete/post_{id}', 'deletearticle');
+    Route::delete('admin/management/comments/delete/post_{id}', 'deletearticle');
 });
 
 Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\API\V1'], function () {
@@ -77,7 +79,7 @@ Route::get('/topPosts/1', [PostController::class, 'topposts1']);
 Route::get('/topPosts/2', [PostController::class, 'topposts2']);
 Route::get('/posts/search', [PostController::class, 'search']);
 Route::post('/posts/click{postId}', [PostController::class, 'click']);
-Route::post('/posts/thumb{postId}', [PostController::class, 'thumb']);
+Route::post('/posts/thumb{postId}', [LikeController::class, 'thumb']);
 Route::get('/tags/{type}', [TagController::class, 'getTags']);
 Route::get('/tags/all/{type}', [TagController::class, 'getAllTags']);
 Route::get('/votes/{type}', [VoteController::class, 'voteselect']);

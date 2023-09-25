@@ -165,13 +165,18 @@ function Profile() {
                       accept="image/*"
                       onChange={handleImageUpload}
                     />
-                    <button type="button" onClick={handleImageSave}>
+                    <button
+                      type="button"
+                      onClick={handleImageSave}
+                      className="saveBtn"
+                    >
                       保存
                     </button>
                   </div>
                 ) : (
                   <button
                     type="button"
+                    className="editBtn"
                     onClick={() =>
                       setIsEditing({ ...isEditing, headimg: true })
                     }

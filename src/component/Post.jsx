@@ -53,6 +53,7 @@ function Post({ postId, userToken }) {
           return res.json();
         })
         .then((jsonData) => {
+          console.log(jsonData);
           setVote(jsonData.data[0]);
         })
         .catch((err) => {

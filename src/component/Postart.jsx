@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link, useHistory } from "react-router-dom";
 import "./CSS/Postart.css";
+import posttext from "./img/posttext.jpg";
 
 function Postart() {
   const [posts, setPosts] = useState([]);
@@ -130,7 +131,8 @@ function Postart() {
               >
                 {" "}
                 {/* 到指定貼文 */}
-                <img src={url} />
+                {/* <img src={url} /> */}
+                <img src={post.imgUrl || posttext} alt="" />
                 <div className="manageText">
                   <p className="managePost">{myTitle.innerText}</p>
                   <p className="manageTime">

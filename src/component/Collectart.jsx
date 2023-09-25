@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import "./CSS/Collectart.css";
+import posttext from "./img/posttext.jpg";
 
 function Collectart() {
   const [posts, setPosts] = useState([]);
@@ -44,14 +45,12 @@ function Collectart() {
       .then((response) => response.json())
       .then((resJson) => {
         console.log("Response from server:", resJson);
-        if (resJson.message === "deleted!") {
+        if (resJson.message === "Deleted!") {
           fetchPosts();
-          window.location.reload(); // 在删除成功后重新加载页面
         }
       })
       .catch((error) => console.error("Error:", error));
   };
-
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -65,36 +64,57 @@ function Collectart() {
         <p>全部稿件 {postCount}</p>
       </div>
       {posts.length > 0 ? (
-        posts.map((post) => (
-          <div className="manageEdit" key={post.postInfo.postId}>
-            <Link className="manageContent" to={`/post/${post.postInfo.postId}/${post.postInfo.type}`}>
-              <img src={post.postInfo.imgUrl} alt="" />
-              <div className="manageText">
-                <p className="managePost">{post.postInfo.title}</p>
-                <p className="manageTime">
-                  作者:{post.postInfo.memName}創作時間:{post.postInfo.postTime}
-                </p>
-                <div className="manageInteractions">
-                  <span>
-                    <i className="material-icons">thumb_up</i>
-                    <span>{post.postInfo.thumb}</span>
-                    <i className="material-icons">favorite</i>
-                    <span>{post.postInfo.save}</span>
-                  </span>
-                </div>
-              </div>
-            </Link>
-            <div className="manageBtn">
-              <button
-                className="deleteBtn"
-                onClick={() => handleDelete(post.postInfo.postId)}
+        posts.map((post) => {
+          const myContent = document.createElement("div");
+          const myTitle = document.createElement("div");
+          myContent.innerHTML = post.postInfo.content;
+          myTitle.innerHTML = post.postInfo.title;
+
+          const isStringValid = post.content && post.content.includes("base64");
+
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(post.content, "text/html");
+          const imgElements = doc.querySelectorAll("img");
+          if (imgElements.length > 0) {
+            const firstImgElement = imgElements[0];
+            var url = firstImgElement.getAttribute("src");
+          }
+
+          return (
+            <div className="manageEdit" key={post.postInfo.postId}>
+              <Link
+                className="manageContent"
+                to={`/post/${post.postInfo.postId}/${post.postInfo.type}`}
               >
-                刪除
-              </button>
+                <img src={post.postInfo.imgUrl || posttext} alt="" />
+                <div className="manageText">
+                  {/* <p className="managePost">{post.postInfo.title}</p> */}
+                  <p className="managePost">{myTitle.innerText}</p>
+                  <p className="manageTime">
+                    作者:{post.postInfo.memName}創作時間:{post.postInfo.postTime}
+                  </p>
+                  <div className="manageInteractions">
+                    <span>
+                      <i className="material-icons">thumb_up</i>
+                      <span>{post.postInfo.thumb}</span>
+                      <i className="material-icons">favorite</i>
+                      <span>{post.postInfo.save}</span>
+                    </span>
+                  </div>
+                </div>
+              </Link>
+              <div className="manageBtn">
+                <button
+                  className="deleteBtn"
+                  onClick={() => handleDelete(post.postInfo.postId)}
+                >
+                  刪除
+                </button>
+              </div>
+              <hr />
             </div>
-            <hr />
-          </div>
-        ))
+          );
+        })
       ) : (
         <div>無法獲取帖子數據</div>
       )}

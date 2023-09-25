@@ -30,9 +30,9 @@
     width:50%;
     max-height: 100%;
     object-fit: cover;
-
+    border: 1px solid #C8B2D6;
     border-radius: 12px;
-    background-color: #C8B2D6;
+    /* background-color: #FBFAFA; */
 }
 
 .manageText {

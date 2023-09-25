@@ -104,10 +104,13 @@ function Profile() {
       })
       .then((jsonData) => {
         console.log(jsonData);
-  
-        // 更新侧边栏的用户信息
+        if (jsonData.message === "上傳成功") {
+          fetchData();
+            // 更新侧边栏的用户信息
         setAsideUser(jsonData.user);
+        }
       })
+
       .catch((err) => {
         console.log("Error:", err);
       });
@@ -119,40 +122,43 @@ function Profile() {
     setIsEditing({ ...isEditing, [field]: true });
   };
   const history = useHistory();
+  
+  function fetchData() {
+    const token = localStorage.getItem("token");
+    fetch("http://118.233.222.23:8000/api/profile", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        console.log(res)
+        if (res.status === 403) {
+          history.push("/verify");
+          throw new Error("API request failed");
+        }
+        if (res.status === 401) {
+          history.push("/login")
+        }
+        if (res.status >= 200) {
+          return res.json();
+        }
+      })
+      .then((jsonData) => {
+        console.log(jsonData)
+        if (jsonData.error) {
+          console.log("錯誤訊息:", jsonData.error);
+        } else {
+          setUser(jsonData.user);
+          setLoading(false);
+        }
+      })
+      .catch((err) => {
+        console.log("Error:", err);
+      });
+  }
 
   useEffect(() => {
-    function fetchData() {
-      const token = localStorage.getItem("token");
-      fetch("http://118.233.222.23:8000/api/profile", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((res) => {
-          console.log(res)
-          if (res.status === 403) {
-            history.push("/verify");
-            throw new Error("API request failed");
-          }
-          if (res.status === 401) {
-            history.push("/login")
-          }
-          if (res.status >= 200) {
-            return res.json();
-          }
-        })
-        .then((jsonData) => {
-          if (jsonData.error) {
-            console.log("錯誤訊息:", jsonData.error);
-          } else {
-            setUser(jsonData.user);
-            setLoading(false);
-          }
-        })
-        .catch((err) => {
-          console.log("Error:", err);
-        });
-    }
+
     fetchData();
   }, []);
 

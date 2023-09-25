@@ -46,7 +46,7 @@ function Secreat() {
   }
 
   function greenBtn() {
-    alert("妳的秘密已送出～");
+    // alert("妳的秘密已送出～");
     setTimeout(() => {
       setWrite(false);
       setGate(true);

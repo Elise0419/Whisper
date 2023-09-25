@@ -3,7 +3,7 @@ import { useRouteMatch } from "react-router-dom";
 // import avatar from "../img/avatar.png";
 
 function Comment() {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({ read: true });
   const [com, setCom] = useState({
     comments: [], // 評論列表
     newComment: "", // 用於儲存新評論的文本
@@ -30,9 +30,6 @@ function Comment() {
   function fetchData() {
     fetch(
       `http://118.233.222.23:8000/api/v1/comtxts?postId[eq]=${match.params.postId}`,
-      {
-        method: "GET",
-      }
     )
       .then((res) => res.json())
       .then((jsonData) => {
@@ -70,7 +67,7 @@ function Comment() {
         if (jsonData.error) {
           console.log("錯誤訊息:", jsonData.error);
         } else {
-          setUser(jsonData.user);
+          setUser({ ...jsonData.user, read: false });
         }
       })
       .catch((err) => {
@@ -148,6 +145,7 @@ function Comment() {
             className="iptTxt"
             value={com.newComment}
             onChange={(e) => setCom({ ...com, newComment: e.target.value })}
+            readOnly={user.read}
           />
           <button className="commentSubmit" onClick={handleSubmitComment}>
             評論

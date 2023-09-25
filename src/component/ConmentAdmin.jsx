@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 
-function Admin() {
+function ConmentAdmin() {
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
 
@@ -16,7 +16,7 @@ function Admin() {
       };
 
     useEffect(() => {
-        fetch(`http://10.10.247.90:8000/api/admin/management/articles/show/${page}`, {
+        fetch(`http://10.10.247.90:8000/api/admin/management/comments/show/${page}`, {
             method: "get",
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -69,4 +69,4 @@ function Admin() {
         </div>
     )
 }
-export default Admin;
+export default ConmentAdmin;

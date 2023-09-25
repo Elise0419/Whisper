@@ -50,9 +50,11 @@ function Login() {
       })
         .then((response) => {
           if (response.status >= 500) {
+            alert("伺服器中斷連接");
             throw new Error("Network response was not ok");
           } else if (response.status >= 400) {
             alert("帳號密碼錯誤");
+            window.location.reload();
           } else {
             return response.json();
           }
@@ -60,14 +62,10 @@ function Login() {
         .then((data) => {
           // 在这里处理从后端返回的数据
           localStorage.setItem("token", data.authorization.token); // 将Token存储在本地
-          const token = localStorage.getItem("token");
-          console.log(data);
-          // 将Token存储在本地
-          console.log("Token:", token);
-          history.push("/", { token: data.authorization.token });
+        
+          history.push("/");
           // 登录成功后跳转到首页
-          // history.push("/profile", { token: data.authorization.token });
-          console.log("successfullogin");
+  
         })
 
         .catch((error) => {

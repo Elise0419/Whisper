@@ -26,6 +26,7 @@ function Login() {
   // 处理输入框的变化事件
   const handleInput = (event) => {
     setValues((prev) => ({ ...prev, [event.target.name]: event.target.value }));
+    setErrors((prev) => ({ ...prev, [event.target.name]: "" }));// 清除对应字段的错误消息
   };
 
   // 处理表单提交事件

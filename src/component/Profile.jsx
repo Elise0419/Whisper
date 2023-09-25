@@ -12,6 +12,9 @@ function Profile() {
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
 
+  // 添加一个状态用于保存侧边栏的用户信息
+  const [asideUser, setAsideUser] = useState({});
+
   const [isEditing, setIsEditing] = useState({
     mem_name: false,
     promise: false,
@@ -30,6 +33,7 @@ function Profile() {
     setUser({ ...user, [id]: value });
   };
 
+   // 在保存用户信息后，更新侧边栏用户信息
   const handleSaveClick = async (field) => {
     setIsEditing({ ...isEditing, [field]: false });
 
@@ -52,6 +56,9 @@ function Profile() {
       if (response.ok) {
         const jsonData = await response.json();
         console.log(jsonData);
+
+        // 保存成功后，更新侧边栏用户信息
+        setAsideUser(jsonData.user);
       } else {
         console.log("更新失败");
         throw new Error("API request failed");
@@ -60,8 +67,6 @@ function Profile() {
       console.error("Error:", error);
     }
   };
-
-  // 省略其他部分...
 
   const handleImageUpload = (e) => {
     // 取得檔案
@@ -99,52 +104,61 @@ function Profile() {
       })
       .then((jsonData) => {
         console.log(jsonData);
+        if (jsonData.message === "上傳成功") {
+          fetchData();
+            // 更新侧边栏的用户信息
+        setAsideUser(jsonData.user);
+        }
       })
+
       .catch((err) => {
         console.log("Error:", err);
       });
   };
-
+  
   // 編輯資料
   const handleEditClick = (field) => {
     console.log(`Editing ${field}`);
     setIsEditing({ ...isEditing, [field]: true });
   };
   const history = useHistory();
+  
+  function fetchData() {
+    const token = localStorage.getItem("token");
+    fetch("http://118.233.222.23:8000/api/profile", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        console.log(res)
+        if (res.status === 403) {
+          history.push("/verify");
+          throw new Error("API request failed");
+        }
+        if (res.status === 401) {
+          history.push("/login")
+        }
+        if (res.status >= 200) {
+          return res.json();
+        }
+      })
+      .then((jsonData) => {
+        console.log(jsonData)
+        if (jsonData.error) {
+          console.log("錯誤訊息:", jsonData.error);
+        } else {
+          setUser(jsonData.user);
+          setLoading(false);
+        }
+      })
+      .catch((err) => {
+        console.log("Error:", err);
+      });
+  }
 
   useEffect(() => {
-    function fetchData() {
-      const token = localStorage.getItem("token");
-      fetch("http://118.233.222.23:8000/api/profile", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((res) => {
-          console.log(res)
-          if (res.status === 403) {
-            history.push("/verify");
-            throw new Error("API request failed");
-          }
-          if (res.status === 401) {
-            history.push("/login")
-          }
-          if (res.status >= 200) {
-            return res.json();
-          }
-        })
-        .then((jsonData) => {
-          if (jsonData.error) {
-            console.log("錯誤訊息:", jsonData.error);
-          } else {
-            setUser(jsonData.user);
-            setLoading(false);
-          }
-        })
-        .catch((err) => {
-          console.log("Error:", err);
-        });
-    }
+
     fetchData();
   }, []);
 
@@ -342,7 +356,7 @@ function Profile() {
             </div>
           </article>
           <aside>
-            <Asideuser />
+          <Asideuser user={asideUser} /> {/* 将侧边栏的 user 属性传递给 Asideuser 组件 */}
           </aside>
           <Footer />
         </div>

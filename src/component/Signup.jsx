@@ -19,15 +19,14 @@ function Signup() {
   });
 
   const [errors, setErrors] = useState({}); // 定義 errors 狀態
-
   const history = useHistory(); // 将useHistory移动到函数组件的顶层
 
   const handleInput = (event) => {
     // 更新对应输入字段的值
     setValues({ ...values, [event.target.name]: event.target.value });
+    setErrors({ ...errors, [event.target.name]: "" }); // 清除对应字段的错误消息
   };
 
-  // ... 其他部分不变 ...
 
   const handleSubmit = (event) => {
     event.preventDefault();

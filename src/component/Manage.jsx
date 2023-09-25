@@ -16,9 +16,8 @@ import heart from "./img/heart.png";
 
 function Manage() {
   const [selectedTab, setSelectedTab] = useTabs([
-    "postArticle",
     "collectArticle",
-    "replyMessage",
+    "postArticle",
   ]);
 
   return (
@@ -31,30 +30,32 @@ function Manage() {
             <nav>
               <TabSelector
                 className="manageTab"
-                isActive={selectedTab === "postArticle"}
-                onClick={() => setSelectedTab("postArticle")}
-              >
-                發布貼文
-              </TabSelector>
-              <TabSelector
-                className="manageTab"
                 isActive={selectedTab === "collectArticle"}
                 onClick={() => setSelectedTab("collectArticle")}
               >
                 收藏貼文 &nbsp;
                 <img src={heart} className="saveImg" />
               </TabSelector>
+              <TabSelector
+                className="manageTab"
+                isActive={selectedTab === "postArticle"}
+                onClick={() => setSelectedTab("postArticle")}
+              >
+                發布貼文
+                <img src={heart} className="saveImg" />
+              </TabSelector>
             </nav>
           </div>
-          {/* 發布貼文內容 */}
-          <div className="Article">
-            <TabPanel hidden={selectedTab !== "postArticle"}>
-              <Postart />
-            </TabPanel>
-            <div>
-              {/* 收藏貼文內容 */}
-              <TabPanel hidden={selectedTab !== "collectArticle"}>
-                <Collectart />
+          {/* 收藏貼文內容 */}
+          <TabPanel hidden={selectedTab !== "collectArticle"}>
+            <Collectart />
+          </TabPanel>
+
+          <div>
+            {/* 發布貼文內容 */}
+            <div className="Article">
+              <TabPanel hidden={selectedTab !== "postArticle"}>
+                <Postart />
               </TabPanel>
             </div>
           </div>

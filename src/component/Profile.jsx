@@ -5,6 +5,8 @@ import Footer from "./Block/Footer";
 import Asideuser from "./Block/Asideuser";
 import { useHistory } from "react-router-dom";
 
+import rabbit from "../component/img/rabbit.png";
+
 function Profile() {
   const [user, setUser] = useState({});
 
@@ -153,7 +155,7 @@ function Profile() {
               <div className="profilePic">
                 <label htmlFor="headimg">頭像:</label>
                 <img
-                  src={user.headimg || "/default-avatar.jpg"}
+                  src={user.headimg || rabbit} 
                   alt="Profile Pic"
                   className="profilePic"
                 />

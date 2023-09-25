@@ -150,7 +150,7 @@ function Profile() {
   return (
     <div>
       {loading ? (
-        <div>Loading...</div>
+        <div>資料載入中...</div>
       ) : (
         <div id="container">
           <Header />

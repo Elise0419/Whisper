@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouteMatch } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "./CSS/Upload.css";
@@ -11,13 +11,13 @@ function Quill() {
   let [q, setQ] = useState({
     title: "",
     content: "",
-    tag: m,
+    tag: "",
   });
   let [tags, setTags] = useState([]);
 
   useEffect(() => {
     function fetchData() {
-      fetch(`http://118.233.222.23:8000/api/tags/all/${m}`, {
+      fetch(`http://127.0.0.1:8000/api/tags/all/${m}`, {
         method: "GET",
       })
         .then((res) => {
@@ -25,7 +25,6 @@ function Quill() {
         })
         .then((jsonData) => {
           setTags(jsonData.tags);
-          console.log(tags);
         })
         .catch((err) => {
           console.log("錯誤:", err);
@@ -52,8 +51,7 @@ function Quill() {
   }
 
   const up = () => {
-    var t = document.getElementById("t");
-    console.log(t);
+    console.log(q);
 
     if (q.title == "") {
       alert("請輸入標題");
@@ -63,7 +61,7 @@ function Quill() {
 
       // 淳嫻 這邊測試要加埠號 不然會有 cors 跟 404 的問題
       // 還有 照片檔案不能過大 不然會出現net::ERR_FAILED
-      fetch(`http://118.233.222.23:8000/api/upload/${m}`, {
+      fetch(`http://127.0.0.1:8000/api/upload/${m}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -84,25 +82,66 @@ function Quill() {
     }
   };
 
-  function pinkTag(e) {
-    let span = document.createElement("span");
-    e.target.id = "t";
-    span.appendChild(e.target);
-    span.classList.add("pinkTag");
-    document.querySelector(".hashtagCreate").appendChild(span);
+  function oldTag(e) {
+    let ecl = e.currentTarget.classList;
+    let hn = document.querySelector(".hashtagNew");
+    let ho = document.querySelector(".hashtagOld");
+    if (hn.getElementsByTagName("button").length < 6) {
+      if (ecl.contains("grayTag")) {
+        hn.appendChild(e.currentTarget);
+        ecl.remove("grayTag");
+        ecl.add("pinkTag");
+      } else {
+        ho.appendChild(e.currentTarget);
+        ecl.add("grayTag");
+        ecl.remove("pinkTag");
+      }
+    } else {
+      if (ecl.contains("pinkTag")) {
+        ho.appendChild(e.currentTarget);
+        ecl.add("grayTag");
+        ecl.remove("pinkTag");
+      }
+    }
+    var a = Array.from(
+      document.querySelector(".hashtagNew").getElementsByTagName("button")
+    );
+    var b = [];
+    a.forEach((a) => {
+      b.push(a.innerText);
+    });
+    setQ({ ...q, tag: b });
   }
 
-  function yellowTag() {
-    let newTag = document.querySelector(".hashtagInput").value;
-    if (newTag) {
-      let span = document.createElement("span");
-      let button = document.createElement("button");
-      button.textContent = "#" + newTag;
-      button.setAttribute("id", "t");
-      span.appendChild(button);
-      span.classList.add("yellowTag");
-      document.querySelector(".hashtagCreate").appendChild(span);
+  function newTag() {
+    let hn = document.querySelector(".hashtagNew");
+    let hi = document.querySelector(".hashtagInput");
+    if ((hn.getElementsByTagName("button").length < 6) & (hi.value != "")) {
+      var value = hi.value;
+      var button = document.createElement("button");
+      button.textContent = value;
+      hn.appendChild(button);
+      button.classList.add("yellowTag");
+      button.onclick = function (e) {
+        hn.removeChild(e.currentTarget);
+      };
+    } else if (
+      (hn.getElementsByTagName("button").length > 6) &
+      (hi.value != "")
+    ) {
+      var button = document.querySelector(".yellowTag");
+      button.onclick = function (e) {
+        hn.removeChild(e.currentTarget);
+      };
     }
+    var a = Array.from(
+      document.querySelector(".hashtagNew").getElementsByTagName("button")
+    );
+    var b = [];
+    a.forEach((a) => {
+      b.push(a.innerText);
+    });
+    setQ({ ...q, tag: b });
   }
 
   return (
@@ -149,16 +188,16 @@ function Quill() {
             }}
           />
           <div>
-            Hashtag: <input type="text" className="hashtagInput" />
-            <button onClick={yellowTag} className="hashtagBtn">
+            hashtag: <input className="hashtagInput" type="text" />
+            <button className="hashtagBtn" onClick={newTag}>
               create
             </button>
-            <div className="hashtagCreate"></div>
+            <span className="hashtagNew"></span>
             <hr />
-            <span className="grayTag">
+            <span className="hashtagOld">
               {tags.map((tag, index) => (
-                <button key={index} value={tag.tag} onClick={pinkTag}>
-                  #{tag.tag}
+                <button className="grayTag" key={index} onClick={oldTag}>
+                  {tag.tag}
                 </button>
               ))}
             </span>

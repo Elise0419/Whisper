@@ -41,7 +41,7 @@ function Login() {
       };
 
       // 只有当表单验证通过时才进行页面跳转
-      fetch("http://118.233.222.23:8000/api/login", {
+      fetch("http://127.0.0.1:8000/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -52,7 +52,7 @@ function Login() {
           if (response.status >= 500) {
             throw new Error("Network response was not ok");
           } else if (response.status >= 400) {
-            alert('帳號密碼錯誤');
+            alert("帳號密碼錯誤");
           } else {
             return response.json();
           }

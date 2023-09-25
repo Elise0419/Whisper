@@ -4,52 +4,28 @@ import "../CSS/Asideuser.css";
 // import rabbit from "../img/rabbit.png";
 
 function Asideuser() {
-  const [user, setUser] = useState([]);
-  const [posts, setPosts] = useState([]);
-  const [postCount, setPostCount] = useState(0);
+  let [user, setUser] = useState([]);
+  let dTSc = user.created_at;
+  let dTc = new Date(dTSc);
+  let yc = dTc.getFullYear();
+  let mc = (dTc.getMonth() + 1).toString().padStart(2, "0"); // 注意月份从 0 开始，需要加 1
+  let dc = dTc.getDate().toString().padStart(2, "0");
+  let fDc = `${yc}-${mc}-${dc}`;
 
-  const formatDate = (timestamp) => {
-    const date = new Date(timestamp);
-    return date.toLocaleString("en-US", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    });
-  };
-  
-  const fetchPosts = () => {
-    const token = localStorage.getItem("token");
-    console.log("Token in Profile:", token);
+  let dTSu = user.updated_at;
+  let dTu = new Date(dTSu);
+  let yu = dTu.getFullYear();
+  let mu = (dTu.getMonth() + 1).toString().padStart(2, "0"); // 注意月份从 0 开始，需要加 1
+  let du = dTu.getDate().toString().padStart(2, "0");
+  let fDu = `${yu}-${mu}-${du}`;
 
-    // 貼文數量抓取
-    fetch(`http://118.233.222.23:8000/api/user/posts`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((resJson) => {
-        console.log("Data from server:", resJson);
-        if (resJson.message === "没有蒐藏任何貼文") {
-          setPosts([]);
-          setPostCount(0);
-        } else {
-          setPosts(resJson.posts);
-          setPostCount(resJson.postCount);
-        }
-      })
-      .catch((error) => console.error("Error:", error));
-  };
+  const token = localStorage.getItem("token");
+  console.log("Token in Profile:", token);
 
-  // 個人信息抓去
   useEffect(() => {
     function fetchData() {
-      const token = localStorage.getItem("token");
-      console.log("Token in Profile:", token);
-
-      fetch("http://118.233.222.23:8000/api/profile", {
+      fetch("http://127.0.0.1:8000/api/login", {
+        method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -71,6 +47,40 @@ function Asideuser() {
         .catch((err) => {
           console.log("Error:", err);
         });
+
+      fetch(`http://127.0.0.1:8000/api/profile`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((jsonData) => {
+          setUser(jsonData.user);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+      fetch(`http://127.0.0.1:8000/api/profile`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((jsonData) => {
+          setUser(jsonData.user);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
 
     fetchData();
@@ -79,22 +89,15 @@ function Asideuser() {
 
   return (
     <div className="aside">
-
-      <div>{console.log(user)}</div>
-      <img className="asideImg" src={user.headimg} />
+      <img className="asideImg" src={user.headimg || rabbit} />
       <span className="asideName">{user.mem_name}</span>
       <hr />
       <div className="asideUser">
       <span className="asideMsg">{user.promise}</span>
       <br />
-      <span className="asideTime">
-        創建時間: {formatDate(user.created_at)}
-      </span>
+      <span className="asideTime">創建時間:2023-08-01</span>
       <br />
-      <span className="asideTime">
-        最後更新時間: {formatDate(user.updated_at)}
-      </span>
-
+      <span className="asideTime">最後更新時間:2023-08-01</span>
       <div className="asideNum">
         <p>{postCount}</p>
         <p>發布貼文數量</p>

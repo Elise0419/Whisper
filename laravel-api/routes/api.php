@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\V1\AdController;
+use App\Http\Controllers\API\V1\AdminController;
 use App\Http\Controllers\API\V1\AuthController;
 use App\Http\Controllers\API\V1\ComtxtController;
 use App\Http\Controllers\API\V1\CustomEmailVerificationController;
@@ -11,9 +12,7 @@ use App\Http\Controllers\API\V1\RuleController;
 use App\Http\Controllers\API\V1\SavepostController;
 use App\Http\Controllers\API\V1\TagController;
 use App\Http\Controllers\API\V1\VoteController;
-use App\Http\Controllers\API\V1\AdminController;
 use Illuminate\Support\Facades\Route;
-
 
 /*
 |--------------------------------------------------------------------------

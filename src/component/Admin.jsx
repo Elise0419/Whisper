@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 
 function Admin() {
-    const [data, setData] = useState([]);
+    const [data, setData] = useState({});
 
 
     useEffect(() => {

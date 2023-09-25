@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\V1;
 
+use App\Models\Savepost;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -14,6 +15,7 @@ class PostResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $postId = $this->post_id;
         return [
             'postId' => $this->post_id,
             'userId' => $this->user_id,
@@ -24,8 +26,7 @@ class PostResource extends JsonResource
             'content' => $this->content,
             'imgUrl' => $this->imgurl,
             'thumb' => $this->thumb,
-            'save' => $this->save,
-            'click' => $this->click,
+            'save' => Savepost::where('post_id', $postId)->count(),
             'comtxtCount' => $this->comtxts->count(),
             'tag' => $this->tag,
             'postTime' => $this->post_time,

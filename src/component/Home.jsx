@@ -51,7 +51,7 @@ function Home() {
   useEffect(() => {
     function fetchData() {
       // 所有貼文
-      fetch("http://118.233.222.23:8000/api/v1/posts", {
+      fetch("http://127.0.0.1:8000/api/v1/posts", {
         method: "GET",
       })
         .then((res) => {
@@ -73,7 +73,7 @@ function Home() {
         });
 
       // 流行貼文
-      fetch("http://118.233.222.23:8000/api/topPosts/1", {
+      fetch("http://127.0.0.1:8000/api/topPosts/1", {
         method: "get",
       })
         .then((res) => {
@@ -87,7 +87,7 @@ function Home() {
         });
 
       // 點讚貼文
-      fetch("http://118.233.222.23:8000/api/topPosts/2", {
+      fetch("http://127.0.0.1:8000/api/topPosts/2", {
         method: "get",
       })
         .then((res) => {
@@ -110,7 +110,7 @@ function Home() {
   function searchButton() {
     if (searchVal == "") {
     } else {
-      fetch(`http://118.233.222.23:8000/api/posts/search?query=${searchVal}`, {
+      fetch(`http://127.0.0.1:8000/api/posts/search?query=${searchVal}`, {
         method: "GET",
       })
         .then((res) => {
@@ -137,7 +137,7 @@ function Home() {
 
   // 點擊率
   const cardClick = async (postId) => {
-    fetch(`http://118.233.222.23:8000/api/posts/click${postId}`, {
+    fetch(`http://127.0.0.1:8000/api/posts/click${postId}`, {
       method: "POST",
       postId: `${postId}`,
     })
@@ -257,7 +257,7 @@ function Home() {
                     <span>#{card.tag}</span>
                     <span>
                       <img src={comment} />
-                      {card.save}
+                      {card.comtxtCount}
                       <img src={thumb} />
                       {card.thumb}
                     </span>
@@ -296,7 +296,7 @@ function Home() {
                 <span>#{card.data[0].tag}</span>
                 <span>
                   <img src={comment} />
-                  {card.data[0].save}
+                  {card.comtxtCount}
                   <img src={thumb} />
                   {card.data[0].thumb}
                 </span>

@@ -22,7 +22,7 @@ function Comment() {
 
   function fetchData() {
     fetch(
-      `http://118.233.222.23:8000/api/v1/comtxts?postId[eq]=${match.params.postId}`,
+      `http://127.0.0.1:8000/api/v1/comtxts?postId[eq]=${match.params.postId}`,
       {
         method: "GET",
       }
@@ -41,12 +41,12 @@ function Comment() {
         console.log("Error:", err);
       });
   }
-  
+
   function getData() {
     const token = localStorage.getItem("token");
     console.log("Token in Profile:", token);
 
-    fetch("http://118.233.222.23:8000/api/profile", {
+    fetch("http://127.0.0.1:8000/api/profile", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -70,7 +70,6 @@ function Comment() {
         console.log("Error:", err);
       });
   }
-  
 
   useEffect(() => {
     getData();
@@ -83,23 +82,23 @@ function Comment() {
     setCom({ ...com, comments: newList });
   }
 
-
   function submitCommentToBackend(newCommentObj) {
     const token = localStorage.getItem("token");
-    fetch(`http://118.233.222.23:8000/api/posts/${match.params.postId}/comments`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(newCommentObj),
-    })
+    fetch(
+      `http://127.0.0.1:8000/api/posts/${match.params.postId}/comments`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(newCommentObj),
+      }
+    )
       .then((res) => res.json())
       .then((jsonData) => {
-        console.log("jsonData", jsonData)
-        if (
-          jsonData.message === "評論已新增！"
-        ) {
+        console.log("jsonData", jsonData);
+        if (jsonData.message === "評論已新增！") {
           fetchData();
         }
       })
@@ -131,7 +130,7 @@ function Comment() {
       <div className="commentSend">
         <div className="userFace">
           <div>{console.log(user)}</div>
-        <img className="userHead" src={user.headimg} alt="" />
+          <img className="userHead" src={user.headimg} alt="" />
           {/* <img className="userHead" src={avatar} alt="" /> */}
         </div>
         <div className="textareaContainer">

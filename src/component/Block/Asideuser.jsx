@@ -78,7 +78,7 @@ function Asideuser() {
     const interval = setInterval(() => {
       fetchData();
       fetchPosts();
-    }, 5000); // 5秒钟获取一次数据，你可以根据需要调整时间间隔
+    }, 4000); // 5秒钟获取一次数据，你可以根据需要调整时间间隔
 
     return () => clearInterval(interval); // 清除定时器以防止内存泄漏
   }, []);

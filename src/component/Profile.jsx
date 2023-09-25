@@ -12,6 +12,9 @@ function Profile() {
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
 
+  // 添加一个状态用于保存侧边栏的用户信息
+  const [asideUser, setAsideUser] = useState({});
+
   const [isEditing, setIsEditing] = useState({
     mem_name: false,
     promise: false,
@@ -30,7 +33,8 @@ function Profile() {
     setUser({ ...user, [id]: value });
   };
 
-  const handleSaveClick = async (field) => {
+   // 在保存用户信息后，更新侧边栏用户信息
+   const handleSaveClick = async (field) => {
     setIsEditing({ ...isEditing, [field]: false });
 
     console.log(user[field]);
@@ -52,6 +56,9 @@ function Profile() {
       if (response.ok) {
         const jsonData = await response.json();
         console.log(jsonData);
+
+        // 保存成功后，更新侧边栏用户信息
+        setAsideUser(jsonData.user);
       } else {
         console.log("更新失败");
         throw new Error("API request failed");
@@ -60,8 +67,6 @@ function Profile() {
       console.error("Error:", error);
     }
   };
-
-  // 省略其他部分...
 
   const handleImageUpload = (e) => {
     // 取得檔案
@@ -342,7 +347,7 @@ function Profile() {
             </div>
           </article>
           <aside>
-            <Asideuser />
+          <Asideuser user={asideUser} /> {/* 将侧边栏的 user 属性传递给 Asideuser 组件 */}
           </aside>
           <Footer />
         </div>

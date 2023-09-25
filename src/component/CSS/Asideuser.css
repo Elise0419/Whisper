@@ -1,44 +1,74 @@
-
-.asideImg {
-    width: 4.25rem;
-    border-radius: var(--circle);
-    margin: 1.25rem;
-    vertical-align: middle;
+.asideContainer{
+    width: 320px;
+    /* background-color: yellow;  */
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
 }
 
-.asideName {
+.asideName{
+    width: 90%;
+    /* background-color: red; */
+    display: flex;
+    height: 4.25rem;
+    align-items: center; /* Vertically center */
     font-size: 1.25rem;
     color: var(--colorGray300);
     font-weight: bold;
+    margin: 0.8rem;
 }
 
-.aside>hr {
-    width: 17.375rem;
+.asideImg {
+    position: relative;
+    width: 4.25rem;
+    height: 4.25rem;;
+    border-radius: var(--circle);
+    margin-right: 1.2rem;
+    /* margin: 1.25rem; */
+    vertical-align: middle;
+    background-color: white;
+}
+
+
+
+.asideUser>hr {
+    width: 18rem;
     color: var(--colorGray100);
+    margin-bottom:1rem;
 }
 
 .asideUser{
-    /* display: flex; */
-    background-color: aqua;
-    width: 80%;
+    display: flex;
+    width: 90%;
+    /* background-color: azure; */
+    margin-left: 0.8rem;
+    margin-right: 0.8rem;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 0px;
     flex-direction: column;
-    justify-content: center; /* Horizontally center */
-    align-items: center; /* Vertically center */
+    align-items: left; 
 
 }
 
 .asideMsg {
-    margin-left: 1.25rem;
+    width: ;
     color: var(--colorGray300);
     font-size: 0.875rem;
+    /* background-color: bisque; */
+
 }
 
 .asideTime {
-    margin-left: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: left; 
+    margin: 0px;
+    padding: 0px;
+    display: flex;
     color: var(--colorGray100);
     font-size: 0.875rem;
-    background-color: red;
-    padding-bottom: 20px;
+    /* background-color: red; */
 }
 
 
@@ -65,11 +95,10 @@
 
 .asideBtn {
     background-color: var(--colorYellow);
-    width: 18.125rem;
+    width: 100%;
     font-size: 0.875rem;
     color: white;
     border: none;
     border-radius: 1rem;
     padding: 0.625rem;
-    margin-left: 0.875rem;
 }

@@ -56,25 +56,6 @@ class PostController extends Controller
         }
     }
 
-    public function thumb(Request $request, $postId) //NEED POSTID
-    {
-        $post = Post::find($postId);
-        $thumb = $request->input('thumb');
-        if ($post) {
-            if ($thumb) {
-                $post->thumb += 1;
-            } else {
-                $post->thumb -= 1;
-            }
-            $post->save();
-            return response()->json(['message' => 'updated!']);
-        } else {
-            return response()->json(['message' => 'not found!']);
-
-        }
-
-    }
-
     public function search(Request $request)
     {
         //  let apiUrl = `/search?query=${query}`;

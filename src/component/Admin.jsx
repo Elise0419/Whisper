@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-
 function Admin() {
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);

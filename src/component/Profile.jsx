@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./CSS/Profile.css";
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
@@ -155,7 +156,7 @@ function Profile() {
               <div className="profilePic">
                 <label htmlFor="headimg">頭像:</label>
                 <img
-                  src={user.headimg || rabbit} 
+                  src={user.headimg || rabbit}
                   alt="Profile Pic"
                   className="profilePic"
                 />
@@ -312,6 +313,20 @@ function Profile() {
                     編輯
                   </button>
                 )}
+              </div>
+              <hr />
+
+              <div className="profilephoneNumber">
+                <label htmlFor="password">用戶密碼:</label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  value="************************"
+                />
+                <Link to="/restpwd" className="editBtn">
+                  編輯
+                </Link>
               </div>
             </form>
           </div>

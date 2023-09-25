@@ -10,6 +10,7 @@ import logo from "./img/logo.png";
 
 function Restpwd() {
   const [values, setValues] = useState({
+    oldPassword: "",
     password: "",
     confirmPassword: "",
   });
@@ -24,7 +25,7 @@ function Restpwd() {
     event.preventDefault();
     setErrors(Validation(values));
 
-    if (!errors.password && !errors.confirmPassword) {
+    if (!errors.password && !errors.confirmPassword && !errors.oldPassword) {
       // 发送密码重置请求
       fetch("http://example.com/reset_password", {
         method: "POST",
@@ -32,6 +33,7 @@ function Restpwd() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          oldPassword: values.oldPassword,
           newPassword: values.password,
         }),
       })
@@ -64,15 +66,30 @@ function Restpwd() {
           <div className="restMain">
             <form action="" onSubmit={handleSubmit}>
               <div className="">
-                <label htmlFor="password">
-                  <strong>新密码</strong>
+                <label htmlFor="oldPassword">
+                  <strong>請輸入舊密碼</strong>
                 </label>
                 <input
                   type="password"
-                  placeholder="输入新密码"
+                  placeholder="輸入舊密碼"
+                  name="oldPassword"
+                  onChange={handleInput}
+                  value={values.oldPassword}
+                />
+                {errors.oldPassword && (
+                  <span className="error">{errors.oldPassword}</span>
+                )}
+              </div>
+              <div className="">
+                <label htmlFor="password">
+                  <strong>請輸入新密碼</strong>
+                </label>
+                <input
+                  type="password"
+                  placeholder="輸入新密碼"
                   name="password"
                   onChange={handleInput}
-                  className=""
+                  value={values.password}
                 />
                 {errors.password && (
                   <span className="error">{errors.password}</span>
@@ -80,21 +97,21 @@ function Restpwd() {
               </div>
               <div className="">
                 <label htmlFor="confirmPassword">
-                  <strong>确认密码</strong>
+                  <strong>再次輸入密碼</strong>
                 </label>
                 <input
                   type="password"
-                  placeholder="再次输入密码"
+                  placeholder="再次輸入密碼"
                   name="confirmPassword"
                   onChange={handleInput}
-                  className=""
+                  value={values.confirmPassword}
                 />
                 {errors.confirmPassword && (
                   <span className="error">{errors.confirmPassword}</span>
                 )}
               </div>
               <button type="submit" className="btnSuccess">
-                重置密码
+                重置密碼
               </button>
             </form>
           </div>

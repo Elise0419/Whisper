@@ -9,9 +9,9 @@ function Postart() {
 
   const { userId } = useParams(); // 从URL参数获取用户ID
 
-
   const history = useHistory();
 
+  let url;
   const handleEdit = (post) => {
     // 将编辑的帖子数据保存在 localStorage 中
     localStorage.setItem("editingPost", JSON.stringify(post));
@@ -42,8 +42,6 @@ function Postart() {
       })
       .catch((error) => console.error("Error:", error));
   };
-
-
 
   // 貼文刪除
   const handleDelete = (postId) => {
@@ -97,56 +95,77 @@ function Postart() {
     fetchPosts();
   }, [userId]);
 
-
-
-
   return (
     <div className="postart">
       <div className="manageCount">
         <p>全部稿件: {postCount}</p> {/* 显示用户已发布的帖子数量 */}
       </div>
-      
       {posts && posts.length > 0 ? (
-        posts.map((post) => (
-          <div className="manageEdit" key={post.postId}>
-            {/* <div>{console.log("post", post)}</div> */}
+        posts.map((post) => {
+          // 將 MySQL 的 HTML 轉成 Text
+          const myContent = document.createElement("div");
+          const myTitle = document.createElement("div");
+          myContent.innerHTML = post.content;
+          myTitle.innerHTML = post.title;
 
-            <Link to={`/post/${post.postId}/${post.type}`} className="manageContent"> {/* 到指定貼文 */}
-              <img src={post.imgUrl} alt="" />
-              <div className="manageText">
-                <p className="managePost">{post.title}</p>
-                <p className="manageTime">
-                  作者:{post.memName}創作時間:{post.postTime}
-                </p>
-                <div className="manageInteractions">
-                  <span>
-                    <i className="material-icons">thumb_up</i>
-                    <span>{post.thumb}</span>
-                    <i className="material-icons">favorite</i>
-                    <span>{post.save}</span>
-                  </span>
+          // 檢查是否包含 base64 字串 且不得為 null 值
+          // 是則渲染 img 否則渲染 Text
+          const isStringValid = post.content && post.content.includes("base64");
+
+          // HTML 篩選器 判斷是否含 img 標籤
+          // 是則抓出第一張照片
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(post.content, "text/html");
+          const imgElements = doc.querySelectorAll("img");
+          if (imgElements.length > 0) {
+            const firstImgElement = imgElements[0];
+            var url = firstImgElement.getAttribute("src");
+          }
+
+          return (
+            <div className="manageEdit" key={post.postId}>
+              <Link
+                to={`/post/${post.postId}/${post.type}`}
+                className="manageContent"
+              >
+                {" "}
+                {/* 到指定貼文 */}
+                <img src={url} />
+                <div className="manageText">
+                  <p className="managePost">{myTitle.innerText}</p>
+                  <p className="manageTime">
+                    作者:{post.memName}創作時間:{post.postTime}
+                  </p>
+                  <div className="manageInteractions">
+                    <span>
+                      <i className="material-icons">thumb_up</i>
+                      <span>{post.thumb}</span>
+                      <i className="material-icons">favorite</i>
+                      <span>{post.save}</span>
+                    </span>
+                  </div>
                 </div>
-              </div>
               </Link>
 
-            <div className="manageBtn">
-              <button
-                className="editBtn"
-                onClick={() => handleEdit(post)}
-                disabled={!!editingPost}
-              >
-                編輯
-              </button>
-              <button
-                className="deleteBtn"
-                onClick={() => handleDelete(post.postId)}
-              >
-                刪除
-              </button>
+              <div className="manageBtn">
+                <button
+                  className="editBtn"
+                  onClick={() => handleEdit(post)}
+                  disabled={!!editingPost}
+                >
+                  編輯
+                </button>
+                <button
+                  className="deleteBtn"
+                  onClick={() => handleDelete(post.postId)}
+                >
+                  刪除
+                </button>
+              </div>
+              <hr />
             </div>
-            <hr />
-          </div>
-        ))
+          );
+        })
       ) : (
         <div>無法獲取帖子數據</div>
       )}

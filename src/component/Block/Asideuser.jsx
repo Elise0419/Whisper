@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../CSS/Asideuser.css";
-// import rabbit from "../img/rabbit.png";
+import rabbit from "../img/rabbit.png";
 
 function Asideuser() {
   let [user, setUser] = useState([]);
@@ -24,6 +24,7 @@ function Asideuser() {
 
   useEffect(() => {
     function fetchData() {
+
       fetch("http://127.0.0.1:8000/api/login", {
         method: "POST",
         headers: {
@@ -64,27 +65,10 @@ function Asideuser() {
         .catch((error) => {
           console.log(error);
         });
-
-      fetch(`http://127.0.0.1:8000/api/profile`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((res) => {
-          return res.json();
-        })
-        .then((jsonData) => {
-          setUser(jsonData.user);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
     }
 
     fetchData();
-    fetchPosts(); // Call the fetchPosts function here
+
   }, []);
 
   return (
@@ -95,15 +79,15 @@ function Asideuser() {
       <div className="asideUser">
       <span className="asideMsg">{user.promise}</span>
       <br />
-      <span className="asideTime">創建時間:2023-08-01</span>
+       <span className="asideTime">創建時間: {fDc}</span>
       <br />
       <span className="asideTime">最後更新時間:2023-08-01</span>
       <div className="asideNum">
-        <p>{postCount}</p>
+        {/* <p>{postCount}</p> */}
         <p>發布貼文數量</p>
       </div>
       <Link to="/upload/life">
-        <button className="asideBtn">創建貼文</button>
+      <span className="asideTime">最後更新時間: {fDu}</span>
       </Link>
     </div>
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouteMatch } from "react-router-dom";
-import avatar from "../img/avatar.png";
+// import avatar from "../img/avatar.png";
 
 function Comment() {
   const [user, setUser] = useState({});

@@ -21,23 +21,23 @@ class CustomEmailVerificationController extends Controller
     public function verify(Request $req, $user_id, $hash)
     {
         if (!URL::hasValidSignature($req)) {
-            return response()->json(['message' => '未授權簽證'], 401);
+            return response("<h1>未授權簽名</h1>");
         }
 
         $user = User::find($user_id);
 
         if ($user->email_verified_at) {
-            return response()->json(['message' => '信箱已驗證過'], 201);
+            return  response("<h1>此信箱已驗證完成</h1>");
         }
 
         if (!$user || !hash_equals($user->email_verified_token, $hash)) {
-            return response()->json(['message' => '發生錯誤,請重新確認'], 400);
+            return response("<h1>信箱驗證失敗，請重新確認</h1>");
         }
 
         // 標記信箱為已驗證
         $user->email_verified_at = now();
         $user->save();
-        return response()->json(['message' => '已完成信箱驗證'], 200);
+        return response("<h1>已完成信箱驗證</h1>;<a href='http://localhost:3000/login'>點我回登入頁面</a>");
     }
 
     public function verifysending()

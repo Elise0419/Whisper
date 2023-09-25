@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useRouteMatch } from "react-router-dom";
 
 
 function ConmentAdmin() {
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
+
+    const match = useRouteMatch();
 
     const token = localStorage.getItem("token");
 
@@ -16,7 +19,7 @@ function ConmentAdmin() {
       };
 
     useEffect(() => {
-        fetch(`http://10.10.247.90:8000/api/admin/management/comments/show/${page}`, {
+        fetch(`http://10.10.247.90:8000/api/admin/management/comments/show/post_${match.params.postId}/${page}`, {
             method: "get",
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -31,7 +34,7 @@ function ConmentAdmin() {
 
             })
             .then((res) => {
-                setData(res.articles.data);
+                setData(res.comments.data);
             })
             .catch((error) => {
                 console.error('發生錯誤：', error);
@@ -44,20 +47,19 @@ function ConmentAdmin() {
             <table>
                 <thead>
                     <tr>
-                        <th>貼文者</th>
-                        <th>貼文標題</th>
+                        <th>留言者ID</th>
+                        <th>留言者名稱</th>
                         <th>貼文內容</th>
                         <th>執行操作</th>
                     </tr>
                 </thead>
                 <tbody>
                     {data.map((item, index) => (
-                        <tr key={item.post_id}>
-                            <td>{item.title}</td>
-                            <td>{item.name}</td>
-                            <td>{item.content}</td>
+                        <tr>
+                            <td>{item.user_id}</td>
+                            <td>{item.users.mem_name}</td>
+                            <td>{item.comment}</td>
                             <td>
-                                <Link to={`/post_${item.post_id}/comments`}>文章評論</Link>
                                 <button>Delete</button>
                             </td>
                         </tr>

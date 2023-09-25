@@ -20,20 +20,31 @@ class GroupAdminController extends Controller
             $this->user_id = Auth::user()->user_id;
             $this->admin = Admin::where('user_id', $this->user_id)->first();
             if (!$this->admin) {
-                return response()->json(['message' =>'查無此身分'], 404);
+                return response()->json(['message' => '查無此身分'], 404);
             };
             return $next($request);
         });
     }
 
-    public function showarticle($page)
+    public function showarticles($page)
     {
-        $articles = Post::where('type', $this->admin->type)->paginate(20, ['*'], 'page', $page);
+        $articles = Post::with(['users:user_id,mem_name'])->where('type', $this->admin->type)->paginate(20, ['*'], 'page', $page);
         return response()->json(['articles' => $articles], 200);
     }
-    public function showcomments(Request $req, $postid)
+
+    public function showcomments($id, $page)
     {
-        $Comments = Comtxt::where('post_id', $postid)->paginate(20, ['*'], 'page', );
+        $Comments = Comtxt::with(['users:user_id,mem_name'])->where('post_id', $id)->paginate(20, ['*'], 'page', );
         return response()->json(['comments' => $Comments], 200);
+    }
+
+    public function deletearticle($id)
+    {
+        $post = Post::where('post_id',$id)->get();
+        if (!$post) {
+            $post->delete();
+            return response()->json(['message' => '查無此貼文'], 404);
+        }
+        return response()->json([], 204);
     }
 }

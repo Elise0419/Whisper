@@ -29,7 +29,7 @@ class App extends Component {
           <Route path="/restpwd" component={Restpwd} exact />
           <Route path="/verify" component={Verify} exact />
           <Route path="/admin/article" component={Admin} exact />
-          <Route path="/adminpost_:postId(\d+)/comments" component={ConmentAdmin} exact />
+          <Route path="/admin/post_:postId(\d+)/comments" component={ConmentAdmin} exact />
           <Route path="/upload/:type" component={Upload} exact />
 
           <Route path="/profile" component={Profile} exact />

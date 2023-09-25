@@ -16,9 +16,8 @@ import heart from "./img/heart.png";
 
 function Manage() {
   const [selectedTab, setSelectedTab] = useTabs([
-    "postArticle",
     "collectArticle",
-    "replyMessage",
+    "postArticle",
   ]);
 
   return (

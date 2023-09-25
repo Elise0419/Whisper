@@ -16,21 +16,18 @@ function Quill() {
   let [tags, setTags] = useState([]);
 
   useEffect(() => {
-    function fetchData() {
-      fetch(`http://10.10.247.90:8000/api/tags/all/${m}`, {
-        method: "GET",
+    fetch(`http://10.10.247.90:8000/api/tags/${m}`, {
+      method: "GET",
+    })
+      .then((res) => {
+        return res.json();
       })
-        .then((res) => {
-          return res.json();
-        })
-        .then((jsonData) => {
-          setTags(jsonData.tags);
-        })
-        .catch((err) => {
-          console.log("錯誤:", err);
-        });
-    }
-    fetchData();
+      .then((jsonData) => {
+        setTags(jsonData.tags);
+      })
+      .catch((err) => {
+        console.log("錯誤:", err);
+      });
   }, []);
 
   function changeTitle(value) {
@@ -70,15 +67,20 @@ function Quill() {
         body: JSON.stringify(q),
       })
         .then((res) => {
-          return res.json();
+          if (res.ok) {
+            return res.json();
+          } else {
+            alert("上傳失敗");
+            throw new Error(`HTTP error! Status: ${res.status}`);
+          }
         })
         .then((jsonData) => {
+          window.location.href = "/";
           console.log(jsonData);
         })
         .catch((error) => {
           console.log(error);
         });
-      window.location.href = "/";
     }
   };
 
@@ -86,7 +88,7 @@ function Quill() {
     let ecl = e.currentTarget.classList;
     let hn = document.querySelector(".hashtagNew");
     let ho = document.querySelector(".hashtagOld");
-    if (hn.getElementsByTagName("button").length < 6) {
+    if (hn.getElementsByTagName("button").length < 1) {
       if (ecl.contains("grayTag")) {
         hn.appendChild(e.currentTarget);
         ecl.remove("grayTag");
@@ -103,20 +105,17 @@ function Quill() {
         ecl.remove("pinkTag");
       }
     }
+
     var a = Array.from(
       document.querySelector(".hashtagNew").getElementsByTagName("button")
     );
-    var b = [];
-    a.forEach((a) => {
-      b.push(a.innerText);
-    });
-    setQ({ ...q, tag: b });
+    setQ({ ...q, tag: a[0].innerText });
   }
 
   function newTag() {
     let hn = document.querySelector(".hashtagNew");
     let hi = document.querySelector(".hashtagInput");
-    if ((hn.getElementsByTagName("button").length < 6) & (hi.value != "")) {
+    if ((hn.getElementsByTagName("button").length < 1) & (hi.value != "")) {
       var value = hi.value;
       var button = document.createElement("button");
       button.textContent = value;
@@ -134,14 +133,11 @@ function Quill() {
         hn.removeChild(e.currentTarget);
       };
     }
+
     var a = Array.from(
       document.querySelector(".hashtagNew").getElementsByTagName("button")
     );
-    var b = [];
-    a.forEach((a) => {
-      b.push(a.innerText);
-    });
-    setQ({ ...q, tag: b });
+    setQ({ ...q, tag: a[0].innerText });
   }
 
   return (

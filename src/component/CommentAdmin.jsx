@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useRouteMatch } from "react-router-dom";
 
 
 function CommentAdmin() {
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
 
-    const match = useRouteMatch();
 
     const token = localStorage.getItem("token");
 

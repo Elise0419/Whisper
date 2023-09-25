@@ -34,7 +34,7 @@ function Profile() {
   };
 
    // 在保存用户信息后，更新侧边栏用户信息
-   const handleSaveClick = async (field) => {
+  const handleSaveClick = async (field) => {
     setIsEditing({ ...isEditing, [field]: false });
 
     console.log(user[field]);
@@ -104,12 +104,15 @@ function Profile() {
       })
       .then((jsonData) => {
         console.log(jsonData);
+  
+        // 更新侧边栏的用户信息
+        setAsideUser(jsonData.user);
       })
       .catch((err) => {
         console.log("Error:", err);
       });
   };
-
+  
   // 編輯資料
   const handleEditClick = (field) => {
     console.log(`Editing ${field}`);

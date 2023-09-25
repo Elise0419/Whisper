@@ -50,17 +50,19 @@ function Signup() {
         body: JSON.stringify(requestData),
       })
         .then((response) => {
-          if (!response.ok) {
+          if (response.status >= 500) {
+            alert('伺服器無法連線');
             throw new Error("API request failed");
+          } else if (response.status >= 400) {
+            alert('註冊失敗，請重新註冊')
+            window.location.reload();
           }
           return response.json();
         })
 
         .then((data) => {
-          console.log(data);
-          // 处理从后端返回的数据
-          // 例如，可以在这里处理注册成功后的逻辑
-          history.push("/verify"); // 注册成功后跳转到验证邮箱页面
+          alert('註冊成功，返回登入頁面')
+          history.push("/login");
         })
         .catch((error) => {
           console.error("Error:", error);

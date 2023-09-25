@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\V1\AdController;
-use App\Http\Controllers\API\V1\AdminController;
+use App\Http\Controllers\API\V1\GroupAdminController;
 use App\Http\Controllers\API\V1\AuthController;
 use App\Http\Controllers\API\V1\ComtxtController;
 use App\Http\Controllers\API\V1\CustomEmailVerificationController;
@@ -58,8 +58,9 @@ Route::controller(ProfileController::class)->group(function () {
     Route::put('profile/promise/change', 'promisechange');
 });
 
-Route::controller(AdminController::class)->group(function () {
-    Route::post('admin/management/article/show/{page}', 'showarticle');
+Route::controller(GroupAdminController::class)->group(function () {
+    Route::get('admin/management/articles/show/{page}', 'showarticle');
+    // Route::get('/admin/management/comments/show/{page}', 'showcomments');
 });
 
 Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\API\V1'], function () {

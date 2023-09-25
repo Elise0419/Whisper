@@ -181,6 +181,7 @@
 
 .btnVerify {
     width: 96%;
+    color: black;
     font: inherit;
     font-size: 14px;
     border: 0;
@@ -191,4 +192,8 @@
     line-height: 40px;
     border-radius: 10px;
     background-color: #C8B2D6;
+    display: flex; /* Added display property */
+    align-items: center;
+    justify-content: center;
+    text-align: center; /* Center the text */
 }

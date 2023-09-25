@@ -127,7 +127,7 @@ class PostController extends Controller
         $post->type = $type;
         $post->title = $title;
         $post->content = $content;
-        $post->imgurl = $imagePath;
+        // $post->imgurl = $imagePath;
         $post->tag = $tag;
         $post->post_time = $postTime;
         $post->save();

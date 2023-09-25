@@ -1,66 +1,15 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
-
+import React, { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
 import "./CSS/Collectart.css";
 
 function Collectart() {
   const [posts, setPosts] = useState([]);
-  const [postCount, setPostCount] = useState(0); // 添加 postCount 状态
+  const [postCount, setPostCount] = useState(0);
 
   const { postId } = useParams();
 
-  // 刪除貼文
-  function handleDelete(postId) {
+  const fetchPosts = () => {
     const token = localStorage.getItem("token");
-    fetch(`http://10.10.247.90:8000/api/posts/delete/${postId}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.message === "deleted!") {
-          // 删除成功
-          console.log("删除成功！");
-
-          // 在删除成功后重新获取数据
-          fetch(`http://10.10.247.90:8000/api/posts/usersave`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          })
-            .then((response) => response.json())
-            .then((data) => {
-              if (data.message === "没有蒐藏任何貼文") {
-                setPosts([]);
-                setPostCount(0);
-              } else {
-                setPosts(data.data);
-                setPostCount(data.count);
-              }
-            })
-            .catch((error) => {
-              console.error("抓取資料時發生錯誤:", error);
-            });
-        } else {
-          console.error("删除失败:", data.message);
-        }
-      })
-      .catch((error) => {
-        console.error("删除时发生错误:", error);
-      });
-  }
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    console.log("Token in Profile:", token);
-
-    // 目前收藏的貼文
     fetch(`http://10.10.247.90:8000/api/posts/usersave`, {
       method: "POST",
       headers: {
@@ -72,15 +21,42 @@ function Collectart() {
       .then((data) => {
         if (data.message === "没有蒐藏任何貼文") {
           setPosts([]);
-          setPostCount(0); // 设置帖子数量为 0
+          setPostCount(0);
         } else {
           setPosts(data.data);
-          setPostCount(data.count); // 设置帖子数量为返回的 count 值
+          setPostCount(data.count);
         }
       })
       .catch((error) => {
         console.error("抓取資料時發生錯誤:", error);
       });
+  };
+
+  const handleDelete = (postId) => {
+    const token = localStorage.getItem("token");
+    fetch(`http://10.10.247.90:8000/api/saveposts/delete/${postId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((resJson) => {
+        console.log("Response from server:", resJson);
+        if (resJson.message === "deleted!") {
+          fetchPosts();
+          window.location.reload(); // 在删除成功后重新加载页面
+        }
+      })
+      .catch((error) => console.error("Error:", error));
+  };
+  
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    console.log("Token in Profile:", token);
+    fetchPosts();
   }, [postId]);
 
   return (
@@ -91,27 +67,22 @@ function Collectart() {
       {posts.length > 0 ? (
         posts.map((post) => (
           <div className="manageEdit" key={post.postInfo.postId}>
-            {/* <div>{console.log("post", post)}</div> */}
-            <Link className="manageContent" to={`/post/${post.postInfo.postId}/${post.postInfo.type}` }>
-              {/* <div className="manageContent"> */}
-                <img src={post.postInfo.imgUrl} alt="" />
-                <div className="manageText">
-                  <p className="managePost">{post.postInfo.title}</p>
-                  <p className="manageTime">
-                    作者:{post.postInfo.memName}創作時間:
-                    {post.postInfo.postTime}
-                  </p>
-
-                  <div className="manageInteractions">
-                    <span>
-                      <i className="material-icons">thumb_up</i>
-                      <span>{post.postInfo.thumb}</span>
-                      <i className="material-icons">favorite</i>
-                      <span>{post.postInfo.save}</span>
-                    </span>
-                  </div>
+            <Link className="manageContent" to={`/post/${post.postInfo.postId}/${post.postInfo.type}`}>
+              <img src={post.postInfo.imgUrl} alt="" />
+              <div className="manageText">
+                <p className="managePost">{post.postInfo.title}</p>
+                <p className="manageTime">
+                  作者:{post.postInfo.memName}創作時間:{post.postInfo.postTime}
+                </p>
+                <div className="manageInteractions">
+                  <span>
+                    <i className="material-icons">thumb_up</i>
+                    <span>{post.postInfo.thumb}</span>
+                    <i className="material-icons">favorite</i>
+                    <span>{post.postInfo.save}</span>
+                  </span>
                 </div>
-              {/* </div> */}
+              </div>
             </Link>
             <div className="manageBtn">
               <button

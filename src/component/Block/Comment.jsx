@@ -29,7 +29,7 @@ function Comment() {
 
   function fetchData() {
     fetch(
-      `http://118.233.222.23:8000/api/v1/comtxts?postId[eq]=${match.params.postId}`,
+      `http://118.233.222.23:8000/api/v1/comtxts?postId[eq]=${match.params.postId}`
     )
       .then((res) => res.json())
       .then((jsonData) => {
@@ -133,9 +133,7 @@ function Comment() {
       </div>
       <div className="commentSend">
         <div className="userFace">
-          <div>{console.log(user)}</div>
           <img className="userHead" src={user.headimg} alt="" />
-          {/* <img className="userHead" src={avatar} alt="" /> */}
         </div>
         <div className="textareaContainer">
           <textarea

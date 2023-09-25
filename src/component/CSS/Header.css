@@ -152,3 +152,14 @@ header a {
     animation: heartBeat;
     animation-duration: 2s;
 }
+
+.headerSecret {
+    background-color: var(--colorPurple);
+    border: none;
+}
+
+.grayMail {
+    width: 40px;
+    vertical-align: top;
+    margin-right: 2rem;
+}

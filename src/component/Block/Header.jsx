@@ -10,6 +10,7 @@ import purpleArrow from "../img/purpleArrow.png";
 import rabbit from "../img/rabbit.png";
 import crown from "../img/crown.png";
 import mail from "../img/love3.png";
+import grayMail from "../img/grayMail.png";
 
 function Header() {
   let [dd, setDd] = useState("創建貼文");
@@ -24,6 +25,7 @@ function Header() {
       },
     })
       .then((res) => {
+        localStorage.setItem("token", "");
         if (res.status >= 200) {
           window.location.reload();
         }
@@ -77,6 +79,10 @@ function Header() {
     [m]
   );
 
+  function gm() {
+    alert("請先登入帳戶");
+  }
+
   return (
     <div id="container">
       <link
@@ -105,17 +111,23 @@ function Header() {
           </button>
         </div>
         <div>
-          <Link to="/secret">
-            <img
-              src={mail}
-              className="secret animate__animated animate__heartBeat animate__infinite"
-            />
-          </Link>
+          <button className="headerSecret">
+            {token ? (
+              <Link to="/secret">
+                <img
+                  src={mail}
+                  className="secret animate__animated animate__heartBeat animate__infinite"
+                />
+              </Link>
+            ) : (
+              <img src={grayMail} className="grayMail" onClick={gm} />
+            )}
+          </button>
           <Link to="/profile">
             <img className="userImg" src={user?.headimg || rabbit} />
           </Link>
           <Link to="/profile">
-            <span className="userName">{user?.mem_name || ""}</span>
+            <span className="userName">{user?.mem_name || "Guest"}</span>
           </Link>
           <button className="userBtn">
             <img className="userArrow" src={whiteArrow} />

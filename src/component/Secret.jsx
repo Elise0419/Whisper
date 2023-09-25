@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
@@ -6,12 +6,14 @@ import Footer from "./Block/Footer";
 import "./CSS/Secret.css";
 import pen from "./img/pen.png";
 import mail from "./img/mail.webp";
+import loveletter from "./img/下載.png";
 
 function Secreat() {
   // 彈出寫秘密視窗
   let [write, setWrite] = useState(false);
   let [choose, setChoose] = useState(false);
   let [read, setRead] = useState(false);
+  let [gate, setGate] = useState(false);
 
   function openWrite() {
     setWrite(true);
@@ -23,25 +25,42 @@ function Secreat() {
   }
 
   function openChoose() {
-    setChoose(true);
+    if (gate) {
+      setChoose(true);
+    } else {
+      alert("抽秘密前 請先寫下妳的秘密");
+    }
   }
 
   function closeChoose(e) {
-    console.log(e.target);
-    if (e.target.id != "chooseImg") {
-      setChoose(true);
-    } else {
+    console.log(e.target.className);
+    if (e.target.className) {
       setChoose(false);
       setRead(true);
+    } else {
+      setChoose(false);
     }
   }
 
   function closeRead() {
     setRead(false);
+    setGate(false);
+  }
+
+  function send() {
+    alert("妳的秘密已送出～");
+    setTimeout(() => {
+      setWrite(false);
+      setGate(true);
+    });
   }
 
   return (
     <div>
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+      />
       <Header />
       <div className="perspective">
         <div className="tardis-wrap">
@@ -124,7 +143,11 @@ function Secreat() {
           </div>
         </div>
       </div>
-      <button class="readBtn" onClick={openChoose}>
+      <button
+        className={gate ? "chooseBtn" : "chooseBtnF chooseBtn"}
+        onClick={openChoose}
+        type="button"
+      >
         <span>whisper</span>
         <svg width="13px" height="10px" viewBox="0 0 13 10">
           <path d="M1,5 L11,5"></path>
@@ -134,9 +157,9 @@ function Secreat() {
       <img src={pen} className="pen" onClick={openWrite} />
       {write && (
         <form className="popWrite">
-          <div class="writeClose" onClick={closeWrite}>
-            <div class="leftright"></div>
-            <div class="rightleft"></div>
+          <div className="writeClose" onClick={closeWrite}>
+            <div className="leftright"></div>
+            <div className="rightleft"></div>
             <label>close</label>
           </div>
           <h2>最受不了婆婆的哪些舉動！</h2>
@@ -156,45 +179,142 @@ function Secreat() {
             id=""
             placeholder="What truth do you want to hear?..."
           />
-          <button className="sendSecret">send</button>
+          <input
+            type="button"
+            className="sendSecret"
+            onClick={send}
+            value="send"
+          />
         </form>
       )}
       {choose && (
-        <table className="popChoose" onClick={closeChoose}>
-          <tr>
-            <td>
-              <img src={mail} id="chooseImg" />
-              <p>你從來沒有告訴過任何人的秘密是什麼？</p>
-            </td>
-            <td>
-              <img src={mail} id="chooseImg" />
-              <p>你去過廁所最奇怪的地方在哪裡？</p>
-            </td>
-            <td>
-              <img src={mail} id="chooseImg" />
-              <p>你發過裸照嗎？</p>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img src={mail} id="chooseImg" />
-              <p>你有沒有說過“我愛你”，但不是真的？ 給誰</p>
-            </td>
-            <td>
-              <img src={mail} id="chooseImg" />
-              <p>說出一個你後悔接吻的人。</p>
-            </td>
-            <td>
-              <img src={mail} id="chooseImg" />
-              <p>你有沒有假裝喜歡你收到的禮物？</p>
-            </td>
-          </tr>
-        </table>
+        <div className="popChoose" onClick={closeChoose}>
+          <div>
+            <div class="letter-image" id="letter">
+              <div class="animated-mail">
+                <div class="back-fold"></div>
+                <div class="letter">
+                  <div class="letter-border">
+                    <p>你從來沒有告訴過任何人的秘密是什麼？</p>
+                  </div>
+                  <div class="letter-title"></div>
+                  <div class="letter-context"></div>
+                  <div class="letter-stamp">
+                    <div class="letter-stamp-inner"></div>
+                  </div>
+                </div>
+                <div class="top-fold"></div>
+                <div class="body"></div>
+                <div class="left-fold"></div>
+              </div>
+              <div class="shadow"></div>
+            </div>
+            <div class="letter-image">
+              <div class="animated-mail">
+                <div class="back-fold"></div>
+                <div class="letter">
+                  <div class="letter-border">
+                    <p>你有沒有假裝喜歡你收到的禮物？</p>
+                  </div>
+                  <div class="letter-title"></div>
+                  <div class="letter-context"></div>
+                  <div class="letter-stamp">
+                    <div class="letter-stamp-inner"></div>
+                  </div>
+                </div>
+                <div class="top-fold"></div>
+                <div class="body"></div>
+                <div class="left-fold"></div>
+              </div>
+              <div class="shadow"></div>
+            </div>
+          </div>
+          <div>
+            <div class="letter-image">
+              <div class="animated-mail">
+                <div class="back-fold"></div>
+                <div class="letter">
+                  <div class="letter-border">
+                    <p>你去過廁所最奇怪的地方在哪裡？</p>
+                  </div>
+                  <div class="letter-title"></div>
+                  <div class="letter-context"></div>
+                  <div class="letter-stamp">
+                    <div class="letter-stamp-inner"></div>
+                  </div>
+                </div>
+                <div class="top-fold"></div>
+                <div class="body"></div>
+                <div class="left-fold"></div>
+              </div>
+              <div class="shadow"></div>
+            </div>
+            <div class="letter-image">
+              <div class="animated-mail">
+                <div class="back-fold"></div>
+                <div class="letter">
+                  <div class="letter-border">
+                    <p>說出一個你後悔接吻的人。</p>
+                  </div>
+                  <div class="letter-title"></div>
+                  <div class="letter-context"></div>
+                  <div class="letter-stamp">
+                    <div class="letter-stamp-inner"></div>
+                  </div>
+                </div>
+                <div class="top-fold"></div>
+                <div class="body"></div>
+                <div class="left-fold"></div>
+              </div>
+              <div class="shadow"></div>
+            </div>
+          </div>
+          <div>
+            <div class="letter-image">
+              <div class="animated-mail">
+                <div class="back-fold"></div>
+                <div class="letter">
+                  <div class="letter-border">
+                    <p>你有沒有說過“我愛你”，但不是真的？ 給誰</p>
+                  </div>
+                  <div class="letter-title"></div>
+                  <div class="letter-context"></div>
+                  <div class="letter-stamp">
+                    <div class="letter-stamp-inner"></div>
+                  </div>
+                </div>
+                <div class="top-fold"></div>
+                <div class="body"></div>
+                <div class="left-fold"></div>
+              </div>
+              <div class="shadow"></div>
+            </div>
+            <div class="letter-image">
+              <div class="animated-mail">
+                <div class="back-fold"></div>
+                <div class="letter">
+                  <div class="letter-border">
+                    <p>你發過裸照嗎？</p>
+                  </div>
+                  <div class="letter-title"></div>
+                  <div class="letter-context"></div>
+                  <div class="letter-stamp">
+                    <div class="letter-stamp-inner"></div>
+                  </div>
+                </div>
+                <div class="top-fold"></div>
+                <div class="body"></div>
+                <div class="left-fold"></div>
+              </div>
+              <div class="shadow"></div>
+            </div>
+          </div>
+        </div>
       )}
       {read && (
-        <div class="popRead">
+        <div className="popRead">
           <div>
-            <span class="readClose" onClick={closeRead}>
+            <span className="readClose" onClick={closeRead}>
               X
             </span>
 

@@ -64,9 +64,9 @@ function Login() {
           console.log(data);
           // 将Token存储在本地
           console.log("Token:", token);
-          // history.push("/", { token: data.authorization.token });
+          history.push("/", { token: data.authorization.token });
           // 登录成功后跳转到首页
-          history.push("/profile", { token: data.authorization.token });
+          // history.push("/profile", { token: data.authorization.token });
           console.log("successfullogin");
         })
 

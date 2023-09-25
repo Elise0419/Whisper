@@ -95,10 +95,10 @@ function Header() {
             />
           </Link>
           <Link to="/profile">
-            <img className="userImg" src={user.headimg || rabbit} />
+            <img className="userImg" src={user?.headimg || rabbit} />
           </Link>
           <Link to="/profile">
-            <span className="userName">{user.mem_name}</span>
+            <span className="userName">{user?.mem_name || ''}</span>
           </Link>
           <button className="userBtn">
             <img className="userArrow" src={whiteArrow} />

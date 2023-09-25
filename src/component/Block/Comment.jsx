@@ -16,8 +16,15 @@ function Comment() {
       return "Invalid Date";
     }
 
-    const [year, month, date, hours, minutes] = time.split(/[-T:]/);
-    return `${year}-${month}-${date} ${hours}:${minutes}`;
+    const date = new Date(time);
+    const options = {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    };
+    return date.toLocaleDateString("en-US", options);
   }
 
   function fetchData() {
@@ -157,7 +164,7 @@ function Comment() {
               <div className="user">{comment.comtxtName}</div>
               <p className="text">{comment.comment}</p>
               <div className="info">
-                <span className="time">{comment.time}</span>
+                <span className="time">{formatTime(comment.createdTime)}</span>
               </div>
             </div>
           </div>

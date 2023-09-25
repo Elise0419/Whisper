@@ -18,6 +18,30 @@ function ConmentAdmin() {
         setPage(page + 1);
     };
 
+    const DeleteClick = (coment_id) => {
+        if (window.confirm('確定要刪除此留言嗎')) {
+            fetch(`http://118.233.222.23:8000/api/admin/management/articles/delete/comment_${coment_id}`, {
+                method: "Delete",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+                .then((res) => {
+                    if (res.status >= 400) {
+                        alert('刪除貼文失敗，請重新操作');
+                        throw new Error("API request failed");
+                    } else if (res.status >= 200) {
+                        alert('刪除貼文成功');
+                        window.location.reload();
+                    }
+                })
+                .catch((err) => {
+                    // console.log("Error:", err);
+                    alert(err)
+                });
+        }
+    };
+
     useEffect(() => {
         fetch(`http://118.233.222.23:8000/api/admin/management/comments/show/post_${match.params.postId}/${page}`, {
             method: "get",
@@ -34,6 +58,7 @@ function ConmentAdmin() {
 
             })
             .then((res) => {
+                console.log(res.comments.data)
                 setData(res.comments.data);
             })
             .catch((error) => {
@@ -47,6 +72,7 @@ function ConmentAdmin() {
             <table>
                 <thead>
                     <tr>
+                        <th>留言序號</th>
                         <th>留言者ID</th>
                         <th>留言者名稱</th>
                         <th>貼文內容</th>
@@ -55,12 +81,13 @@ function ConmentAdmin() {
                 </thead>
                 <tbody>
                     {data.map((item, index) => (
-                        <tr>
+                        <tr key={index}>
+                            <td>{item.id}</td>
                             <td>{item.user_id}</td>
                             <td>{item.users.mem_name}</td>
                             <td>{item.comment}</td>
                             <td>
-                                <button>Delete</button>
+                                <button onClick={() => DeleteClick(`${item.id}`)}>Delete</button>
                             </td>
                         </tr>
                     ))}

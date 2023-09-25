@@ -47,4 +47,14 @@ class GroupAdminController extends Controller
         $post->delete();
         return response()->json([], 204);
     }
+
+    public function deletecomment($coment_id)
+    {
+        $Comment = Comtxt::where('id', $coment_id)->firstOrFail();
+        if (!$Comment) {
+            return response()->json(['message' => '查無此留言'], 404);
+        }
+        $Comment->delete();
+        return response()->json([], 204);
+    }
 }

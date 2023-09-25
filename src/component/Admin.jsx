@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 
 
 function Admin() {
-    const [data, setData] = useState({});
+    const [data, setData] = useState([]);
 
 
     useEffect(() => {
 
-        fetch(`https://127.0.0.1:8000/api/admin/management/article/show/1`)
+        fetch(`https://10.10.247.90:8000/api/admin/management/article/show/1`)
             .then((res) => {
                 if (res.status >= 400) {
                     alert('你無權造訪此頁面')
@@ -37,7 +37,7 @@ function Admin() {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.post.map((item, index) => (
+                    {data.map((item, index) => (
                         <tr key={item.post_id}>
                             <td>{item.title}</td>
                             <td>{item.name}</td>

@@ -37,7 +37,7 @@ function Header() {
         const token = localStorage.getItem("token");
         console.log("Token in Profile:", token);
 
-        fetch(`http://127.0.0.1:8000/api/profile`, {
+        fetch(`http://10.10.247.90:8000/api/profile`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

@@ -11,7 +11,7 @@ function Article() {
 
   useEffect(() => {
     function fetchData() {
-      fetch("http://127.0.0.1:8000/api/v1/posts", {
+      fetch("http://10.10.247.90:8000/api/v1/posts", {
         method: "GET",
       })
         .then((res) => {

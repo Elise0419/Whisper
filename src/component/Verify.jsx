@@ -16,7 +16,7 @@ function Verifyemail() {
   };
 
   const handleSendVerification = () => {
-    fetch("http://127.0.0.1:8000/api/profile", {
+    fetch("http://10.10.247.90:8000/api/profile", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

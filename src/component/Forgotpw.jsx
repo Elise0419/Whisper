@@ -25,7 +25,7 @@ function Forgotpw() {
     setErrors(Validation(values));
 
     // 使用fetch來發送POST請求
-    fetch("http://127.0.0.1:8000/api/password/forgot/mail", {
+    fetch("http://10.10.247.90:8000/api/password/forgot/mail", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

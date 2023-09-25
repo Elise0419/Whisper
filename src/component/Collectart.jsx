@@ -13,7 +13,7 @@ function Collectart() {
   // 刪除貼文
   function handleDelete(postId) {
     const token = localStorage.getItem("token");
-    fetch(`http://127.0.0.1:8000/api/posts/delete/${postId}`, {
+    fetch(`http://10.10.247.90:8000/api/posts/delete/${postId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -27,7 +27,7 @@ function Collectart() {
           console.log("删除成功！");
 
           // 在删除成功后重新获取数据
-          fetch(`http://127.0.0.1:8000/api/posts/usersave`, {
+          fetch(`http://10.10.247.90:8000/api/posts/usersave`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -61,7 +61,7 @@ function Collectart() {
     console.log("Token in Profile:", token);
 
     // 目前收藏的貼文
-    fetch(`http://127.0.0.1:8000/api/posts/usersave`, {
+    fetch(`http://10.10.247.90:8000/api/posts/usersave`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -59,7 +59,7 @@ Route::controller(ProfileController::class)->group(function () {
 });
 
 Route::controller(AdminController::class)->group(function () {
-    Route::post('/admin/management/article/show/{page}', 'showarticle');
+    Route::post('admin/management/article/show/{page}', 'showarticle');
 });
 
 Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\API\V1'], function () {

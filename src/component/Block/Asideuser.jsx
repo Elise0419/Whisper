@@ -27,7 +27,7 @@ function Asideuser() {
 
   useEffect(() => {
     function fetchData() {
-      fetch("http://127.0.0.1:8000/api/login", {
+      fetch("http://10.10.247.90:8000/api/login", {
         method: "POST",
         headers: {
           Authorization: token,
@@ -44,7 +44,7 @@ function Asideuser() {
           console.log("錯誤:", err);
         });
 
-      fetch(`http://127.0.0.1:8000/api/profile`, {
+      fetch(`http://10.10.247.90:8000/api/profile`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

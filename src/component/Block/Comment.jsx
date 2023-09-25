@@ -22,7 +22,7 @@ function Comment() {
 
   function fetchData() {
     fetch(
-      `http://127.0.0.1:8000/api/v1/comtxts?postId[eq]=${match.params.postId}`,
+      `http://10.10.247.90:8000/api/v1/comtxts?postId[eq]=${match.params.postId}`,
       {
         method: "GET",
       }
@@ -46,7 +46,7 @@ function Comment() {
     const token = localStorage.getItem("token");
     console.log("Token in Profile:", token);
 
-    fetch("http://127.0.0.1:8000/api/profile", {
+    fetch("http://10.10.247.90:8000/api/profile", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -85,7 +85,7 @@ function Comment() {
   function submitCommentToBackend(newCommentObj) {
     const token = localStorage.getItem("token");
     fetch(
-      `http://127.0.0.1:8000/api/posts/${match.params.postId}/comments`,
+      `http://10.10.247.90:8000/api/posts/${match.params.postId}/comments`,
       {
         method: "POST",
         headers: {

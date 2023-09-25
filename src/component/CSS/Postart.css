@@ -26,14 +26,20 @@
 }
 
 .manageContent img {
-    width: 156px;
-    height: 96px;
-    display: flex;
-    border-radius: 12px;
-}
+    width: 300px;
+    height: 100px;
+    object-fit: cover;
+    border: 1.5px solid #C8B2D6;
+    border-radius: 10px;
+  }
 
 .manageText {
     margin-left: 10px;
+    width: 400px; /* 设置元素的宽度 */
+    white-space: nowrap; /* 防止文本换行 */
+    overflow: hidden; /* 隐藏溢出的文本 */
+    text-overflow: ellipsis; /* 在文本溢出时显示省略号 */
+    /* background-color: red; */
     color: black;
 }
 

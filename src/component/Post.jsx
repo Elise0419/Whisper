@@ -110,14 +110,17 @@ function Post({ postId, userToken }) {
         thumb: !isLiked,
       };
       console.log("userToken" + userToken);
-      fetch(`http://118.233.222.23:8000/api/posts/thumb${match.params.postId}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${userToken}`,
-        },
-        body: JSON.stringify(requestData),
-      })
+      fetch(
+        `http://118.233.222.23:8000/api/posts/thumb${match.params.postId}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${userToken}`,
+          },
+          body: JSON.stringify(requestData),
+        }
+      )
         .then((res) => res.json())
         .then((jsonData) => {
           if (jsonData.message === "updated!") {
@@ -136,14 +139,17 @@ function Post({ postId, userToken }) {
     if (post.length > 0) {
       setIsFavorited(!isFavorited);
       const newSaveCount = isFavorited ? post[0].save - 1 : post[0].save + 1;
-      fetch(`http://118.233.222.23:8000/api/posts/save/${match.params.postId}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${userToken}`,
-        },
-        body: JSON.stringify({ save: newSaveCount }),
-      })
+      fetch(
+        `http://118.233.222.23:8000/api/posts/save/${match.params.postId}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${userToken}`,
+          },
+          body: JSON.stringify({ save: newSaveCount }),
+        }
+      )
         .then((res) => {
           if (!res.ok) {
             throw new Error(`HTTP error! status: ${res.status}`);
@@ -203,21 +209,6 @@ function Post({ postId, userToken }) {
         console.log("錯誤:", err);
       });
   }
-
-  // function hashtag(t) {
-  //   fetch(`http://118.233.222.23:8000/api/v1/posts?tag[eq]=${t}`, {
-  //     method: "GET",
-  //   })
-  //     .then((res) => {
-  //       return res.json();
-  //     })
-  //     .then((jsonData) => {
-  //       console.log(jsonData);
-  //     })
-  //     .catch((err) => {
-  //       console.log("錯誤:", err);
-  //     });
-  // }
 
   return (
     <div id="container">
@@ -305,7 +296,7 @@ function Post({ postId, userToken }) {
           <span className="voteTopic">
             <p>
               <img src={makeup} />
-              &nbsp;&nbsp;{vote.type}
+              &nbsp;&nbsp;{vote.forumTitle}
             </p>
           </span>
           <div className="vote">
@@ -334,8 +325,8 @@ function Post({ postId, userToken }) {
                 </label>
               </div>
             </div>
-            <img src={makeup2} />
-            <img src={makeup2} />
+            <img src={vote.imgOne} />
+            <img src={vote.imgTwo} />
           </div>
         </div>
         <div className="aside">
@@ -345,14 +336,7 @@ function Post({ postId, userToken }) {
           </p>
           <span className="tag">
             {post.map((post) => {
-              return (
-                <button
-                  // onClick={() => hashtag(post.tag)}
-                  key={post.tag_id}
-                >
-                  #{post.tag}
-                </button>
-              );
+              return <button key={post.tag_id}>#{post.tag}</button>;
             })}
           </span>
         </div>

@@ -1,10 +1,7 @@
-import React, { Component } from "react";
-import { useEffect, useState } from "react";
-
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
 import "../CSS/Asideuser.css";
-import rabbit from "../img/rabbit.png";
+// import rabbit from "../img/rabbit.png";
 
 function Asideuser() {
   let [user, setUser] = useState([]);
@@ -30,18 +27,42 @@ function Asideuser() {
       fetch("http://10.10.247.90:8000/api/login", {
         method: "POST",
         headers: {
-          Authorization: token,
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => {
+          if (res.status === 403) {
+            throw new Error("API request failed");
+          } else if (res.status >= 200) {
+            return res.json();
+          }
+        })
+        .then((jsonData) => {
+          if (jsonData.error) {
+            console.log("錯誤訊息:", jsonData.error);
+          } else {
+            setUser(jsonData.user);
+          }
+        })
+        .catch((err) => {
+          console.log("Error:", err);
+        });
+
+      fetch(`http://127.0.0.1:8000/api/profile`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       })
         .then((res) => {
           return res.json();
         })
         .then((jsonData) => {
-          console.log(jsonData);
-          // setUser(jsonData.data);
+          setUser(jsonData.user);
         })
-        .catch((err) => {
-          console.log("錯誤:", err);
+        .catch((error) => {
+          console.log(error);
         });
 
       fetch(`http://10.10.247.90:8000/api/profile`, {
@@ -61,28 +82,33 @@ function Asideuser() {
           console.log(error);
         });
     }
+
     fetchData();
+    fetchPosts(); // Call the fetchPosts function here
   }, []);
+
   return (
     <div className="aside">
       <img className="asideImg" src={user.headimg || rabbit} />
       <span className="asideName">{user.mem_name}</span>
       <hr />
-      <span className="asideMsg">致力於打造美好生活</span>
+      <div className="asideUser">
+      <span className="asideMsg">{user.promise}</span>
       <br />
-      <span className="asideTime">創建時間: {fDc}</span>
+      <span className="asideTime">創建時間:2023-08-01</span>
       <br />
-      <span className="asideTime">最後更新時間: {fDu}</span>
+      <span className="asideTime">最後更新時間:2023-08-01</span>
       <div className="asideNum">
-        <p>03</p>
-        <p>當前貼文數量</p>
+        <p>{postCount}</p>
+        <p>發布貼文數量</p>
       </div>
-      <Link to="/upload">
-        <button className="asideBtn" to="">
-          創建貼文
-        </button>
+      <Link to="/upload/life">
+        <button className="asideBtn">創建貼文</button>
       </Link>
     </div>
+
+      </div>
+      
   );
 }
 

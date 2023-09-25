@@ -1,3 +1,4 @@
+
 .asideImg {
     width: 4.25rem;
     border-radius: var(--circle);
@@ -16,6 +17,16 @@
     color: var(--colorGray100);
 }
 
+.asideUser{
+    /* display: flex; */
+    background-color: aqua;
+    width: 80%;
+    flex-direction: column;
+    justify-content: center; /* Horizontally center */
+    align-items: center; /* Vertically center */
+
+}
+
 .asideMsg {
     margin-left: 1.25rem;
     color: var(--colorGray300);
@@ -26,15 +37,31 @@
     margin-left: 1.25rem;
     color: var(--colorGray100);
     font-size: 0.875rem;
+    background-color: red;
+    padding-bottom: 20px;
 }
+
 
 .asideNum {
     color: var(--colorRed);
     font-size: 1.25rem;
+    flex-direction: column;
+    justify-content: center; /* Horizontally center */
+    align-items: center; /* Vertically center */
     text-align: center;
     position: relative;
     right: 10px;
 }
+    
+   
+
+.asideNum p{
+    display: flex;
+    /* text-align: center; */
+    justify-content: center; /* Horizontally center */
+    align-items: center; /* Vertically center */
+}
+
 
 .asideBtn {
     background-color: var(--colorYellow);

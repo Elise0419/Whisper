@@ -14,8 +14,8 @@ import Restpwd from "./component/Restpwd";
 import Verify from "./component/Verify";
 import Verifyre from "./component/verifyre";
 import Secret from "./component/Secret";
-import Admin from './component/Admin';
-import ConmentAdmin from './component/ConmentAdmin';
+import ArticleAdmin from './component/ArticleAdmin';
+import CommentAdmin from './component/CommentAdmin';
 
 class App extends Component {
   state = {};
@@ -30,8 +30,8 @@ class App extends Component {
           <Route path="/restpwd" component={Restpwd} exact />
           <Route path="/verify" component={Verify} exact />
           <Route path="/verifyre" component={Verifyre} exact />
-          <Route path="/admin/article" component={Admin} exact />
-          <Route path="/admin/post_:postId(\d+)/comments" component={ConmentAdmin} exact />
+          <Route path="/admin/article" component={ArticleAdmin} exact />
+          <Route path="/admin/post_:postId(\d+)/comments" component={CommentAdmin} exact />
           <Route path="/upload/:type" component={Upload} exact />
 
           <Route path="/profile" component={Profile} exact />

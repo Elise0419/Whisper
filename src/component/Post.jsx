@@ -24,8 +24,6 @@ function Post({ postId, userToken }) {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    console.log("Token in Profile:", token);
-
     function fetchData() {
       // 取單篇文章
       fetch(

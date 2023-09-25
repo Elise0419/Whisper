@@ -16,16 +16,17 @@ class AdminCheck
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $req, Closure $next)
     {
-
         $user = Auth::user();
-        if (!Hash::check($request->new_password, $user->password)) {
-            return response()->json(['message' => '密碼錯誤']);
+        if (!Admin::where('user_id', $user->user_id)) {
+            return response()->json(['message' => '權限不足，無法使用該功能'], 403);
+        }
+        if (!Hash::check($req->new_password, $user->password)) {
+            return response()->json(['message' => '密碼錯誤'], 401);
         }
         if ($user && Admin::where('user_id', $user->user_id)->exists()) {
-            return $next($request);
+            return $next($req);
         }
-        abort(403, '無權造訪該頁面');
     }
 }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-function Admin() {
+function ArticleAdmin() {
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
 
@@ -15,7 +15,6 @@ function Admin() {
     };
 
     const DeleteClick = (post_id) => {
-        console.log(post_id);
         if (window.confirm('確定要刪除此貼文嗎')) {
             fetch(`http://118.233.222.23:8000/api/admin/management/articles/delete/post_${post_id}`, {
                 method: "Delete",
@@ -33,15 +32,15 @@ function Admin() {
                     }
                 })
                 .catch((err) => {
-                    // console.log("Error:", err);
-                    alert(err)
+                    console.log("Error:", err);
                 });
         }
     };
 
     useEffect(() => {
+
         fetch(`http://118.233.222.23:8000/api/admin/management/articles/show/${page}`, {
-            method: "get",
+            method: "post",
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -56,7 +55,6 @@ function Admin() {
             })
             .then((res) => {
                 setData(res.articles.data);
-                console.log(res.articles.data)
             })
             .catch((error) => {
                 console.error('發生錯誤：', error);
@@ -78,8 +76,8 @@ function Admin() {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((item) => (
-                        <tr key={item.post_id}>
+                    {data.map((item, index) => (
+                        <tr key={index}>
                             <td>{item.post_id}</td>
                             <td>{item.title}</td>
                             <td>{item.user_id}</td>
@@ -98,4 +96,4 @@ function Admin() {
         </div>
     )
 }
-export default Admin;
+export default ArticleAdmin;

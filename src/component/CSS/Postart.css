@@ -1,4 +1,3 @@
-
 /* manage的貼文組件css */
 .manageCount {
     color: #FEA7AD;
@@ -37,14 +36,17 @@
     margin-left: 10px;
     color: black;
 }
+
 .manageText:hover {
-    color: #C8B2D6; /* Change to the color you want on hover */
+    color: #C8B2D6;
+    /* Change to the color you want on hover */
 }
 
 .manageText.clicked {
-    color: gray; /* Change this to the color you want when clicked */
-  }
-  
+    color: gray;
+    /* Change this to the color you want when clicked */
+}
+
 
 .managePost {
     display: flex;
@@ -119,4 +121,3 @@
     width: 44rem;
     margin-top: 110px;
 }
-

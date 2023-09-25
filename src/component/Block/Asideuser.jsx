@@ -44,45 +44,50 @@ function Asideuser() {
       .catch((error) => console.error("Error:", error));
   };
 
-  useEffect(() => {
-    function fetchData() {
-      const token = localStorage.getItem("token");
-      fetch("http://118.233.222.23:8000/api/profile", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+  const fetchData = () => {
+    const token = localStorage.getItem("token");
+    fetch("http://118.233.222.23:8000/api/profile", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        if (res.status === 403) {
+          throw new Error("API request failed");
+        } else if (res.status >= 200) {
+          return res.json();
+        }
       })
-        .then((res) => {
-          if (res.status === 403) {
-            throw new Error("API request failed");
-          } else if (res.status >= 200) {
-            return res.json();
-          }
-        })
-        .then((jsonData) => {
-          if (jsonData.error) {
-            console.log("錯誤訊息:", jsonData.error);
-          } else {
-            setUser(jsonData.user);
-          }
-        })
-        .catch((err) => {
-          console.log("錯誤:", err);
-        });
-    }
+      .then((jsonData) => {
+        if (jsonData.error) {
+          console.log("錯誤訊息:", jsonData.error);
+        } else {
+          setUser(jsonData.user);
+        }
+      })
+      .catch((err) => {
+        console.log("錯誤:", err);
+      });
+  };
 
+  useEffect(() => {
     fetchData();
     fetchPosts();
+
+    const interval = setInterval(() => {
+      fetchData();
+      fetchPosts();
+    }, 5000); // 5秒钟获取一次数据，你可以根据需要调整时间间隔
+
+    return () => clearInterval(interval); // 清除定时器以防止内存泄漏
   }, []);
 
   return (
     <div className="aside">
       <div className="asideContainer">
         <div className="asideName">
-          {/* <div>{console.log("user", user)}</div> */}
           <img className="asideImg" src={user.headimg || rabbit} />
-          {/* <img className="asideImg" src={user.headimg} /> */}
           <span className="asideText">{user.mem_name}</span>
         </div>
 

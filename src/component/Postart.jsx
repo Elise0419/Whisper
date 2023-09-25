@@ -129,10 +129,20 @@ function Postart() {
                 to={`/post/${post.postId}/${post.type}`}
                 className="manageContent"
               >
-                {" "}
-                {/* 到指定貼文 */}
                 {/* <img src={url} /> */}
-                <img src={post.imgUrl || posttext} alt="" />
+                {post.imgUrl && (
+                  <img src={post.imgUrl} alt="" />
+                )}
+                {!post.imgUrl && isStringValid && (
+                  <img src={url} alt="" />
+                )}
+                {!post.imgUrl && !isStringValid && (
+                  <img src={posttext} alt="" />
+                )}
+
+
+
+                {/* <img src={post.url || posttext} alt="" /> */}
                 <div className="manageText">
                   <p className="managePost">{myTitle.innerText}</p>
                   <p className="manageTime">

@@ -39,7 +39,7 @@ function Admin() {
     };
 
     useEffect(() => {
-        fetch(`http://10.10.247.90:8000/api/admin/management/articles/show/${page}`, {
+        fetch(`http://118.233.222.23:8000/api/admin/management/articles/show/${page}`, {
             method: "get",
             headers: {
                 Authorization: `Bearer ${token}`,

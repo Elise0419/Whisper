@@ -29,7 +29,7 @@ function Post({ postId, userToken }) {
     function fetchData() {
       // 取單篇文章
       fetch(
-        `http://10.10.247.90:8000/api/v1/posts/${match.params.postId}/${match.params.type}`,
+        `http://118.233.222.23:8000/api/v1/posts/${match.params.postId}/${match.params.type}`,
         {
           method: "GET",
         }
@@ -46,7 +46,7 @@ function Post({ postId, userToken }) {
         });
 
       // 投票
-      fetch(`http://10.10.247.90:8000/api/votes/${match.params.type}`, {
+      fetch(`http://118.233.222.23:8000/api/votes/${match.params.type}`, {
         method: "GET",
       })
         .then((res) => {
@@ -62,7 +62,7 @@ function Post({ postId, userToken }) {
 
       // 個版規則
       fetch(
-        `http://10.10.247.90:8000/api/v1/rules?type[eq]=${match.params.type}`,
+        `http://118.233.222.23:8000/api/v1/rules?type[eq]=${match.params.type}`,
         {
           method: "GET",
         }
@@ -110,7 +110,7 @@ function Post({ postId, userToken }) {
         thumb: !isLiked,
       };
       console.log("userToken" + userToken);
-      fetch(`http://10.10.247.90:8000/api/posts/thumb${match.params.postId}`, {
+      fetch(`http://118.233.222.23:8000/api/posts/thumb${match.params.postId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -136,7 +136,7 @@ function Post({ postId, userToken }) {
     if (post.length > 0) {
       setIsFavorited(!isFavorited);
       const newSaveCount = isFavorited ? post[0].save - 1 : post[0].save + 1;
-      fetch(`http://10.10.247.90:8000/api/posts/save/${match.params.postId}`, {
+      fetch(`http://118.233.222.23:8000/api/posts/save/${match.params.postId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -171,7 +171,7 @@ function Post({ postId, userToken }) {
     console.log("Token in Profile:", token);
 
     fetch(
-      `http://10.10.247.90:8000/api/votes/click/${vote.voteId}?${e.target.id}=true`,
+      `http://118.233.222.23:8000/api/votes/click/${vote.voteId}?${e.target.id}=true`,
       {
         method: "GET",
         headers: {
@@ -205,7 +205,7 @@ function Post({ postId, userToken }) {
   }
 
   // function hashtag(t) {
-  //   fetch(`http://10.10.247.90:8000/api/v1/posts?tag[eq]=${t}`, {
+  //   fetch(`http://118.233.222.23:8000/api/v1/posts?tag[eq]=${t}`, {
   //     method: "GET",
   //   })
   //     .then((res) => {

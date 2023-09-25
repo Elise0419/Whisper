@@ -13,13 +13,13 @@ function ConmentAdmin() {
 
     const Prepage = () => {
         setPage(page + 1);
-      };
+    };
     const Nextpage = () => {
         setPage(page + 1);
-      };
+    };
 
     useEffect(() => {
-        fetch(`http://10.10.247.90:8000/api/admin/management/comments/show/post_${match.params.postId}/${page}`, {
+        fetch(`http://118.233.222.23:8000/api/admin/management/comments/show/post_${match.params.postId}/${page}`, {
             method: "get",
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -66,8 +66,8 @@ function ConmentAdmin() {
                     ))}
                 </tbody>
             </table>
-            <span  onClick={() => Prepage}>上一頁</span>
-            <span  onClick={() => Nextpage}>下一頁</span>
+            <span onClick={() => Prepage}>上一頁</span>
+            <span onClick={() => Nextpage}>下一頁</span>
         </div>
     )
 }

@@ -41,7 +41,7 @@ function Login() {
       };
 
       // 只有当表单验证通过时才进行页面跳转
-      fetch("http://10.10.247.90:8000/api/login", {
+      fetch("http://118.233.222.23:8000/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -62,10 +62,10 @@ function Login() {
         .then((data) => {
           // 在这里处理从后端返回的数据
           localStorage.setItem("token", data.authorization.token); // 将Token存储在本地
-        
+
           history.push("/");
           // 登录成功后跳转到首页
-  
+
         })
 
         .catch((error) => {

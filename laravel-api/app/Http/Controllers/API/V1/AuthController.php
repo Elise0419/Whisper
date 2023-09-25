@@ -43,13 +43,6 @@ class AuthController extends Controller
             ],
         ], 200);
     }
-
-    // $token = auth()
-    //     ->claims(['abc' => '123', 'def' => '456'])
-    //     ->setTTL(6 * 31 * 24 * 60)
-    //     ->attempt($credentials);
-    // unix time  epoch time
-
     public function register(Request $req)
     {
         $req->validate([
@@ -81,7 +74,7 @@ class AuthController extends Controller
         Auth::logout();
         return response()->json([
             'message' => 'Successfully logged out',
-        ]);
+        ], 200);
     }
 
     public function refresh()

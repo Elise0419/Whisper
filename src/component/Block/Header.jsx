@@ -15,6 +15,24 @@ function Header() {
   let [dd, setDd] = useState("創建貼文");
   let [user, setUser] = useState("創建貼文");
   const m = useRouteMatch().params.type;
+  const token = localStorage.getItem("token");
+
+  function logout() {
+    fetch("http://118.233.222.23:8000/api/logout", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        if (res.status >= 200) {
+          window.location.reload();
+        }
+      })
+      .catch((err) => {
+        console.log("Error:", err);
+      });
+  };
+
   useEffect(
     function () {
       if (m) {
@@ -109,7 +127,7 @@ function Header() {
               <Link to="/profile">編輯信息&nbsp;&nbsp;</Link>
               <Link to="/manage">管理貼文</Link>
               <hr />
-              <Link to="/logout">登出</Link>
+              <span onClick={logout}>登出</span>
             </span>
           </button>
         </div>
@@ -117,5 +135,7 @@ function Header() {
     </div>
   );
 }
+
+
 
 export default Header;

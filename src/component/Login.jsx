@@ -60,6 +60,8 @@ function Login() {
           }
         })
         .then((data) => {
+          localStorage.setItem("token", data.authorization.token);
+          alert('登入成功，即將返回首頁')
           history.push("/");
         })
 

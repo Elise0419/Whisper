@@ -34,17 +34,17 @@ class GroupAdminController extends Controller
 
     public function showcomments($id, $page)
     {
-        $Comments = Comtxt::with(['users:user_id,mem_name'])->where('post_id', $id)->paginate(20, ['*'], 'page', );
+        $Comments = Comtxt::with(['users:user_id,mem_name'])->where('post_id', $id)->paginate(20, ['*'], 'page',);
         return response()->json(['comments' => $Comments], 200);
     }
 
     public function deletearticle($id)
     {
-        $post = Post::where('post_id',$id)->get();
+        $post = Post::where('post_id', $id)->firstOrFail();
         if (!$post) {
-            $post->delete();
             return response()->json(['message' => '查無此貼文'], 404);
         }
+        $post->delete();
         return response()->json([], 204);
     }
 }

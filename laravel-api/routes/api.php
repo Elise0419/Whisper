@@ -62,6 +62,7 @@ Route::controller(GroupAdminController::class)->group(function () {
     Route::get('admin/management/articles/show/{page}', 'showarticles');
     Route::get('admin/management/comments/show/post_{id}/{page}', 'showcomments');
     Route::delete('admin/management/articles/delete/post_{id}', 'deletearticle');
+    Route::delete('admin/management/comments/delete/post_{id}', 'deletearticle');
 });
 
 Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\API\V1'], function () {

@@ -31,7 +31,7 @@ function Header() {
       .catch((err) => {
         console.log("Error:", err);
       });
-  };
+  }
 
   useEffect(
     function () {
@@ -115,12 +115,12 @@ function Header() {
             <img className="userImg" src={user?.headimg || rabbit} />
           </Link>
           <Link to="/profile">
-            <span className="userName">{user?.mem_name || ''}</span>
+            <span className="userName">{user?.mem_name || ""}</span>
           </Link>
           <button className="userBtn">
             <img className="userArrow" src={whiteArrow} />
             <span className="userItem">
-              <Link to="/profile">
+              <Link to="/">
                 我的主頁&nbsp;&nbsp;
                 <img src={crown} className="myImg" />
               </Link>
@@ -135,7 +135,5 @@ function Header() {
     </div>
   );
 }
-
-
 
 export default Header;

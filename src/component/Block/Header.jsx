@@ -35,7 +35,6 @@ function Header() {
 
       function fetchData() {
         const token = localStorage.getItem("token");
-        console.log("Token in Profile:", token);
 
         fetch(`http://118.233.222.23:8000/api/profile`, {
           method: "GET",

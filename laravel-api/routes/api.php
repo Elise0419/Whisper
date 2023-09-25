@@ -33,7 +33,7 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 Route::get('/unAuth', function () {
-    return response()->json(['error' => '尚未登入']);
+    return response()->json(['error' => '尚未登入'], 401);
 })->name('login');
 
 Route::controller(CustomEmailVerificationController::class)->group(function () {

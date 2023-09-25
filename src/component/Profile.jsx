@@ -114,18 +114,21 @@ function Profile() {
   useEffect(() => {
     function fetchData() {
       const token = localStorage.getItem("token");
-      console.log("Token in Profile:", token);
-
       fetch("http://118.233.222.23:8000/api/profile", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
         .then((res) => {
+          console.log(res)
           if (res.status === 403) {
             history.push("/verify");
             throw new Error("API request failed");
-          } else if (res.status >= 200) {
+          }
+          if (res.status === 401) {
+            history.push("/login")
+          }
+          if (res.status >= 200) {
             return res.json();
           }
         })

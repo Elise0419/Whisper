@@ -5,8 +5,6 @@ import Footer from "./Block/Footer";
 
 import "./CSS/Secret.css";
 import pen from "./img/pen.png";
-import mail from "./img/mail.webp";
-import loveletter from "./img/下載.png";
 
 function Secreat() {
   // 彈出寫秘密視窗
@@ -47,12 +45,12 @@ function Secreat() {
     setGate(false);
   }
 
-  function send() {
+  function greenBtn() {
     alert("妳的秘密已送出～");
     setTimeout(() => {
       setWrite(false);
       setGate(true);
-    });
+    }, 3000);
   }
 
   return (
@@ -179,12 +177,14 @@ function Secreat() {
             id=""
             placeholder="What truth do you want to hear?..."
           />
-          <input
-            type="button"
-            className="sendSecret"
-            onClick={send}
-            value="send"
-          />
+          <button type="reset" class="green" onClick={greenBtn}>
+            <span>send</span>
+            <img
+              src="https://i.cloudup.com/2ZAX3hVsBE-3000x3000.png"
+              height="62"
+              width="62"
+            />
+          </button>
         </form>
       )}
       {choose && (

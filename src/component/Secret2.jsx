@@ -5,6 +5,7 @@ import Header from "./Block/Header";
 import Footer from "./Block/Footer";
 
 import "./CSS/Secret.css";
+import "./CSS/Secrets.css";
 
 function Secret2() {
   let [read, setRead] = useState(false);
@@ -66,7 +67,26 @@ function Secret2() {
               <span className="readClose">X</span>
             </Link>
 
-            <h2>你從來沒有告訴過任何人的秘密是什麼？</h2>
+            <h2>
+              <span>你</span>
+              <span>從</span>
+              <span>來</span>
+              <span>沒</span>
+              <span>有</span>
+              <span>告</span>
+              <span>訴</span>
+              <span>過</span>
+              <span>任</span>
+              <span>何</span>
+              <span>人</span>
+              <span>的</span>
+              <span>秘</span>
+              <span>密</span>
+              <span>是</span>
+              <span>什</span>
+              <span>麼</span>
+              <span>？</span>
+            </h2>
 
             <pre>我發現我老公外遇了。我不想離婚。</pre>
             <p>

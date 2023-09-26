@@ -24,6 +24,10 @@ class AuthController extends Controller
             'email' => 'required|string|email',
             'password' => 'required|string',
         ]);
+        if (!User::where('email', $req->email)->first()) {
+            return response()->json([
+             'error'=> '查無此帳號'], 404);
+        }
 
         $credentials = $req->only('email', 'password');
         $token = Auth::attempt($credentials);
@@ -87,4 +91,5 @@ class AuthController extends Controller
             ],
         ]);
     }
-};
+}
+;

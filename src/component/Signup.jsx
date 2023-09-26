@@ -24,13 +24,13 @@ function Signup() {
   const handleInput = (event) => {
     // 更新对应输入字段的值
     setValues({ ...values, [event.target.name]: event.target.value });
-    setErrors({ ...errors, [event.target.name]: "" }); // 清除对应字段的错误消息
   };
 
 
   const handleSubmit = (event) => {
     event.preventDefault();
     setErrors(Validation(values));
+    console.log("values",values)
 
     if (Object.keys(errors).length === 0) {
       const requestData = {

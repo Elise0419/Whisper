@@ -16,11 +16,11 @@ class LikeController extends Controller
         if (Auth::check()) {
             $userId = Auth::user()->user_id;
 
-            $existingSave = Like::where('user_id', $userId)
+            $existingLike = Like::where('user_id', $userId)
                 ->where('post_id', $postId)
                 ->first();
 
-            if (!$existingSave) {
+            if (!$existingLike) {
                 Like::create([
                     'user_id' => $userId,
                     'post_id' => $postId,
@@ -36,7 +36,16 @@ class LikeController extends Controller
                     return response()->json(['message' => 'Post not found!'], 404);
                 }
             } else {
-                return response()->json(['message' => 'You have already liked this post.']);
+
+                $existingLike->delete();
+                $post = Post::find($postId);
+                if ($post) {
+                    $post->thumb -= 1;
+                    $post->save();
+                    return response()->json(['message' => 'Unliked successfully!']);
+                } else {
+                    return response()->json(['message' => 'Post not found!'], 404);
+                }
             }
         } else {
             return response()->json(['message' => 'Login required'], 401);

@@ -62,43 +62,40 @@ function Secret2() {
           </span>
         </section>
         <div className="popRead">
-          <div>
+          <div className="smoke">
             <Link to="/secret">
-              <span className="readClose">X</span>
+              <p className="readClose">X</p>
             </Link>
-
             <h2>
-              <span>你</span>
-              <span>從</span>
-              <span>來</span>
-              <span>沒</span>
-              <span>有</span>
-              <span>告</span>
-              <span>訴</span>
-              <span>過</span>
-              <span>任</span>
-              <span>何</span>
-              <span>人</span>
-              <span>的</span>
-              <span>秘</span>
-              <span>密</span>
-              <span>是</span>
-              <span>什</span>
-              <span>麼</span>
-              <span>？</span>
+              <span>你從來沒有</span>
+              <span>告訴過</span>
+              <span>任何人的</span>
+              <span>秘密</span>
+              <span>是什麼？</span>
             </h2>
-
-            <pre>我發現我老公外遇了。我不想離婚。</pre>
+            <pre>
+              <span>我發現我老公外遇了。</span>
+              <span>我不想離婚。</span>
+            </pre>
             <p>
-              我老公外遇了，我很痛苦，完全沒辦法原諒。
-              事情爆光之前，我覺得我們是幸福的，有一個孩子，生活平靜簡單。
-              但現在發生的事情就好像，把這個美夢打醒了，我不想離婚。
-              覺得應該要給小孩一個完整的家，所以我們目前是假面夫妻的模式。
+              <span>我老公外遇了，</span>
+              <span>我很痛苦，</span>
+              <span>完全沒辦法原諒。</span>
+              <span>事情爆光之前，</span>
+              <span>我覺得我們是幸福的，</span>
+              <span>有一個孩子，生活平靜簡單。</span>
+              <span>但現在發生的事情就好像，</span>
+              <span>把這個美夢打醒了，我不想離婚。</span>
+              <span>覺得應該要給小孩一個完整的家，</span>
+              <span>所以我們目前是假面夫妻的模式。</span>
             </p>
             <p>
-              他不是一個好丈夫，但的確是一個孩子眼中的好爸爸。
-              他不是豬隊友，他會幫忙分擔家計以及照顧小孩跟做家務事。
-              但他不認錯也不承認他有外遇，可能是怕我錄音（我現在沒證據，不要問我怎麼知道的）。
+              <span>他不是一個好丈夫，</span>
+              <span>但的確是一個孩子眼中的好爸爸。</span>
+              <span>他不是豬隊友，</span>
+              <span>他會幫忙分擔家計以及照顧小孩跟做家務事。</span>
+              <span>但他不認錯也不承認他有外遇，</span>
+              <span>可能是怕我錄音（我現在沒證據，不要問我怎麼知道的）。</span>
             </p>
           </div>
         </div>

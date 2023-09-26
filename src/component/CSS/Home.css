@@ -74,6 +74,8 @@ article a {
 
 .search img {
     width: 2.875rem;
+    height: 2.875rem;
+    object-fit: cover;
     margin-left: 1.25rem;
     border-radius: var(--circle);
     background-color: white;

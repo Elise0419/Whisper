@@ -5,10 +5,10 @@ namespace App\Http\Controllers\API\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\PostCollection;
 use App\Http\Resources\V1\PostResource;
-use App\Models\Post;
 use App\Services\V1\PostQuery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Post;
 
 class PostController extends Controller
 {
@@ -86,7 +86,8 @@ class PostController extends Controller
         $userId = Auth::user();
         if (!$userId) {
             return 'login';
-        };
+        }
+        ;
         $title = $request->input('title');
         $content = $request->input('content');
         $tag = $request->input('tag');
@@ -118,7 +119,8 @@ class PostController extends Controller
         $userId = Auth::user()->user_id;
         if (!$userId) {
             return 'login';
-        };
+        }
+        ;
         $posts = Post::where('user_id', $userId)->get();
         $postCount = $posts->count();
 
@@ -130,21 +132,19 @@ class PostController extends Controller
 
     public function poststype($postId, $type)
     {
-
         $post = Post::with('users', 'likes')->where('post_id', $postId)->where('type', $type)->first();
+
+        if (!$post) {
+            return response()->json(['message' => 'not found !'], 404);
+        }
+
+        $post->isLiked = false;
 
         $user = Auth::user();
 
-        if ($user) {
-            $like = $user->likeposts->contains($postId);
-            if ($like) {
-                $post->isLiked = true;
-            } else {
-                $post->isLiked = false;
-            }
-        }
-        if (!$post) {
-            return response()->json(['message' => 'not found !'], 404);
+        if (!$user) {
+            // $like = $post->likes->contains($user->user_id);
+            $post->isLiked = true;
         }
 
         return new PostResource($post);
@@ -155,7 +155,8 @@ class PostController extends Controller
         $userId = Auth::user();
         if (!$userId) {
             return 'login';
-        };
+        }
+        ;
 
         $post = Post::find($postId);
 
@@ -182,7 +183,8 @@ class PostController extends Controller
         $userId = Auth::user()->user_id;
         if (!$userId) {
             return 'login';
-        };
+        }
+        ;
 
         $post = Post::find($postId);
         if ($post) {

@@ -11,7 +11,7 @@ function Collectart() {
 
   const fetchPosts = () => {
     const token = localStorage.getItem("token");
-    fetch(`http://118.233.222.23:8000/api/posts/usersave`, {
+    fetch(`http://10.10.247.90:8000/api/posts/usersave`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -37,7 +37,7 @@ function Collectart() {
 
   const handleDelete = (postId) => {
     const token = localStorage.getItem("token");
-    fetch(`http://118.233.222.23:8000/api/saveposts/delete/${postId}`, {
+    fetch(`http://10.10.247.90:8000/api/saveposts/delete/${postId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

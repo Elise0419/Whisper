@@ -52,7 +52,7 @@ function Home() {
   useEffect(() => {
     function fetchData() {
       // 所有貼文
-      fetch("http://118.233.222.23:8000/api/v1/posts", {
+      fetch("http://10.10.247.90:8000/api/v1/posts", {
         method: "GET",
       })
         .then((res) => {
@@ -74,7 +74,7 @@ function Home() {
         });
 
       // 流行貼文
-      fetch("http://118.233.222.23:8000/api/topPosts/1", {
+      fetch("http://10.10.247.90:8000/api/topPosts/1", {
         method: "get",
       })
         .then((res) => {
@@ -88,7 +88,7 @@ function Home() {
         });
 
       // 點讚貼文
-      fetch("http://118.233.222.23:8000/api/topPosts/2", {
+      fetch("http://10.10.247.90:8000/api/topPosts/2", {
         method: "get",
       })
         .then((res) => {
@@ -104,7 +104,7 @@ function Home() {
       const token = localStorage.getItem("token");
       console.log("Token in Profile:", token);
 
-      fetch("http://118.233.222.23:8000/api/profile", {
+      fetch("http://10.10.247.90:8000/api/profile", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -136,7 +136,7 @@ function Home() {
   function searchButton() {
     if (searchVal == "") {
     } else {
-      fetch(`http://118.233.222.23:8000/api/posts/search?query=${searchVal}`, {
+      fetch(`http://10.10.247.90:8000/api/posts/search?query=${searchVal}`, {
         method: "GET",
       })
         .then((res) => {
@@ -163,7 +163,7 @@ function Home() {
 
   // 點擊率
   const cardClick = async (postId) => {
-    fetch(`http://118.233.222.23:8000/api/posts/click${postId}`, {
+    fetch(`http://10.10.247.90:8000/api/posts/click${postId}`, {
       method: "POST",
       postId: `${postId}`,
     })

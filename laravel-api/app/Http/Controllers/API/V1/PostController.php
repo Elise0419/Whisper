@@ -134,12 +134,13 @@ class PostController extends Controller
         $post = Post::with('users', 'likes')->where('post_id', $postId)->where('type', $type)->first();
 
         $user = Auth::user();
+
         if ($user) {
-            $like = $user->likeposts->where('post_id', $postId);
-            if ($like->isEmpty()) {
-                $post->isLiked = false;
-            } else {
+            $like = $user->likeposts->contains($postId);
+            if ($like) {
                 $post->isLiked = true;
+            } else {
+                $post->isLiked = false;
             }
         }
         if (!$post) {

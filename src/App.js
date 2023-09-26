@@ -14,8 +14,9 @@ import Restpwd from "./component/Restpwd";
 import Verify from "./component/Verify";
 import Verifyre from "./component/verifyre";
 import Secret from "./component/Secret";
-import Admin from './component/Admin';
-import ConmentAdmin from './component/ConmentAdmin';
+import Admin from "./component/Admin";
+import ConmentAdmin from "./component/ConmentAdmin";
+import Secret2 from "./component/Secret2";
 
 class App extends Component {
   state = {};
@@ -24,6 +25,8 @@ class App extends Component {
       <BrowserRouter>
         <Switch>
           <Route path="/secret" component={Secret} exact />
+          <Route path="/secret2" component={Secret2} exact />
+
           <Route path="/signup" component={Signup} exact />
           <Route path="/login" component={Login} exact />
           <Route path="/forgotpw" component={Forgotpw} exact />
@@ -31,7 +34,11 @@ class App extends Component {
           <Route path="/verify" component={Verify} exact />
           <Route path="/verifyre" component={Verifyre} exact />
           <Route path="/admin/article" component={Admin} exact />
-          <Route path="/admin/post_:postId(\d+)/comments" component={ConmentAdmin} exact />
+          <Route
+            path="/admin/post_:postId(\d+)/comments"
+            component={ConmentAdmin}
+            exact
+          />
           <Route path="/upload/:type" component={Upload} exact />
 
           <Route path="/profile" component={Profile} exact />

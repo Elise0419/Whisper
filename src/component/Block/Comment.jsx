@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useRouteMatch } from "react-router-dom";
+import { useRouteMatch, Link } from "react-router-dom";
 // import avatar from "../img/avatar.png";
 
 function Comment() {
-  const [user, setUser] = useState({ read: true });
+  const [user, setUser] = useState({ read: true, push: true, btnhover: false });
   const [com, setCom] = useState({
     comments: [], // 評論列表
     newComment: "", // 用於儲存新評論的文本
@@ -48,8 +48,6 @@ function Comment() {
 
   function getData() {
     const token = localStorage.getItem("token");
-    console.log("Token in Profile:", token);
-
     fetch("http://118.233.222.23:8000/api/profile", {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -67,7 +65,7 @@ function Comment() {
         if (jsonData.error) {
           console.log("錯誤訊息:", jsonData.error);
         } else {
-          setUser({ ...jsonData.user, read: false });
+          setUser({ ...jsonData.user, read: false, push: false });
         }
       })
       .catch((err) => {
@@ -139,14 +137,16 @@ function Comment() {
           <textarea
             cols="80"
             rows="5"
-            placeholder="寫下你的評論"
+            placeholder={user.push ? '你尚未登入，請先進行登入後評論' : '寫下你的評論'}
             className="iptTxt"
             value={com.newComment}
             onChange={(e) => setCom({ ...com, newComment: e.target.value })}
             readOnly={user.read}
           />
-          <button className="commentSubmit" onClick={handleSubmitComment}>
-            評論
+          <button className="commentSubmit" onClick={handleSubmitComment} disabled={user.push}>
+            {user.push ? <Link to="/login">
+              點我登入
+            </Link> : '評論'}
           </button>
         </div>
       </div>

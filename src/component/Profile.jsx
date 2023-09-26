@@ -108,6 +108,7 @@ function Profile() {
           fetchData();
           // 更新侧边栏的用户信息
           setAsideUser(jsonData.user);
+          window.location.reload();
         }
       })
 

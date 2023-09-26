@@ -8,6 +8,8 @@ use App\Http\Resources\V1\PostResource;
 use App\Services\V1\PostQuery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Models\Post;
 
 class PostController extends Controller
@@ -135,16 +137,6 @@ class PostController extends Controller
         if (!$post) {
             return response()->json(['message' => 'not found !'], 404);
         }
-
-        $post->isLiked = false;
-
-        $user = Auth::user();
-
-        if ($user) {
-            $like = $post->likes->contains($user->user_id);
-            $post->isLiked = $like;
-        }
-
         return new PostResource($post);
     }
 

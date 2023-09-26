@@ -25,7 +25,7 @@ function Postart() {
   const handleUpdate = (postId, newData) => {
     const token = localStorage.getItem("token");
 
-    fetch(`http://10.10.247.90:8000/api/posts/edit/${postId}`, {
+    fetch(`http://118.233.222.23:8000/api/posts/edit/${postId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -48,7 +48,7 @@ function Postart() {
   const handleDelete = (postId) => {
     const token = localStorage.getItem("token");
 
-    fetch(`http://10.10.247.90:8000/api/posts/delete/${postId}`, {
+    fetch(`http://118.233.222.23:8000/api/posts/delete/${postId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -71,7 +71,7 @@ function Postart() {
     const token = localStorage.getItem("token");
     console.log("Token in Profile:", token);
 
-    fetch(`http://10.10.247.90:8000/api/user/posts`, {
+    fetch(`http://118.233.222.23:8000/api/user/posts`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

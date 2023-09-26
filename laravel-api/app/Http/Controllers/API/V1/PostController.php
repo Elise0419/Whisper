@@ -86,8 +86,7 @@ class PostController extends Controller
         $userId = Auth::user();
         if (!$userId) {
             return 'login';
-        }
-        ;
+        };
         $title = $request->input('title');
         $content = $request->input('content');
         $tag = $request->input('tag');
@@ -119,8 +118,7 @@ class PostController extends Controller
         $userId = Auth::user()->user_id;
         if (!$userId) {
             return 'login';
-        }
-        ;
+        };
         $posts = Post::where('user_id', $userId)->get();
         $postCount = $posts->count();
 
@@ -142,9 +140,9 @@ class PostController extends Controller
 
         $user = Auth::user();
 
-        if (!$user) {
-            // $like = $post->likes->contains($user->user_id);
-            $post->isLiked = true;
+        if ($user) {
+            $like = $post->likes->contains($user->user_id);
+            $post->isLiked = $like;
         }
 
         return new PostResource($post);
@@ -155,8 +153,7 @@ class PostController extends Controller
         $userId = Auth::user();
         if (!$userId) {
             return 'login';
-        }
-        ;
+        };
 
         $post = Post::find($postId);
 
@@ -183,8 +180,7 @@ class PostController extends Controller
         $userId = Auth::user()->user_id;
         if (!$userId) {
             return 'login';
-        }
-        ;
+        };
 
         $post = Post::find($postId);
         if ($post) {

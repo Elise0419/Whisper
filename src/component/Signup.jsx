@@ -30,7 +30,7 @@ function Signup() {
   const handleSubmit = (event) => {
     event.preventDefault();
     setErrors(Validation(values));
-    console.log("values",values)
+    console.log("values", values)
 
     if (Object.keys(errors).length === 0) {
       const requestData = {
@@ -41,7 +41,7 @@ function Signup() {
         password: values.password,
       };
 
-      fetch("http://10.10.247.90:8000/api/register", {
+      fetch("http://118.233.222.23:8000/api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

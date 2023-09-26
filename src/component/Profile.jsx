@@ -33,7 +33,7 @@ function Profile() {
     setUser({ ...user, [id]: value });
   };
 
-   // 在保存用户信息后，更新侧边栏用户信息
+  // 在保存用户信息后，更新侧边栏用户信息
   const handleSaveClick = async (field) => {
     setIsEditing({ ...isEditing, [field]: false });
 
@@ -42,7 +42,7 @@ function Profile() {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://10.10.247.90:8000/api/profile/${field}/change`,
+        `http://118.233.222.23:8000/api/profile/${field}/change`,
         {
           method: "put",
           headers: {
@@ -84,7 +84,7 @@ function Profile() {
     const head = user.headimg;
     setIsEditing({ ...isEditing, headimg: false });
     const token = localStorage.getItem("token");
-    fetch(`http://10.10.247.90:8000/api/profile/head/change`, {
+    fetch(`http://118.233.222.23:8000/api/profile/head/change`, {
       method: "put",
       headers: {
         "Content-Type": "application/json",
@@ -106,8 +106,8 @@ function Profile() {
         console.log(jsonData);
         if (jsonData.message === "上傳成功") {
           fetchData();
-            // 更新侧边栏的用户信息
-        setAsideUser(jsonData.user);
+          // 更新侧边栏的用户信息
+          setAsideUser(jsonData.user);
         }
       })
 
@@ -115,17 +115,17 @@ function Profile() {
         console.log("Error:", err);
       });
   };
-  
+
   // 編輯資料
   const handleEditClick = (field) => {
     console.log(`Editing ${field}`);
     setIsEditing({ ...isEditing, [field]: true });
   };
   const history = useHistory();
-  
+
   function fetchData() {
     const token = localStorage.getItem("token");
-    fetch("http://10.10.247.90:8000/api/profile", {
+    fetch("http://118.233.222.23:8000/api/profile", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -356,7 +356,7 @@ function Profile() {
             </div>
           </article>
           <aside>
-          <Asideuser user={asideUser} /> {/* 将侧边栏的 user 属性传递给 Asideuser 组件 */}
+            <Asideuser user={asideUser} /> {/* 将侧边栏的 user 属性传递给 Asideuser 组件 */}
           </aside>
           <Footer />
         </div>

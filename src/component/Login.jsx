@@ -8,15 +8,15 @@ function Login() {
   const [values, setValues] = useState({
     email: "",
     password: "",
-    acm_error:"",
-    pwd_error:"",
+    acm_error: "",
+    pwd_error: "",
   });
 
   const history = useHistory();
 
   const handleInput = (event) => {
     const { name, value } = event.target;
-    setValues((prev) => ({ ...prev, [name]: value ,acm_error:'',pwd_error:''}));
+    setValues((prev) => ({ ...prev, [name]: value, acm_error: '', pwd_error: '' }));
   };
 
   const handleSubmit = (event) => {
@@ -27,7 +27,7 @@ function Login() {
       password: values.password,
     };
 
-    fetch("http://10.10.247.90:8000/api/login", {
+    fetch("http://118.233.222.23:8000/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -52,7 +52,7 @@ function Login() {
             setValues({
               ...values,
               pwd_error: data.pwd_error,
-              password:'',
+              password: '',
             });
           });
           // window.location.reload();

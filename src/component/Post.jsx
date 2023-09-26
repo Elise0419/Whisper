@@ -21,22 +21,24 @@ function Post({ postId, userToken }) {
   // 初始狀態未點讚 未收藏狀態
   let [isLiked, setIsLiked] = useState(false);
   let [isFavorited, setIsFavorited] = useState(false);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
     function fetchData() {
       // 取單篇文章
       fetch(
         `http://118.233.222.23:8000/api/v1/posts/${match.params.postId}/${match.params.type}`,
         {
-          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       )
         .then((res) => {
           return res.json();
         })
         .then((jsonData) => {
-          console.log(jsonData.data);
+          console.log([jsonData.data]);
           setPost([jsonData.data]);
         })
         .catch((err) => {
@@ -99,37 +101,62 @@ function Post({ postId, userToken }) {
     }
   }, [vote]);
 
+  // const toggleLike = () => {
+  //   if (post.length > 0) {
+  //     const newThumbCount = isLiked ? post[0].thumb - 1 : post[0].thumb + 1;
+  //     const postId = post[0].postId;
+  //     const requestData = {
+  //       postId: postId,
+  //       thumb: !isLiked,
+  //     };
+  //     console.log("userToken" + userToken);
+  //     fetch(
+  //       `http://118.233.222.23:8000/api/posts/thumb${match.params.postId}`,
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer ${userToken}`,
+  //         },
+  //         body: JSON.stringify(requestData),
+  //       }
+  //     )
+  //       .then((res) => res.json())
+  //       .then((jsonData) => {
+  //         if (jsonData.message === "updated!") {
+  //           setIsLiked(!isLiked);
+  //           setPost((prevPost) => [{ ...prevPost[0], thumb: newThumbCount }]);
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         console.log("點讚請求錯誤:", err);
+  //       });
+  //   }
+  // };
   const toggleLike = () => {
-    if (post.length > 0) {
-      const newThumbCount = isLiked ? post[0].thumb - 1 : post[0].thumb + 1;
-      const postId = post[0].postId;
-      const requestData = {
-        postId: postId,
-        thumb: !isLiked,
-      };
-      console.log("userToken" + userToken);
-      fetch(
-        `http://118.233.222.23:8000/api/posts/thumb${match.params.postId}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${userToken}`,
-          },
-          body: JSON.stringify(requestData),
-        }
-      )
-        .then((res) => res.json())
-        .then((jsonData) => {
-          if (jsonData.message === "updated!") {
-            setIsLiked(!isLiked);
-            setPost((prevPost) => [{ ...prevPost[0], thumb: newThumbCount }]);
-          }
-        })
-        .catch((err) => {
-          console.log("點讚請求錯誤:", err);
-        });
-    }
+
+    const newLikeStatus = !post.isLike;
+    console.log(post.isLike)
+
+    fetch(
+      `http://118.233.222.23:8000/api/posts/thumb${match.params.postId}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ isLiked: newLikeStatus }),
+      }
+    )
+      .then((res) => res.json())
+      .then((jsonData) => {
+        setPost(prevPost => ({ ...prevPost, isLiked: newLikeStatus }));
+      })
+      .catch((err) => {
+        console.log("點讚請求錯誤:", err);
+      });
+
   };
 
   const toggleFavorite = function () {
@@ -267,7 +294,7 @@ function Post({ postId, userToken }) {
                 <div className="postInteractive">
                   <button
                     onClick={toggleLike}
-                    className={`postCustbutton ${post.islike ? "active" : ""}`}
+                    className={`postCustbutton ${post.isLike ? "active" : ""}`}
                   >
                     <i className="material-icons">thumb_up</i>
                   </button>

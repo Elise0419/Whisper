@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import $ from "jquery"; // Import jQuery
+import $ from "jquery";
+import { useHistory } from "react-router-dom";
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
 
@@ -30,19 +31,13 @@ function Secreat() {
     }
   }
 
+  const history = useHistory();
   function closeChoose(e) {
-    console.log(e.target.className);
-    if (e.target.className) {
-      setChoose(false);
-      setRead(true);
+    if (e.target.className != "popChoose") {
+      history.push("/secret2");
     } else {
       setChoose(false);
     }
-  }
-
-  function closeRead() {
-    setRead(false);
-    setGate(false);
   }
 
   function greenBtn() {
@@ -213,7 +208,7 @@ function Secreat() {
       {choose && (
         <div className="popChoose" onClick={closeChoose}>
           <div>
-            <div to="/secret2" class="letter-image" id="letter">
+            <div class="letter-image" id="letter">
               <div class="animated-mail">
                 <div class="back-fold"></div>
                 <div class="letter">
@@ -232,7 +227,7 @@ function Secreat() {
               </div>
               <div class="shadow"></div>
             </div>
-            <div to="/secret2" class="letter-image">
+            <div class="letter-image">
               <div class="animated-mail">
                 <div class="back-fold"></div>
                 <div class="letter">
@@ -334,53 +329,6 @@ function Secreat() {
           </div>
         </div>
       )}
-      {/* {read && (
-        <div>
-          <section class="wrapper">
-            <span class="scroll-text">
-              <span class="fl y3">S</span>
-              <span class="fl y1">e</span>
-              <span class="fl y4">c</span>
-              <span class="fl y2">r</span>
-              <span class="fl y4">e</span>
-              <span class="fl y3">t&nbsp;</span>
-              <span class="fl y5">t</span>
-              <span class="fl y2">r</span>
-              <span class="fl y4">e</span>
-              <span class="fl y6">e&nbsp;</span>
-              <span class="fl y1">h</span>
-              <span class="fl y4">o</span>
-              <span class="fl y2">l</span>
-              <span class="fl y5">e</span>
-              <span class="fl y2">~</span>
-              <span class="fl y3">~</span>
-            </span>
-          </section>
-          <div className="popRead">
-            <div>
-              <span className="readClose" onClick={closeRead}>
-                X
-              </span>
-
-              <h2>你從來沒有告訴過任何人的秘密是什麼？</h2>
-
-              <pre>我發現我老公外遇了。我不想離婚。</pre>
-              <p>
-                我老公外遇了，我很痛苦，完全沒辦法原諒。
-                事情爆光之前，我覺得我們是幸福的，有一個孩子，生活平靜簡單。
-                但現在發生的事情就好像，把這個美夢打醒了，我不想離婚。
-                覺得應該要給小孩一個完整的家，所以我們目前是假面夫妻的模式。
-              </p>
-              <p>
-                他不是一個好丈夫，但的確是一個孩子眼中的好爸爸。
-                他不是豬隊友，他會幫忙分擔家計以及照顧小孩跟做家務事。
-                但他不認錯也不承認他有外遇，可能是怕我錄音（我現在沒證據，不要問我怎麼知道的）。
-              </p>
-            </div>
-          </div>
-        </div>
-      )} */}
-      <aside className="pushDown"></aside>
       <Footer />
     </div>
   );

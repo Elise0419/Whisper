@@ -39,6 +39,7 @@ function Secret2() {
     <div>
       <Header />
       <div>
+        <p className="scroll">(Please scroll down)</p>
         <section class="wrapper">
           <span class="scroll-text">
             <span class="fl y3">S</span>

@@ -3,6 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
 import logo from "./img/logo.png";
+import "./CSS/Login.css";
 
 function Login() {
   const [values, setValues] = useState({
@@ -103,7 +104,7 @@ function Login() {
                   onChange={handleInput}
                   className="verifyMain form input"
                 />
-                <span>{values.acm_error}</span>
+                <span className="LoginError">{values.acm_error}</span>
               </div>
               <div className="">
                 <label htmlFor="password">
@@ -117,7 +118,7 @@ function Login() {
                   className=""
                   value={values.password}
                 />
-                <span>{values.pwd_error}</span>
+                <span className="LoginError">{values.pwd_error}</span>
               </div>
               <Link to="/forgotpw" className="btnDafaultborder">
                 忘記密碼

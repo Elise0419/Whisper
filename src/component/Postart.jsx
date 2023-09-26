@@ -18,7 +18,7 @@ function Postart() {
     localStorage.setItem("editingPost", JSON.stringify(post));
     setEditingPost(post);
     // 跳转到上传页面
-    history.push("/upload");
+    history.push(`/upload/${post.type}`);
   };
 
   // 貼文編輯

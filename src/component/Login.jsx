@@ -26,13 +26,14 @@ function Login() {
   // 处理输入框的变化事件
   const handleInput = (event) => {
     setValues((prev) => ({ ...prev, [event.target.name]: event.target.value }));
-    setErrors((prev) => ({ ...prev, [event.target.name]: "" }));// 清除对应字段的错误消息
+    // setErrors((prev) => ({ ...prev, [event.target.name]: "" }));// 清除对应字段的错误消息
   };
 
   // 处理表单提交事件
   const handleSubmit = (event) => {
     event.preventDefault();
     // 使用Validation函数验证表单数据，并将错误信息存储在errors状态中
+    console.log("value",values)
     setErrors(Validation(values));
 
     if (Object.keys(errors).length === 0) {

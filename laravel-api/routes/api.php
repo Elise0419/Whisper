@@ -60,8 +60,8 @@ Route::controller(ProfileController::class)->group(function () {
 });
 
 Route::controller(GroupAdminController::class)->group(function () {
-    Route::get('admin/management/articles/show/{page}', 'showarticles');
-    Route::get('admin/management/comments/show/post_{id}/{page}', 'showcomments');
+    Route::post('admin/management/articles/show/{page}', 'showarticles');
+    Route::post('admin/management/comments/show/post_{id}/{page}', 'showcomments');
     Route::delete('admin/management/articles/delete/post_{id}', 'deletearticle');
     Route::delete('admin/management/comments/delete/comment_{coment_id}', 'deletecomment');
 });

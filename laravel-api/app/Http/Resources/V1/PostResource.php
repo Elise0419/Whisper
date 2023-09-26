@@ -18,6 +18,7 @@ class PostResource extends JsonResource
         $postId = $this->post_id;
         return [
             'postId' => $this->post_id,
+            'islike' => $this->isLiked,
             'userId' => $this->user_id,
             'headImg' => $this->users->headimg,
             'memName' => $this->users->mem_name,
@@ -32,6 +33,5 @@ class PostResource extends JsonResource
             'postTime' => $this->post_time,
             'updateTime' => $this->updated_at ? $this->updated_at->format('Y-m-d H:i:s') : null,
         ];
-
     }
 }

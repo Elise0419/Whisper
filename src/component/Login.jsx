@@ -34,10 +34,12 @@ function Login() {
     })
       .then((response) => {
         if (response.status >= 500) {
-          alert("伺服器中斷連接");
+          alert("伺服器沒有回應");
           throw new Error("Network response was not ok");
-        } else if (response.status >= 400) {
-          alert("帳號密碼錯誤");
+        } else if (response.status === 404) {
+          alert("查無此帳號");
+        } else if (response.status === 401) {
+          alert("密碼錯誤");
           window.location.reload();
         } else {
           return response.json();
@@ -48,6 +50,7 @@ function Login() {
         alert('登入成功，即將返回首頁')
         history.push("/");
       })
+
       .catch((error) => {
         console.error("Error:", error);
       });

@@ -1,76 +1,56 @@
-// 引入React和useState钩子
 import React, { useState } from "react";
-// 引入Link组件用于路由导航
 import { Link, useHistory } from "react-router-dom";
-
-// 引入LoginValidation（假设是一个用于验证登录表单的模块）
-import Validation from "./Validation/LoginValidation";
-// 引入Header和Footer组件
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
-
-// 引入logo图片
 import logo from "./img/logo.png";
 
 function Login() {
-  // 使用useState定义state变量values和errors
   const [values, setValues] = useState({
     email: "",
     password: "",
   });
 
-  const [errors, setErrors] = useState({});
+  const history = useHistory();
 
-  const history = useHistory(); // 将useHistory移动到函数组件的顶层
-
-  // 处理输入框的变化事件
   const handleInput = (event) => {
-    setValues((prev) => ({ ...prev, [event.target.name]: event.target.value }));
-    // setErrors((prev) => ({ ...prev, [event.target.name]: "" }));// 清除对应字段的错误消息
+    const { name, value } = event.target;
+    setValues((prev) => ({ ...prev, [name]: value }));
   };
 
-  // 处理表单提交事件
   const handleSubmit = (event) => {
     event.preventDefault();
-    // 使用Validation函数验证表单数据，并将错误信息存储在errors状态中
-    console.log("value",values)
-    setErrors(Validation(values));
 
-    if (Object.keys(errors).length === 0) {
-      const requestData = {
-        email: values.email,
-        password: values.password,
-      };
+    const requestData = {
+      email: values.email,
+      password: values.password,
+    };
 
-      // 只有当表单验证通过时才进行页面跳转
-      fetch("http://10.10.247.90:8000/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestData),
+    fetch("http://10.10.247.90:8000/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestData),
+    })
+      .then((response) => {
+        if (response.status >= 500) {
+          alert("伺服器中斷連接");
+          throw new Error("Network response was not ok");
+        } else if (response.status >= 400) {
+          alert("帳號密碼錯誤");
+          window.location.reload();
+        } else {
+          return response.json();
+        }
       })
-        .then((response) => {
-          if (response.status >= 500) {
-            alert("伺服器中斷連接");
-            throw new Error("Network response was not ok");
-          } else if (response.status >= 400) {
-            alert("帳號密碼錯誤");
-            window.location.reload();
-          } else {
-            return response.json();
-          }
-        })
-        .then((data) => {
-          localStorage.setItem("token", data.authorization.token);
-          alert('登入成功，即將返回首頁')
-          history.push("/");
-        })
-
-        .catch((error) => {
-          console.error("Error:", error);
-        });
-    }
+      .then((data) => {
+        localStorage.setItem("token", data.authorization.token);
+        alert('登入成功，即將返回首頁')
+        history.push("/");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   return (
@@ -88,7 +68,6 @@ function Login() {
               style={{ borderRadius: "50%" }}
             />
             <p>目前還沒有帳號,請註冊新帳號～</p>
-            {/* 使用Link组件导航到注册页面 */}
             <Link to="/signup" className="btnDafaultborder">
               註冊帳號
             </Link>
@@ -106,7 +85,6 @@ function Login() {
                   onChange={handleInput}
                   className="verifyMain form input"
                 />
-                {errors.email && <span className="error">{errors.email}</span>}
               </div>
               <div className="">
                 <label htmlFor="password">
@@ -119,11 +97,7 @@ function Login() {
                   onChange={handleInput}
                   className=""
                 />
-                {errors.password && (
-                  <span className="error">{errors.password}</span>
-                )}
               </div>
-              {/* 使用Link组件导航到忘记密码页面 */}
               <Link to="/forgotpw" className="btnDafaultborder">
                 忘記密碼
               </Link>

@@ -16,7 +16,7 @@ import Verifyre from "./component/verifyre";
 import Secret from "./component/Secret";
 // import Admin from "./component/Admin";
 // import ConmentAdmin from "./component/ConmentAdmin";
-import Secret2 from "./component/Secret2";
+import Secrets from "./component/Secrets";
 import ArticleAdmin from "./component/ArticleAdmin";
 import CommentAdmin from "./component/CommentAdmin";
 
@@ -27,7 +27,7 @@ class App extends Component {
       <BrowserRouter>
         <Switch>
           <Route path="/secret" component={Secret} exact />
-          <Route path="/secret2" component={Secret2} exact />
+          <Route path="/secret2" component={Secrets} exact />
 
           <Route path="/signup" component={Signup} exact />
           <Route path="/login" component={Login} exact />

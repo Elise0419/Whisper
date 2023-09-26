@@ -5,7 +5,7 @@ import Header from "./Block/Header";
 import Footer from "./Block/Footer";
 
 import "./CSS/Secret.css";
-import "./CSS/Secrets.css";
+import "./CSS/S.css";
 
 function Secret2() {
   let [read, setRead] = useState(false);

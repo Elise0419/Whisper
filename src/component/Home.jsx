@@ -127,6 +127,7 @@ function Home() {
           console.log("Error:", err);
         });
     }
+    fetchData();
   }, [m, searchMsg]);
 
   // 搜尋

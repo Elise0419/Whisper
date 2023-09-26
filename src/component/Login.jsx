@@ -8,13 +8,15 @@ function Login() {
   const [values, setValues] = useState({
     email: "",
     password: "",
+    acm_error:"",
+    pwd_error:"",
   });
 
   const history = useHistory();
 
   const handleInput = (event) => {
     const { name, value } = event.target;
-    setValues((prev) => ({ ...prev, [name]: value }));
+    setValues((prev) => ({ ...prev, [name]: value ,acm_error:'',pwd_error:''}));
   };
 
   const handleSubmit = (event) => {
@@ -36,11 +38,24 @@ function Login() {
         if (response.status >= 500) {
           alert("伺服器沒有回應");
           throw new Error("Network response was not ok");
+          //帳號錯誤
         } else if (response.status === 404) {
-          alert("查無此帳號");
+          response.json().then((data) => {
+            setValues({
+              ...values,
+              acm_error: data.acm_error,
+            });
+          });
+          // 密碼錯誤
         } else if (response.status === 401) {
-          alert("密碼錯誤");
-          window.location.reload();
+          response.json().then((data) => {
+            setValues({
+              ...values,
+              pwd_error: data.pwd_error,
+              password:'',
+            });
+          });
+          // window.location.reload();
         } else {
           return response.json();
         }
@@ -88,6 +103,7 @@ function Login() {
                   onChange={handleInput}
                   className="verifyMain form input"
                 />
+                <span>{values.acm_error}</span>
               </div>
               <div className="">
                 <label htmlFor="password">
@@ -99,7 +115,9 @@ function Login() {
                   name="password"
                   onChange={handleInput}
                   className=""
+                  value={values.password}
                 />
+                <span>{values.pwd_error}</span>
               </div>
               <Link to="/forgotpw" className="btnDafaultborder">
                 忘記密碼

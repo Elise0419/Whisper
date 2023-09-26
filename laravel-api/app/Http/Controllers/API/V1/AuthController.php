@@ -26,7 +26,7 @@ class AuthController extends Controller
         ]);
         if (!User::where('email', $req->email)->first()) {
             return response()->json([
-             'error'=> '查無此帳號'], 404);
+             'acm_error'=> '查無此帳號'], 404);
         }
 
         $credentials = $req->only('email', 'password');
@@ -34,7 +34,7 @@ class AuthController extends Controller
 
         if (!$token) {
             return response()->json([
-                'message' => '使用者帳號密碼錯誤',
+                'pwd_error' => '密碼錯誤，請重新輸入',
             ], 401);
         }
 

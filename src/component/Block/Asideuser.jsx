@@ -24,7 +24,7 @@ function Asideuser() {
 
   const fetchPosts = () => {
     const token = localStorage.getItem("token");
-    fetch(`http://118.233.222.23:8000/api/user/posts`, {
+    fetch(`http://10.10.247.90:8000/api/user/posts`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -46,7 +46,7 @@ function Asideuser() {
 
   const fetchData = () => {
     const token = localStorage.getItem("token");
-    fetch("http://118.233.222.23:8000/api/profile", {
+    fetch("http://10.10.247.90:8000/api/profile", {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,

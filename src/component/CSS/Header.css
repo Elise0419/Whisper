@@ -72,8 +72,11 @@ header>div {
 
 .userImg {
     width: 2.875rem;
+    height: 2.875rem;
     margin-right: 0.4375rem;
     border-radius: var(--circle);
+    background-color: white;
+    object-fit: cover;
 }
 
 .userName {

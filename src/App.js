@@ -17,6 +17,8 @@ import Secret from "./component/Secret";
 import Admin from "./component/Admin";
 import ConmentAdmin from "./component/ConmentAdmin";
 import Secret2 from "./component/Secret2";
+import ArticleAdmin from "./component/ArticleAdmin";
+import CommentAdmin from "./component/CommentAdmin";
 
 class App extends Component {
   state = {};
@@ -37,6 +39,12 @@ class App extends Component {
           <Route
             path="/admin/post_:postId(\d+)/comments"
             component={ConmentAdmin}
+            exact
+          />
+          <Route path="/admin/article" component={ArticleAdmin} exact />
+          <Route
+            path="/admin/post_:postId(\d+)/comments"
+            component={CommentAdmin}
             exact
           />
           <Route path="/upload/:type" component={Upload} exact />

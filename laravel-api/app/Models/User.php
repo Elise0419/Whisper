@@ -33,6 +33,12 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     {
         return $this->hasMany(Votesdata::class);
     }
+    public function likeposts()
+    {
+        return $this->belongsToMany(Post::class, 'likes', 'user_id', 'post_id');
+    }
+
+
     /**
      * The attributes that are mass assignable.
      *
@@ -90,5 +96,4 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     {
         return [];
     }
-
 }

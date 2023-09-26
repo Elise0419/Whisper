@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useRouteMatch } from "react-router-dom";
 
 
-function ConmentAdmin() {
+function CommentAdmin() {
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
 
-    const match = useRouteMatch();
 
     const token = localStorage.getItem("token");
 
@@ -28,23 +26,22 @@ function ConmentAdmin() {
             })
                 .then((res) => {
                     if (res.status >= 400) {
-                        alert('刪除貼文失敗，請重新操作');
+                        alert('刪除留言失敗，請重新操作');
                         throw new Error("API request failed");
                     } else if (res.status >= 200) {
-                        alert('刪除貼文成功');
+                        alert('刪除留言成功');
                         window.location.reload();
                     }
                 })
                 .catch((err) => {
-                    // console.log("Error:", err);
-                    alert(err)
+                    console.log("Error:", err);
                 });
         }
     };
 
     useEffect(() => {
         fetch(`http://118.233.222.23:8000/api/admin/management/comments/show/post_${match.params.postId}/${page}`, {
-            method: "get",
+            method: "post",
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -58,7 +55,6 @@ function ConmentAdmin() {
 
             })
             .then((res) => {
-                console.log(res.comments.data)
                 setData(res.comments.data);
             })
             .catch((error) => {
@@ -98,4 +94,4 @@ function ConmentAdmin() {
         </div>
     )
 }
-export default ConmentAdmin;
+export default CommentAdmin;

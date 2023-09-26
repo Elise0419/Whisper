@@ -34,13 +34,11 @@ class PostController extends Controller
     {
         $topPosts1 = Post::orderby('click', 'desc')->take(5)->get();
         return PostResource::collection($topPosts1);
-
     }
     public function topposts2(Request $request)
     {
         $topPosts2 = Post::orderby('thumb', 'desc')->take(5)->get();
         return PostResource::collection($topPosts2);
-
     }
 
     public function click(Request $request, $postId) //NEED POSTID
@@ -113,7 +111,6 @@ class PostController extends Controller
         $post->post_time = $postTime;
         $post->save();
         return new PostResource($post);
-
     }
 
     public function getUserPosts(Request $request)
@@ -129,14 +126,23 @@ class PostController extends Controller
             'postCount' => $postCount,
             'posts' => PostResource::collection($posts),
         ]);
-
     }
 
     public function poststype($postId, $type)
     {
 
-        $post = Post::with('users')->where('post_id', $postId)->where('type', $type)->first();
+        $post = Post::with('users', 'likes')->where('post_id', $postId)->where('type', $type)->first();
 
+        $user = Auth::user();
+
+        if ($user) {
+            $like = $user->likeposts->contains($postId);
+            if ($like) {
+                $post->isLiked = true;
+            } else {
+                $post->isLiked = false;
+            }
+        }
         if (!$post) {
             return response()->json(['message' => 'not found !'], 404);
         }
@@ -169,7 +175,6 @@ class PostController extends Controller
         $post = Post::with('users')->find($id);
 
         return new PostResource($post);
-
     }
 
     public function destroy($postId)
@@ -188,5 +193,4 @@ class PostController extends Controller
             return response()->json(['message' => 'not found!']);
         }
     }
-
 }

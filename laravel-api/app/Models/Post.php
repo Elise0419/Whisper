@@ -40,7 +40,11 @@ class Post extends Model
 
     public function saveposts()
     {
-        return $this->belongsToMany(User::class,'saveposts', 'post_id', 'user_id');
+        return $this->belongsToMany(User::class, 'saveposts', 'post_id', 'user_id');
+    }
+    public function userSaveposts()
+    {
+        return $this->belongsToMany(Savepost::class);
     }
 
     public function tags()

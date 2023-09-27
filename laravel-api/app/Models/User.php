@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
-use App\Models\Like;
+use App\Models\Comtxt;
+use App\Models\Post;
+use App\Models\Savepost;
+use App\Models\Votesdata;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -28,8 +31,12 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     }
     public function saveposts()
     {
-        return $this->hasMany(Savepost::class);
+        return $this->belongsToMany(Savepost::class);
     }
+    // public function userSaveposts()
+    // {
+    //     return $this->belongsToMany(Savepost::class);
+    // }
     public function votesdatas()
     {
         return $this->hasMany(Votesdata::class);

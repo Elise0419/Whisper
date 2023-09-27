@@ -4,8 +4,10 @@ namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\SavepostCollection;
+use App\Http\Resources\V1\SavepostResource;
 use App\Models\Post;
 use App\Models\Savepost;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -59,17 +61,18 @@ class SavepostController extends Controller
     }
     public function userSaveposts()
     {
-        $userId = Auth::user();
-        if (!$userId) {
-            return 'login';
-        };
-        $savepost = Savepost::with(['users', 'posts'])->where('user_id', $userId->user_id)->get();
+        $user = Auth::user();
 
-        if ($savepost->isEmpty()) {
+        if ($user) {
+            $userposts = User::where('user_id', $user->user_id)->get();
+            $userposts->saveposts();
+        }
+
+        if ($userposts->isEmpty()) {
             return response()->json(['message' => '没有蒐藏任何貼文', 'count' => 0]);
         }
 
-        return response()->json(['data' => new SavepostCollection($savepost), 'count' => $savepost->count()]);
+        return response()->json(['data' => new SavepostResource($userposts), 'count' => $userposts->count()]);
     }
 
     public function delete($postId)

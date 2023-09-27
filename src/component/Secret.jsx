@@ -195,7 +195,7 @@ function Secreat() {
             id=""
             placeholder="What truth do you want to hear?..."
           />
-          <button type="reset" class="green" onClick={greenBtn}>
+          <button type="reset" className="green" onClick={greenBtn}>
             <span>send</span>
             <img
               src="https://i.cloudup.com/2ZAX3hVsBE-3000x3000.png"
@@ -208,123 +208,123 @@ function Secreat() {
       {choose && (
         <div className="popChoose" onClick={closeChoose}>
           <div>
-            <div class="letter-image" id="letter">
-              <div class="animated-mail">
-                <div class="back-fold"></div>
-                <div class="letter">
-                  <div class="letter-border">
+            <div className="letter-image" id="letter">
+              <div className="animated-mail">
+                <div className="back-fold"></div>
+                <div className="letter">
+                  <div className="letter-border">
                     <p>你從來沒有告訴過任何人的秘密是什麼？</p>
                   </div>
-                  <div class="letter-title"></div>
-                  <div class="letter-context"></div>
-                  <div class="letter-stamp">
-                    <div class="letter-stamp-inner"></div>
+                  <div className="letter-title"></div>
+                  <div className="letter-context"></div>
+                  <div className="letter-stamp">
+                    <div className="letter-stamp-inner"></div>
                   </div>
                 </div>
-                <div class="top-fold"></div>
-                <div class="body"></div>
-                <div class="left-fold"></div>
+                <div className="top-fold"></div>
+                <div className="body"></div>
+                <div className="left-fold"></div>
               </div>
-              <div class="shadow"></div>
+              <div className="shadow"></div>
             </div>
-            <div class="letter-image">
-              <div class="animated-mail">
-                <div class="back-fold"></div>
-                <div class="letter">
-                  <div class="letter-border">
+            <div className="letter-image">
+              <div className="animated-mail">
+                <div className="back-fold"></div>
+                <div className="letter">
+                  <div className="letter-border">
                     <p>你有沒有假裝喜歡你收到的禮物？</p>
                   </div>
-                  <div class="letter-title"></div>
-                  <div class="letter-context"></div>
-                  <div class="letter-stamp">
-                    <div class="letter-stamp-inner"></div>
+                  <div className="letter-title"></div>
+                  <div className="letter-context"></div>
+                  <div className="letter-stamp">
+                    <div className="letter-stamp-inner"></div>
                   </div>
                 </div>
-                <div class="top-fold"></div>
-                <div class="body"></div>
-                <div class="left-fold"></div>
+                <div className="top-fold"></div>
+                <div className="body"></div>
+                <div className="left-fold"></div>
               </div>
-              <div class="shadow"></div>
+              <div className="shadow"></div>
             </div>
           </div>
           <div>
-            <div class="letter-image">
-              <div class="animated-mail">
-                <div class="back-fold"></div>
-                <div class="letter">
-                  <div class="letter-border">
+            <div className="letter-image">
+              <div className="animated-mail">
+                <div className="back-fold"></div>
+                <div className="letter">
+                  <div className="letter-border">
                     <p>你去過廁所最奇怪的地方在哪裡？</p>
                   </div>
-                  <div class="letter-title"></div>
-                  <div class="letter-context"></div>
-                  <div class="letter-stamp">
-                    <div class="letter-stamp-inner"></div>
+                  <div className="letter-title"></div>
+                  <div className="letter-context"></div>
+                  <div className="letter-stamp">
+                    <div className="letter-stamp-inner"></div>
                   </div>
                 </div>
-                <div class="top-fold"></div>
-                <div class="body"></div>
-                <div class="left-fold"></div>
+                <div className="top-fold"></div>
+                <div className="body"></div>
+                <div className="left-fold"></div>
               </div>
-              <div class="shadow"></div>
+              <div className="shadow"></div>
             </div>
-            <div class="letter-image">
-              <div class="animated-mail">
-                <div class="back-fold"></div>
-                <div class="letter">
-                  <div class="letter-border">
+            <div className="letter-image">
+              <div className="animated-mail">
+                <div className="back-fold"></div>
+                <div className="letter">
+                  <div className="letter-border">
                     <p>說出一個你後悔接吻的人。</p>
                   </div>
-                  <div class="letter-title"></div>
-                  <div class="letter-context"></div>
-                  <div class="letter-stamp">
-                    <div class="letter-stamp-inner"></div>
+                  <div className="letter-title"></div>
+                  <div className="letter-context"></div>
+                  <div className="letter-stamp">
+                    <div className="letter-stamp-inner"></div>
                   </div>
                 </div>
-                <div class="top-fold"></div>
-                <div class="body"></div>
-                <div class="left-fold"></div>
+                <div className="top-fold"></div>
+                <div className="body"></div>
+                <div className="left-fold"></div>
               </div>
-              <div class="shadow"></div>
+              <div className="shadow"></div>
             </div>
           </div>
           <div>
-            <div class="letter-image">
-              <div class="animated-mail">
-                <div class="back-fold"></div>
-                <div class="letter">
-                  <div class="letter-border">
+            <div className="letter-image">
+              <div className="animated-mail">
+                <div className="back-fold"></div>
+                <div className="letter">
+                  <div className="letter-border">
                     <p>你有沒有說過“我愛你”，但不是真的？ 給誰</p>
                   </div>
-                  <div class="letter-title"></div>
-                  <div class="letter-context"></div>
-                  <div class="letter-stamp">
-                    <div class="letter-stamp-inner"></div>
+                  <div className="letter-title"></div>
+                  <div className="letter-context"></div>
+                  <div className="letter-stamp">
+                    <div className="letter-stamp-inner"></div>
                   </div>
                 </div>
-                <div class="top-fold"></div>
-                <div class="body"></div>
-                <div class="left-fold"></div>
+                <div className="top-fold"></div>
+                <div className="body"></div>
+                <div className="left-fold"></div>
               </div>
-              <div class="shadow"></div>
+              <div className="shadow"></div>
             </div>
-            <div class="letter-image">
-              <div class="animated-mail">
-                <div class="back-fold"></div>
-                <div class="letter">
-                  <div class="letter-border">
+            <div className="letter-image">
+              <div className="animated-mail">
+                <div className="back-fold"></div>
+                <div className="letter">
+                  <div className="letter-border">
                     <p>你發過裸照嗎？</p>
                   </div>
-                  <div class="letter-title"></div>
-                  <div class="letter-context"></div>
-                  <div class="letter-stamp">
-                    <div class="letter-stamp-inner"></div>
+                  <div className="letter-title"></div>
+                  <div className="letter-context"></div>
+                  <div className="letter-stamp">
+                    <div className="letter-stamp-inner"></div>
                   </div>
                 </div>
-                <div class="top-fold"></div>
-                <div class="body"></div>
-                <div class="left-fold"></div>
+                <div className="top-fold"></div>
+                <div className="body"></div>
+                <div className="left-fold"></div>
               </div>
-              <div class="shadow"></div>
+              <div className="shadow"></div>
             </div>
           </div>
         </div>

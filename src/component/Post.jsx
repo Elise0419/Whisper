@@ -12,7 +12,7 @@ import makeup from "./img/makeup.png";
 
 function Post({ postId, userToken }) {
   const match = useRouteMatch();
-  let [post, setPost] = useState([]);
+  let [post, setPost] = useState({});
   let [vote, setVote] = useState([]);
   let [oneWidth, setOneWidth] = useState(50);
   let [twoWidth, setTwoWidth] = useState(50);
@@ -38,8 +38,8 @@ function Post({ postId, userToken }) {
           return res.json();
         })
         .then((jsonData) => {
-          console.log([jsonData.data]);
-          setPost([jsonData.data]);
+          console.log(jsonData.data);
+          setPost(jsonData.data);
         })
         .catch((err) => {
           console.log("錯誤:", err);
@@ -136,7 +136,7 @@ function Post({ postId, userToken }) {
   const toggleLike = () => {
 
     const newLikeStatus = !post.isLike;
-    console.log(post.isLike)
+    console.log(newLikeStatus)
 
     fetch(
       `http://118.233.222.23:8000/api/posts/thumb${match.params.postId}`,
@@ -146,12 +146,12 @@ function Post({ postId, userToken }) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ isLiked: newLikeStatus }),
+        body: JSON.stringify({ isLike: newLikeStatus }),
       }
     )
       .then((res) => res.json())
       .then((jsonData) => {
-        setPost(prevPost => ({ ...prevPost, isLiked: newLikeStatus }));
+        setPost(prevPost => ({ ...prevPost, isLike: newLikeStatus }));
       })
       .catch((err) => {
         console.log("點讚請求錯誤:", err);
@@ -240,7 +240,7 @@ function Post({ postId, userToken }) {
       <Header />
       <section></section>
       <article>
-        {post.map((post) => {
+        {/* {post.map((post) => {
           const myContent = document.createElement("div");
           const myTitle = document.createElement("div");
           myContent.innerHTML = post.content;
@@ -251,35 +251,35 @@ function Post({ postId, userToken }) {
           const imgElements = doc.querySelectorAll("img");
           const urls = Array.from(imgElements).map((img) =>
             img.getAttribute("src")
-          );
+          ); */}
 
-          return (
-            <div className="postContainer" key={post.postId}>
-              <div className="postUseinfo">
-                <div className="postUsepic">
-                  <img className="userHead" src={post.headImg} />
-                </div>
-                <div className="postUsertime">
-                  <span>
-                    {post.memName} {post.postTime}
-                  </span>
-                </div>
+        {/* return ( */}
+        <div className="postContainer" key={post.postId}>
+          <div className="postUseinfo">
+            <div className="postUsepic">
+              <img className="userHead" src={post.headImg} />
+            </div>
+            <div className="postUsertime">
+              <span>
+                {post.memName} {post.postTime}
+              </span>
+            </div>
+          </div>
+          <div className="postAll">
+            <div className="postArticle">
+              <div className="postArticletitle">
+                <h2>{post.title}</h2>
               </div>
-              <div className="postAll">
-                <div className="postArticle">
-                  <div className="postArticletitle">
-                    <h2>{myTitle.textContent}</h2>
-                  </div>
-                  <div className="postArticletext">
-                    <p>{myContent.textContent}</p>
-                    {post.imgUrl ? (
-                      // 這邊是資料庫 imgUrl 預設貼文的照片處理
-                      <img
-                        src={post.imgUrl}
-                        key={`${post.postId}`}
-                        referrerPolicy="no-referrer"
-                      />
-                    ) : (
+              <div className="postArticletext">
+                <p>{post.content}</p>
+                {/* {post.imgUrl ? (
+                      // 這邊是資料庫 imgUrl 預設貼文的照片處理 */}
+                <img
+                  src={post.imgUrl}
+                  key={`${post.postId}`}
+                  referrerPolicy="no-referrer"
+                />
+                {/* ) : (
                       // 這邊是用戶上傳的照片處理
                       urls.map((url, index) => (
                         <div key={index}>
@@ -287,34 +287,34 @@ function Post({ postId, userToken }) {
                           <img src={url} alt={`Image ${index}`} />
                         </div>
                       ))
-                    )}
-                  </div>
-                </div>
-                <hr />
-                <div className="postInteractive">
-                  <button
-                    onClick={toggleLike}
-                    className={`postCustbutton ${post.isLike ? "active" : ""}`}
-                  >
-                    <i className="material-icons">thumb_up</i>
-                  </button>
-                  <span>{post.thumb}</span>
-                  {/* 收藏按鈕 */}
-                  <button
-                    onClick={toggleFavorite}
-                    className={`postCustbutton ${isFavorited ? "active" : ""}`}
-                  >
-                    <i className="material-icons">favorite</i>
-                  </button>
-                  <span>{post.save}</span>
-                </div>
-                <div className="postComment">
-                  <Comment />
-                </div>
+                    )} */}
               </div>
             </div>
-          );
-        })}
+            <hr />
+            <div className="postInteractive">
+              <button
+                onClick={toggleLike}
+                className={`postCustbutton ${post.isLike ? "active" : ""}`}
+              >
+                <i className="material-icons">thumb_up</i>
+              </button>
+              <span>{post.thumb}</span>
+              {/* 收藏按鈕 */}
+              <button
+                onClick={toggleFavorite}
+                className={`postCustbutton ${isFavorited ? "active" : ""}`}
+              >
+                <i className="material-icons">favorite</i>
+              </button>
+              <span>{post.save}</span>
+            </div>
+            <div className="postComment">
+              <Comment />
+            </div>
+          </div>
+        </div>
+        {/* );
+        })} */}
       </article>
       <aside>
         <div className="aside">
@@ -360,9 +360,7 @@ function Post({ postId, userToken }) {
             <img src={bite} className="sideImg" />
           </p>
           <span className="tag">
-            {post.map((post) => {
-              return <button key={post.tag_id}>#{post.tag}</button>;
-            })}
+            <button key={post.tag_id}>#{post.tag}</button>
           </span>
         </div>
         <div className="aside">

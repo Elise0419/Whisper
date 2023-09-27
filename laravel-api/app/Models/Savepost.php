@@ -13,15 +13,14 @@ class Savepost extends Model
         'user_id',
     ];
 
-
     public function users()
     {
-        return $this->belongsToMany(User::class, 'likes', 'post_id', 'user_id');
+        return $this->belongsToMany(User::class, 'saveposts', 'post_id', 'user_id');
     }
 
     public function posts()
     {
-        return $this->belongsToMany(Post::class, 'likes', 'user_id', 'post_id');
+        return $this->belongsToMany(Post::class, 'saveposts', 'user_id', 'post_id');
     }
 
 }

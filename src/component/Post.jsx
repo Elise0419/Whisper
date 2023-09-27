@@ -6,7 +6,7 @@ import Header from "./Block/Header";
 import Footer from "./Block/Footer";
 import Comment from "./Block/Comment";
 
-import makeup2 from "./img/makeup.jpeg";
+// import makeup2 from "./img/makeup.jpeg";
 import bite from "./img/bite.png";
 import makeup from "./img/makeup.png";
 
@@ -19,7 +19,6 @@ function Post({ postId, userToken }) {
   const [disabled, setDisabled] = useState(false);
   let [rule, setRule] = useState([]);
   // 初始狀態未點讚 未收藏狀態
-  let [isLiked, setIsLiked] = useState(false);
   let [isFavorited, setIsFavorited] = useState(false);
   const token = localStorage.getItem("token");
 
@@ -78,7 +77,7 @@ function Post({ postId, userToken }) {
         });
     }
     fetchData();
-  }, [match.params.postId]);
+  }, [match.params.postId,match.params.type,token]);
 
   // 投票區域處理
   useEffect(() => {
@@ -101,38 +100,6 @@ function Post({ postId, userToken }) {
     }
   }, [vote]);
 
-  // const toggleLike = () => {
-  //   if (post.length > 0) {
-  //     const newThumbCount = isLiked ? post[0].thumb - 1 : post[0].thumb + 1;
-  //     const postId = post[0].postId;
-  //     const requestData = {
-  //       postId: postId,
-  //       thumb: !isLiked,
-  //     };
-  //     console.log("userToken" + userToken);
-  //     fetch(
-  //       `http://10.10.247.90:8000/api/posts/thumb${match.params.postId}`,
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: `Bearer ${userToken}`,
-  //         },
-  //         body: JSON.stringify(requestData),
-  //       }
-  //     )
-  //       .then((res) => res.json())
-  //       .then((jsonData) => {
-  //         if (jsonData.message === "updated!") {
-  //           setIsLiked(!isLiked);
-  //           setPost((prevPost) => [{ ...prevPost[0], thumb: newThumbCount }]);
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         console.log("點讚請求錯誤:", err);
-  //       });
-  //   }
-  // };
   const toggleLike = () => {
 
     const newLikeStatus = !post.isLike;
@@ -211,9 +178,9 @@ function Post({ postId, userToken }) {
         },
       }
     )
-      .then((res) => { if(res.status === 401) {
+      .then((res) => { if(res.status >= 400) {
         
-      }
+      } else if (res.state >= 200)
         return res.json();
       })
       .then((jsonData) => {
@@ -259,7 +226,7 @@ function Post({ postId, userToken }) {
         <div className="postContainer" key={post.postId}>
           <div className="postUseinfo">
             <div className="postUsepic">
-              <img className="userHead" src={post.headImg} />
+              <img className="userHead" src={post.headImg} alt=""/>
             </div>
             <div className="postUsertime">
               <span>
@@ -280,6 +247,7 @@ function Post({ postId, userToken }) {
                   src={post.imgUrl}
                   key={`${post.postId}`}
                   referrerPolicy="no-referrer"
+                  alt=""
                 />
                 {/* ) : (
                       // 這邊是用戶上傳的照片處理
@@ -323,7 +291,7 @@ function Post({ postId, userToken }) {
         <div className="aside">
           <span className="voteTopic">
             <p>
-              <img src={makeup} />
+              <img src={makeup} alt=""/>
               &nbsp;&nbsp;{vote.forumTitle}
             </p>
           </span>
@@ -353,14 +321,14 @@ function Post({ postId, userToken }) {
                 </label>
               </div>
             </div>
-            <img src={vote.imgOne} />
-            <img src={vote.imgTwo} />
+            <img src={vote.imgOne} alt=""/>
+            <img src={vote.imgTwo} alt=""/>
           </div>
         </div>
         <div className="aside">
           <p>
             話題選擇器&nbsp;&nbsp;
-            <img src={bite} className="sideImg" />
+            <img src={bite} className="sideImg" alt="" />
           </p>
           <span className="tag">
             <button key={post.tag_id}>#{post.tag}</button>

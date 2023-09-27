@@ -192,9 +192,9 @@ function Home() {
           <section>
             <div className="topic">
               <p>主題個版</p>
-              {topic.map((topic) => {
+              {topic.map((topic, index) => {
                 return (
-                  <Link to="/mkup" onClick={deleteSearch}>
+                  <Link to="/mkup" key={index} onClick={deleteSearch}>
                     <img className="topicImg" src={topic.img} />
                     <span className="topicList">
                       {topic.list}

@@ -120,7 +120,6 @@ function Makeup() {
         })
         .then((jsonData) => {
           setTag(jsonData.tags);
-          console.log(jsonData);
         })
         .catch((err) => {
           console.log("錯誤:", err);
@@ -172,7 +171,6 @@ function Makeup() {
     if (vote.voteId) {
       let record = localStorage.getItem(`vote${vote.voteId}`);
       record = JSON.parse(record);
-      console.log(record);
       if (record != null) {
         setOneWidth(record.one);
         setTwoWidth(record.two);
@@ -302,9 +300,9 @@ function Makeup() {
       <section>
         <div className="topic">
           <p>主題個版</p>
-          {topic.map((topic) => {
+          {topic.map((topic, index) => {
             return (
-              <Link to={topic.route} onClick={deleteSearch}>
+              <Link to={topic.route} key={index} onClick={deleteSearch}>
                 <img className="topicImg" src={topic.img} />
                 <span className="topicList">
                   {topic.list}

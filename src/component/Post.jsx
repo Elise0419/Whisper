@@ -134,29 +134,28 @@ function Post({ postId, userToken }) {
   //   }
   // };
   const toggleLike = () => {
-
     const newLikeStatus = !post.isLike;
-    console.log(newLikeStatus)
+    console.log(newLikeStatus);
 
-    fetch(
-      `http://10.10.247.90:8000/api/posts/thumb${match.params.postId}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ isLike: newLikeStatus }),
-      }
-    )
+    fetch(`http://10.10.247.90:8000/api/posts/thumb${match.params.postId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ isLike: newLikeStatus }),
+    })
       .then((res) => res.json())
       .then((jsonData) => {
-        setPost(prevPost => ({ ...prevPost, isLike: newLikeStatus ,thumb:jsonData.thumb }));
+        setPost((prevPost) => ({
+          ...prevPost,
+          isLike: newLikeStatus,
+          thumb: jsonData.thumb,
+        }));
       })
       .catch((err) => {
         console.log("點讚請求錯誤:", err);
       });
-
   };
 
   const toggleFavorite = function () {
@@ -164,17 +163,14 @@ function Post({ postId, userToken }) {
     if (post.length > 0) {
       setIsFavorited(!isFavorited);
       const newSaveCount = isFavorited ? post[0].save - 1 : post[0].save + 1;
-      fetch(
-        `http://10.10.247.90:8000/api/posts/save/${match.params.postId}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${userToken}`,
-          },
-          body: JSON.stringify({ save: newSaveCount }),
-        }
-      )
+      fetch(`http://10.10.247.90:8000/api/posts/save/${match.params.postId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userToken}`,
+        },
+        body: JSON.stringify({ save: newSaveCount }),
+      })
         .then((res) => {
           if (!res.ok) {
             throw new Error(`HTTP error! status: ${res.status}`);
@@ -211,9 +207,9 @@ function Post({ postId, userToken }) {
         },
       }
     )
-      .then((res) => { if(res.status === 401) {
-        
-      }
+      .then((res) => {
+        if (res.status === 401) {
+        }
         return res.json();
       })
       .then((jsonData) => {
@@ -296,7 +292,7 @@ function Post({ postId, userToken }) {
             <div className="postInteractive">
               <button
                 onClick={toggleLike}
-                disabled = {post.login}
+                disabled={post.login}
                 className={`postCustbutton ${post.isLike ? "active" : ""}`}
               >
                 <i className="material-icons">thumb_up</i>

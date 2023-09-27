@@ -478,8 +478,8 @@ function Makeup() {
                 </label>
               </div>
             </div>
-            <img src={makeup2} />
-            <img src={makeup2} />
+            <img src={vote.imgOne} />
+            <img src={vote.imgTwo} />
           </div>
         </div>
         <div className="aside">

@@ -112,6 +112,7 @@ function Header() {
         </div>
         <div>
           <button className="headerSecret">
+            {console.log(token)}
             {token ? (
               <Link to="/secret">
                 <img

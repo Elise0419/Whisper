@@ -88,7 +88,7 @@ function Asideuser() {
       <div className="asideContainer">
         <div className="asideName">
           <img className="asideImg" src={user.headimg || rabbit} />
-          <span className="asideText">{user.mem_name}</span>
+          <span className="asideText">{user.mem_name || "請登入"}</span>
         </div>
 
         <div className="asideUser">
@@ -103,7 +103,7 @@ function Asideuser() {
           </div>
 
           <div>
-            <p className="asideNum">{postCount}</p>
+            <p className="asideNum">{postCount || 0}</p>
             <p className="asideNum">發布貼文數量</p>
           </div>
           <Link to="/upload/fashion">

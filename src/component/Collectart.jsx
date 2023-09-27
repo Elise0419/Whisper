@@ -7,7 +7,7 @@ function Collectart() {
   const [posts, setPosts] = useState([]);
   const [postCount, setPostCount] = useState(0);
 
-  const { postId } = useParams();
+  const { postId, userId } = useParams(); // Extracting userId from URL params
 
   const fetchPosts = () => {
     const token = localStorage.getItem("token");
@@ -63,9 +63,9 @@ function Collectart() {
   return (
     <div className="collectart">
       <div className="manageCount">
-        <p>全部稿件 {postCount}</p>
+        <p>全部稿件:{postCount || 0}</p>
       </div>
-      {posts.length > 0 ? (
+      {posts && posts.length > 0 ? (
         posts.map((post) => {
           // 將 MySQL 的 HTML 轉成 Text
           const myContent = document.createElement("div");
@@ -137,7 +137,7 @@ function Collectart() {
           );
         })
       ) : (
-        <div>無法獲取帖子數據</div>
+        <div>{userId ? <div>無法獲取帖子數據</div> : <div>請先登入</div>}</div>
       )}
     </div>
   );

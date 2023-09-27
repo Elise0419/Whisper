@@ -99,7 +99,7 @@ function Postart() {
   return (
     <div className="postart">
       <div className="manageCount">
-        <p>全部稿件: {postCount}</p> {/* 显示用户已发布的帖子数量 */}
+      <p>全部稿件:{postCount || 0}</p>
       </div>
       {posts && posts.length > 0 ? (
         posts.map((post) => {
@@ -178,11 +178,17 @@ function Postart() {
             </div>
           );
         })
-      ) : (
-        <div>無法獲取帖子數據</div>
-      )}
-    </div>
-  );
-}
+        ) : (
+          <div>
+            {userId ? (
+              <div>無法獲取帖子數據</div>
+            ) : (
+              <div>請先登入</div>
+            )}
+          </div>
+        )}
+      </div>
+    );
+  }
 
 export default Postart;

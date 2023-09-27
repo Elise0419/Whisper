@@ -266,7 +266,8 @@ function Post({ postId, userToken }) {
                 <h2>{post.title}</h2>
               </div>
               <div className="postArticletext">
-                <p>{post.content}</p>
+                {/* <p>{post.content}</p> */}
+                <div dangerouslySetInnerHTML={{ __html: post.content }} />
                 {/* {post.imgUrl ? (
                       // 這邊是資料庫 imgUrl 預設貼文的照片處理 */}
                 <img

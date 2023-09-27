@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -25,6 +26,10 @@ class ProfileController extends Controller
 
     public function profile(Request $req)
     {
+        $admin = Admin::where('user_id', $this->user->user_id)->exists();
+        if ($admin) {
+            $this->user->admin = $admin;
+        }
         return response()->json(['user' => $this->user], 200);
     }
 

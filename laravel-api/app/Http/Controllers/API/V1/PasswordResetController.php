@@ -27,16 +27,16 @@ class PasswordResetController extends Controller
             'password_confirm' => 'required|string',
         ]);
 
-        if (!Hash::check($req->new_password, $user->password)) {
-            return response()->json(['message' => '密碼錯誤']);
+        if (!Hash::check($req->password, $user->password)) {
+            return response()->json(['message' => '密碼錯誤'], 400);
         }
 
         if (Hash::check($req->new_password, $user->password)) {
-            return response()->json(['message' => '新密碼不能與舊密碼相同']);
+            return response()->json(['message' => '新密碼不能與舊密碼相同'], 400);
         }
 
         if ($req->new_password !== $req->password_confirm) {
-            return response()->json(['message' => '新密碼與確認密碼有誤']);
+            return response()->json(['message' => '新密碼與確認密碼有誤'], 400);
         }
 
         $user->password = Hash::make($req->new_password);

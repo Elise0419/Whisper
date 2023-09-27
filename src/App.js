@@ -24,40 +24,38 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <UserProvider>
-          <Switch>
-            <Route path="/secret" component={Secret} exact />
-            <Route path="/secrets" component={Secrets} exact />
+        <Switch>
+          <Route path="/secret" component={Secret} exact />
+          <Route path="/secrets" component={Secrets} exact />
 
-            <Route path="/signup" component={Signup} exact />
-            <Route path="/login" component={Login} exact />
-            <Route path="/forgotpw" component={Forgotpw} exact />
-            <Route path="/restpwd" component={Restpwd} exact />
-            <Route path="/verify" component={Verify} exact />
-            <Route path="/verifyre" component={Verifyre} exact />
-            <Route path="/admin/article" component={CommentAdmin} exact />
-            <Route
-              path="/admin/post_:postId(\d+)/comments"
-              component={CommentAdmin}
-              exact
-            />
-            <Route path="/admin/article" component={ArticleAdmin} exact />
-            <Route
-              path="/admin/post_:postId(\d+)/comments"
-              component={CommentAdmin}
-              exact
-            />
-            <Route path="/upload/:type" component={Upload} exact />
+          <Route path="/signup" component={Signup} exact />
+          <Route path="/login" component={Login} exact />
+          <Route path="/forgotpw" component={Forgotpw} exact />
+          <Route path="/restpwd" component={Restpwd} exact />
+          <Route path="/verify" component={Verify} exact />
+          <Route path="/verifyre" component={Verifyre} exact />
+          <Route path="/admin/article" component={CommentAdmin} exact />
+          <Route
+            path="/admin/post_:postId(\d+)/comments"
+            component={CommentAdmin}
+            exact
+          />
+          <Route path="/admin/article" component={ArticleAdmin} exact />
+          <Route
+            path="/admin/post_:postId(\d+)/comments"
+            component={CommentAdmin}
+            exact
+          />
+          <Route path="/upload/:type" component={Upload} exact />
 
-            <Route path="/profile" component={Profile} exact />
-            <Route path="/manage" component={Manage} exact />
+          <Route path="/profile" component={Profile} exact />
+          <Route path="/manage" component={Manage} exact />
 
-            <Route path="/post" component={Post} exact />
-            <Route path="/post/:postId/:type" component={Post} exact />
-            <Route path="/" component={Home} exact />
-            <Route path="/:type" component={Theme} exact />
-          </Switch>
-        </UserProvider>
+          <Route path="/post" component={Post} exact />
+          <Route path="/post/:postId/:type" component={Post} exact />
+          <Route path="/" component={Home} exact />
+          <Route path="/:type" component={Theme} exact />
+        </Switch>
       </BrowserRouter>
     );
   }

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import "./CSS/Restpwd.css";
 import Validation from "./Validation/RestpwdValidation";
@@ -9,13 +9,17 @@ import Footer from "./Block/Footer";
 import logo from "./img/logo.png";
 
 function Restpwd() {
+  const history = useHistory();
+  const token = localStorage.getItem("token");
   const [values, setValues] = useState({
     oldPassword: "",
     password: "",
     confirmPassword: "",
   });
 
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({
+    wrong: "",
+  });
 
   const handleInput = (event) => {
     setValues((prev) => ({ ...prev, [event.target.name]: event.target.value }));
@@ -27,19 +31,35 @@ function Restpwd() {
 
     if (!errors.password && !errors.confirmPassword && !errors.oldPassword) {
       // 发送密码重置请求
-      fetch("http://example.com/reset_password", {
+      fetch("http://118.233.222.23:8000/api/password/reset", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          oldPassword: values.oldPassword,
-          newPassword: values.password,
+          password: values.oldPassword,
+          new_password: values.password,
+          password_confirm: values.confirmPassword,
         }),
       })
-        .then((response) => response.json())
+        .then((response) => {
+          if (response.status === 401) {
+            history.push("/login")
+          } else if (response.status === 400) {
+            response.json().then((data) => {
+              setErrors({
+                ...errors,
+                wrong: data.message,
+              })
+            })
+          } else {
+            return (response.json())
+          }
+        })
         .then((data) => {
           console.log("密码重置成功", data);
+          history.push("/login")
         })
         .catch((error) => {
           console.error("Error:", error);
@@ -113,6 +133,7 @@ function Restpwd() {
               <button type="submit" className="btnSuccess">
                 重置密碼
               </button>
+              <span>{errors.wrong}</span>
             </form>
           </div>
         </div>

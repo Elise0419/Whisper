@@ -6,14 +6,14 @@ import logo from "./img/logo.png";
 import "./CSS/Login.css";
 
 function Login() {
+  const token = localStorage.getItem("token");
+  const history = useHistory();
   const [values, setValues] = useState({
     email: "",
     password: "",
     acm_error: "",
     pwd_error: "",
   });
-
-  const history = useHistory();
 
   const handleInput = (event) => {
     const { name, value } = event.target;
@@ -32,6 +32,7 @@ function Login() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(requestData),
     })

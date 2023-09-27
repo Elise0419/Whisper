@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\V1;
 
-use App\Models\Savepost;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -28,7 +27,7 @@ class PostResource extends JsonResource
             'content' => $this->content,
             'imgUrl' => $this->imgurl,
             'thumb' => $this->thumb,
-            'save' => Savepost::where('post_id', $postId)->count(),
+            'save' => $this->save,
             'comtxtCount' => $this->comtxts->count(),
             'tag' => $this->tag,
             'postTime' => $this->post_time,

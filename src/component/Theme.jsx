@@ -7,10 +7,9 @@ import Footer from "./Block/Footer";
 
 import thumb from "./img/thumb.png";
 import comment from "./img/comment.png";
-import user from "./img/dog.jpeg";
 import adArrow from "./img/adArrow.png";
 import redArrow from "./img/redArrow.png";
-import makeup2 from "./img/makeup.jpeg";
+import rabbit from "./img/rabbit.png";
 import aroma from "./img/aroma.png";
 import dress from "./img/dress.png";
 import makeup from "./img/makeup.png";
@@ -20,6 +19,8 @@ import bite from "./img/bite.png";
 
 function Makeup() {
   const m = useRouteMatch().params.type;
+  let [searchBarImg, setSearchBarImg] = useState([]);
+
   let [topic, setTopic] = useState([
     {
       img: makeup,
@@ -138,6 +139,31 @@ function Makeup() {
         .catch((err) => {
           console.log("錯誤:", err);
         });
+
+      const token = localStorage.getItem("token");
+      // Search Bar 頭貼
+      fetch("http://10.10.247.90:8000/api/profile", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => {
+          if (res.status === 403) {
+            throw new Error("API request failed");
+          } else if (res.status >= 200) {
+            return res.json();
+          }
+        })
+        .then((jsonData) => {
+          if (jsonData.error) {
+            console.log("錯誤訊息:", jsonData.error);
+          } else {
+            setSearchBarImg({ ...jsonData.user, read: false });
+          }
+        })
+        .catch((err) => {
+          console.log("Error:", err);
+        });
     }
     fetchData();
   }, [m, searchMsg]);
@@ -219,7 +245,6 @@ function Makeup() {
   // vote
   function widthChange(e) {
     const token = localStorage.getItem("token");
-    console.log("Token in Profile:", token);
 
     fetch(
       `http://10.10.247.90:8000/api/votes/click/${vote.voteId}?${e.target.id}=true`,
@@ -315,7 +340,7 @@ function Makeup() {
       <article>
         {/* Search Bar */}
         <div className="search">
-          <img src={user} />
+          <img className="userHead" src={searchBarImg?.headimg || rabbit} />
           <input
             id="searchBar"
             type="text"
@@ -449,7 +474,8 @@ function Makeup() {
           <span className="voteTopic">
             <p>
               <img src={makeup} />
-              &nbsp;&nbsp;{vote.type}
+              {console.log(vote)}
+              &nbsp;&nbsp;{vote.forumTitle}
             </p>
           </span>
           <div className="vote">

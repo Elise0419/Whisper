@@ -106,7 +106,7 @@ function Home() {
 
       const token = localStorage.getItem("token");
       console.log("Token in Profile:", token);
-
+      // Search Bar 頭貼
       fetch("http://10.10.247.90:8000/api/profile", {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -129,7 +129,7 @@ function Home() {
         .catch((err) => {
           console.log("Error:", err);
         });
-    };
+    }
     fetchData();
   }, [m, searchMsg]);
 
@@ -227,7 +227,10 @@ function Home() {
             </div>
             <div className="cardContainer">
               {/* 這邊是當 無搜尋結果 時 */}
-              <div style={{ display: find ? "block" : "none" }} className="find">
+              <div
+                style={{ display: find ? "block" : "none" }}
+                className="find"
+              >
                 <p>{searchMsg.message}</p>
               </div>
               {Array.isArray(card) ? (
@@ -277,7 +280,9 @@ function Home() {
                           </div>
                         ) : (
                           <span className="cardTxt">
-                            <span className="paperTape">paperTapepaperTape</span>
+                            <span className="paperTape">
+                              paperTapepaperTape
+                            </span>
                             <br />
                             {myContent.textContent}
                           </span>
@@ -359,7 +364,10 @@ function Home() {
               <p>點讚貼文排行榜</p>
               {like.map((like) => {
                 return (
-                  <Link to={`/post/${like.postId}/${like.type}`} key={like.postId}>
+                  <Link
+                    to={`/post/${like.postId}/${like.type}`}
+                    key={like.postId}
+                  >
                     <img className="rankImg" src={like.headImg} />
                     <span className="rankList">{like.title}</span>
                     <img className="rankArrow" src={redArrow} />
@@ -370,13 +378,8 @@ function Home() {
           </aside>
           <Footer />
         </div>
-
       )}
     </div>
-
-
-
-
   );
 }
 

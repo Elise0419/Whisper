@@ -1,17 +1,18 @@
-.asideContainer{
+.asideContainer {
     width: 320px;
     /* background-color: yellow;  */
     display: flex;
     flex-direction: column;
-    align-items: center; 
+    align-items: center;
 }
 
-.asideName{
+.asideName {
     width: 90%;
     /* background-color: red; */
     display: flex;
     height: 4.25rem;
-    align-items: center; /* Vertically center */
+    align-items: center;
+    /* Vertically center */
     font-size: 1.25rem;
     color: var(--colorGray300);
     font-weight: bold;
@@ -21,11 +22,12 @@
 .asideImg {
     position: relative;
     width: 4.25rem;
-    height: 4.25rem;;
+    height: 4.25rem;
     border-radius: var(--circle);
     margin-right: 1.2rem;
     /* margin: 1.25rem; */
     vertical-align: middle;
+    object-fit: cover;
     background-color: white;
 }
 
@@ -34,10 +36,10 @@
 .asideUser>hr {
     width: 18rem;
     color: var(--colorGray100);
-    margin-bottom:1rem;
+    margin-bottom: 1rem;
 }
 
-.asideUser{
+.asideUser {
     display: flex;
     width: 90%;
     /* background-color: azure; */
@@ -47,7 +49,7 @@
     margin-bottom: 0px;
     padding: 0px;
     flex-direction: column;
-    align-items: left; 
+    align-items: left;
 
 }
 
@@ -62,7 +64,7 @@
 .asideTime {
     display: flex;
     flex-direction: column;
-    align-items: left; 
+    align-items: left;
     margin: 0px;
     padding: 0px;
     display: flex;
@@ -76,20 +78,24 @@
     color: var(--colorRed);
     font-size: 1.25rem;
     flex-direction: column;
-    justify-content: center; /* Horizontally center */
-    align-items: center; /* Vertically center */
+    justify-content: center;
+    /* Horizontally center */
+    align-items: center;
+    /* Vertically center */
     text-align: center;
     position: relative;
     right: 10px;
 }
-    
-   
 
-.asideNum p{
+
+
+.asideNum p {
     display: flex;
     /* text-align: center; */
-    justify-content: center; /* Horizontally center */
-    align-items: center; /* Vertically center */
+    justify-content: center;
+    /* Horizontally center */
+    align-items: center;
+    /* Vertically center */
 }
 
 

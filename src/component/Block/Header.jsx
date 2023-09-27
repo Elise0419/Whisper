@@ -15,6 +15,7 @@ import grayMail from "../img/grayMail.png";
 function Header() {
   let [dd, setDd] = useState("創建貼文");
   let [user, setUser] = useState("創建貼文");
+  const [login, setLogin] = useState(false);
   const m = useRouteMatch().params.type;
   const token = localStorage.getItem("token");
 
@@ -62,9 +63,14 @@ function Header() {
           },
         })
           .then((res) => {
-            return res.json();
+            if (res.status >= 400 && res.status < 500) {
+              setLogin(false);
+            } else if (res.status >= 200) {
+              return res.json();
+            }
           })
           .then((jsonData) => {
+            setLogin(true);
             setUser(jsonData.user);
           })
           .catch((error) => {
@@ -127,7 +133,9 @@ function Header() {
           <Link to="/profile">
             <span className="userName">{user?.mem_name || "Guest"}</span>
           </Link>
-          <button className="userBtn">
+          {login ? (<Link to="/login">
+            <span>登入</span>
+          </Link>) : (<button className="userBtn">
             <img className="userArrow" src={whiteArrow} />
             <span className="userItem">
               <Link to="/">
@@ -139,7 +147,8 @@ function Header() {
               <hr />
               <span onClick={logout}>登出</span>
             </span>
-          </button>
+          </button>)}
+
         </div>
       </header>
     </div>

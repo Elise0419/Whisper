@@ -5,7 +5,6 @@ import Header from "./Block/Header";
 import Footer from "./Block/Footer";
 import Asideuser from "./Block/Asideuser";
 import { useHistory } from "react-router-dom";
-
 import rabbit from "../component/img/rabbit.png";
 
 function Profile() {
@@ -30,7 +29,7 @@ function Profile() {
   // 輸入資料
   const handleInputChange = (id, value) => {
     console.log(`Updating ${id} with value: ${value}`);
-    setUser({ ...user, [id]: value });
+    // setUser({ ...user, [id]: value });
   };
 
   // 在保存用户信息后，更新侧边栏用户信息

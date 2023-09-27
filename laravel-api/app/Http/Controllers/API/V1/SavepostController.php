@@ -30,6 +30,8 @@ class SavepostController extends Controller
                         'user_id' => $user_id,
                         'post_id' => $postId,
                     ]);
+                    $post->save += 1;
+                    $post->save();
 
                     return response()->json(['save' => $post->save], 200);
                 } else {
@@ -40,6 +42,9 @@ class SavepostController extends Controller
 
                 if ($save) {
                     $save->delete();
+                    $post->save -= 1;
+                    $post->save();
+
                     return response()->json(['save' => $post->save], 200);
                 } else {
 
@@ -48,7 +53,7 @@ class SavepostController extends Controller
             }
         } else {
 
-            return response()->json(['message' => 'unauth !'], 401);
+            return response()->json([], 401);
         }
 
     }

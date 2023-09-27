@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useHistory } from "react-router-dom";
 import "./CSS/Collectart.css";
 import posttext from "./img/posttext.jpg";
 
 function Collectart() {
+  const history = useHistory();
   const [posts, setPosts] = useState([]);
   const [postCount, setPostCount] = useState(0);
 
@@ -11,14 +12,22 @@ function Collectart() {
 
   const fetchPosts = () => {
     const token = localStorage.getItem("token");
-    fetch(`http://10.10.247.90:8000/api/posts/usersave`, {
+    fetch(`http://118.233.222.23:8000/api/posts/usersave`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status === 401) {
+          history.push("/login")
+        }
+        if (response.status >= 200) {
+          return response.json();
+        }
+      }
+      )
       .then((data) => {
         console.log(data);
 
@@ -37,7 +46,7 @@ function Collectart() {
 
   const handleDelete = (postId) => {
     const token = localStorage.getItem("token");
-    fetch(`http://10.10.247.90:8000/api/saveposts/delete/${postId}`, {
+    fetch(`http://118.233.222.23:8000/api/saveposts/delete/${postId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

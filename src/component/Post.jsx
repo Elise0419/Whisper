@@ -19,13 +19,13 @@ function Post({ postId, userToken }) {
   const [disabled, setDisabled] = useState(false);
   let [rule, setRule] = useState([]);
   // 初始狀態未點讚 未收藏狀態
-  
+
   const token = localStorage.getItem("token");
   useEffect(() => {
     function fetchData() {
       // 取單篇文章
       fetch(
-        `http://10.10.247.90:8000/api/v1/posts/${match.params.postId}/${match.params.type}`,
+        `http://118.233.222.23:8000/api/v1/posts/${match.params.postId}/${match.params.type}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -44,7 +44,7 @@ function Post({ postId, userToken }) {
         });
 
       // 投票
-      fetch(`http://10.10.247.90:8000/api/votes/${match.params.type}`, {
+      fetch(`http://118.233.222.23:8000/api/votes/${match.params.type}`, {
       })
         .then((res) => {
           return res.json();
@@ -59,7 +59,7 @@ function Post({ postId, userToken }) {
 
       // 個版規則
       fetch(
-        `http://10.10.247.90:8000/api/v1/rules?type[eq]=${match.params.type}`,
+        `http://118.233.222.23:8000/api/v1/rules?type[eq]=${match.params.type}`,
         {
           method: "GET",
         }
@@ -102,7 +102,7 @@ function Post({ postId, userToken }) {
     const newLikeStatus = !post.isLike;
     console.log(newLikeStatus);
 
-    fetch(`http://10.10.247.90:8000/api/posts/thumb${match.params.postId}`, {
+    fetch(`http://118.233.222.23:8000/api/posts/thumb${match.params.postId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -127,7 +127,7 @@ function Post({ postId, userToken }) {
     const newSaveStatus = !post.isFavorite;
     console.log(newSaveStatus);
 
-    fetch(`http://10.10.247.90:8000/api/posts/save/${match.params.postId}`, {
+    fetch(`http://118.233.222.23:8000/api/posts/save/${match.params.postId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -190,7 +190,7 @@ function Post({ postId, userToken }) {
     const token = localStorage.getItem("token");
 
     fetch(
-      `http://10.10.247.90:8000/api/votes/click/${vote.voteId}?${e.target.id}=true`,
+      `http://118.233.222.23:8000/api/votes/click/${vote.voteId}?${e.target.id}=true`,
       {
         method: "GET",
         headers: {
@@ -257,7 +257,7 @@ function Post({ postId, userToken }) {
           <div className="postAll">
             <div className="postArticle">
               <div className="postArticletitle">
-                <h2 dangerouslySetInnerHTML={{ __html: post.title }}/>
+                <h2 dangerouslySetInnerHTML={{ __html: post.title }} />
               </div>
               <div className="postArticletext">
                 {/* <p>{post.content}</p> */}

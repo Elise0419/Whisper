@@ -25,7 +25,7 @@ function Postart() {
   const handleUpdate = (postId, newData) => {
     const token = localStorage.getItem("token");
 
-    fetch(`http://10.10.247.90:8000/api/posts/edit/${postId}`, {
+    fetch(`http://118.233.222.23:8000/api/posts/edit/${postId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -48,7 +48,7 @@ function Postart() {
   const handleDelete = (postId) => {
     const token = localStorage.getItem("token");
 
-    fetch(`http://10.10.247.90:8000/api/posts/delete/${postId}`, {
+    fetch(`http://118.233.222.23:8000/api/posts/delete/${postId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -71,7 +71,7 @@ function Postart() {
     const token = localStorage.getItem("token");
     console.log("Token in Profile:", token);
 
-    fetch(`http://10.10.247.90:8000/api/user/posts`, {
+    fetch(`http://118.233.222.23:8000/api/user/posts`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -99,7 +99,7 @@ function Postart() {
   return (
     <div className="postart">
       <div className="manageCount">
-      <p>全部稿件:{postCount || 0}</p>
+        <p>全部稿件:{postCount || 0}</p>
       </div>
       {posts && posts.length > 0 ? (
         posts.map((post) => {
@@ -178,17 +178,17 @@ function Postart() {
             </div>
           );
         })
-        ) : (
-          <div>
-            {userId ? (
-              <div>無法獲取帖子數據</div>
-            ) : (
-              <div>請先登入</div>
-            )}
-          </div>
-        )}
-      </div>
-    );
-  }
+      ) : (
+        <div>
+          {userId ? (
+            <div>無法獲取帖子數據</div>
+          ) : (
+            <div>請先登入</div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default Postart;

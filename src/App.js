@@ -27,7 +27,7 @@ class App extends Component {
       <BrowserRouter>
         <Switch>
           <Route path="/secret" component={Secret} exact />
-          <Route path="/secret2" component={Secrets} exact />
+          <Route path="/secrets" component={Secrets} exact />
 
           <Route path="/signup" component={Signup} exact />
           <Route path="/login" component={Login} exact />

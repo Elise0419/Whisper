@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\SavepostCollection;
+use App\Models\Post;
 use App\Models\Savepost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

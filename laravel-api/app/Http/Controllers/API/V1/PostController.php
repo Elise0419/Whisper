@@ -137,6 +137,7 @@ class PostController extends Controller
             return response()->json(['message' => 'not found !'], 404);
         }
 
+        $post->onLogin = true;
         $post->isLiked = false;
 
         try {
@@ -144,6 +145,7 @@ class PostController extends Controller
             if ($user) {
                 $like = $post->likes->contains($user->user_id);
                 $post->isLiked = $like;
+                $post->onLogin = false;
             }
         } catch (\Exception $e) {
             return new PostResource($post);

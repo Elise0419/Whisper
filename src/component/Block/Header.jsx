@@ -19,7 +19,7 @@ function Header() {
   const token = localStorage.getItem("token");
 
   function logout() {
-    fetch("http://118.233.222.23:8000/api/logout", {
+    fetch("http://10.10.247.90:8000/api/logout", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -56,7 +56,7 @@ function Header() {
       function fetchData() {
         const token = localStorage.getItem("token");
 
-        fetch(`http://118.233.222.23:8000/api/profile`, {
+        fetch(`http://10.10.247.90:8000/api/profile`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

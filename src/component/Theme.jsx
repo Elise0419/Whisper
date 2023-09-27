@@ -58,7 +58,7 @@ function Makeup() {
   useEffect(() => {
     function fetchData() {
       // 廣告
-      fetch(`http://118.233.222.23:8000/api/v1/ads?type[eq]=${m}`, {
+      fetch(`http://10.10.247.90:8000/api/v1/ads?type[eq]=${m}`, {
         method: "GET",
       })
         .then((res) => {
@@ -72,7 +72,7 @@ function Makeup() {
         });
 
       // 個版
-      fetch(`http://118.233.222.23:8000/api/v1/posts?type[eq]=${m}`, {
+      fetch(`http://10.10.247.90:8000/api/v1/posts?type[eq]=${m}`, {
         method: "GET",
       })
         .then((res) => {
@@ -96,7 +96,7 @@ function Makeup() {
         });
 
       // 投票
-      fetch(`http://118.233.222.23:8000/api/votes/${m}`, {
+      fetch(`http://10.10.247.90:8000/api/votes/${m}`, {
         method: "GET",
       })
         .then((res) => {
@@ -111,7 +111,7 @@ function Makeup() {
         });
 
       // 標籤
-      fetch(`http://118.233.222.23:8000/api/tags/${m}`, {
+      fetch(`http://10.10.247.90:8000/api/tags/${m}`, {
         method: "GET",
       })
         .then((res) => {
@@ -126,7 +126,7 @@ function Makeup() {
         });
 
       // 規則
-      fetch(`http://118.233.222.23:8000/api/v1/rules?type[eq]=${m}`, {
+      fetch(`http://10.10.247.90:8000/api/v1/rules?type[eq]=${m}`, {
         method: "GET",
       })
         .then((res) => {
@@ -171,7 +171,7 @@ function Makeup() {
     if (searchVal == "") {
     } else {
       fetch(
-        `http://118.233.222.23:8000/api/posts/search?query=${searchVal}&type=${m}`,
+        `http://10.10.247.90:8000/api/posts/search?query=${searchVal}&type=${m}`,
         {
           method: "GET",
         }
@@ -201,7 +201,7 @@ function Makeup() {
 
   // 點擊率
   const cardClick = async (postId) => {
-    fetch(`http://118.233.222.23:8000/api/posts/click${postId}`, {
+    fetch(`http://10.10.247.90:8000/api/posts/click${postId}`, {
       method: "POST",
       postId: `${postId}`,
     })
@@ -222,7 +222,7 @@ function Makeup() {
     console.log("Token in Profile:", token);
 
     fetch(
-      `http://118.233.222.23:8000/api/votes/click/${vote.voteId}?${e.target.id}=true`,
+      `http://10.10.247.90:8000/api/votes/click/${vote.voteId}?${e.target.id}=true`,
       {
         method: "GET",
         headers: {
@@ -258,7 +258,7 @@ function Makeup() {
   // 點擊標籤
   function hashtag(t) {
     document.getElementById("searchBar").value = "";
-    fetch(`http://118.233.222.23:8000/api/v1/posts?tag[eq]=${t}`, {
+    fetch(`http://10.10.247.90:8000/api/v1/posts?tag[eq]=${t}`, {
       method: "GET",
     })
       .then((res) => {

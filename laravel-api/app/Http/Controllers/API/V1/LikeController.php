@@ -19,9 +19,10 @@ class LikeController extends Controller
 
             $like = Like::where('user_id', $user_id)->where('post_id', $postId)->first();
 
+            $post = Post::find($postId);
+
 
             if ($request->isLike === true) {
-
 
                 if (!$like) {
 
@@ -29,26 +30,31 @@ class LikeController extends Controller
                         'user_id' => $user_id,
                         'post_id' => $postId,
                     ]);
-                    return response()->json([], 200);
+                    $post->thumb += 1;
+                    $post->save();
+
+                    return response()->json(['thumb'=>$post->thumb], 200);
                 } else {
 
                     return response()->json([], 409);
                 }
+
             } else if ($request->isLike === false) {
 
 
                 if ($like) {
-
                     $like->delete();
-                    return response()->json([], 200);
+                    $post->thumb -= 1;
+                    $post->save();
+                    return response()->json(['thumb'=>$post->thumb], 200);
                 } else {
 
                     return response()->json([], 404);
                 }
             }
         } else {
-            // 如果用户未登录，则返回401（未授权）
-            return response()->json(['message' => '未授权'], 401);
+
+            return response()->json([], 401);
         }
 
         // if (Auth::check()) {

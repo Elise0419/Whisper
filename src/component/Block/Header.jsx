@@ -56,17 +56,16 @@ function Header() {
 
       function fetchData() {
         fetch(`http://118.233.222.23:8000/api/profile`, {
-          method: "GET",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
         })
           .then((res) => {
-            if (res.status >= 400 && res.status < 500) {
-              setLogin(false);
-            } else if (res.status >= 200) {
+            if (res.status >= 200 && res.status < 400) {
               return res.json();
+            } else {
+              throw new Error("Failed to fetch user data");
             }
           })
           .then((jsonData) => {

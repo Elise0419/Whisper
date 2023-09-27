@@ -5,11 +5,11 @@ namespace App\Http\Controllers\API\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\PostCollection;
 use App\Http\Resources\V1\PostResource;
+use App\Models\Post;
 use App\Services\V1\PostQuery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
-use App\Models\Post;
 
 class PostController extends Controller
 {
@@ -137,15 +137,18 @@ class PostController extends Controller
             return response()->json(['message' => 'not found !'], 404);
         }
 
-        $post->onLogin = true;
+        $post->onLogin = false;
         $post->isLiked = false;
+        $post->isFavorite = false;
 
         try {
             $user = JWTAuth::parseToken()->authenticate();
             if ($user) {
                 $like = $post->likes->contains($user->user_id);
+                $save = $post->saveposts->contains($user->user_id);
                 $post->isLiked = $like;
-                $post->onLogin = false;
+                $post->isFavorite = $save;
+                $post->onLogin = true;
             }
         } catch (\Exception $e) {
             return new PostResource($post);

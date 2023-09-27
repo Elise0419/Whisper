@@ -288,7 +288,7 @@ function Post({ postId, userToken }) {
             <div className="postInteractive">
               <button
                 onClick={toggleLike}
-                disabled={post.login}
+                disabled={!post.login}
                 className={`postCustbutton ${post.isLike ? "active" : ""}`}
               >
                 <i className="material-icons">thumb_up</i>

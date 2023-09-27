@@ -19,7 +19,7 @@ class SavepostController extends Controller
         if (Auth::check()) {
 
             $user_id = Auth::user()->user_id;
-
+            $post = Post::find($postId);
             $save = Savepost::where('user_id', $user_id)->where('post_id', $postId)->first();
             if ($request->isFavorite === true) {
 
@@ -30,7 +30,7 @@ class SavepostController extends Controller
                         'post_id' => $postId,
                     ]);
 
-                    return response()->json([], 200);
+                    return response()->json(['save' => $post->save], 200);
                 } else {
 
                     return response()->json([], 409);
@@ -39,7 +39,7 @@ class SavepostController extends Controller
 
                 if ($save) {
                     $save->delete();
-                    return response()->json([], 200);
+                    return response()->json(['save' => $post->save], 200);
                 } else {
 
                     return response()->json([], 404);

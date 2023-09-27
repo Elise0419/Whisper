@@ -19,9 +19,8 @@ function Post({ postId, userToken }) {
   const [disabled, setDisabled] = useState(false);
   let [rule, setRule] = useState([]);
   // 初始狀態未點讚 未收藏狀態
-  let [isFavorited, setIsFavorited] = useState(false);
+  
   const token = localStorage.getItem("token");
-
   useEffect(() => {
     function fetchData() {
       // 取單篇文章
@@ -46,7 +45,6 @@ function Post({ postId, userToken }) {
 
       // 投票
       fetch(`http://10.10.247.90:8000/api/votes/${match.params.type}`, {
-        method: "GET",
       })
         .then((res) => {
           return res.json();
@@ -259,7 +257,7 @@ function Post({ postId, userToken }) {
           <div className="postAll">
             <div className="postArticle">
               <div className="postArticletitle">
-                <h2>{post.title}</h2>
+                <h2 dangerouslySetInnerHTML={{ __html: post.title }}/>
               </div>
               <div className="postArticletext">
                 {/* <p>{post.content}</p> */}
@@ -287,7 +285,7 @@ function Post({ postId, userToken }) {
             <div className="postInteractive">
               <button
                 onClick={toggleLike}
-                disabled={post.login}
+                disabled={!post.login}
                 className={`postCustbutton ${post.isLike ? "active" : ""}`}
               >
                 <i className="material-icons">thumb_up</i>
@@ -297,7 +295,7 @@ function Post({ postId, userToken }) {
               <button
                 onClick={toggleFavorite}
                 className={`postCustbutton ${post.isFavorite ? "active" : ""}`}
-                disabled={post.login}
+                disabled={!post.login}
               >
                 <i className="material-icons">favorite</i>
               </button>

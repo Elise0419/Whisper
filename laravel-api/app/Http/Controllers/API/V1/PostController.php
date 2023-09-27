@@ -146,8 +146,8 @@ class PostController extends Controller
             if ($user) {
                 $like = $post->likes->contains($user->user_id);
                 $save = $post->saveposts->contains($user->user_id);
-                $post->isLiked = $like;
                 $post->isFavorite = $save;
+                $post->isLiked = $like;
                 $post->onLogin = true;
             }
         } catch (\Exception $e) {

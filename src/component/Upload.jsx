@@ -109,7 +109,9 @@ function Quill() {
     var a = Array.from(
       document.querySelector(".hashtagNew").getElementsByTagName("button")
     );
-    setQ({ ...q, tag: a[0].innerText });
+    if (a[0] != undefined) {
+      setQ({ ...q, tag: a[0].innerText });
+    }
   }
 
   function newTag() {

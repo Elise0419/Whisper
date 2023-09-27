@@ -129,7 +129,7 @@ function Post({ postId, userToken }) {
     const newSaveStatus = !post.isFavorite;
     console.log(newSaveStatus);
 
-    fetch(`http://118.233.222.23:8000/api/posts/save/${match.params.postId}`, {
+    fetch(`http://10.10.247.90:8000/api/posts/save/${match.params.postId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -190,7 +190,6 @@ function Post({ postId, userToken }) {
   // vote
   function widthChange(e) {
     const token = localStorage.getItem("token");
-    console.log("Token in Profile:", token);
 
     fetch(
       `http://10.10.247.90:8000/api/votes/click/${vote.voteId}?${e.target.id}=true`,
@@ -288,7 +287,7 @@ function Post({ postId, userToken }) {
             <div className="postInteractive">
               <button
                 onClick={toggleLike}
-                disabled={!post.login}
+                disabled={post.login}
                 className={`postCustbutton ${post.isLike ? "active" : ""}`}
               >
                 <i className="material-icons">thumb_up</i>
@@ -297,7 +296,8 @@ function Post({ postId, userToken }) {
               {/* 收藏按鈕 */}
               <button
                 onClick={toggleFavorite}
-                className={`postCustbutton ${isFavorited ? "active" : ""}`}
+                className={`postCustbutton ${post.isFavorite ? "active" : ""}`}
+                disabled={post.login}
               >
                 <i className="material-icons">favorite</i>
               </button>

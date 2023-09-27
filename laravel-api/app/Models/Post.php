@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Models\Comtxt;
-use App\Models\Savepost;
 use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
@@ -41,10 +40,6 @@ class Post extends Model
     public function saveposts()
     {
         return $this->belongsToMany(User::class, 'saveposts', 'post_id', 'user_id');
-    }
-    public function userSaveposts()
-    {
-        return $this->belongsToMany(Savepost::class);
     }
 
     public function tags()

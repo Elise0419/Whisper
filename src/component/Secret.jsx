@@ -34,7 +34,7 @@ function Secreat() {
   const history = useHistory();
   function closeChoose(e) {
     if (e.target.className != "popChoose") {
-      history.push("/secret2");
+      history.push("/secrets");
     } else {
       setChoose(false);
     }

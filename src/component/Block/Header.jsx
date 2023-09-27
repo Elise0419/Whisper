@@ -15,7 +15,7 @@ import grayMail from "../img/grayMail.png";
 function Header() {
   let [dd, setDd] = useState("創建貼文");
   let [user, setUser] = useState("創建貼文");
-  const [login, setLogin] = useState(false);
+  const [login, setLogin] = useState(true);
   const m = useRouteMatch().params.type;
   const token = localStorage.getItem("token");
 
@@ -69,7 +69,7 @@ function Header() {
             }
           })
           .then((jsonData) => {
-            setLogin(true);
+            setLogin(false);
             setUser(jsonData.user);
           })
           .catch((error) => {

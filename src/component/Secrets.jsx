@@ -45,20 +45,28 @@ function Secrets() {
   }, []);
 
   const secretH2WithSpans = Array.from(secret.secretH2).map((char, index) => (
-    <span key={index}>{char}</span>
+    <span key={index} className="span">
+      {char}
+    </span>
   ));
   const secretPreWithSpans = Array.from(secret.secretPre).map((char, index) => (
-    <span key={index}>{char}</span>
+    <span key={index} className="span">
+      {char}
+    </span>
   ));
   const secretP1WithSpans = Array.from(secret.secretP1).map((char, index) => (
-    <span key={index}>{char}</span>
+    <span key={index} className="span">
+      {char}
+    </span>
   ));
   const secretP2WithSpans = Array.from(secret.secretP2).map((char, index) => (
-    <span key={index}>{char}</span>
+    <span key={index} className="span">
+      {char}
+    </span>
   ));
 
   function mouse() {
-    const spanElements = document.querySelectorAll("span");
+    const spanElements = document.querySelectorAll(".span");
 
     spanElements.forEach((element, index) => {
       const delay = index * 0.01;

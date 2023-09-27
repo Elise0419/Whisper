@@ -27,7 +27,7 @@ class PostController extends Controller
             $posts = Post::orderBy('post_time', 'desc')->paginate(16);
             return PostResource::collection($posts);
         } else {
-            return new PostCollection(Post::where($queryItems)->orderBy('post_time', 'desc')->paginate(16));
+            return new PostCollection(Post::where($queryItems)->orderBy('post_time', 'desc')->get());
         }
     }
 

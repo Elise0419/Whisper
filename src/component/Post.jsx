@@ -159,42 +159,68 @@ function Post({ postId, userToken }) {
 
   };
 
-  const toggleFavorite = function () {
-    const userToken = localStorage.getItem("token");
-    if (post.length > 0) {
-      setIsFavorited(!isFavorited);
-      const newSaveCount = isFavorited ? post[0].save - 1 : post[0].save + 1;
-      fetch(
-        `http://10.10.247.90:8000/api/posts/save/${match.params.postId}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${userToken}`,
-          },
-          body: JSON.stringify({ save: newSaveCount }),
-        }
-      )
-        .then((res) => {
-          if (!res.ok) {
-            throw new Error(`HTTP error! status: ${res.status}`);
-          }
-          return res.json();
-        })
-        .then((jsonData) => {
-          console.log("jsonData", jsonData);
-          if (
-            jsonData.message === "貼文已收藏" ||
-            jsonData.message === "貼文已經被收藏過"
-          ) {
-            setPost((prevPost) => [{ ...prevPost[0], save: newSaveCount }]);
-          }
-        })
-        .catch((err) => {
-          console.error("收藏请求错误:", err);
-        });
-    }
+  const toggleFavorite = () => {
+
+    const newSaveStatus = !post.isFavorite;
+    console.log(newSaveStatus)
+
+    fetch(
+      `http://118.233.222.23:8000/api/posts/save/${match.params.postId}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ isFavorite: newSaveStatus }),
+      }
+    )
+      .then((res) => res.json())
+      .then((jsonData) => {
+        setPost(prevPost => ({ ...prevPost, isFavorite: newSaveStatus ,save:jsonData.save }));
+      })
+      .catch((err) => {
+        console.log("收藏請求錯誤:", err);
+      });
+
   };
+
+  // const toggleFavorite = function () {
+  //   const userToken = localStorage.getItem("token");
+  //   if (post.length > 0) {
+  //     setIsFavorited(!isFavorited);
+  //     const newSaveCount = isFavorited ? post[0].save - 1 : post[0].save + 1;
+  //     fetch(
+  //       `http://118.233.222.23:8000/api/posts/save/${match.params.postId}`,
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer ${userToken}`,
+  //         },
+  //         body: JSON.stringify({ save: newSaveCount }),
+  //       }
+  //     )
+  //       .then((res) => {
+  //         if (!res.ok) {
+  //           throw new Error(`HTTP error! status: ${res.status}`);
+  //         }
+  //         return res.json();
+  //       })
+  //       .then((jsonData) => {
+  //         console.log("jsonData", jsonData);
+  //         if (
+  //           jsonData.message === "貼文已收藏" ||
+  //           jsonData.message === "貼文已經被收藏過"
+  //         ) {
+  //           setPost((prevPost) => [{ ...prevPost[0], save: newSaveCount }]);
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         console.error("收藏请求错误:", err);
+  //       });
+  //   }
+  // };
 
   // vote
   function widthChange(e) {

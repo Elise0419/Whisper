@@ -4,7 +4,6 @@ namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\SavepostCollection;
-use App\Models\Post;
 use App\Models\Savepost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,36 +14,43 @@ class SavepostController extends Controller
     {
         return new SavepostCollection(Savepost::all());
     }
-
     public function savepost(Request $request, $postId)
     {
+        if (Auth::check()) {
 
-        $userId = Auth::user()->user_id;
-        if (!$userId) {
-            return 'login';
-        };
+            $user_id = Auth::user()->user_id;
 
-        $existingSave = Savepost::where('user_id', $userId)
-            ->where('post_id', $postId)
-            ->first();
+            $save = Savepost::where('user_id', $user_id)->where('post_id', $postId)->first();
+            if ($request->isFavorite === true) {
 
-        if (!$existingSave) {
+                if (!$save) {
 
-            Savepost::create([
-                'user_id' => $userId,
-                'post_id' => $postId,
-            ]);
+                    Savepost::create([
+                        'user_id' => $user_id,
+                        'post_id' => $postId,
+                    ]);
 
-            $save = Post::find($postId);
-            $save->save += 1;
-            $save->save();
+                    return response()->json([], 200);
+                } else {
 
-            return response()->json(['message' => '貼文已收藏']);
+                    return response()->json([], 409);
+                }
+            } else if ($request->isFavorite === false) {
+
+                if ($save) {
+                    $save->delete();
+                    return response()->json([], 200);
+                } else {
+
+                    return response()->json([], 404);
+                }
+            }
+        } else {
+
+            return response()->json(['message' => 'unauth !'], 401);
         }
 
-        return response()->json(['message' => '貼文已經被收藏過']);
     }
-
     public function userSaveposts()
     {
         $userId = Auth::user();
@@ -84,5 +90,29 @@ class SavepostController extends Controller
 
     //     return new SavepostResource($savepost);
     // }
+
+// public function savepost(Request $request, $postId)
+// {
+
+//     $existingSave = Savepost::where('user_id', $userId)
+//         ->where('post_id', $postId)
+//         ->first();
+
+//     if (!$existingSave) {
+
+//         Savepost::create([
+//             'user_id' => $userId,
+//             'post_id' => $postId,
+//         ]);
+
+//         $save = Post::find($postId);
+//         $save->save += 1;
+//         $save->save();
+
+//         return response()->json(['message' => '貼文已收藏']);
+//     }
+
+//     return response()->json(['message' => '貼文已經被收藏過']);
+// }
 
 }

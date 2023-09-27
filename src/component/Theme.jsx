@@ -19,8 +19,8 @@ import bite from "./img/bite.png";
 
 function Makeup() {
   const m = useRouteMatch().params.type;
+  const token = localStorage.getItem("token");
   let [searchBarImg, setSearchBarImg] = useState([]);
-
   let [topic, setTopic] = useState([
     {
       img: makeup,
@@ -140,7 +140,6 @@ function Makeup() {
           console.log("錯誤:", err);
         });
 
-      const token = localStorage.getItem("token");
       // Search Bar 頭貼
       fetch("http://10.10.247.90:8000/api/profile", {
         headers: {
@@ -244,8 +243,6 @@ function Makeup() {
 
   // vote
   function widthChange(e) {
-    const token = localStorage.getItem("token");
-
     fetch(
       `http://10.10.247.90:8000/api/votes/click/${vote.voteId}?${e.target.id}=true`,
       {
@@ -474,7 +471,6 @@ function Makeup() {
           <span className="voteTopic">
             <p>
               <img src={makeup} />
-              {console.log(vote)}
               &nbsp;&nbsp;{vote.forumTitle}
             </p>
           </span>

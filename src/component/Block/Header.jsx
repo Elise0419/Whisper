@@ -54,8 +54,6 @@ function Header() {
       }
 
       function fetchData() {
-        const token = localStorage.getItem("token");
-
         fetch(`http://10.10.247.90:8000/api/profile`, {
           method: "GET",
           headers: {
@@ -112,7 +110,6 @@ function Header() {
         </div>
         <div>
           <button className="headerSecret">
-            {console.log(token)}
             {token ? (
               <Link to="/secret">
                 <img

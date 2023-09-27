@@ -18,6 +18,7 @@ import ice from "./img/ice.png";
 
 function Home() {
   const m = useRouteMatch().params.type;
+  const token = localStorage.getItem("token");
   const [loading, setLoading] = useState(true);
 
   let [topic, setTopic] = useState([
@@ -104,8 +105,6 @@ function Home() {
           console.log("錯誤:", err);
         });
 
-      const token = localStorage.getItem("token");
-      console.log("Token in Profile:", token);
       // Search Bar 頭貼
       fetch("http://10.10.247.90:8000/api/profile", {
         headers: {

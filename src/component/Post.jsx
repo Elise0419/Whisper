@@ -228,20 +228,6 @@ function Post({ postId, userToken }) {
       <Header />
       <section></section>
       <article>
-        {/* {post.map((post) => {
-          const myContent = document.createElement("div");
-          const myTitle = document.createElement("div");
-          myContent.innerHTML = post.content;
-          myTitle.innerHTML = post.title;
-
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(post.content, "text/html");
-          const imgElements = doc.querySelectorAll("img");
-          const urls = Array.from(imgElements).map((img) =>
-            img.getAttribute("src")
-          ); */}
-
-        {/* return ( */}
         <div className="postContainer" key={post.postId}>
           <div className="postUseinfo">
             <div className="postUsepic">
@@ -259,25 +245,13 @@ function Post({ postId, userToken }) {
                 <h2 dangerouslySetInnerHTML={{ __html: post.title }} />
               </div>
               <div className="postArticletext">
-                {/* <p>{post.content}</p> */}
                 <div dangerouslySetInnerHTML={{ __html: post.content }} />
-                {/* {post.imgUrl ? (
-                      // 這邊是資料庫 imgUrl 預設貼文的照片處理 */}
                 <img
                   src={post.imgUrl}
                   key={`${post.postId}`}
                   referrerPolicy="no-referrer"
                   alt=""
                 />
-                {/* ) : (
-                      // 這邊是用戶上傳的照片處理
-                      urls.map((url, index) => (
-                        <div key={index}>
-                          {console.log(url)}
-                          <img src={url} alt={`Image ${index}`} />
-                        </div>
-                      ))
-                    )} */}
               </div>
             </div>
             <hr />
@@ -290,7 +264,6 @@ function Post({ postId, userToken }) {
                 <i className="material-icons">thumb_up</i>
               </button>
               <span>{post.thumb}</span>
-              {/* 收藏按鈕 */}
               <button
                 onClick={toggleFavorite}
                 className={`postCustbutton ${post.isFavorite ? "active" : ""}`}
@@ -305,8 +278,6 @@ function Post({ postId, userToken }) {
             </div>
           </div>
         </div>
-        {/* );
-        })} */}
       </article>
       <aside>
         <div className="aside">

@@ -39,15 +39,15 @@ function Header() {
   useEffect(
     function () {
       if (m) {
-        if (m == "love") {
+        if (m === "love") {
           setDd("感情生活");
-        } else if (m == "life") {
+        } else if (m === "life") {
           setDd("健康生活");
-        } else if (m == "food") {
+        } else if (m === "food") {
           setDd("美食情報");
-        } else if (m == "fashion") {
+        } else if (m === "fashion") {
           setDd("時尚穿搭");
-        } else if (m == "mkup") {
+        } else if (m === "mkup") {
           setDd("美妝保養");
         }
       } else {
@@ -95,15 +95,15 @@ function Header() {
       <div className="nav">nav</div>
       <header>
         <div>
-          <Link to="/home/1">
-            <img className="logo " src={logo} />
+          <Link to="/">
+            <img className="logo " src={logo} alt=""/>
           </Link>
           <Link to="/home/1">
             <span className="whisper">WHISPER</span>
           </Link>
           <button className="ddBtn">
             <p className="ddName">{dd}</p>
-            <img className="ddArrow" src={purpleArrow} />
+            <img className="ddArrow" src={purpleArrow} alt=""/>
             <span className="ddItem">
               <Link to="/upload/mkup">美妝保養</Link>
               <Link to="/upload/fashion">時尚穿搭</Link>
@@ -120,37 +120,36 @@ function Header() {
                 <img
                   src={mail}
                   className="secret animate__animated animate__heartBeat animate__infinite"
+                  alt=""
                 />
               </Link>
             ) : (
-              <img src={grayMail} className="grayMail" onClick={gm} />
+              <img src={grayMail} className="grayMail" onClick={gm} alt=""/>
             )}
           </button>
           <Link to="/profile">
-            <img className="userImg" src={user?.headimg || rabbit} />
+            <img className="userImg" src={user?.headimg || rabbit} alt="" />
           </Link>
           <Link to="/profile">
             <span className="userName">{user?.mem_name || "Guest"}</span>
           </Link>
-          {login ? (
-            <Link to="/login">
-              <span>登入</span>
-            </Link>
-          ) : (
-            <button className="userBtn">
-              <img className="userArrow" src={whiteArrow} />
-              <span className="userItem">
-                <Link to="/home/1">
-                  我的主頁&nbsp;&nbsp;
-                  <img src={crown} className="myImg" />
-                </Link>
-                <Link to="/profile">編輯信息&nbsp;&nbsp;</Link>
-                <Link to="/manage">管理貼文</Link>
-                <hr />
-                <span onClick={logout}>登出</span>
-              </span>
-            </button>
-          )}
+          {login ? (<Link to="/login">
+            <span>登入</span>
+          </Link>) : (<button className="userBtn">
+            <img className="userArrow" src={whiteArrow} alt="" />
+            <span className="userItem">
+              <Link to="/">
+                我的主頁&nbsp;&nbsp;
+                <img src={crown} className="myImg" alt=""/>
+              </Link>
+              <Link to="/profile">編輯信息&nbsp;&nbsp;</Link>
+              <Link to="/manage">管理貼文</Link>
+              {user.admin ? (<Link to="/admin/article">管理員模式</Link>):(<span></span>)}
+              <hr />
+              <span onClick={logout}>登出</span>
+            </span>
+          </button>)}
+
         </div>
       </header>
     </div>

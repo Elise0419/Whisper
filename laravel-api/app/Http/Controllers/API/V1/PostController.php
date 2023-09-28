@@ -10,6 +10,7 @@ use App\Services\V1\PostQuery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use App\Models\Tag;
 
 class PostController extends Controller
 {
@@ -196,6 +197,21 @@ class PostController extends Controller
             $post->delete();
 
             return response()->json(['message' => 'deleted!']);
+        } else {
+            return response()->json(['message' => 'not found!']);
+        }
+    }
+
+    public function edition($postId)
+    {
+        $userId = Auth::user()->user_id;
+        if (!$userId) {
+            return response()->json([],401);
+        };
+        $post = Post::find($postId)->where('user_id',$userId)->get();
+        if ($post) {
+            $tags = Tag::where('type', $post->type)->inRandomOrder()->take(6)->get();
+            return response()->json(['psot' => $post,'tags'=>$tags]);
         } else {
             return response()->json(['message' => 'not found!']);
         }

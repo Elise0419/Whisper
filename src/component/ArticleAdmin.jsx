@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import "./CSS/Adminall.css";
 
 function ArticleAdmin() {
   const [data, setData] = useState([]);

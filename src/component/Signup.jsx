@@ -89,7 +89,6 @@ function Signup() {
 
   return (
     <div id="container">
-      <Header />
       <section></section>
       <article>
         <div className="signupContainer">
@@ -196,7 +195,6 @@ function Signup() {
         </div>
       </article>
       <aside></aside>
-      <Footer />
     </div>
   );
 }

@@ -224,7 +224,6 @@ function Home() {
         <div>資料載入中...</div>
       ) : (
         <div id="container">
-          <Header />
           <section>
             <div className="topic">
               <p>主題個版</p>
@@ -431,10 +430,10 @@ function Home() {
               第 {m.page} 頁，共 {totalPage} 頁
             </p>
           </div>
-          <Footer />
         </div>
-      )}
-    </div>
+      )
+      }
+    </div >
   );
 }
 

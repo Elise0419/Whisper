@@ -23,13 +23,10 @@ class ComtxtController extends Controller
         if (count($queryItems) == 0) {
 
             return new ComtxtCollection(Comtxt::all());
-
         } else {
 
             return new ComtxtCollection(Comtxt::where($queryItems)->orderby('created_at', 'desc')->get());
-
         }
-
     }
 
     public function createcomtxt(Request $request, $postId)
@@ -68,7 +65,6 @@ class ComtxtController extends Controller
         $comment->save();
 
         return response()->json(['message' => 'comtxt updated !']);
-
     }
 
     public function show($id)
@@ -76,7 +72,5 @@ class ComtxtController extends Controller
         $comtxt = Comtxt::with(['users', 'posts'])->findOrFail($id);
 
         return new ComtxtResource($comtxt);
-
     }
-
 }

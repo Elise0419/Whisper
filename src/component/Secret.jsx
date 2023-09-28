@@ -77,7 +77,6 @@ function Secreat() {
 
   return (
     <div>
-      <Header />
       <div className="perspective">
         <div className="tardis-wrap">
           <div className="tardis">
@@ -329,7 +328,6 @@ function Secreat() {
           </div>
         </div>
       )}
-      <Footer />
     </div>
   );
 }

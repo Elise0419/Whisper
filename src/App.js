@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { UserProvider } from "./store/UserContext";
 
 import Home from "./component/Home";
 import Upload from "./component/Upload";
@@ -18,12 +19,17 @@ import Secrets from "./component/Secrets";
 import ArticleAdmin from "./component/ArticleAdmin";
 import CommentAdmin from "./component/CommentAdmin";
 import Edition from "./component/Edition";
+import Header from "./component/Block/Header";
+import Footer from "./component/Block/Footer";
+
 
 class App extends Component {
   state = {};
   render() {
     return (
       <BrowserRouter>
+        <Header />
+        {/* <UserProvider> */}
         <Switch>
           <Route path="/secret" component={Secret} exact />
           <Route path="/secrets" component={Secrets} exact />
@@ -58,6 +64,8 @@ class App extends Component {
           <Route path="/home/:page" component={Home} exact />
           <Route path="/:type/:page" component={Theme} exact />
         </Switch>
+        {/* </UserProvider> */}
+        <Footer />
       </BrowserRouter>
     );
   }

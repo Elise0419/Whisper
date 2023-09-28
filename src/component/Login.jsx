@@ -137,7 +137,6 @@ function Login() {
         </div>
       </article>
       <aside></aside>
-      <Footer />
     </div>
   );
 }

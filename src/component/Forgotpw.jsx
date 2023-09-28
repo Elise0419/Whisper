@@ -48,7 +48,6 @@ function Forgotpw() {
 
   return (
     <div id="container">
-      <Header />
       <section></section>
       <article>
         <div className="fgtContainer">
@@ -106,7 +105,6 @@ function Forgotpw() {
         </div>
       </article>
       <aside></aside>
-      <Footer />
     </div>
   );
 }

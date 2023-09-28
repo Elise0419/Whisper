@@ -69,7 +69,6 @@ function Restpwd() {
 
   return (
     <div id="container">
-      <Header />
       <section></section>
       <article>
         <div className="restContainer">
@@ -139,7 +138,6 @@ function Restpwd() {
         </div>
       </article>
       <aside></aside>
-      <Footer />
     </div>
   );
 }

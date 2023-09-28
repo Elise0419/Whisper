@@ -10,7 +10,6 @@ import logo from "./img/logo.png";
 function Verifyemail() {
   return (
     <div id="container">
-      <Header />
       <section></section>
       <article>
         <div className="VerifyContainer">
@@ -25,10 +24,10 @@ function Verifyemail() {
             />
             <br /><br />
             <div className="">
-                <strong>尚未完成email驗證,請至郵箱驗證您的email</strong>
+              <strong>尚未完成email驗證,請至郵箱驗證您的email</strong>
             </div>
-            <Link to="/verifyre"  className="btnVerify">
-            如果沒有收到email,請點擊這裡
+            <Link to="/verifyre" className="btnVerify">
+              如果沒有收到email,請點擊這裡
             </Link>
 
             <p>完成Email驗證才能帳號註冊完成～</p>
@@ -39,7 +38,6 @@ function Verifyemail() {
         </div>
       </article>
       <aside></aside>
-      <Footer />
     </div>
   );
 }

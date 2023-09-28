@@ -144,7 +144,6 @@ function Quill() {
 
   return (
     <div>
-      <Header />
       <div className="QuillEditor">
         <div>
           <ReactQuill
@@ -208,7 +207,6 @@ function Quill() {
       <button role="button" onClick={up} className="upBtn">
         上傳貼文
       </button>
-      <Footer />
     </div>
   );
 }

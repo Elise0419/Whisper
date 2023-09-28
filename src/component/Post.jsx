@@ -339,7 +339,6 @@ function Post({ postId, userToken }) {
           </ol>
         </div>
       </aside>
-      <Footer />
     </div>
   );
 }

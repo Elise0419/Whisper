@@ -14,7 +14,7 @@ import grayMail from "../img/grayMail.png";
 
 function Header() {
   let [dd, setDd] = useState("創建貼文");
-  let [user, setUser] = useState("創建貼文");
+  let [user, setUser] = useState({});
   const [login, setLogin] = useState(true);
   const m = useRouteMatch().params.type;
   const token = localStorage.getItem("token");

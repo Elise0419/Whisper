@@ -77,7 +77,6 @@ function Secrets() {
 
   return (
     <div>
-      <Header />
       <div>
         <p className="scroll">(Please scroll down)</p>
         <section className="wrapper">
@@ -117,7 +116,6 @@ function Secrets() {
         </div>
       </div>
       <aside className="pushDown"></aside>
-      <Footer />
     </div>
   );
 }

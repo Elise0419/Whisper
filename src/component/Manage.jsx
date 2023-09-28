@@ -22,7 +22,6 @@ function Manage() {
 
   return (
     <div id="container">
-      <Header />
       <section></section>
       <article>
         <div className="manageContainer">
@@ -66,7 +65,6 @@ function Manage() {
         {/* 側邊欄內容 */}
         <Asideuser />
       </aside>
-      <Footer />
     </div>
   );
 }

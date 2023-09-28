@@ -33,7 +33,6 @@ function Verifyemail() {
 
   return (
     <div id="container">
-      <Header />
       <section></section>
       <article>
         <div className="VerifyContainer">
@@ -74,7 +73,6 @@ function Verifyemail() {
         </div>
       </article>
       <aside></aside>
-      <Footer />
     </div>
   );
 }

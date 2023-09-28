@@ -12,37 +12,10 @@ function Postart() {
 
   const history = useHistory();
 
-  let url;
-  const handleEdit = (post) => {
-    // 将编辑的帖子数据保存在 localStorage 中
-    localStorage.setItem("editingPost", JSON.stringify(post));
-    setEditingPost(post);
-    // 跳转到上传页面
-    history.push(`/upload/${post.type}`);
+  const handleEdit = (postID) => {
+    history.push(`/edit/${postID}`);
   };
 
-  // 貼文編輯
-  const handleUpdate = (postId, newData) => {
-    const token = localStorage.getItem("token");
-
-    fetch(`http://10.10.247.90:8000/api/posts/edit/${postId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(newData),
-    })
-      .then((response) => response.json())
-      .then((resJson) => {
-        console.log("Response from server:", resJson);
-        if (resJson.message === "Post updated successfully") {
-          fetchPosts();
-          setEditingPost(null);
-        }
-      })
-      .catch((error) => console.error("Error:", error));
-  };
 
   // 貼文刪除
   const handleDelete = (postId) => {
@@ -156,7 +129,7 @@ function Postart() {
               <div className="manageBtn">
                 <button
                   className="editBtn"
-                  onClick={() => handleEdit(post)}
+                  onClick={() => handleEdit(post.postId)}
                   disabled={!!editingPost}
                 >
                   編輯

@@ -91,6 +91,9 @@ Route::middleware(['auth'])->post('/upload/{type}', [PostController::class, 'upl
 Route::middleware(['auth'])->post('/user/posts', [PostController::class, 'getUserPosts']);
 Route::middleware(['auth'])->post('/posts/save/{postId}', [SavepostController::class, 'savepost']);
 Route::middleware(['auth'])->post('/posts/usersave', [SavepostController::class, 'userSaveposts']);
+
+Route::middleware(['auth:api'])->get('/posts/edit/post_{postID}', [PostController::class, 'edition']);
+
 Route::middleware(['auth'])->put('/posts/edit/{postId}', [PostController::class, 'updatepost']);
 Route::middleware(['auth'])->delete('/posts/delete/{postId}', [PostController::class, 'destroy']);
 Route::middleware(['auth'])->delete('/saveposts/delete/{postId}', [SavepostController::class, 'delete']);

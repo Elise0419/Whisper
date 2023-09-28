@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link, useHistory } from "react-router-dom";
 import "./CSS/Collectart.css";
 import posttext from "./img/posttext.jpg";
+import { colors } from "@mui/material";
 
 function Collectart() {
   const history = useHistory();
@@ -145,7 +146,7 @@ function Collectart() {
           );
         })
       ) : (
-        <div>{userId ? <div>無法獲取帖子數據</div> : <div>請先登入</div>}</div>
+        <div className="manageCount">{userId ? <div>請先登入</div> : <div>目前沒有帖子</div>}</div>
       )}
     </div>
   );

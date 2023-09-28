@@ -17,7 +17,7 @@ import Secret from "./component/Secret";
 import Secrets from "./component/Secrets";
 import ArticleAdmin from "./component/ArticleAdmin";
 import CommentAdmin from "./component/CommentAdmin";
-import { UserProvider } from "./store/UserContext";
+import Edition from "./component/Edition";
 
 class App extends Component {
   state = {};
@@ -34,7 +34,6 @@ class App extends Component {
           <Route path="/restpwd" component={Restpwd} exact />
           <Route path="/verify" component={Verify} exact />
           <Route path="/verifyre" component={Verifyre} exact />
-          <Route path="/admin/article" component={CommentAdmin} exact />
           <Route
             path="/admin/post_:postId(\d+)/comments"
             component={CommentAdmin}
@@ -47,6 +46,8 @@ class App extends Component {
             exact
           />
           <Route path="/upload/:type" component={Upload} exact />
+
+          <Route path="/edit/:postID" component={Edition} exact />
 
           <Route path="/profile" component={Profile} exact />
           <Route path="/manage" component={Manage} exact />

@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\V1;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class SavepostResource extends JsonResource
@@ -12,13 +11,13 @@ class SavepostResource extends JsonResource
      *
      * @return array<string, mixed>
      */
-    public function toArray(Request $request): array
-    {
-        return [
-            'userId' => $this->users->user_id,
-            'userInfo' => $this->users->mem_name,
-            'postId' => $this->posts->post_id,
-            'postInfo' => new PostResource($this->posts),
-        ];
-    }
+    // public function toArray($request)
+    // {
+    //     return [
+    //         'postId' => $this->post_id,
+    //         'userId' => $this->user_id,
+    //         'userInfo' => $this->users,
+    //         'postInfo' => $this->posts,
+    //     ];
+    // }
 }

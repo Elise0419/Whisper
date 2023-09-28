@@ -17,12 +17,13 @@ import cake from "./img/cake.png";
 import rose from "./img/rose.png";
 import bite from "./img/bite.png";
 
-function Makeup() {
+function Theme() {
   const m = useRouteMatch().params;
   const token = localStorage.getItem("token");
-  let [searchBarImg, setSearchBarImg] = useState([]);
-  let [page, setPage] = useState(1);
-  let [pn, setPn] = useState(1);
+
+  let [totalPage, setTotalPage] = useState(1);
+  let [changePage, setChangePage] = useState(1);
+
   let [topic, setTopic] = useState([
     {
       img: makeup,
@@ -51,16 +52,18 @@ function Makeup() {
     },
   ]);
   let [ad, setAd] = useState([]);
-  let [searchVal, setSearchVal] = useState(""); // search bar input value
-  let [searchMsg, setSearchMsg] = useState({}); // 宜珊的response;
-  let [find, setFind] = useState(false); // 無搜尋結果
   let [card, setCard] = useState([]);
   let [vote, setVote] = useState([]);
-  let [oneWidth, setOneWidth] = useState(50);
-  let [twoWidth, setTwoWidth] = useState(50);
-  const [disabled, setDisabled] = useState(false);
   let [tag, setTag] = useState([]);
   let [rule, setRule] = useState([]);
+
+  let [searchBarImg, setSearchBarImg] = useState([]);
+  let [searchVal, setSearchVal] = useState(""); // search bar input value
+  let [searchMsg, setSearchMsg] = useState({}); // 宜珊的 response;
+  let [find, setFind] = useState(false); // 無搜尋結果
+  let [oneWidth, setOneWidth] = useState(50);
+  let [twoWidth, setTwoWidth] = useState(50);
+  let [disabled, setDisabled] = useState(false);
 
   // 貼文渲染 & 主頁右側欄
   useEffect(() => {
@@ -93,15 +96,11 @@ function Makeup() {
             setCard([]);
           } else {
             // 有搜尋紀錄
-            setPage(Math.ceil(jsonData.data.length / 16));
-
-            if (m.page == undefined) {
-              jsonData.data = jsonData.data.slice(0, 16);
-            } else {
-              let s = (m.page - 1) * 16;
-              let e = s + 16;
-              jsonData.data = jsonData.data.slice(s, e);
-            }
+            // 改變頁數目錄
+            setTotalPage(Math.ceil(jsonData.data.length / 16));
+            let s = (m.page - 1) * 16;
+            let e = s + 16;
+            jsonData.data = jsonData.data.slice(s, e);
 
             setFind(false);
             setCard(
@@ -220,6 +219,7 @@ function Makeup() {
           return res.json();
         })
         .then((jsonData) => {
+          console.log(jsonData.data);
           if (jsonData.message == "Post not found!") {
             setSearchMsg({ message: `無法搜尋到 ${searchVal} 相關貼文` });
           } else {
@@ -304,26 +304,32 @@ function Makeup() {
       .then((jsonData) => {
         setCard(jsonData);
         setFind(false);
+<<<<<<< HEAD
         setPage()
+=======
+        setTotalPage(Math.ceil(jsonData.data.length / 16));
+>>>>>>> 77d249c3a5d713c74688dae4b6dc1c6470a5eaf2
       })
       .catch((err) => {
         console.log("錯誤:", err);
       });
   }
 
+  // 上一頁
   function pre() {
-    pn = Number(pn) - 1;
-    if (pn < 1) {
+    changePage = Number(m.page) - 1;
+    if (changePage < 1) {
     } else {
-      setPn(pn);
+      setChangePage(changePage);
     }
   }
 
+  // 下一頁
   function next() {
-    pn = Number(pn) + 1;
-    if (pn > page) {
+    changePage = Number(m.page) + 1;
+    if (changePage > totalPage) {
     } else {
-      setPn(pn);
+      setChangePage(changePage);
     }
   }
 
@@ -378,10 +384,6 @@ function Makeup() {
           />
           <a className="searchBtn" onClick={searchButton}>
             Search
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
           </a>
         </div>
         <div className="cardContainer">
@@ -565,10 +567,10 @@ function Makeup() {
         </div>
       </aside>
       <div className="page">
-        <a className="pre" href={`/${m.type}/${pn}`} onClick={pre}>
+        <a className="pre" href={`/${m.type}/${changePage}`} onClick={pre}>
           pre
         </a>
-        {Array.from({ length: page }).map((_, index) => (
+        {Array.from({ length: totalPage }).map((_, index) => (
           <span key={index}>
             &nbsp;
             <a className="pageNum" href={`/${m.type}/${index + 1}`}>
@@ -577,11 +579,11 @@ function Makeup() {
             &nbsp;
           </span>
         ))}
-        <a className="next" href={`/${m.type}/${pn}`} onClick={next}>
+        <a className="next" href={`/${m.type}/${changePage}`} onClick={next}>
           next
         </a>
         <p>
-          第 {m.page} 頁，共 {page} 頁
+          第 {m.page} 頁，共 {totalPage} 頁
         </p>
       </div>
       <Footer />
@@ -589,4 +591,4 @@ function Makeup() {
   );
 }
 
-export default Makeup;
+export default Theme;

@@ -16,7 +16,6 @@ function Postart() {
     history.push(`/edit/${postID}`);
   };
 
-
   // 貼文刪除
   const handleDelete = (postId) => {
     const token = localStorage.getItem("token");
@@ -42,7 +41,6 @@ function Postart() {
 
   const fetchPosts = () => {
     const token = localStorage.getItem("token");
-    console.log("Token in Profile:", token);
 
     fetch(`http://10.10.247.90:8000/api/user/posts`, {
       method: "POST",
@@ -53,7 +51,6 @@ function Postart() {
     })
       .then((response) => response.json())
       .then((resJson) => {
-        console.log("Data from server:", resJson);
         if (resJson.message === "没有蒐藏任何貼文") {
           setPosts([]);
           setPostCount(0);
@@ -102,14 +99,12 @@ function Postart() {
                 to={`/post/${post.postId}/${post.type}`}
                 className="manageContent"
               >
-                {/* <img src={url} /> */}
                 {post.imgUrl && <img src={post.imgUrl} alt="" />}
                 {!post.imgUrl && isStringValid && <img src={url} alt="" />}
                 {!post.imgUrl && !isStringValid && (
                   <img src={posttext} alt="" />
                 )}
 
-                {/* <img src={post.url || posttext} alt="" /> */}
                 <div className="manageText">
                   <p className="managePost">{myTitle.innerText}</p>
                   <p className="manageTime">

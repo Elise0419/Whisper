@@ -25,7 +25,7 @@ function Post({ postId, userToken }) {
     function fetchData() {
       // 取單篇文章
       fetch(
-        `http://118.233.222.23:8000/api/v1/posts/${match.params.postId}/${match.params.type}`,
+        `http://10.10.247.90:8000/api/v1/posts/${match.params.postId}/${match.params.type}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -44,8 +44,7 @@ function Post({ postId, userToken }) {
         });
 
       // 投票
-      fetch(`http://118.233.222.23:8000/api/votes/${match.params.type}`, {
-      })
+      fetch(`http://10.10.247.90:8000/api/votes/${match.params.type}`, {})
         .then((res) => {
           return res.json();
         })
@@ -59,7 +58,7 @@ function Post({ postId, userToken }) {
 
       // 個版規則
       fetch(
-        `http://118.233.222.23:8000/api/v1/rules?type[eq]=${match.params.type}`,
+        `http://10.10.247.90:8000/api/v1/rules?type[eq]=${match.params.type}`,
         {
           method: "GET",
         }
@@ -102,7 +101,7 @@ function Post({ postId, userToken }) {
     const newLikeStatus = !post.isLike;
     console.log(newLikeStatus);
 
-    fetch(`http://118.233.222.23:8000/api/posts/thumb${match.params.postId}`, {
+    fetch(`http://10.10.247.90:8000/api/posts/thumb${match.params.postId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -127,7 +126,7 @@ function Post({ postId, userToken }) {
     const newSaveStatus = !post.isFavorite;
     console.log(newSaveStatus);
 
-    fetch(`http://118.233.222.23:8000/api/posts/save/${match.params.postId}`, {
+    fetch(`http://10.10.247.90:8000/api/posts/save/${match.params.postId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -154,7 +153,7 @@ function Post({ postId, userToken }) {
   //     setIsFavorited(!isFavorited);
   //     const newSaveCount = isFavorited ? post[0].save - 1 : post[0].save + 1;
   //     fetch(
-  //       `http://118.233.222.23:8000/api/posts/save/${match.params.postId}`,
+  //       `http://10.10.247.90:8000/api/posts/save/${match.params.postId}`,
   //       {
   //         method: "POST",
   //         headers: {
@@ -190,7 +189,7 @@ function Post({ postId, userToken }) {
     const token = localStorage.getItem("token");
 
     fetch(
-      `http://118.233.222.23:8000/api/votes/click/${vote.voteId}?${e.target.id}=true`,
+      `http://10.10.247.90:8000/api/votes/click/${vote.voteId}?${e.target.id}=true`,
       {
         method: "GET",
         headers: {

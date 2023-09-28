@@ -41,7 +41,7 @@ function Profile() {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://118.233.222.23:8000/api/profile/${field}/change`,
+        `http://10.10.247.90:8000/api/profile/${field}/change`,
         {
           method: "put",
           headers: {
@@ -83,7 +83,7 @@ function Profile() {
     const head = user.headimg;
     setIsEditing({ ...isEditing, headimg: false });
     const token = localStorage.getItem("token");
-    fetch(`http://118.233.222.23:8000/api/profile/head/change`, {
+    fetch(`http://10.10.247.90:8000/api/profile/head/change`, {
       method: "put",
       headers: {
         "Content-Type": "application/json",
@@ -125,26 +125,26 @@ function Profile() {
 
   function fetchData() {
     const token = localStorage.getItem("token");
-    fetch("http://118.233.222.23:8000/api/profile", {
+    fetch("http://10.10.247.90:8000/api/profile", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
       .then((res) => {
-        console.log(res)
+        console.log(res);
         if (res.status === 403) {
           history.push("/verify");
           throw new Error("API request failed");
         }
         if (res.status === 401) {
-          history.push("/login")
+          history.push("/login");
         }
         if (res.status >= 200) {
           return res.json();
         }
       })
       .then((jsonData) => {
-        console.log(jsonData)
+        console.log(jsonData);
         if (jsonData.error) {
           console.log("錯誤訊息:", jsonData.error);
         } else {
@@ -158,7 +158,6 @@ function Profile() {
   }
 
   useEffect(() => {
-
     fetchData();
   }, []);
 
@@ -220,7 +219,9 @@ function Profile() {
                       id="promise"
                       value={user?.promise || ""}
                       readOnly={!isEditing.promise}
-                      onChange={(e) => handleInputChange("promise", e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("promise", e.target.value)
+                      }
                     />
                     {isEditing.promise ? (
                       <button
@@ -250,7 +251,9 @@ function Profile() {
                       name="email"
                       value={user.email}
                       readOnly={!isEditing.email}
-                      onChange={(e) => handleInputChange("email", e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("email", e.target.value)
+                      }
                     />
                     {isEditing.email ? (
                       <button
@@ -317,7 +320,9 @@ function Profile() {
                       pattern="^0\d{1,2}-?\d{6,7}$"
                       required
                       readOnly={!isEditing.phone}
-                      onChange={(e) => handleInputChange("phone", e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("phone", e.target.value)
+                      }
                     />
                     {isEditing.phone ? (
                       <button
@@ -356,14 +361,13 @@ function Profile() {
             </div>
           </article>
           <aside>
-            <Asideuser user={asideUser} /> {/* 将侧边栏的 user 属性传递给 Asideuser 组件 */}
+            <Asideuser user={asideUser} />{" "}
+            {/* 将侧边栏的 user 属性传递给 Asideuser 组件 */}
           </aside>
           <Footer />
         </div>
-
       )}
     </div>
-
   );
 }
 

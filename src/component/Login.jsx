@@ -17,7 +17,12 @@ function Login() {
 
   const handleInput = (event) => {
     const { name, value } = event.target;
-    setValues((prev) => ({ ...prev, [name]: value, acm_error: '', pwd_error: '' }));
+    setValues((prev) => ({
+      ...prev,
+      [name]: value,
+      acm_error: "",
+      pwd_error: "",
+    }));
   };
 
   const handleSubmit = (event) => {
@@ -28,7 +33,7 @@ function Login() {
       password: values.password,
     };
 
-    fetch("http://118.233.222.23:8000/api/login", {
+    fetch("http://10.10.247.90:8000/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -54,7 +59,7 @@ function Login() {
             setValues({
               ...values,
               pwd_error: data.pwd_error,
-              password: '',
+              password: "",
             });
           });
           // window.location.reload();
@@ -64,7 +69,7 @@ function Login() {
       })
       .then((data) => {
         localStorage.setItem("token", data.authorization.token);
-        alert('登入成功，即將返回首頁')
+        alert("登入成功，即將返回首頁");
         history.push("/");
       })
 

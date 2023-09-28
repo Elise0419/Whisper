@@ -25,7 +25,7 @@ function Postart() {
   const handleUpdate = (postId, newData) => {
     const token = localStorage.getItem("token");
 
-    fetch(`http://118.233.222.23:8000/api/posts/edit/${postId}`, {
+    fetch(`http://10.10.247.90:8000/api/posts/edit/${postId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -48,7 +48,7 @@ function Postart() {
   const handleDelete = (postId) => {
     const token = localStorage.getItem("token");
 
-    fetch(`http://118.233.222.23:8000/api/posts/delete/${postId}`, {
+    fetch(`http://10.10.247.90:8000/api/posts/delete/${postId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -71,7 +71,7 @@ function Postart() {
     const token = localStorage.getItem("token");
     console.log("Token in Profile:", token);
 
-    fetch(`http://118.233.222.23:8000/api/user/posts`, {
+    fetch(`http://10.10.247.90:8000/api/user/posts`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -130,17 +130,11 @@ function Postart() {
                 className="manageContent"
               >
                 {/* <img src={url} /> */}
-                {post.imgUrl && (
-                  <img src={post.imgUrl} alt="" />
-                )}
-                {!post.imgUrl && isStringValid && (
-                  <img src={url} alt="" />
-                )}
+                {post.imgUrl && <img src={post.imgUrl} alt="" />}
+                {!post.imgUrl && isStringValid && <img src={url} alt="" />}
                 {!post.imgUrl && !isStringValid && (
                   <img src={posttext} alt="" />
                 )}
-
-
 
                 {/* <img src={post.url || posttext} alt="" /> */}
                 <div className="manageText">
@@ -179,13 +173,7 @@ function Postart() {
           );
         })
       ) : (
-        <div>
-          {userId ? (
-            <div>無法獲取帖子數據</div>
-          ) : (
-            <div>請先登入</div>
-          )}
-        </div>
+        <div>{userId ? <div>無法獲取帖子數據</div> : <div>請先登入</div>}</div>
       )}
     </div>
   );

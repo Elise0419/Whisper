@@ -26,11 +26,10 @@ function Signup() {
     setValues({ ...values, [event.target.name]: event.target.value });
   };
 
-
   const handleSubmit = (event) => {
     event.preventDefault();
     setErrors(Validation(values));
-    console.log("values", values)
+    console.log("values", values);
 
     if (Object.keys(errors).length === 0) {
       const requestData = {
@@ -41,7 +40,7 @@ function Signup() {
         password: values.password,
       };
 
-      fetch("http://118.233.222.23:8000/api/register", {
+      fetch("http://10.10.247.90:8000/api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -50,17 +49,17 @@ function Signup() {
       })
         .then((response) => {
           if (response.status >= 500) {
-            alert('伺服器無法連線');
+            alert("伺服器無法連線");
             throw new Error("API request failed");
           } else if (response.status >= 400) {
-            alert('註冊失敗，請重新註冊')
+            alert("註冊失敗，請重新註冊");
             window.location.reload();
           }
           return response.json();
         })
 
         .then((data) => {
-          alert('註冊成功，返回登入頁面')
+          alert("註冊成功，返回登入頁面");
           history.push("/login");
         })
         .catch((error) => {

@@ -40,11 +40,7 @@ class App extends Component {
             exact
           />
           <Route path="/admin/article" component={ArticleAdmin} exact />
-          <Route
-            path="/admin/post_:postId(\d+)/comments"
-            component={CommentAdmin}
-            exact
-          />
+    
           <Route path="/upload/:type" component={Upload} exact />
 
           <Route path="/edit/:postID" component={Edition} exact />

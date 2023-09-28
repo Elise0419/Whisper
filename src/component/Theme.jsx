@@ -88,6 +88,7 @@ function Makeup() {
         })
         .then((jsonData) => {
           // 沒有搜尋紀錄
+          console.log(searchMsg.message);
           if (searchMsg.message) {
             setFind(true);
             setCard([]);

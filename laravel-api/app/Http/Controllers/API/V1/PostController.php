@@ -6,11 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\PostCollection;
 use App\Http\Resources\V1\PostResource;
 use App\Models\Post;
+use App\Models\Tag;
 use App\Services\V1\PostQuery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
-use App\Models\Tag;
 
 class PostController extends Controller
 {
@@ -19,6 +19,7 @@ class PostController extends Controller
     {
         $filter = new PostQuery();
         $queryItems = $filter->transform($request);
+        // $page = $request->query('page', 1);
         //['column', 'operator', 'value']
         // User::where(['column', 'operator', 'value']);
         Post::where($queryItems);
@@ -73,13 +74,15 @@ class PostController extends Controller
         $searchResults = $searchResults->where(function ($queryBuilder) use ($query) {
             $queryBuilder->where('content', 'like', "%$query%")
                 ->orWhere('title', 'like', "%$query%");
-        })->get();
+        })->paginate(16);
 
-        if ($searchResults->count() === 0) {
+        if ($searchResults->isEmpty()) {
             return response()->json(['message' => 'Post not found!']);
         }
 
-        return PostResource::collection($searchResults);
+        // return PostResource::collection($searchResults);
+        return response()->json(['pages' => $searchResults]);
+
     }
 
     public function upload(Request $request, $type)
@@ -98,9 +101,9 @@ class PostController extends Controller
         if ($image) {
             $imageName = $image->getClientOriginalName();
             $image->storeAs('images', $imageName, 'public');
-            $imagePath = 'storage/images/' . $imageName;
-        } else {
-            $imagePath = null;
+            //     $imagePath = 'storage/images/' . $imageName;
+            // } else {
+            //     $imagePath = null;
         }
 
         $post = new Post();
@@ -206,12 +209,12 @@ class PostController extends Controller
     {
         $userId = Auth::user()->user_id;
         if (!$userId) {
-            return response()->json([],401);
+            return response()->json([], 401);
         };
-        $post = Post::find($postId)->where('user_id',$userId)->get();
+        $post = Post::find($postId)->where('user_id', $userId)->get();
         if ($post) {
             $tags = Tag::where('type', $post->type)->inRandomOrder()->take(6)->get();
-            return response()->json(['psot' => $post,'tags'=>$tags]);
+            return response()->json(['psot' => $post, 'tags' => $tags]);
         } else {
             return response()->json(['message' => 'not found!']);
         }

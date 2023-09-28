@@ -19,9 +19,11 @@ import ice from "./img/ice.png";
 function Home() {
   const m = useRouteMatch().params;
   const token = localStorage.getItem("token");
+
   let [loading, setLoading] = useState(true);
-  let [page, setPage] = useState(1);
-  let [pn, setPn] = useState(1);
+  let [totalPage, setTotalPage] = useState(1);
+  let [changePage, setChangePage] = useState(1);
+
   let [topic, setTopic] = useState([
     {
       img: makeup,
@@ -49,13 +51,14 @@ function Home() {
       route: "/love/1",
     },
   ]);
-  let [searchVal, setSearchVal] = useState(""); // search bar input value
-  let [searchMsg, setSearchMsg] = useState({}); // 宜珊的response;
-  let [find, setFind] = useState(false); // 無搜尋結果
   let [card, setCard] = useState([]);
   let [pop, setPop] = useState([]);
   let [like, setLike] = useState([]);
+
   let [searchBarImg, setSearchBarImg] = useState([]);
+  let [searchVal, setSearchVal] = useState(""); // search bar input value
+  let [searchMsg, setSearchMsg] = useState({}); // 宜珊的 response;
+  let [find, setFind] = useState(false); // 無搜尋結果
 
   // 貼文渲染 & 主頁右側欄
   useEffect(() => {
@@ -72,7 +75,7 @@ function Home() {
             setFind(true);
             setCard([]);
           } else {
-            setPage(Math.ceil(jsonData.data.length / 16));
+            setTotalPage(Math.ceil(jsonData.data.length / 16));
 
             let s = (m.page - 1) * 16;
             let e = s + 16;
@@ -194,18 +197,18 @@ function Home() {
   };
 
   function pre() {
-    pn = Number(pn) - 1;
-    if (pn < 1) {
+    changePage = Number(changePage) - 1;
+    if (changePage < 1) {
     } else {
-      setPn(pn);
+      setChangePage(changePage);
     }
   }
 
   function next() {
-    pn = Number(pn) + 1;
-    if (pn > page) {
+    changePage = Number(changePage) + 1;
+    if (changePage > totalPage) {
     } else {
-      setPn(pn);
+      setChangePage(changePage);
     }
   }
 
@@ -404,10 +407,10 @@ function Home() {
             </div>
           </aside>
           <div className="page">
-            <a className="pre" href={`/home/${pn}`} onClick={pre}>
+            <a className="pre" href={`/home/${changePage}`} onClick={pre}>
               pre
             </a>
-            {Array.from({ length: page }).map((_, index) => (
+            {Array.from({ length: totalPage }).map((_, index) => (
               <span key={index}>
                 &nbsp;
                 <a className="pageNum" href={`/home/${index + 1}`}>
@@ -416,11 +419,11 @@ function Home() {
                 &nbsp;
               </span>
             ))}
-            <a className="next" href={`/home/${pn}`} onClick={next}>
+            <a className="next" href={`/home/${changePage}`} onClick={next}>
               next
             </a>
             <p>
-              第 {m.page} 頁，共 {page} 頁
+              第 {m.page} 頁，共 {totalPage} 頁
             </p>
           </div>
           <Footer />

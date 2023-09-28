@@ -80,15 +80,15 @@ header>div {
 }
 
 .userName {
+    display: inline-block;
+    min-width: 5rem;
     color: white;
     font-size: 1rem;
     font-weight: bold;
-    /* margin-right: 2.625rem; */
 }
 
 .userArrow {
     width: 1.25rem;
-    margin-right: 2.875rem;
 }
 
 header a {
@@ -98,15 +98,11 @@ header a {
 /* - - - - - - - - - - */
 
 .userBtn {
+    width: 8rem;
     height: 100%;
     border: none;
     position: relative;
-    padding-left: 2.625rem;
     background-color: transparent;
-}
-
-.userArrow {
-    width: 1.25rem;
 }
 
 .userItem {
@@ -165,4 +161,12 @@ header a {
     width: 40px;
     vertical-align: top;
     margin-right: 2rem;
+}
+
+.loginCss {
+    display: inline-block;
+    text-align: center;
+    width: 8rem;
+    color: white;
+    font-weight: bold;
 }

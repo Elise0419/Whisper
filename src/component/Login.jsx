@@ -28,7 +28,7 @@ function Login() {
       password: values.password,
     };
 
-    fetch("http://118.233.222.23:8000/api/login", {
+    fetch("http://10.10.247.90:8000/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

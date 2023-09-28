@@ -16,7 +16,7 @@ function Quill() {
   let [tags, setTags] = useState([]);
 
   useEffect(() => {
-    fetch(`http://118.233.222.23:8000/api/tags/${m}`, {
+    fetch(`http://10.10.247.90:8000/api/tags/${m}`, {
       method: "GET",
     })
       .then((res) => {
@@ -58,7 +58,7 @@ function Quill() {
 
       // 淳嫻 這邊測試要加埠號 不然會有 cors 跟 404 的問題
       // 還有 照片檔案不能過大 不然會出現net::ERR_FAILED
-      fetch(`http://118.233.222.23:8000/api/upload/${m}`, {
+      fetch(`http://10.10.247.90:8000/api/upload/${m}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

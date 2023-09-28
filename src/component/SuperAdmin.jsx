@@ -20,7 +20,7 @@ function CommentAdmin() {
 
     const DeleteClick = (coment_id) => {
         if (window.confirm('確定要刪除此留言嗎')) {
-            fetch(`http://118.233.222.23:8000/api/admin/management/articles/delete/comment_${coment_id}`, {
+            fetch(`http://10.10.247.90:8000/api/admin/management/articles/delete/comment_${coment_id}`, {
                 method: "Delete",
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -43,7 +43,7 @@ function CommentAdmin() {
 
     useEffect(() => {
         prompt('請輸入密碼');
-        fetch(`http://118.233.222.23:8000/api/admin/management/comments/show/post_${match.params.postId}/${page}`, {
+        fetch(`http://10.10.247.90:8000/api/admin/management/comments/show/post_${match.params.postId}/${page}`, {
             method: "get",
             headers: {
                 Authorization: `Bearer ${token}`,

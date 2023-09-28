@@ -14,25 +14,36 @@ function ArticleAdmin() {
     setPage(page + 1);
   };
 
-  const DeleteClick = (post_id) => {
-    if (window.confirm("確定要刪除此貼文嗎")) {
-      fetch(
-        `http://10.10.247.90:8000/api/admin/management/articles/delete/post_${post_id}`,
-        {
-          method: "Delete",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+    const DeleteClick = (post_id) => {
+        if (window.confirm('確定要刪除此貼文嗎')) {
+            fetch(`http://10.10.247.90:8000/api/admin/management/articles/delete/post_${post_id}`, {
+                method: "Delete",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+                .then((res) => {
+                    if (res.status >= 400) {
+                        alert('刪除貼文失敗，請重新操作');
+                        throw new Error("API request failed");
+                    } else if (res.status >= 200) {
+                        alert('刪除貼文成功');
+                        window.location.reload();
+                    }
+                })
+                .catch((err) => {
+                    console.log("Error:", err);
+                });
         }
-      )
-        .then((res) => {
-          if (res.status >= 400) {
-            alert("刪除貼文失敗，請重新操作");
-            throw new Error("API request failed");
-          } else if (res.status >= 200) {
-            alert("刪除貼文成功");
-            window.location.reload();
-          }
+    };
+
+    useEffect(() => {
+
+        fetch(`http://10.10.247.90:8000/api/admin/management/articles/show/${page}`, {
+            method: "post",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
         })
         .catch((err) => {
           console.log("Error:", err);

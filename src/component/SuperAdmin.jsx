@@ -17,25 +17,36 @@ function CommentAdmin() {
     setPage(page + 1);
   };
 
-  const DeleteClick = (coment_id) => {
-    if (window.confirm("確定要刪除此留言嗎")) {
-      fetch(
-        `http://10.10.247.90:8000/api/admin/management/articles/delete/comment_${coment_id}`,
-        {
-          method: "Delete",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+    const DeleteClick = (coment_id) => {
+        if (window.confirm('確定要刪除此留言嗎')) {
+            fetch(`http://10.10.247.90:8000/api/admin/management/articles/delete/comment_${coment_id}`, {
+                method: "Delete",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+                .then((res) => {
+                    if (res.status >= 400) {
+                        alert('刪除留言失敗，請重新操作');
+                        throw new Error("API request failed");
+                    } else if (res.status >= 200) {
+                        alert('刪除留言成功');
+                        window.location.reload();
+                    }
+                })
+                .catch((err) => {
+                    console.log("Error:", err);
+                });
         }
-      )
-        .then((res) => {
-          if (res.status >= 400) {
-            alert("刪除留言失敗，請重新操作");
-            throw new Error("API request failed");
-          } else if (res.status >= 200) {
-            alert("刪除留言成功");
-            window.location.reload();
-          }
+    };
+
+    useEffect(() => {
+        prompt('請輸入密碼');
+        fetch(`http://10.10.247.90:8000/api/admin/management/comments/show/post_${match.params.postId}/${page}`, {
+            method: "get",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
         })
         .catch((err) => {
           console.log("Error:", err);

@@ -74,13 +74,10 @@ function Home() {
           } else {
             setPage(Math.ceil(jsonData.data.length / 16));
 
-            if (m.page == undefined) {
-              jsonData.data = jsonData.data.slice(0, 16);
-            } else {
-              let s = (m.page - 1) * 16;
-              let e = s + 16;
-              jsonData.data = jsonData.data.slice(s, e);
-            }
+            let s = (m.page - 1) * 16;
+            let e = s + 16;
+            jsonData.data = jsonData.data.slice(s, e);
+
             setFind(false);
             setCard(
               searchMsg.data === undefined ? jsonData.data : searchMsg.data
@@ -253,10 +250,6 @@ function Home() {
               />
               <a className="searchBtn" onClick={searchButton}>
                 Search
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
               </a>
             </div>
             <div className="cardContainer">

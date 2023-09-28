@@ -26,20 +26,20 @@ function Signup() {
     setValues({ ...values, [event.target.name]: event.target.value });
   };
 
-  function checkemail () {
-    fetch(`http://10.10.247.90:8000/api/emailcheck?email=${values.email}`)
-    .then(response => response.json())
-    .then(data => {
-      console.log(data); 
-  })
+  function checkemail() {
+    fetch(`http://118.233.222.23:8000/api/emailcheck?email=${values.email}`)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+      })
   }
-  function checkid () {
-    fetch(`http://10.10.247.90:8000/api/idcheck?person_id=${values.person_id}`)
-    .then(response => response.json())
-    .then(data => {
-      console.log(data); 
-  })
-  
+  function checkid() {
+    fetch(`http://118.233.222.23:8000/api/idcheck?person_id=${values.person_id}`)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+      })
+
   }
 
 
@@ -57,7 +57,7 @@ function Signup() {
         password: values.password,
       };
 
-      fetch("http://10.10.247.90:8000/api/register", {
+      fetch("http://118.233.222.23:8000/api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

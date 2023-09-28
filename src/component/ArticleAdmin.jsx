@@ -18,7 +18,7 @@ function ArticleAdmin() {
   const DeleteClick = (post_id) => {
     if (window.confirm("確定要刪除此貼文嗎")) {
       fetch(
-        `http://10.10.247.90:8000/api/admin/management/articles/delete/post_${post_id}`,
+        `http://118.233.222.23:8000/api/admin/management/articles/delete/post_${post_id}`,
         {
           method: "Delete",
           headers: {
@@ -43,7 +43,7 @@ function ArticleAdmin() {
 
   useEffect(() => {
     fetch(
-      `http://10.10.247.90:8000/api/admin/management/articles/show/${page}`,
+      `http://118.233.222.23:8000/api/admin/management/articles/show/${page}`,
       {
         method: "post",
         headers: {

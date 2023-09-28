@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import Home from "./component/Home";
 import Upload from "./component/Upload";
@@ -40,7 +40,7 @@ class App extends Component {
             exact
           />
           <Route path="/admin/article" component={ArticleAdmin} exact />
-    
+
           <Route path="/upload/:type" component={Upload} exact />
 
           <Route path="/edit/:postID" component={Edition} exact />
@@ -50,6 +50,10 @@ class App extends Component {
 
           <Route path="/post" component={Post} exact />
           <Route path="/post/:postId/:type" component={Post} exact />
+
+          <Route path="/" exact>
+            <Redirect to="/home/1" />
+          </Route>
 
           <Route path="/home/:page" component={Home} exact />
           <Route path="/:type/:page" component={Theme} exact />

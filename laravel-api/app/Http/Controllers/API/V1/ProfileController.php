@@ -16,7 +16,7 @@ class ProfileController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api');
+        $this->middleware('auth:api', ['except' => ['emailcheck', 'idcheck']]);
         $this->middleware('verified', ['only' => ['profile']]);
         $this->middleware(function ($request, $next) {
             $this->user = Auth::user();
@@ -56,9 +56,9 @@ class ProfileController extends Controller
         }
         $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $req->base64Image)); // 解码Base64数据
         $filename = 'user_' . $this->user->user_id . '.jpg';
-        $head_Path = 'public/user_head/'  . $filename;
+        $head_Path = 'public/user_head/' . $filename;
         Storage::put($head_Path, $imageData);
-        $this->user->headimg = 'http://118.233.222.23:8000/storage/user_head/' . $filename;
+        $this->user->headimg = 'http://10.10.247.90:8000/storage/user_head/' . $filename;
         $this->user->save();
         return response()->json(['message' => '上傳成功'], 200);
     }
@@ -88,5 +88,35 @@ class ProfileController extends Controller
         $this->user->promise = $req->promise;
         $this->user->save();
         return response()->json(['message' => '已成功更改你的用戶聲明'], 201);
+    }
+
+
+    public function emailcheck(Request $req)
+    {
+        $email = $req->input('email');
+        $result = User::where('email', $email)->exists();
+        if ($result) {
+            return response()->json([
+                'message' => '此信箱已被使用',
+                'result' => $result
+            ], 401);
+        } else {
+            return response()->json([
+                'message' => '你可以使用此信箱',
+                'result' => false,
+            ], 200);
+        }
+    }
+
+    public function idcheck(Request $req)
+    {
+
+        $result = User::where('email', $req->input('pserson_id'))->exists();
+        if ($result) {
+            return response()->json([
+                'message' => '此身分證字號已註冊過',
+                'result' => $result
+            ], 200);
+        }
     }
 }

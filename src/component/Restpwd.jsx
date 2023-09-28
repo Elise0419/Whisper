@@ -31,7 +31,7 @@ function Restpwd() {
 
     if (!errors.password && !errors.confirmPassword && !errors.oldPassword) {
       // 发送密码重置请求
-      fetch("http://10.10.247.90:8000/api/password/reset", {
+      fetch("http://118.233.222.23:8000/api/password/reset", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

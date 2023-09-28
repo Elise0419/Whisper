@@ -305,7 +305,11 @@ function Theme() {
       .then((jsonData) => {
         setCard(jsonData);
         setFind(false);
+<<<<<<< HEAD
+        setPage()
+=======
         setTotalPage(Math.ceil(jsonData.data.length / 16));
+>>>>>>> 77d249c3a5d713c74688dae4b6dc1c6470a5eaf2
       })
       .catch((err) => {
         console.log("錯誤:", err);

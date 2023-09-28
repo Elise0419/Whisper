@@ -205,16 +205,20 @@ class PostController extends Controller
         }
     }
 
-    public function edition($postId)
+    public function edition($postID)
     {
-        $userId = Auth::user()->user_id;
-        if (!$userId) {
-            return response()->json([], 401);
-        };
-        $post = Post::find($postId)->where('user_id', $userId)->get();
-        if ($post) {
+        if (!Auth::check()) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+        
+        $user = Auth::user()->user_id;
+        
+        $post = Post::where('post_id',$postID)->where('user_id', $user)->first();
+        // return ($post);
+        
+        if ($post->user_id === $user) {
             $tags = Tag::where('type', $post->type)->inRandomOrder()->take(6)->get();
-            return response()->json(['psot' => $post, 'tags' => $tags]);
+            return response()->json(['post' => $post,'tags'=>$tags]);
         } else {
             return response()->json(['message' => 'not found!']);
         }

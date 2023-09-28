@@ -41,7 +41,7 @@ function Profile() {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://10.10.247.90:8000/api/profile/${field}/change`,
+        `http://118.233.222.23:8000/api/profile/${field}/change`,
         {
           method: "put",
           headers: {
@@ -83,7 +83,7 @@ function Profile() {
     const head = user.headimg;
     setIsEditing({ ...isEditing, headimg: false });
     const token = localStorage.getItem("token");
-    fetch(`http://10.10.247.90:8000/api/profile/head/change`, {
+    fetch(`http://118.233.222.23:8000/api/profile/head/change`, {
       method: "put",
       headers: {
         "Content-Type": "application/json",
@@ -125,7 +125,7 @@ function Profile() {
 
   function fetchData() {
     const token = localStorage.getItem("token");
-    fetch("http://10.10.247.90:8000/api/profile", {
+    fetch("http://118.233.222.23:8000/api/profile", {
       headers: {
         Authorization: `Bearer ${token}`,
       },

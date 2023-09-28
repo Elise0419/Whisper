@@ -219,7 +219,8 @@ function Theme() {
           return res.json();
         })
         .then((jsonData) => {
-          console.log(jsonData.data);
+          setTotalPage(Math.ceil(jsonData.data.length / 16));
+
           if (jsonData.message == "Post not found!") {
             setSearchMsg({ message: `無法搜尋到 ${searchVal} 相關貼文` });
           } else {
@@ -313,19 +314,31 @@ function Theme() {
 
   // 上一頁
   function pre() {
-    changePage = Number(m.page) - 1;
-    if (changePage < 1) {
+    if (m.page < 2) {
+      document.querySelector(".pre").removeAttribute("href");
     } else {
-      setChangePage(changePage);
+      changePage = Number(m.page) - 1;
+      if (changePage < 1) {
+        document.querySelector(".pre").href = `/${m.type}/1`;
+      } else {
+        setChangePage(changePage);
+      }
+      document.querySelector(".pre").href = `/${m.type}/${changePage}`;
     }
   }
 
   // 下一頁
   function next() {
-    changePage = Number(m.page) + 1;
-    if (changePage > totalPage) {
+    if (m.page > totalPage - 1) {
+      document.querySelector(".pre").removeAttribute("href");
     } else {
-      setChangePage(changePage);
+      changePage = Number(m.page) + 1;
+      if (changePage > totalPage) {
+        document.querySelector(".pre").href = `/${m.type}/1`;
+      } else {
+        setChangePage(changePage);
+      }
+      document.querySelector(".next").href = `/${m.type}/${changePage}`;
     }
   }
 
@@ -563,7 +576,7 @@ function Theme() {
         </div>
       </aside>
       <div className="page">
-        <a className="pre" href={`/${m.type}/${changePage}`} onClick={pre}>
+        <a className="pre" onClick={pre}>
           pre
         </a>
         {Array.from({ length: totalPage }).map((_, index) => (
@@ -575,7 +588,7 @@ function Theme() {
             &nbsp;
           </span>
         ))}
-        <a className="next" href={`/${m.type}/${changePage}`} onClick={next}>
+        <a className="next" onClick={next}>
           next
         </a>
         <p>

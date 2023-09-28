@@ -19,7 +19,8 @@ import ice from "./img/ice.png";
 function Home() {
   const m = useRouteMatch().params.type;
   const token = localStorage.getItem("token");
-  const [loading, setLoading] = useState(true);
+  let [loading, setLoading] = useState(true);
+  let [page, setPage] = useState(1);
 
   let [topic, setTopic] = useState([
     {
@@ -71,6 +72,8 @@ function Home() {
               searchMsg.data === undefined ? jsonData.data : searchMsg.data
             );
             setLoading(false);
+
+            setPage(Math.ceil(jsonData.data.length / 16));
           }
         })
         .catch((err) => {
@@ -375,6 +378,14 @@ function Home() {
               })}
             </div>
           </aside>
+          <div className="page">
+            {Array.from({ length: page }).map((_, index) => (
+              <a key={index} href={`/page${index + 1}`}>
+                {index + 1}&nbsp;
+              </a>
+            ))}
+            <p>總共 {page} 頁</p>
+          </div>
           <Footer />
         </div>
       )}

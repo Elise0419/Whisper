@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\V1\SavepostCollection;
-use App\Http\Resources\V1\SavepostResource;
+use App\Http\Resources\V1\PostResource;
 use App\Models\Post;
 use App\Models\Savepost;
 use App\Models\User;
@@ -13,10 +12,10 @@ use Illuminate\Support\Facades\Auth;
 
 class SavepostController extends Controller
 {
-    public function index()
-    {
-        return new SavepostCollection(Savepost::all());
-    }
+    // public function index()
+    // {
+    //     return new SavepostCollection(Savepost::all());
+    // }
     public function savepost(Request $request, $postId)
     {
         if (Auth::check()) {
@@ -59,20 +58,32 @@ class SavepostController extends Controller
         }
 
     }
+
     public function userSaveposts()
     {
-        $user = Auth::user();
+        if (Auth::check()) {
+            $user = Auth::user();
+            $userPosts = $user->saveposts;
 
-        if ($user) {
-            $userposts = User::where('user_id', $user->user_id)->get();
-            $userposts->saveposts();
+            if ($userPosts->isEmpty()) {
+                return response()->json(['message' => 'notfound', 'count' => 0]);
+            }
+
+            $responseData = [];
+
+            foreach ($userPosts as $post) {
+                $responseData[] = [
+                    'postId' => $post->pivot->post_id,
+                    'userId' => $post->pivot->user_id,
+                    'postInfo' => new PostResource($post),
+                ];
+            }
+
+            return response()->json(['data' => $responseData, 'count' => count($userPosts)]);
+        } else {
+            return response()->json(['message' => 'Login required'], 401);
         }
 
-        if ($userposts->isEmpty()) {
-            return response()->json(['message' => '没有蒐藏任何貼文', 'count' => 0]);
-        }
-
-        return response()->json(['data' => new SavepostResource($userposts), 'count' => $userposts->count()]);
     }
 
     public function delete($postId)
@@ -81,14 +92,16 @@ class SavepostController extends Controller
         if (!$userId) {
             return 'login';
         }
-
+        $post = Post::find($postId);
         $savepost = Savepost::where('post_id', $postId)
             ->where('user_id', $userId)
             ->first();
 
         if ($savepost) {
             $savepost->delete();
-            return response()->json(['message' => 'Deleted!']);
+            $post->save -= 1;
+            $post->save();
+            return response()->json(['save' => $post->save]);
         } else {
             return response()->json(['message' => 'Not found!'], 404);
         }

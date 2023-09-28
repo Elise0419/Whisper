@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Models\Comtxt;
 use App\Models\Post;
-use App\Models\Savepost;
 use App\Models\Votesdata;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -25,18 +24,17 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     {
         return $this->hasMany(Post::class);
     }
+
     public function comtxts()
     {
         return $this->hasMany(Comtxt::class);
     }
+
     public function saveposts()
     {
-        return $this->belongsToMany(Savepost::class);
+        return $this->belongsToMany(Post::class, 'saveposts', 'user_id', 'post_id');
     }
-    // public function userSaveposts()
-    // {
-    //     return $this->belongsToMany(Savepost::class);
-    // }
+
     public function votesdatas()
     {
         return $this->hasMany(Votesdata::class);
@@ -67,7 +65,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     protected $hidden = [
         'password',
         'email_verified_token',
-        'email_verified_at'
+        'email_verified_at',
     ];
 
     /**

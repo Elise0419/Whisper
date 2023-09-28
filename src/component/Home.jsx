@@ -72,9 +72,12 @@ function Home() {
         })
         .then((jsonData) => {
           if (searchMsg.message) {
+            // 沒有搜尋紀錄
             setFind(true);
             setCard([]);
           } else {
+            // 有搜尋紀錄
+            // 改變頁數目錄
             setTotalPage(Math.ceil(jsonData.data.length / 16));
 
             let s = (m.page - 1) * 16;
@@ -196,6 +199,7 @@ function Home() {
       });
   };
 
+  // 上一頁
   function pre() {
     changePage = Number(changePage) - 1;
     if (changePage < 1) {
@@ -204,6 +208,7 @@ function Home() {
     }
   }
 
+  // 下一頁
   function next() {
     changePage = Number(changePage) + 1;
     if (changePage > totalPage) {

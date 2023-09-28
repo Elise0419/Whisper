@@ -26,7 +26,8 @@ class AuthController extends Controller
         ]);
         if (!User::where('email', $req->email)->first()) {
             return response()->json([
-             'acm_error'=> '查無此帳號'], 404);
+                'acm_error' => '查無此帳號'
+            ], 404);
         }
 
         $credentials = $req->only('email', 'password');
@@ -47,6 +48,7 @@ class AuthController extends Controller
             ],
         ], 200);
     }
+
     public function register(Request $req)
     {
         $req->validate([

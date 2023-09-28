@@ -58,23 +58,12 @@ function ArticleAdmin() {
         } else return res.json();
       })
       .then((res) => {
+        console.log(res)
         setData(res.articles.data);
       })
       .catch((error) => {
         console.error("發生錯誤：", error);
       });
-
-    fetch(
-      `http://10.10.247.90:8000/api/admin/management/articles/show/${page}`,
-      {
-        method: "post",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    ).catch((err) => {
-      console.log("Error:", err);
-    });
   }, []);
 
   return (

@@ -57,6 +57,8 @@ Route::controller(ProfileController::class)->group(function () {
     Route::put('profile/person_id/change', 'idchange');
     Route::put('profile/mem_name/change', 'namechange');
     Route::put('profile/promise/change', 'promisechange');
+    Route::get('emailcheck', 'emailcheck');
+    Route::get('idcheck', 'idcheck');
 });
 
 Route::controller(GroupAdminController::class)->group(function () {
@@ -92,7 +94,7 @@ Route::middleware(['auth'])->post('/user/posts', [PostController::class, 'getUse
 Route::middleware(['auth'])->post('/posts/save/{postId}', [SavepostController::class, 'savepost']);
 Route::middleware(['auth'])->post('/posts/usersave', [SavepostController::class, 'userSaveposts']);
 
-Route::middleware(['auth:api'])->get('/posts/edit/post_{postID}', [PostController::class, 'edition']);
+Route::middleware(['auth'])->get('/posts/edit/post_{postID}', [PostController::class, 'edition']);
 
 Route::middleware(['auth'])->put('/posts/edit/{postId}', [PostController::class, 'updatepost']);
 Route::middleware(['auth'])->delete('/posts/delete/{postId}', [PostController::class, 'destroy']);

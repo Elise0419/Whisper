@@ -18,9 +18,15 @@ function Edition() {
   });
   let [tags, setTags] = useState([]);
 
+  const token = localStorage.getItem("token");
+
   useEffect(() => {
-    fetch(`http://10.10.247.90:8000/api/posts/edit/post_${match.params.postId}`, {
+    console.log(match.params.postID)
+    fetch(`http://10.10.247.90:8000/api/posts/edit/post_${match.params.postID}`, {
       method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
       .then((res) => {
         if (res.status >= 500) {
@@ -36,6 +42,7 @@ function Edition() {
         return res.json();
       })
       .then((jsonData) => {
+        console.log(jsonData)
         setTags(jsonData.tags);
         setQ(jsonData.post);
       })
@@ -67,8 +74,6 @@ function Edition() {
     if (q.title === "") {
       alert("請輸入標題");
     } else {
-      const token = localStorage.getItem("token");
-
       fetch(`http://10.10.247.90:8000/api/upload/${m}`, {
         method: "POST",
         headers: {

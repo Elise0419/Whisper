@@ -1,11 +1,12 @@
 <?php
+
 namespace App\Services\V1;
 
 use Illuminate\Http\Request;
 
 class PostQuery
 {
-//not trust user input so make a safe filed
+    //not trust user input so make a safe filed
     protected $safeParms = [ //fillable
         'postId' => ['eq'],
         'userId' => ['eq'],
@@ -18,6 +19,7 @@ class PostQuery
         'comTxt' => ['eq', 'gt', 'lt'],
         'tag' => ['eq'],
         'postTime' => ['eq'],
+        'page' => ['eq', 'gt', 'lt'],
     ];
     protected $columnMap = [
         'thumb' => 'thumb',
@@ -48,10 +50,8 @@ class PostQuery
                     $eloQuery[] = [$column, $this->operatorMap[$operator], $query[$operator]];
                 }
             }
-
         }
 
         return $eloQuery;
     }
-
 }

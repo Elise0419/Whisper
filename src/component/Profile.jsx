@@ -9,8 +9,8 @@ import rabbit from "../component/img/rabbit.png";
 import { UserProvider, useUserContext } from "../store/UserContext";
 
 function Profile() {
-  // const [user, setUser] = useUserContext();
-  const [user, setUser] = useState({});
+  const [user, setUser] = useUserContext();
+  // const [user, setUser] = useState({});
   console.log(user);
 
   const [loading, setLoading] = useState(true);
@@ -167,215 +167,213 @@ function Profile() {
   }, []);
 
   return (
-    <UserProvider>
-      <div>
-        {loading ? (
-          <div>資料載入中...</div>
-        ) : (
-          <div id="container">
-            {/* <Header /> */}
-            <section></section>
-            <article>
-              <div className="ProfileContainer">
-                <h2>用戶設置</h2>
-                <hr />
-                <div className="ProfileForm">
-                  <form>
-                    <div className="profilePic">
-                      <label htmlFor="headimg">頭像:</label>
-                      <img
-                        src={user.headimg || rabbit}
-                        alt="Profile Pic"
-                        className="profilePic"
-                      />
-                      {isEditing.headimg ? (
-                        <div>
-                          <input
-                            type="file"
-                            id="headimg"
-                            accept="image/*"
-                            onChange={handleImageUpload}
-                          />
-                          <button
-                            type="button"
-                            onClick={handleImageSave}
-                            className="saveBtn"
-                          >
-                            保存
-                          </button>
-                        </div>
-                      ) : (
+    <div>
+      {loading ? (
+        <div>資料載入中...</div>
+      ) : (
+        <div id="container">
+          {/* <Header /> */}
+          <section></section>
+          <article>
+            <div className="ProfileContainer">
+              <h2>用戶設置</h2>
+              <hr />
+              <div className="ProfileForm">
+                <form>
+                  <div className="profilePic">
+                    <label htmlFor="headimg">頭像:</label>
+                    <img
+                      src={user.headimg || rabbit}
+                      alt="Profile Pic"
+                      className="profilePic"
+                    />
+                    {isEditing.headimg ? (
+                      <div>
+                        <input
+                          type="file"
+                          id="headimg"
+                          accept="image/*"
+                          onChange={handleImageUpload}
+                        />
                         <button
                           type="button"
-                          className="editBtn"
-                          onClick={() =>
-                            setIsEditing({ ...isEditing, headimg: true })
-                          }
-                        >
-                          編輯
-                        </button>
-                      )}
-                    </div>
-                    <hr />
-
-
-                    <div className="UserDeclaration">
-                      <label htmlFor="promise">用戶聲明:</label>
-                      <input
-                        type="text"
-                        id="promise"
-                        value={user?.promise || ""}
-                        readOnly={!isEditing.promise}
-                        onChange={(e) =>
-                          handleInputChange("promise", e.target.value)
-                        }
-                      />
-                      {isEditing.promise ? (
-                        <button
-                          type="button"
+                          onClick={handleImageSave}
                           className="saveBtn"
-                          onClick={() => handleSaveClick("promise")}
                         >
                           保存
                         </button>
-                      ) : (
-                        <button
-                          type="button"
-                          className="editBtn"
-                          onClick={() => handleEditClick("promise")}
-                        >
-                          編輯
-                        </button>
-                      )}
-                    </div>
-                    <hr />
-
-                    <div className="proflieEmail">
-                      <label htmlFor="email">電子郵件:</label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={user.email}
-                        readOnly={!isEditing.email}
-                        onChange={(e) =>
-                          handleInputChange("email", e.target.value)
+                      </div>
+                    ) : (
+                      <button
+                        type="button"
+                        className="editBtn"
+                        onClick={() =>
+                          setIsEditing({ ...isEditing, headimg: true })
                         }
-                      />
-                      {isEditing.email ? (
-                        <button
-                          type="button"
-                          className="saveBtn"
-                          onClick={() => handleSaveClick("email")}
-                        >
-                          保存
-                        </button>
-                      ) : (
-                        <button
-                          type="button"
-                          className="editBtn"
-                          onClick={() => handleEditClick("email")}
-                        >
-                          編輯
-                        </button>
-                      )}
-                    </div>
-                    <hr />
-
-                    <div className="profileidNumber">
-                      <label htmlFor="person_id">身份證字號:</label>
-                      <input
-                        type="text"
-                        id="person_id"
-                        name="person_id"
-                        value={user.person_id}
-                        pattern="^[A-Z][0-9]{9}$"
-                        title="請輸入有效的身份證字號，格式為一個英文字母後接九位數字。"
-                        required
-                        readOnly={!isEditing.person_id}
-                        onChange={(e) =>
-                          handleInputChange("person_id", e.target.value)
-                        }
-                      />
-                      {isEditing.person_id ? (
-                        <button
-                          type="button"
-                          className="saveBtn"
-                          onClick={() => handleSaveClick("person_id")}
-                        >
-                          保存
-                        </button>
-                      ) : (
-                        <button
-                          type="button"
-                          className="editBtn"
-                          onClick={() => handleEditClick("person_id")}
-                        >
-                          編輯
-                        </button>
-                      )}
-                    </div>
-                    <hr />
-
-                    <div className="profilephoneNumber">
-                      <label htmlFor="phoneNumber">手機號碼:</label>
-                      <input
-                        type="tel"
-                        id="phoneNumber"
-                        name="phoneNumber"
-                        value={user.phone}
-                        pattern="^0\d{1,2}-?\d{6,7}$"
-                        required
-                        readOnly={!isEditing.phone}
-                        onChange={(e) =>
-                          handleInputChange("phone", e.target.value)
-                        }
-                      />
-                      {isEditing.phone ? (
-                        <button
-                          type="button"
-                          className="saveBtn"
-                          onClick={() => handleSaveClick("phone")}
-                        >
-                          保存
-                        </button>
-                      ) : (
-                        <button
-                          type="button"
-                          className="editBtn"
-                          onClick={() => handleEditClick("phone")}
-                        >
-                          編輯
-                        </button>
-                      )}
-                    </div>
-                    <hr />
-
-                    <div className="profilephoneNumber">
-                      <label htmlFor="password">用戶密碼:</label>
-                      <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        value="************************"
-                      />
-                      <Link to="/restpwd" className="editBtn">
+                      >
                         編輯
-                      </Link>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </article>
+                      </button>
+                    )}
+                  </div>
+                  <hr />
 
-            <aside>
-              <Asideuser user={asideUser} />{" "}
-              {/* 将侧边栏的 user 属性传递给 Asideuser 组件 */}
-            </aside>
-          </div>
-        )}
-      </div>
-    </UserProvider>
+
+                  <div className="UserDeclaration">
+                    <label htmlFor="promise">用戶聲明:</label>
+                    <input
+                      type="text"
+                      id="promise"
+                      value={user?.promise || ""}
+                      readOnly={!isEditing.promise}
+                      onChange={(e) =>
+                        handleInputChange("promise", e.target.value)
+                      }
+                    />
+                    {isEditing.promise ? (
+                      <button
+                        type="button"
+                        className="saveBtn"
+                        onClick={() => handleSaveClick("promise")}
+                      >
+                        保存
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        className="editBtn"
+                        onClick={() => handleEditClick("promise")}
+                      >
+                        編輯
+                      </button>
+                    )}
+                  </div>
+                  <hr />
+
+                  <div className="proflieEmail">
+                    <label htmlFor="email">電子郵件:</label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={user.email}
+                      readOnly={!isEditing.email}
+                      onChange={(e) =>
+                        handleInputChange("email", e.target.value)
+                      }
+                    />
+                    {isEditing.email ? (
+                      <button
+                        type="button"
+                        className="saveBtn"
+                        onClick={() => handleSaveClick("email")}
+                      >
+                        保存
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        className="editBtn"
+                        onClick={() => handleEditClick("email")}
+                      >
+                        編輯
+                      </button>
+                    )}
+                  </div>
+                  <hr />
+
+                  <div className="profileidNumber">
+                    <label htmlFor="person_id">身份證字號:</label>
+                    <input
+                      type="text"
+                      id="person_id"
+                      name="person_id"
+                      value={user.person_id}
+                      pattern="^[A-Z][0-9]{9}$"
+                      title="請輸入有效的身份證字號，格式為一個英文字母後接九位數字。"
+                      required
+                      readOnly={!isEditing.person_id}
+                      onChange={(e) =>
+                        handleInputChange("person_id", e.target.value)
+                      }
+                    />
+                    {isEditing.person_id ? (
+                      <button
+                        type="button"
+                        className="saveBtn"
+                        onClick={() => handleSaveClick("person_id")}
+                      >
+                        保存
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        className="editBtn"
+                        onClick={() => handleEditClick("person_id")}
+                      >
+                        編輯
+                      </button>
+                    )}
+                  </div>
+                  <hr />
+
+                  <div className="profilephoneNumber">
+                    <label htmlFor="phoneNumber">手機號碼:</label>
+                    <input
+                      type="tel"
+                      id="phoneNumber"
+                      name="phoneNumber"
+                      value={user.phone}
+                      pattern="^0\d{1,2}-?\d{6,7}$"
+                      required
+                      readOnly={!isEditing.phone}
+                      onChange={(e) =>
+                        handleInputChange("phone", e.target.value)
+                      }
+                    />
+                    {isEditing.phone ? (
+                      <button
+                        type="button"
+                        className="saveBtn"
+                        onClick={() => handleSaveClick("phone")}
+                      >
+                        保存
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        className="editBtn"
+                        onClick={() => handleEditClick("phone")}
+                      >
+                        編輯
+                      </button>
+                    )}
+                  </div>
+                  <hr />
+
+                  <div className="profilephoneNumber">
+                    <label htmlFor="password">用戶密碼:</label>
+                    <input
+                      type="password"
+                      id="password"
+                      name="password"
+                      value="************************"
+                    />
+                    <Link to="/restpwd" className="editBtn">
+                      編輯
+                    </Link>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </article>
+
+          <aside>
+            <Asideuser user={asideUser} />{" "}
+            {/* 将侧边栏的 user 属性传递给 Asideuser 组件 */}
+          </aside>
+        </div>
+      )}
+    </div>
   );
 }
 export default Profile;

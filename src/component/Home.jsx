@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link, useRouteMatch, useParams } from "react-router-dom";
 
 import "./CSS/Home.css";
 import Header from "./Block/Header";
@@ -21,7 +21,7 @@ function Home() {
   const token = localStorage.getItem("token");
 
   let [loading, setLoading] = useState(true);
-  let [totalPage, setTotalPage] = useState(1);
+  let [totalPage, setTotalPage] = useState({});
   let [changePage, setChangePage] = useState(1);
 
   let [topic, setTopic] = useState([
@@ -59,18 +59,24 @@ function Home() {
   let [searchVal, setSearchVal] = useState(""); // search bar input value
   let [searchMsg, setSearchMsg] = useState({}); // 宜珊的 response;
   let [find, setFind] = useState(false); // 無搜尋結果
+  const { page } = useParams();
 
   // 貼文渲染 & 主頁右側欄
   useEffect(() => {
+    console.log(m.page)
     function fetchData() {
       // 所有貼文
-      fetch("http://118.233.222.23:8000/api/v1/posts", {
+      // fetch(`http://118.233.222.23:8000/api/v1/posts/page/${m.page}`
+      fetch(`http://118.233.222.23:8000/api/v1/posts/page/${m.page}`, {
         method: "GET",
       })
         .then((res) => {
           return res.json();
         })
         .then((jsonData) => {
+          console.log(jsonData)
+          setCard(jsonData.post.data);
+          setTotalPage(jsonData.post.last_page)
           if (searchMsg.message) {
             // 沒有搜尋紀錄
             setFind(true);
@@ -78,18 +84,20 @@ function Home() {
           } else {
             // 有搜尋紀錄
             // 改變頁數目錄
-            setTotalPage(Math.ceil(jsonData.data.length / 16));
+            // setTotalPage(Math.ceil(jsonData.data.length / 16));
 
-            let s = (m.page - 1) * 16;
-            let e = s + 16;
-            jsonData.data = jsonData.data.slice(s, e);
+            // let s = (m.page - 1) * 16;
+            // let e = s + 16;
+            // jsonData.data = jsonData.data.slice(s, e);
 
             setFind(false);
             setCard(
               searchMsg.data === undefined ? jsonData.data : searchMsg.data
             );
-            setLoading(false);
+            // setLoading(false);
           }
+
+          setLoading(false);
         })
         .catch((err) => {
           console.log("錯誤:", err);
@@ -97,7 +105,6 @@ function Home() {
 
       // 流行貼文
       fetch("http://118.233.222.23:8000/api/topPosts/1", {
-        method: "get",
       })
         .then((res) => {
           return res.json();
@@ -111,7 +118,6 @@ function Home() {
 
       // 點讚貼文
       fetch("http://118.233.222.23:8000/api/topPosts/2", {
-        method: "get",
       })
         .then((res) => {
           return res.json();
@@ -148,7 +154,7 @@ function Home() {
         });
     }
     fetchData();
-  }, [m.type, searchMsg]);
+  }, [m.type, searchMsg, page]);
 
   // 搜尋
   function searchInput() {
@@ -267,14 +273,19 @@ function Home() {
               >
                 <p>{searchMsg.message}</p>
               </div>
+
               {Array.isArray(card) ? (
                 card.map((card) => {
+                  // <div>
+                  //   <div dangerouslySetInnerHTML={{ __html: card.title }} />
+                  //   <div dangerouslySetInnerHTML={{ __html: card.content }} />
+                  // </div>
+
                   // 將 MySQL 的 HTML 轉成 Text
                   const myContent = document.createElement("div");
                   const myTitle = document.createElement("div");
                   myContent.innerHTML = card.content;
                   myTitle.innerHTML = card.title;
-
                   // 檢查是否包含 base64 字串 且不得為 null 值
                   // 是則渲染 img 否則渲染 Text
                   const isStringValid =
@@ -293,18 +304,18 @@ function Home() {
                   return (
                     <Link
                       className="card"
-                      to={`/post/${card.postId}/${card.type}`}
-                      key={card.postId}
-                      onClick={() => cardClick(card.postId)}
+                      to={`/post/${card.post_id}/${card.type}`}
+                      key={card.post_id}
+                      onClick={() => cardClick(card.post_id)}
                     >
                       <span className="cardTop">
-                        {card.imgUrl || isStringValid ? (
+                        {card.imgurl || isStringValid ? (
                           <div>
-                            {card.imgUrl ? (
+                            {card.imgurl ? (
                               // 這邊是資料庫 imgUrl 預設貼文的照片處理
                               <img
-                                src={card.imgUrl}
-                                key={`${card.postId}`}
+                                src={card.imgurl}
+                                key={`${card.post_id}`}
                                 referrerPolicy="no-referrer"
                               />
                             ) : (
@@ -323,7 +334,7 @@ function Home() {
                         )}
                       </span>
                       <span className="cardMid">
-                        <img src={card.headImg} alt={`Image ${card.postId}`} />
+                        <img src={card.users.headimg} alt={`Image ${card.postId}`} />
                         <span>{myTitle.textContent}</span>
                       </span>
                       <span className="cardBtm">
@@ -342,9 +353,9 @@ function Home() {
                 // 這邊是單篇 card 處理
                 <Link
                   className="card"
-                  to={`/post/${card.postId}/${card.type}`}
+                  to={`/post/${card.post_id}/${card.type}`}
                   key={card.postId}
-                  onClick={() => cardClick(card.postId)}
+                  onClick={() => cardClick(card.post_id)}
                 >
                   <span className="cardTop">
                     {typeof card.data[0].imgUrl === "string" ? (
@@ -411,21 +422,17 @@ function Home() {
             </div>
           </aside>
           <div className="page">
-            <a className="pre" href={`/home/${changePage}`} onClick={pre}>
-              pre
-            </a>
+            <Link className="pre" to={`/home/${parseInt(m.page) - 1}`}>pre</Link>
             {Array.from({ length: totalPage }).map((_, index) => (
               <span key={index}>
                 &nbsp;
-                <a className="pageNum" href={`/home/${index + 1}`}>
+                <Link className="pageNum" to={`/home/${parseInt(index) + 1}`}>
                   {index + 1}
-                </a>
+                </Link>
                 &nbsp;
               </span>
             ))}
-            <a className="next" href={`/home/${changePage}`} onClick={next}>
-              next
-            </a>
+            <Link className="next" to={`/home/${parseInt(m.page) + 1}`}>next</Link>
             <p>
               第 {m.page} 頁，共 {totalPage} 頁
             </p>

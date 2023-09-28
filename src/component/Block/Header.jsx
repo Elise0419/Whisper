@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useRouteMatch } from "react-router-dom";
+import { useUserContext } from "../../store/UserContext";
 
 import "../CSS/Header.css";
 
@@ -14,7 +15,8 @@ import grayMail from "../img/grayMail.png";
 
 function Header() {
   let [dd, setDd] = useState("創建貼文");
-  let [user, setUser] = useState({});
+  // let [user, setUser] = useState({});
+  const [user, setUser] = useUserContext();
   const [login, setLogin] = useState(true);
   const m = useRouteMatch().params.type;
   const token = localStorage.getItem("token");

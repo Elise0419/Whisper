@@ -11,6 +11,7 @@ use App\Services\V1\PostQuery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Pagination\Paginator;
 
 class PostController extends Controller
 {
@@ -32,6 +33,21 @@ class PostController extends Controller
             return new PostCollection(Post::where($queryItems)->orderBy('post_time', 'desc')->get());
         }
     }
+
+    public function page($page)
+    {
+        if ($page < 1) {
+            $page = 1;
+        }
+        $posts = Post::with('users:user_id,headimg')->paginate(16, ['*'], 'page', $page);
+        if ($page > $posts->lastPage()) {
+            $page = $posts->lastPage();
+            $posts = Post::with('users:user_id,headimg')->paginate(16, ['*'], 'page', $page);
+        }
+
+        return response()->json(['post' => $posts]);
+    }
+
 
     public function topposts1(Request $request)
     {
@@ -82,7 +98,6 @@ class PostController extends Controller
 
         // return PostResource::collection($searchResults);
         return response()->json(['pages' => $searchResults]);
-
     }
 
     public function upload(Request $request, $type)
@@ -210,15 +225,15 @@ class PostController extends Controller
         if (!Auth::check()) {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
-        
+
         $user = Auth::user()->user_id;
-        
-        $post = Post::where('post_id',$postID)->where('user_id', $user)->first();
+
+        $post = Post::where('post_id', $postID)->where('user_id', $user)->first();
         // return ($post);
-        
+
         if ($post->user_id === $user) {
             $tags = Tag::where('type', $post->type)->inRandomOrder()->take(6)->get();
-            return response()->json(['post' => $post,'tags'=>$tags]);
+            return response()->json(['post' => $post, 'tags' => $tags]);
         } else {
             return response()->json(['message' => 'not found!']);
         }

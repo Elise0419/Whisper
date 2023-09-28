@@ -76,6 +76,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\API\V1'], f
     Route::apiResource('rules', RuleController::class);
 });
 
+Route::get('/v1/posts/page/{page}', [PostController::class, 'page']);
+
 Route::get('/v1/posts/{postId}/{type}', [PostController::class, 'poststype']);
 Route::get('/topPosts/1', [PostController::class, 'topposts1']);
 Route::get('/topPosts/2', [PostController::class, 'topposts2']);

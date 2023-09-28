@@ -80,7 +80,6 @@ function Login() {
 
   return (
     <div id="container">
-      <Header />
       <section></section>
       <article>
         <div className="loginContainer">

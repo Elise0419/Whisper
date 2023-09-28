@@ -225,7 +225,6 @@ function Post({ postId, userToken }) {
 
   return (
     <div id="container">
-      <Header />
       <section></section>
       <article>
         <div className="postContainer" key={post.postId}>

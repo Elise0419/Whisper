@@ -21,14 +21,6 @@ export function UserProvider({ children }) {
                 },
             })
                 .then((res) => {
-                    console.log(res);
-                    if (res.status === 403) {
-                        history.push("/verify");
-                        throw new Error("API request failed");
-                    }
-                    if (res.status === 401) {
-                        history.push("/login");
-                    }
                     if (res.status >= 200) {
                         return res.json();
                     }
@@ -40,8 +32,8 @@ export function UserProvider({ children }) {
                         console.log("錯誤訊息:", jsonData.error);
                     } else {
                         // setUser(jsonData.user);
-                        setLoading(false);
                     }
+                    setLoading(false);
                 })
                 .catch((err) => {
                     console.log("Error:", err);
@@ -59,7 +51,8 @@ export function UserProvider({ children }) {
 
 
     return (
-        <UserContext.Provider value={value}>
+        <UserContext.Provider value={[user,
+            setUser]}>
             {loading ? (
                 <div>Loading...</div>
             ) : (

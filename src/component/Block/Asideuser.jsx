@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../CSS/Asideuser.css";
 import rabbit from "../img/rabbit.png";
+import { useUserContext } from "../../store/UserContext";
 
 function Asideuser() {
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useUserContext();
   const [posts, setPosts] = useState([]);
   const [postCount, setPostCount] = useState(0);
 
@@ -71,17 +72,17 @@ function Asideuser() {
       });
   };
 
-  useEffect(() => {
-    fetchData();
-    fetchPosts();
+  // useEffect(() => {
+  //   fetchData();
+  //   fetchPosts();
 
-    const interval = setInterval(() => {
-      fetchData();
-      fetchPosts();
-    }, 4000); // 5秒钟获取一次数据，你可以根据需要调整时间间隔
+  //   const interval = setInterval(() => {
+  //     fetchData();
+  //     fetchPosts();
+  //   }, 4000); // 5秒钟获取一次数据，你可以根据需要调整时间间隔
 
-    return () => clearInterval(interval); // 清除定时器以防止内存泄漏
-  }, []);
+  //   return () => clearInterval(interval); // 清除定时器以防止内存泄漏
+  // }, []);
 
   return (
     <div className="aside">

@@ -95,10 +95,10 @@ function Header() {
       <div className="nav">nav</div>
       <header>
         <div>
-          <Link to="/">
+          <Link to="/home/1">
             <img className="logo " src={logo} />
           </Link>
-          <Link to="/">
+          <Link to="/home/1">
             <span className="whisper">WHISPER</span>
           </Link>
           <button className="ddBtn">
@@ -132,22 +132,25 @@ function Header() {
           <Link to="/profile">
             <span className="userName">{user?.mem_name || "Guest"}</span>
           </Link>
-          {login ? (<Link to="/login">
-            <span>登入</span>
-          </Link>) : (<button className="userBtn">
-            <img className="userArrow" src={whiteArrow} />
-            <span className="userItem">
-              <Link to="/">
-                我的主頁&nbsp;&nbsp;
-                <img src={crown} className="myImg" />
-              </Link>
-              <Link to="/profile">編輯信息&nbsp;&nbsp;</Link>
-              <Link to="/manage">管理貼文</Link>
-              <hr />
-              <span onClick={logout}>登出</span>
-            </span>
-          </button>)}
-
+          {login ? (
+            <Link to="/login">
+              <span>登入</span>
+            </Link>
+          ) : (
+            <button className="userBtn">
+              <img className="userArrow" src={whiteArrow} />
+              <span className="userItem">
+                <Link to="/home/1">
+                  我的主頁&nbsp;&nbsp;
+                  <img src={crown} className="myImg" />
+                </Link>
+                <Link to="/profile">編輯信息&nbsp;&nbsp;</Link>
+                <Link to="/manage">管理貼文</Link>
+                <hr />
+                <span onClick={logout}>登出</span>
+              </span>
+            </button>
+          )}
         </div>
       </header>
     </div>

@@ -53,8 +53,9 @@ class App extends Component {
 
           <Route path="/post" component={Post} exact />
           <Route path="/post/:postId/:type" component={Post} exact />
-          <Route path="/" component={Home} exact />
-          <Route path="/:type" component={Theme} exact />
+
+          <Route path="/home/:page" component={Home} exact />
+          <Route path="/:type/:page" component={Theme} exact />
         </Switch>
       </BrowserRouter>
     );

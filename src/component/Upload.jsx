@@ -75,7 +75,7 @@ function Quill() {
           }
         })
         .then((jsonData) => {
-          window.location.href = "/";
+          window.location.href = "/home/1";
           console.log(jsonData);
         })
         .catch((error) => {

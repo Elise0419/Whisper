@@ -18,30 +18,37 @@ import rose from "./img/rose.png";
 import bite from "./img/bite.png";
 
 function Makeup() {
-  const m = useRouteMatch().params.type;
+  const m = useRouteMatch().params;
   const token = localStorage.getItem("token");
   let [searchBarImg, setSearchBarImg] = useState([]);
+  let [page, setPage] = useState(1);
+  let [pn, setPn] = useState(1);
   let [topic, setTopic] = useState([
     {
       img: makeup,
       list: "美妝保養",
       describe: "各種美妝技巧貼文",
-      route: "/mkup",
+      route: "/mkup/1",
     },
-    { img: cake, list: "美食情報", describe: "好食物好味道", route: "/food" },
+    { img: cake, list: "美食情報", describe: "好食物好味道", route: "/food/1" },
     {
       img: aroma,
       list: "健康生活",
       describe: "綠色出行綠色生活",
-      route: "/life",
+      route: "/life/1",
     },
     {
       img: dress,
       list: "時尚穿搭",
       describe: "fashion前言趨勢",
-      route: "/fashion",
+      route: "/fashion/1",
     },
-    { img: rose, list: "感情生活", describe: "各種抱怨聚集地", route: "/love" },
+    {
+      img: rose,
+      list: "感情生活",
+      describe: "各種抱怨聚集地",
+      route: "/love/1",
+    },
   ]);
   let [ad, setAd] = useState([]);
   let [searchVal, setSearchVal] = useState(""); // search bar input value
@@ -59,7 +66,7 @@ function Makeup() {
   useEffect(() => {
     function fetchData() {
       // 廣告
-      fetch(`http://10.10.247.90:8000/api/v1/ads?type[eq]=${m}`, {
+      fetch(`http://10.10.247.90:8000/api/v1/ads?type[eq]=${m.type}`, {
         method: "GET",
       })
         .then((res) => {
@@ -73,7 +80,7 @@ function Makeup() {
         });
 
       // 個版
-      fetch(`http://10.10.247.90:8000/api/v1/posts?type[eq]=${m}`, {
+      fetch(`http://10.10.247.90:8000/api/v1/posts?type[eq]=${m.type}`, {
         method: "GET",
       })
         .then((res) => {
@@ -86,6 +93,16 @@ function Makeup() {
             setCard([]);
           } else {
             // 有搜尋紀錄
+            setPage(Math.ceil(jsonData.data.length / 16));
+
+            if (m.page == undefined) {
+              jsonData.data = jsonData.data.slice(0, 16);
+            } else {
+              let s = (m.page - 1) * 16;
+              let e = s + 16;
+              jsonData.data = jsonData.data.slice(s, e);
+            }
+
             setFind(false);
             setCard(
               searchMsg.data == undefined ? jsonData.data : searchMsg.data
@@ -97,7 +114,7 @@ function Makeup() {
         });
 
       // 投票
-      fetch(`http://10.10.247.90:8000/api/votes/${m}`, {
+      fetch(`http://10.10.247.90:8000/api/votes/${m.type}`, {
         method: "GET",
       })
         .then((res) => {
@@ -112,7 +129,7 @@ function Makeup() {
         });
 
       // 標籤
-      fetch(`http://10.10.247.90:8000/api/tags/${m}`, {
+      fetch(`http://10.10.247.90:8000/api/tags/${m.type}`, {
         method: "GET",
       })
         .then((res) => {
@@ -126,7 +143,7 @@ function Makeup() {
         });
 
       // 規則
-      fetch(`http://10.10.247.90:8000/api/v1/rules?type[eq]=${m}`, {
+      fetch(`http://10.10.247.90:8000/api/v1/rules?type[eq]=${m.type}`, {
         method: "GET",
       })
         .then((res) => {
@@ -164,7 +181,7 @@ function Makeup() {
         });
     }
     fetchData();
-  }, [m, searchMsg]);
+  }, [m.type, searchMsg]);
 
   // 投票區域處理
   useEffect(() => {
@@ -194,7 +211,7 @@ function Makeup() {
     if (searchVal == "") {
     } else {
       fetch(
-        `http://10.10.247.90:8000/api/posts/search?query=${searchVal}&type=${m}`,
+        `http://10.10.247.90:8000/api/posts/search?query=${searchVal}&type=${m.type}`,
         {
           method: "GET",
         }
@@ -291,6 +308,22 @@ function Makeup() {
       .catch((err) => {
         console.log("錯誤:", err);
       });
+  }
+
+  function pre() {
+    pn = Number(pn) - 1;
+    if (pn < 1) {
+    } else {
+      setPn(pn);
+    }
+  }
+
+  function next() {
+    pn = Number(pn) + 1;
+    if (pn > page) {
+    } else {
+      setPn(pn);
+    }
   }
 
   let url;
@@ -530,6 +563,26 @@ function Makeup() {
           </ol>
         </div>
       </aside>
+      <div className="page">
+        <a className="pre" href={`/${m.type}/${pn}`} onClick={pre}>
+          pre
+        </a>
+        {Array.from({ length: page }).map((_, index) => (
+          <span key={index}>
+            &nbsp;
+            <a className="pageNum" href={`/${m.type}/${index + 1}`}>
+              {index + 1}
+            </a>
+            &nbsp;
+          </span>
+        ))}
+        <a className="next" href={`/${m.type}/${pn}`} onClick={next}>
+          next
+        </a>
+        <p>
+          第 {m.page} 頁，共 {page} 頁
+        </p>
+      </div>
       <Footer />
     </div>
   );

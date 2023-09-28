@@ -409,3 +409,43 @@ article a {
     text-align: center;
     padding-top: 3rem;
 }
+
+.pageNum {
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    text-decoration: none;
+    border: 1px lightblue solid;
+    border-radius: var(--radius);
+    color: steelblue;
+}
+
+.pageNum:hover {
+    background-color: lightblue;
+    color: white;
+    transition: .5s;
+    font-weight: bold;
+}
+
+.page p:last-of-type {
+    color: var(--colorGray300)
+}
+
+.pre,
+.next {
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: var(--radius);
+    background-color: var(--colorYellow);
+    font-weight: bold;
+    color: white;
+    border: none;
+    margin-left: 3rem;
+    margin-right: 3rem;
+}
+
+.pre:hover,
+.next:hover {
+    background-color: white;
+    color: var(--colorYellow);
+    transition: .5s;
+    font-weight: bold;
+}

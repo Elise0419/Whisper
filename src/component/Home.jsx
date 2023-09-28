@@ -17,32 +17,37 @@ import rabbit from "./img/rabbit.png";
 import ice from "./img/ice.png";
 
 function Home() {
-  const m = useRouteMatch().params.type;
+  const m = useRouteMatch().params;
   const token = localStorage.getItem("token");
   let [loading, setLoading] = useState(true);
   let [page, setPage] = useState(1);
-
+  let [pn, setPn] = useState(1);
   let [topic, setTopic] = useState([
     {
       img: makeup,
       list: "美妝保養",
       describe: "各種美妝技巧貼文",
-      route: "/mkup",
+      route: "/mkup/1",
     },
-    { img: cake, list: "美食情報", describe: "好食物好味道", route: "/food" },
+    { img: cake, list: "美食情報", describe: "好食物好味道", route: "/food/1" },
     {
       img: aroma,
       list: "健康生活",
       describe: "綠色出行綠色生活",
-      route: "/life",
+      route: "/life/1",
     },
     {
       img: dress,
       list: "時尚穿搭",
       describe: "fashion前言趨勢",
-      route: "/fashion",
+      route: "/fashion/1",
     },
-    { img: rose, list: "感情生活", describe: "各種抱怨聚集地", route: "/love" },
+    {
+      img: rose,
+      list: "感情生活",
+      describe: "各種抱怨聚集地",
+      route: "/love/1",
+    },
   ]);
   let [searchVal, setSearchVal] = useState(""); // search bar input value
   let [searchMsg, setSearchMsg] = useState({}); // 宜珊的response;
@@ -67,13 +72,20 @@ function Home() {
             setFind(true);
             setCard([]);
           } else {
+            setPage(Math.ceil(jsonData.data.length / 16));
+
+            if (m.page == undefined) {
+              jsonData.data = jsonData.data.slice(0, 16);
+            } else {
+              let s = (m.page - 1) * 16;
+              let e = s + 16;
+              jsonData.data = jsonData.data.slice(s, e);
+            }
             setFind(false);
             setCard(
               searchMsg.data === undefined ? jsonData.data : searchMsg.data
             );
             setLoading(false);
-
-            setPage(Math.ceil(jsonData.data.length / 16));
           }
         })
         .catch((err) => {
@@ -133,7 +145,7 @@ function Home() {
         });
     }
     fetchData();
-  }, [m, searchMsg]);
+  }, [m.type, searchMsg]);
 
   // 搜尋
   function searchInput() {
@@ -184,6 +196,22 @@ function Home() {
       });
   };
 
+  function pre() {
+    pn = Number(pn) - 1;
+    if (pn < 1) {
+    } else {
+      setPn(pn);
+    }
+  }
+
+  function next() {
+    pn = Number(pn) + 1;
+    if (pn > page) {
+    } else {
+      setPn(pn);
+    }
+  }
+
   let url;
   return (
     <div>
@@ -197,7 +225,11 @@ function Home() {
               <p>主題個版</p>
               {topic.map((topic, index) => {
                 return (
-                  <Link to="/mkup" key={index} onClick={deleteSearch}>
+                  <Link
+                    to={`${topic.route}`}
+                    key={index}
+                    onClick={deleteSearch}
+                  >
                     <img className="topicImg" src={topic.img} />
                     <span className="topicList">
                       {topic.list}
@@ -379,12 +411,24 @@ function Home() {
             </div>
           </aside>
           <div className="page">
+            <a className="pre" href={`/home/${pn}`} onClick={pre}>
+              pre
+            </a>
             {Array.from({ length: page }).map((_, index) => (
-              <a key={index} href={`/page${index + 1}`}>
-                {index + 1}&nbsp;
-              </a>
+              <span key={index}>
+                &nbsp;
+                <a className="pageNum" href={`/home/${index + 1}`}>
+                  {index + 1}
+                </a>
+                &nbsp;
+              </span>
             ))}
-            <p>總共 {page} 頁</p>
+            <a className="next" href={`/home/${pn}`} onClick={next}>
+              next
+            </a>
+            <p>
+              第 {m.page} 頁，共 {page} 頁
+            </p>
           </div>
           <Footer />
         </div>

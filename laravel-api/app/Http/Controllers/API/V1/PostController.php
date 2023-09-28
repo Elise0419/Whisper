@@ -24,7 +24,7 @@ class PostController extends Controller
         //check the input
         if ($queryItems == 0) {
             // return new PostCollection(Post::all());
-            $posts = Post::orderBy('post_time', 'desc')->paginate(16);
+            $posts = Post::orderBy('post_time', 'desc')->get();
             return PostResource::collection($posts);
         } else {
             return new PostCollection(Post::where($queryItems)->orderBy('post_time', 'desc')->get());

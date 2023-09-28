@@ -402,3 +402,10 @@ article a {
     width: 40px;
     vertical-align: middle;
 }
+
+/* - - - - - - - - - - */
+.page {
+    width: 100%;
+    text-align: center;
+    padding-top: 3rem;
+}

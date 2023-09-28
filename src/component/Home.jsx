@@ -201,7 +201,7 @@ function Home() {
 
   // 上一頁
   function pre() {
-    changePage = Number(changePage) - 1;
+    changePage = Number(m.page) - 1;
     if (changePage < 1) {
     } else {
       setChangePage(changePage);
@@ -210,7 +210,7 @@ function Home() {
 
   // 下一頁
   function next() {
-    changePage = Number(changePage) + 1;
+    changePage = Number(m.page) + 1;
     if (changePage > totalPage) {
     } else {
       setChangePage(changePage);

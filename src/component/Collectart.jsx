@@ -29,8 +29,6 @@ function Collectart() {
         }
       })
       .then((data) => {
-        console.log(data);
-
         if (data.message === "没有蒐藏任何貼文") {
           setPosts([]);
           setPostCount(0);
@@ -55,7 +53,6 @@ function Collectart() {
     })
       .then((response) => response.json())
       .then((resJson) => {
-        console.log("Response from server:", resJson);
         if (resJson.message === "Deleted!") {
           fetchPosts();
         }
@@ -65,7 +62,6 @@ function Collectart() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    console.log("Token in Profile:", token);
     fetchPosts();
   }, [postId]);
 
@@ -146,7 +142,9 @@ function Collectart() {
           );
         })
       ) : (
-        <div className="manageCount">{userId ? <div>請先登入</div> : <div>目前沒有帖子</div>}</div>
+        <div className="manageCount">
+          {userId ? <div>請先登入</div> : <div>目前沒有帖子</div>}
+        </div>
       )}
     </div>
   );

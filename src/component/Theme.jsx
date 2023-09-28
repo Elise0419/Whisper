@@ -219,6 +219,7 @@ function Theme() {
           return res.json();
         })
         .then((jsonData) => {
+          console.log(jsonData.data);
           if (jsonData.message == "Post not found!") {
             setSearchMsg({ message: `無法搜尋到 ${searchVal} 相關貼文` });
           } else {
@@ -303,6 +304,7 @@ function Theme() {
       .then((jsonData) => {
         setCard(jsonData);
         setFind(false);
+        setTotalPage(Math.ceil(jsonData.data.length / 16));
       })
       .catch((err) => {
         console.log("錯誤:", err);
@@ -311,7 +313,7 @@ function Theme() {
 
   // 上一頁
   function pre() {
-    changePage = Number(changePage) - 1;
+    changePage = Number(m.page) - 1;
     if (changePage < 1) {
     } else {
       setChangePage(changePage);
@@ -320,7 +322,7 @@ function Theme() {
 
   // 下一頁
   function next() {
-    changePage = Number(changePage) + 1;
+    changePage = Number(m.page) + 1;
     if (changePage > totalPage) {
     } else {
       setChangePage(changePage);

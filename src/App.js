@@ -12,6 +12,7 @@ import Theme from "./component/Theme";
 import Profile from "./component/Profile";
 import Manage from "./component/Manage";
 import Restpwd from "./component/Restpwd";
+import Newpwd from "./component/Newpwd";
 import Verify from "./component/Verify";
 import Verifyre from "./component/verifyre";
 import Secret from "./component/Secret";
@@ -38,6 +39,7 @@ class App extends Component {
             <Route path="/login" component={Login} exact />
             <Route path="/forgotpw" component={Forgotpw} exact />
             <Route path="/restpwd" component={Restpwd} exact />
+            <Route path="/newpwd" component={Newpwd} exact />
             <Route path="/verify" component={Verify} exact />
             <Route path="/verifyre" component={Verifyre} exact />
             <Route

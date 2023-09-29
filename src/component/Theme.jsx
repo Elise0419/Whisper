@@ -119,6 +119,7 @@ function Theme() {
         })
         .then((jsonData) => {
           // 只要切換個版 就重新渲染
+          console.log(jsonData)
           setVote(jsonData.data[0]);
         })
         .catch((err) => {
@@ -182,7 +183,7 @@ function Theme() {
 
   // 投票區域處理
   useEffect(() => {
-    if (vote.voteId) {
+    if (vote?.voteId) {
       let record = localStorage.getItem(`vote${vote.voteId}`);
       record = JSON.parse(record);
       if (record != null) {
@@ -511,11 +512,11 @@ function Theme() {
           <span className="voteTopic">
             <p>
               <img src={makeup} />
-              &nbsp;&nbsp;{vote.forumTitle}
+              &nbsp;&nbsp;{vote?.forumtitle}
             </p>
           </span>
           <div className="vote">
-            <span className="voteTitle">{vote.title}</span>
+            <span className="voteTitle">{vote?.title}</span>
             <div className="choice">
               <div>
                 <label style={{ width: oneWidth + "%" }}>
@@ -526,7 +527,7 @@ function Theme() {
                     onClick={widthChange}
                     disabled={disabled}
                   />
-                  <span>{vote.ansOne}</span>
+                  <span>{vote?.ansOne}</span>
                 </label>
                 <label style={{ width: twoWidth + "%" }}>
                   <input
@@ -536,12 +537,12 @@ function Theme() {
                     onClick={widthChange}
                     disabled={disabled}
                   />
-                  <span>{vote.ansTwo}</span>
+                  <span>{vote?.ansTwo}</span>
                 </label>
               </div>
             </div>
-            <img src={vote.imgOne} />
-            <img src={vote.imgTwo} />
+            <img src={vote?.imgOne} />
+            <img src={vote?.imgTwo} />
           </div>
         </div>
         <div className="aside">

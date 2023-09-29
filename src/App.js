@@ -50,13 +50,15 @@ class App extends Component {
             <Route path="/verify" component={Verify} exact />
             <Route path="/verifyre" component={Verifyre} exact />
             <Route
-              path="/admin/post_:postId(\d+)/comments"
+              path="/admin/post_:postId(\d+)/comments/:page"
               component={CommentAdmin}
               exact
             />
-            <Route path="/admin/article" component={ArticleAdmin} exact />
 
-            <Route path="/superadmin/users/manage" component={ArticleAdmin} exact />
+
+            <Route path="/admin/article/:page" component={ArticleAdmin} exact />
+
+            <Route path="/admin/users/manage/:page" component={SuperAdmin} exact />
 
 
             <Route path="/upload/:type" component={Upload} exact />

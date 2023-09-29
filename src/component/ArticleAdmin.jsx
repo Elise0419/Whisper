@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useRouteMatch } from "react-router-dom";
 import "./CSS/Adminall.css";
 
 function ArticleAdmin() {
   const [data, setData] = useState([]);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState({});
+  const match = useRouteMatch();
 
   const token = localStorage.getItem("token");
 
@@ -43,7 +44,7 @@ function ArticleAdmin() {
 
   useEffect(() => {
     fetch(
-      `http://118.233.222.23:8000/api/admin/management/articles/show/${page}`,
+      `http://118.233.222.23:8000/api/admin/management/articles/show/${match.params.page}`,
       {
         method: "post",
         headers: {
@@ -60,11 +61,12 @@ function ArticleAdmin() {
       .then((res) => {
         console.log(res)
         setData(res.articles.data);
+        setPage(res.articles.last_page)
       })
       .catch((error) => {
         console.error("發生錯誤：", error);
       });
-  }, []);
+  }, [match.params.page]);
 
   return (
     <div>
@@ -84,12 +86,13 @@ function ArticleAdmin() {
           {data.map((item, index) => (
             <tr key={index}>
               <td>{item.post_id}</td>
-              <td>{item.title}</td>
+              <td dangerouslySetInnerHTML={{ __html: item.title }} />
               <td>{item.user_id}</td>
               <td>{item.users.mem_name}</td>
-              <td>{item.content}</td>
+              <td dangerouslySetInnerHTML={{ __html: item.content }} />
+              {/* <td>{item.content}</td> */}
               <td>
-                <Link to={`/admin/post_${item.post_id}/comments`}>
+                <Link to={`/admin/post_${item.post_id}/comments/1`}>
                   文章評論
                 </Link>
                 <button onClick={() => DeleteClick(`${item.post_id}`)}>
@@ -100,8 +103,21 @@ function ArticleAdmin() {
           ))}
         </tbody>
       </table>
-      <span onClick={() => Prepage}>上一頁</span>
-      <span onClick={() => Nextpage}>下一頁</span>
+      <Link to={`/admin/article/${parseInt(match.params.page) - 1}`}>
+        pre
+      </Link>
+      {Array.from({ length: page }).map((_, index) => (
+        <span key={index}>
+          &nbsp;
+          <Link to={`/admin/article/${parseInt(index) + 1}`}>
+            {index + 1}
+          </Link>
+          &nbsp;
+        </span>
+      ))}
+      <Link to={`/admin/article/${parseInt(match.params.page) + 1}`}>
+        next
+      </Link>
     </div>
   );
 }

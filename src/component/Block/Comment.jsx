@@ -62,7 +62,6 @@ function Comment() {
       })
       .then((jsonData) => {
         if (jsonData.error) {
-          console.log("錯誤訊息:", jsonData.error);
         } else {
           setUser({ ...jsonData.user, read: false, push: false });
         }
@@ -98,7 +97,6 @@ function Comment() {
     )
       .then((res) => res.json())
       .then((jsonData) => {
-        console.log("jsonData", jsonData);
         if (jsonData.message === "評論已新增！") {
           fetchData();
         }

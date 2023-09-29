@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useRouteMatch } from "react-router-dom";
+import { Link, useRouteMatch } from "react-router-dom";
 
 function SuperAdmin() {
   const [data, setData] = useState([]);
@@ -42,7 +42,7 @@ function SuperAdmin() {
 
   useEffect(() => {
     fetch(
-      `http://118.233.222.23:8000/api/admin/management/comments/show/post_${match.params.postId}/${page}`,
+      `http://118.233.222.23:8000/api/admin/management/users/show/${match.params.page}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -53,10 +53,14 @@ function SuperAdmin() {
         if (res.status >= 400) {
           alert("你無權造訪此頁面");
           throw new Error("API request failed");
-        } else return res.json();
+        } else {
+          return res.json();
+        }
       })
       .then((res) => {
-        setData(res.comments.data);
+        console.log(res.users.data)
+        setData(res.users.data);
+        setPage(res.users.last_page)
       })
       .catch((error) => {
         console.error("發生錯誤：", error);
@@ -69,20 +73,25 @@ function SuperAdmin() {
       <table>
         <thead>
           <tr>
-            <th>留言序號</th>
-            <th>留言者ID</th>
-            <th>留言者名稱</th>
-            <th>貼文內容</th>
-            <th>執行操作</th>
+            <th>使用者ID</th>
+            <th>使用者名稱</th>
+            <th>信箱</th>
+            <th>建立時間</th>
+            <th>更新時間</th>
+            <th>登入時間</th>
+            <th>登出時間</th>
           </tr>
         </thead>
         <tbody>
           {data.map((item, index) => (
             <tr key={index}>
-              <td>{item.id}</td>
               <td>{item.user_id}</td>
-              <td>{item.users.mem_name}</td>
-              <td>{item.comment}</td>
+              <td>{item.mem_name}</td>
+              <td>{item.email}</td>
+              <td>{new Date(item.created_at).toLocaleString()}</td>
+              <td>{new Date(item.updated_at).toLocaleString()}</td>
+              <td>{new Date(item.login_time).toLocaleString()}</td>
+              <td>{new Date(item.logout_time).toLocaleString()}</td>
               <td>
                 <button onClick={() => DeleteClick(`${item.id}`)}>
                   Delete
@@ -92,8 +101,21 @@ function SuperAdmin() {
           ))}
         </tbody>
       </table>
-      <span onClick={() => Prepage}>上一頁</span>
-      <span onClick={() => Nextpage}>下一頁</span>
+      <Link to={`/admin/users/manage/${parseInt(match.params.page) - 1}`}>
+        pre
+      </Link>
+      {Array.from({ length: page }).map((_, index) => (
+        <span key={index}>
+          &nbsp;
+          <Link to={`/admin/users/manage/${parseInt(index) + 1}`}>
+            {index + 1}
+          </Link>
+          &nbsp;
+        </span>
+      ))}
+      <Link to={`/admin/users/manage/${parseInt(match.params.page) + 1}`}>
+        next
+      </Link>
     </div>
   );
 

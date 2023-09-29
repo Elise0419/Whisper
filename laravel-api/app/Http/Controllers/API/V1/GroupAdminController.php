@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Admin;
 use App\Models\Post;
 use App\Models\Comtxt;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class GroupAdminController extends Controller
@@ -28,13 +29,27 @@ class GroupAdminController extends Controller
 
     public function showarticles($page)
     {
+        if ($page < 1) {
+            $page = 1;
+        }
         $articles = Post::with(['users:user_id,mem_name'])->where('type', $this->admin->type)->paginate(20, ['*'], 'page', $page);
+        if ($page > $articles->lastPage()) {
+            $articles = Post::with(['users:user_id,mem_name'])->where('type', $this->admin->type)->paginate(20, ['*'], 'page', $articles->lastPage());
+        }
+
         return response()->json(['articles' => $articles], 200);
     }
 
     public function showcomments($id, $page)
     {
-        $Comments = Comtxt::with(['users:user_id,mem_name'])->where('post_id', $id)->paginate(20, ['*'], 'page',);
+        if ($page < 1) {
+            $page = 1;
+        }
+        $Comments = Comtxt::with(['users:user_id,mem_name'])->where('post_id', $id)->paginate(20, ['*'], $page);
+        if ($page > $Comments->lastPage()) {
+            $Comments = Comtxt::with(['users:user_id,mem_name'])->where('post_id', $id)->paginate(20, ['*'], $Comments->lastPage());
+        }
+
         return response()->json(['comments' => $Comments], 200);
     }
 
@@ -56,5 +71,11 @@ class GroupAdminController extends Controller
         }
         $Comment->delete();
         return response()->json([], 204);
+    }
+
+    public function usermanage($page)
+    {
+        $Users = User::with(['admin'])->paginate(20, ['*'], $page);
+        return response()->json(['users' => $Users], 200);
     }
 }

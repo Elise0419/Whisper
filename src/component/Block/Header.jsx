@@ -119,13 +119,13 @@ function Header() {
                 </Link>
                 <Link to="/profile">編輯信息&nbsp;&nbsp;</Link>
                 <Link to="/manage">管理貼文</Link>
-                {user.admin ? (
-                  <Link to="/admin/article">管理員模式</Link>
+                {user && user.admin ? (
+                  <Link to="/admin/article/1">管理員模式</Link>
                 ) : (
                   <span></span>
                 )}
-                {user.superadmin ? (
-                  <Link to="/admin/article">超級管理員</Link>
+                {user && user.superadmin ? (
+                  <Link to="/admin/users/manage/1">超級管理員</Link>
                 ) : (
                   <span></span>
                 )}

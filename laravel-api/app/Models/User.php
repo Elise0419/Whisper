@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Comtxt;
 use App\Models\Post;
 use App\Models\Votesdata;
+use App\Models\Admin;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -38,6 +39,10 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     public function votesdatas()
     {
         return $this->hasMany(Votesdata::class);
+    }
+    public function admin()
+    {
+        return $this->hasMany(Admin::class, 'user_id');
     }
     /**
      * The attributes that are mass assignable.

@@ -20,11 +20,19 @@ export function UserProvider({ children }) {
                 },
             })
                 .then((res) => {
-                    return res.json();
+                    if (res.status >= 400) {
+
+                    } else {
+                        return res.json();
+                    }
                 })
                 .then((data) => {
                     setUser(data.user);
+                    setLogin(true)
                 })
+                .catch((err) => {
+                    console.log("Error:", err);
+                });
         }
         fetchData();
     }, []);

@@ -8,10 +8,12 @@ import Post from "./component/Post";
 import Login from "./component/Login";
 import Signup from "./component/Signup";
 import Forgotpw from "./component/Forgotpw";
+import Forgotvalid from "./component/Forgotvalid";
 import Theme from "./component/Theme";
 import Profile from "./component/Profile";
 import Manage from "./component/Manage";
 import Restpwd from "./component/Restpwd";
+import Restvalid from "./component/Restvalid";
 import Newpwd from "./component/Newpwd";
 import Verify from "./component/Verify";
 import Verifyre from "./component/verifyre";
@@ -38,7 +40,9 @@ class App extends Component {
             <Route path="/signup" component={Signup} exact />
             <Route path="/login" component={Login} exact />
             <Route path="/forgotpw" component={Forgotpw} exact />
+            <Route path="/forgotvalid" component={Forgotvalid} exact />
             <Route path="/restpwd" component={Restpwd} exact />
+            <Route path="/restvalid" component={Restvalid} exact />
 
             <Route path="/password/:data" component={Newpwd} />
 

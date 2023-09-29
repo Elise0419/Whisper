@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import "./CSS/Restpwd.css";
 import Validation from "./Validation/RestpwdValidation";
@@ -82,7 +82,6 @@ function Restpwd() {
           </div>
           <div className="restMain">
             <form action="" onSubmit={handleSubmit}>
-             
               <div className="">
                 <label htmlFor="password">
                   <strong>請輸入新密碼</strong>

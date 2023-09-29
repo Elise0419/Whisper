@@ -449,3 +449,8 @@ article a {
     transition: .5s;
     font-weight: bold;
 }
+
+.load {
+    display: block;
+    min-height: 100vh;
+}

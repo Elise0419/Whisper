@@ -1,12 +1,9 @@
-//import React, { useState } from "react";
 import "./CSS/Manage.css";
 
 // 引入tab組件
 import { TabPanel, useTabs } from "react-headless-tabs";
 import { TabSelector } from "./TabSelector.tsx";
 
-import Header from "./Block/Header";
-import Footer from "./Block/Footer";
 import Asideuser from "./Block/Asideuser";
 // 發布貼文組件
 import Postart from "./Postart";

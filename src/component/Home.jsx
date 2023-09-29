@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link, useRouteMatch, useParams } from "react-router-dom";
 
 import "./CSS/Home.css";
-import Header from "./Block/Header";
-import Footer from "./Block/Footer";
 import { useUserContext } from "../store/UserContext";
 
 import thumb from "./img/thumb.png";
@@ -16,7 +14,6 @@ import cake from "./img/cake.png";
 import rose from "./img/rose.png";
 import rabbit from "./img/rabbit.png";
 import ice from "./img/ice.png";
-
 
 function Home() {
   const m = useRouteMatch().params;
@@ -73,13 +70,13 @@ function Home() {
         })
         .then((jsonData) => {
           setCard(jsonData.post.data);
-          setTotalPage(jsonData.post.last_page)
+          setTotalPage(jsonData.post.last_page);
 
           if (searchMsg.message) {
             // 沒有搜尋紀錄
             setFind(true);
             setCard([]);
-            setTotalPage(0)
+            setTotalPage(0);
           }
           // else {
           // 有搜尋紀錄
@@ -103,8 +100,7 @@ function Home() {
         });
 
       // 流行貼文
-      fetch("http://118.233.222.23:8000/api/topPosts/1", {
-      })
+      fetch("http://118.233.222.23:8000/api/topPosts/1", {})
         .then((res) => {
           return res.json();
         })
@@ -116,8 +112,7 @@ function Home() {
         });
 
       // 點讚貼文
-      fetch("http://118.233.222.23:8000/api/topPosts/2", {
-      })
+      fetch("http://118.233.222.23:8000/api/topPosts/2", {})
         .then((res) => {
           return res.json();
         })
@@ -145,7 +140,7 @@ function Home() {
           if (jsonData.error) {
             console.log("錯誤訊息:", jsonData.error);
           } else {
-            setLogin(true)
+            setLogin(true);
             setUser(jsonData.user);
           }
         })
@@ -158,7 +153,7 @@ function Home() {
 
   // 搜尋
   function searchInput() {
-    setSearchVal('')
+    setSearchVal("");
     setSearchVal(document.getElementById("searchBar").value);
   }
 
@@ -170,17 +165,17 @@ function Home() {
           return res.json();
         })
         .then((jsonData) => {
-          console.log(jsonData)
+          console.log(jsonData);
           if (jsonData.message == "Post not found!") {
             setCard([]);
             setSearchMsg({ message: `無法搜尋到 ${searchVal} 相關貼文` });
-            setTotalPage(0)
+            setTotalPage(0);
           } else {
             // setSearchMsg(jsonData);
             // setCard([]);
             setCard(jsonData.pages.data);
-            setSearchMsg({})
-            setTotalPage(jsonData.pages.last_page)
+            setSearchMsg({});
+            setTotalPage(jsonData.pages.last_page);
           }
         })
         .catch((err) => {
@@ -215,7 +210,7 @@ function Home() {
   return (
     <div>
       {loading ? (
-        <div>資料載入中...</div>
+        <div className="load">資料載入中...</div>
       ) : (
         <div id="container">
           <section>
@@ -317,7 +312,10 @@ function Home() {
                         )}
                       </span>
                       <span className="cardMid">
-                        <img src={card.users.headimg} alt={`Image ${card.postId}`} />
+                        <img
+                          src={card.users.headimg}
+                          alt={`Image ${card.postId}`}
+                        />
                         <span>{myTitle.textContent}</span>
                       </span>
                       <span className="cardBtm">
@@ -371,7 +369,9 @@ function Home() {
             </div>
           </aside>
           <div className="page">
-            <Link className="pre" to={`/home/${parseInt(m.page) - 1}`}>pre</Link>
+            <Link className="pre" to={`/home/${parseInt(m.page) - 1}`}>
+              pre
+            </Link>
             {Array.from({ length: totalPage }).map((_, index) => (
               <span key={index}>
                 &nbsp;
@@ -381,15 +381,16 @@ function Home() {
                 &nbsp;
               </span>
             ))}
-            <Link className="next" to={`/home/${parseInt(m.page) + 1}`}>next</Link>
+            <Link className="next" to={`/home/${parseInt(m.page) + 1}`}>
+              next
+            </Link>
             <p>
               第 {m.page} 頁，共 {totalPage} 頁
             </p>
           </div>
         </div>
-      )
-      }
-    </div >
+      )}
+    </div>
   );
 }
 

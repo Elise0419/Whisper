@@ -3,8 +3,6 @@ import { useRouteMatch, useHistory } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "./CSS/Upload.css";
 import "react-quill/dist/quill.snow.css";
-import Header from "./Block/Header";
-import Footer from "./Block/Footer";
 
 function Edition() {
   const m = useRouteMatch().params.type;
@@ -21,28 +19,31 @@ function Edition() {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    console.log(match.params.postID)
-    fetch(`http://118.233.222.23:8000/api/posts/edit/post_${match.params.postID}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
+    console.log(match.params.postID);
+    fetch(
+      `http://118.233.222.23:8000/api/posts/edit/post_${match.params.postID}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
       .then((res) => {
         if (res.status >= 500) {
-          alert('與伺服器中段斷連接')
+          alert("與伺服器中段斷連接");
         } else if (res.status === 401) {
-          history.push('/login');
+          history.push("/login");
         } else if (res.status >= 400) {
           res.json().then((data) => {
             alert(data.message);
-            history.push('/home');
-          })
+            history.push("/home");
+          });
         }
         return res.json();
       })
       .then((jsonData) => {
-        console.log(jsonData)
+        console.log(jsonData);
         setTags(jsonData.tags);
         setQ(jsonData.post);
       })

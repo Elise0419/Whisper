@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useRouteMatch, Link } from "react-router-dom";
-// import avatar from "../img/avatar.png";
 
 function Comment() {
   const [user, setUser] = useState({ read: true, push: true, btnhover: false });
@@ -137,16 +136,20 @@ function Comment() {
           <textarea
             cols="80"
             rows="5"
-            placeholder={user.push ? '你尚未登入，請先進行登入後評論' : '寫下你的評論'}
+            placeholder={
+              user.push ? "你尚未登入，請先進行登入後評論" : "寫下你的評論"
+            }
             className="iptTxt"
             value={com.newComment}
             onChange={(e) => setCom({ ...com, newComment: e.target.value })}
             readOnly={user.read}
           />
-          <button className="commentSubmit" onClick={handleSubmitComment} disabled={user.push}>
-            {user.push ? <Link to="/login">
-              點我登入
-            </Link> : '評論'}
+          <button
+            className="commentSubmit"
+            onClick={handleSubmitComment}
+            disabled={user.push}
+          >
+            {user.push ? <Link to="/login">點我登入</Link> : "評論"}
           </button>
         </div>
       </div>

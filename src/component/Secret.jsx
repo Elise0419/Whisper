@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import $ from "jquery";
 import { useHistory } from "react-router-dom";
-import Header from "./Block/Header";
-import Footer from "./Block/Footer";
 
 import "./CSS/Secret.css";
 import pen from "./img/pen.png";

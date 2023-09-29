@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 
 import "./CSS/Forgotpw.css";
 import Validation from "./Validation/ForgotpwValidation";
-import Header from "./Block/Header";
-import Footer from "./Block/Footer";
 
 import logo from "./img/logo.png";
 

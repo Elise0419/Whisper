@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link, useHistory } from "react-router-dom";
 import "./CSS/Collectart.css";
 import posttext from "./img/posttext.jpg";
-import { colors } from "@mui/material";
 
 function Collectart() {
   const history = useHistory();

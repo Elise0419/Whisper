@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useRouteMatch } from "react-router-dom";
+import { useRouteMatch } from "react-router-dom";
 
 function CommentAdmin() {
   const [data, setData] = useState([]);

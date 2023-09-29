@@ -2,11 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useRouteMatch } from "react-router-dom";
 
 import "./CSS/Post.css";
-import Header from "./Block/Header";
-import Footer from "./Block/Footer";
 import Comment from "./Block/Comment";
 
-// import makeup2 from "./img/makeup.jpeg";
 import bite from "./img/bite.png";
 import makeup from "./img/makeup.png";
 

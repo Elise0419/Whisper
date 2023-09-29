@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./CSS/Profile.css";
-import Header from "./Block/Header";
-import Footer from "./Block/Footer";
 import Asideuser from "./Block/Asideuser";
 import { useHistory } from "react-router-dom";
 import rabbit from "../component/img/rabbit.png";
@@ -152,7 +150,7 @@ function Profile() {
         } else {
           setUser(jsonData.user);
           setLoading(false);
-          setLogin(true)
+          setLogin(true);
         }
       })
       .catch((err) => {
@@ -167,7 +165,7 @@ function Profile() {
   return (
     <div>
       {loading ? (
-        <div>資料載入中...</div>
+        <div className="load">資料載入中...</div>
       ) : (
         <div id="container">
           <section></section>
@@ -213,7 +211,6 @@ function Profile() {
                     )}
                   </div>
                   <hr />
-
 
                   <div className="UserDeclaration">
                     <label htmlFor="promise">用戶聲明:</label>

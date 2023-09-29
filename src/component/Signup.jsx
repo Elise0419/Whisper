@@ -3,8 +3,6 @@ import { Link, useHistory } from "react-router-dom";
 
 import "./CSS/Signup.css";
 import Validation from "./Validation/SignupValidation";
-import Header from "./Block/Header";
-import Footer from "./Block/Footer";
 
 import logo from "./img/logo.png";
 
@@ -28,20 +26,20 @@ function Signup() {
 
   function checkemail() {
     fetch(`http://118.233.222.23:8000/api/emailcheck?email=${values.email}`)
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         console.log(data);
-      })
+      });
   }
   function checkid() {
-    fetch(`http://118.233.222.23:8000/api/idcheck?person_id=${values.person_id}`)
-      .then(response => response.json())
-      .then(data => {
+    fetch(
+      `http://118.233.222.23:8000/api/idcheck?person_id=${values.person_id}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
         console.log(data);
-      })
-
+      });
   }
-
 
   const handleSubmit = (event) => {
     event.preventDefault();

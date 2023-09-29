@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link, useRouteMatch } from "react-router-dom";
 
 import "./CSS/Theme.css";
-import Header from "./Block/Header.jsx";
-import Footer from "./Block/Footer";
 
 import thumb from "./img/thumb.png";
 import comment from "./img/comment.png";

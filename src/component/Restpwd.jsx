@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import "./CSS/Restpwd.css";
 import Validation from "./Validation/RestpwdValidation";
-import Header from "./Block/Header";
-import Footer from "./Block/Footer";
 
 import logo from "./img/logo.png";
 

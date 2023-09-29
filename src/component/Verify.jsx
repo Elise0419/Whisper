@@ -1,9 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 import "./CSS/Login.css";
-import Header from "./Block/Header";
-import Footer from "./Block/Footer";
 
 import logo from "./img/logo.png";
 
@@ -22,7 +20,8 @@ function Verifyemail() {
               width="100px"
               style={{ borderRadius: "50%" }}
             />
-            <br /><br />
+            <br />
+            <br />
             <div className="">
               <strong>尚未完成email驗證,請至郵箱驗證您的email</strong>
             </div>

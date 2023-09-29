@@ -30,7 +30,6 @@ function Header() {
         if (res.status >= 200) {
           setLogin(false);
           setUser({});
-          // window.location.reload();
         }
       })
       .catch((err) => {
@@ -55,30 +54,6 @@ function Header() {
       setDd("創建貼文");
     }
 
-    // function fetchData() {
-    //   fetch(`http://118.233.222.23:8000/api/profile`, {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   })
-    //     .then((res) => {
-    //       if (res.status >= 200 && res.status < 400) {
-    //         return res.json();
-    //       } else {
-    //         throw new Error("Failed to fetch user data");
-    //       }
-    //     })
-    //     .then((jsonData) => {
-    //       setLogin(true);
-    //       setUser(jsonData.user);
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    // }
-
-    // fetchData();
   },
     [m, user, login]
   );

@@ -24,7 +24,7 @@ function Home() {
 
   let [loading, setLoading] = useState(true);
   let [totalPage, setTotalPage] = useState({});
-  let [changePage, setChangePage] = useState(1);
+  let [switchbtn, setSwitchbtn] = useState(true);
 
   let [topic, setTopic] = useState([
     {
@@ -65,39 +65,35 @@ function Home() {
 
   // 貼文渲染 & 主頁右側欄
   useEffect(() => {
-    console.log(m.page)
     function fetchData() {
       // 所有貼文
-      // fetch(`http://118.233.222.23:8000/api/v1/posts/page/${m.page}`
-      fetch(`http://118.233.222.23:8000/api/v1/posts/page/${m.page}`, {
-        method: "GET",
-      })
+      fetch(`http://118.233.222.23:8000/api/v1/posts/page/${m.page}`)
         .then((res) => {
           return res.json();
         })
         .then((jsonData) => {
-          console.log(jsonData)
           setCard(jsonData.post.data);
           setTotalPage(jsonData.post.last_page)
-          console.log(searchMsg.message)
-          // if (searchMsg.message) {
-          //   // 沒有搜尋紀錄
-          //   setFind(true);
-          //   setCard([]);
-          // } else {
-          //   // 有搜尋紀錄
-          //   // 改變頁數目錄
-          //   // setTotalPage(Math.ceil(jsonData.data.length / 16));
 
-          //   // let s = (m.page - 1) * 16;
-          //   // let e = s + 16;
-          //   // jsonData.data = jsonData.data.slice(s, e);
+          if (searchMsg.message) {
+            // 沒有搜尋紀錄
+            setFind(true);
+            setCard([]);
+            setTotalPage(0)
+          }
+          // else {
+          // 有搜尋紀錄
+          // 改變頁數目錄
+          // setTotalPage(Math.ceil(jsonData.data.length / 16));
+
+          // let s = (m.page - 1) * 16;
+          // let e = s + 16;
+          // jsonData.data = jsonData.data.slice(s, e);
 
           //   setFind(false);
           //   setCard(
           //     searchMsg.data === undefined ? jsonData.data : searchMsg.data
           //   );
-          //   // setLoading(false);
           // }
 
           setLoading(false);
@@ -132,7 +128,7 @@ function Home() {
           console.log("錯誤:", err);
         });
 
-      // Search Bar 頭貼
+      // 主頁抓取個人資訊，放置Context
       fetch("http://118.233.222.23:8000/api/profile", {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -162,22 +158,28 @@ function Home() {
 
   // 搜尋
   function searchInput() {
+    setSearchVal('')
     setSearchVal(document.getElementById("searchBar").value);
   }
+
   function searchButton() {
     if (searchVal == "") {
     } else {
-      fetch(`http://118.233.222.23:8000/api/posts/search?query=${searchVal}`, {
-        method: "GET",
-      })
+      fetch(`http://118.233.222.23:8000/api/posts/search?query=${searchVal}`)
         .then((res) => {
           return res.json();
         })
         .then((jsonData) => {
+          console.log(jsonData)
           if (jsonData.message == "Post not found!") {
+            setCard([]);
             setSearchMsg({ message: `無法搜尋到 ${searchVal} 相關貼文` });
           } else {
-            setSearchMsg(jsonData);
+            // setSearchMsg(jsonData);
+            // setCard([]);
+            setCard(jsonData.pages.data);
+            setSearchMsg({})
+            setTotalPage(jsonData.pages.last_page)
           }
         })
         .catch((err) => {
@@ -188,7 +190,6 @@ function Home() {
 
   // 重置 search bar
   function deleteSearch() {
-    setSearchMsg("");
     document.getElementById("searchBar").value = "";
   }
 
@@ -208,24 +209,6 @@ function Home() {
         console.log("錯誤:", err);
       });
   };
-
-  // 上一頁
-  function pre() {
-    changePage = Number(m.page) - 1;
-    if (changePage < 1) {
-    } else {
-      setChangePage(changePage);
-    }
-  }
-
-  // 下一頁
-  function next() {
-    changePage = Number(m.page) + 1;
-    if (changePage > totalPage) {
-    } else {
-      setChangePage(changePage);
-    }
-  }
 
   let url;
   return (

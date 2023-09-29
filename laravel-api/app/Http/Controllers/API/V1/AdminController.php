@@ -22,4 +22,18 @@ class AdminController extends Controller
 
         return response()->json(['data' => $articles]);
     }
+
+    public function showuser(Request $req, $page)
+    {
+        echo Auth::user()->user_id;
+
+        $admin = Admin::find(Auth::user()->user_id)->first();
+        if (!$admin) {
+            abort(403, '查無此身分');
+        };
+
+        $articles = Post::where('type', $admin->type)->paginate(20, ['*'], 'page', $page);
+
+        return response()->json(['data' => $articles]);
+    }
 }

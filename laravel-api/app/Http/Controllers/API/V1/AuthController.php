@@ -40,6 +40,9 @@ class AuthController extends Controller
         }
 
         $user = Auth::user();
+        $user->login_time = now();
+        $user->save();
+
         return response()->json([
             'user' => $user,
             'authorization' => [
@@ -77,6 +80,9 @@ class AuthController extends Controller
 
     public function logout()
     {
+        $user = Auth::user();
+        $user->logout_time = now();
+        $user->save();
         Auth::logout();
         return response()->json([
             'message' => 'Successfully logged out',
@@ -93,5 +99,4 @@ class AuthController extends Controller
             ],
         ]);
     }
-}
-;
+};

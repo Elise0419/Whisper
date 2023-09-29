@@ -74,12 +74,8 @@ function Restpwd() {
               });
             });
           } else {
-            return response.json();
+            history.push("/login");
           }
-        })
-        .then((data) => {
-          console.log("密码重置成功", data);
-          history.push("/login");
         })
         .catch((error) => {
           console.error("Error:", error);

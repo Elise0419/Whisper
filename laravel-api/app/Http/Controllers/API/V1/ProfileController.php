@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\V1;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Admin;
+use App\Models\Superadmin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -29,6 +30,10 @@ class ProfileController extends Controller
         $admin = Admin::where('user_id', $this->user->user_id)->exists();
         if ($admin) {
             $this->user->admin = $admin;
+        }
+        $superadmin = Superadmin::where('user_id', $this->user->user_id)->exists();
+        if ($superadmin) {
+            $this->user->superadmin = $superadmin;
         }
         return response()->json(['user' => $this->user], 200);
     }

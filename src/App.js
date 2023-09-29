@@ -17,6 +17,7 @@ import Verify from "./component/Verify";
 import Verifyre from "./component/verifyre";
 import Secret from "./component/Secret";
 import Secrets from "./component/Secrets";
+import SuperAdmin from "./component/SuperAdmin"
 import ArticleAdmin from "./component/ArticleAdmin";
 import CommentAdmin from "./component/CommentAdmin";
 import Edition from "./component/Edition";
@@ -51,9 +52,8 @@ class App extends Component {
             />
             <Route path="/admin/article" component={ArticleAdmin} exact />
 
+            <Route path="/superadmin/users/manage" component={ArticleAdmin} exact />
 
-
-            <Route path="/admin/article" component={ArticleAdmin} exact />
 
             <Route path="/upload/:type" component={Upload} exact />
 

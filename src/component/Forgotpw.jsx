@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import "./CSS/Forgotpw.css";
 import Validation from "./Validation/ForgotpwValidation";
@@ -7,12 +7,17 @@ import Validation from "./Validation/ForgotpwValidation";
 import logo from "./img/logo.png";
 
 function Forgotpw() {
+
+  const history = useHistory();
+
   const [values, setValues] = useState({
     email: "",
     person_id: "",
   });
 
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({
+    wrong: "",
+  });
 
   const handleInput = (event) => {
     setValues((prev) => ({ ...prev, [event.target.name]: event.target.value }));
@@ -30,7 +35,19 @@ function Forgotpw() {
       },
       body: JSON.stringify(values),
     })
-      .then((response) => response.json())
+      .then((res) => {
+        if (res.status >= 200 && res.status < 400) {
+          history.push("/login");
+        }
+        else {
+          res.json().then((data) => {
+            setErrors({
+              ...errors,
+              wrong: data.message,
+            });
+          });
+        }
+      })
       .then((data) => {
         if (data.message === "已將信件發送至信箱") {
           alert("成功發送郵件到您的郵箱，請查收郵箱！");

@@ -8,16 +8,26 @@ export function useUserContext() {
 }
 
 export function UserProvider({ children }) {
+    const token = localStorage.getItem("token");
     const [user, setUser] = useState({});
     const [login, setLogin] = useState(false);
 
-    const value = {
-        user,
-        setUser,
-        login,
-        setLogin,
-    };
-
+    useEffect(() => {
+        function fetchData() {
+            fetch(`http://118.233.222.23:8000/api/profile`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+                .then((res) => {
+                    return res.json();
+                })
+                .then((data) => {
+                    setUser(data.user);
+                })
+        }
+        fetchData();
+    }, []);
 
     return (
         <UserContext.Provider value={[user,

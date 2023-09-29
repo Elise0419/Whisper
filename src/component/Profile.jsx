@@ -160,7 +160,7 @@ function Profile() {
 
   useEffect(() => {
     fetchData();
-  }, [login]);
+  }, []);
 
   return (
     <div>

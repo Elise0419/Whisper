@@ -124,6 +124,11 @@ function Header() {
                 ) : (
                   <span></span>
                 )}
+                {user.superadmin ? (
+                  <Link to="/admin/article">超級管理員</Link>
+                ) : (
+                  <span></span>
+                )}
                 <hr />
                 <span onClick={logout}>登出</span>
               </span>

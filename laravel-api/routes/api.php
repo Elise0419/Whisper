@@ -46,7 +46,7 @@ Route::controller(CustomEmailVerificationController::class)->group(function () {
 Route::controller(PasswordResetController::class)->group(function () {
     Route::post('password/reset', 'pwdreset');
     Route::post('password/forgot/mail', 'pwdforgot');
-    Route::post('password/forgot/reset', 'pwdfogetreset');
+    Route::post('password/forgot/reset/expires={expires}/signature={signature}', 'pwdforgetreset');
 });
 
 Route::controller(ProfileController::class)->group(function () {

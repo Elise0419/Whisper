@@ -10,12 +10,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Str;
 
 class PasswordResetController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['pwdfogot']]);
+        $this->middleware('auth:api', ['except' => ['pwdforgot']]);
     }
 
     public function pwdreset(Request $req)
@@ -58,15 +61,16 @@ class PasswordResetController extends Controller
             ->where('person_id', $req->person_id)
             ->first();
 
-        $token = JWTAuth::fromUser($additionalUser);
-
-        if (!$token) {
+        if (!$additionalUser) {
             return response()->json([
                 'message' => '查無用戶資料，請重新輸入',
             ], 404);
         }
 
+        $token = JWTAuth::fromUser($additionalUser);
+
         $additionalUser->notify(new ForgotPasswordEmail($token));
+        // Notification::send($additionalUser, new ForgotPasswordEmail($token));
 
         return response()->json(
             ['message' => '已將信件發送至信箱'],
@@ -74,21 +78,35 @@ class PasswordResetController extends Controller
         );
     }
 
-    public function pwdfogetreset(Request $req)
+    public function pwdforgetreset(Request $req, $expires, $signature)
     {
+        $authorizationHeader = request()->header('Authorization');
+        $token = Str::substr($authorizationHeader, 7);
+        $dataToSign = implode('|', ['token' => $token]);
+        $signaturecheck = hash('sha256', $dataToSign);
+
+        if ($signaturecheck != $signature) {
+            return response()->json(['message' => '链接签名无效'], 402);
+        }
+
+        if (strtotime($expires) > now()->timestamp) {
+            return response()->json(['message' => '链接已过期'], 402);
+        }
+
+
         $req->validate([
             'new_password' => 'required|string',
             'password_confirm' => 'required|string',
         ]);
 
         if ($req->new_password !== $req->password_confirm) {
-            return response()->json(['message' => '新密碼與確認密碼有誤']);
+            return response()->json(['message' => '新密碼與確認密碼有誤'], 400);
         }
-
         $user_pwd = Auth::user();
         $user_pwd->password = Hash::make($req->new_password);
         $user_pwd->save();
         Auth::logout();
+
         return response()->json(['message' => '已重新修改密碼，請重新登入'], 200);
     }
 }

@@ -39,7 +39,9 @@ class App extends Component {
             <Route path="/login" component={Login} exact />
             <Route path="/forgotpw" component={Forgotpw} exact />
             <Route path="/restpwd" component={Restpwd} exact />
-            <Route path="/newpwd" component={Newpwd} exact />
+
+            <Route path="/password/:data" component={Newpwd} />
+
             <Route path="/verify" component={Verify} exact />
             <Route path="/verifyre" component={Verifyre} exact />
             <Route
@@ -47,6 +49,10 @@ class App extends Component {
               component={CommentAdmin}
               exact
             />
+            <Route path="/admin/article" component={ArticleAdmin} exact />
+
+
+
             <Route path="/admin/article" component={ArticleAdmin} exact />
 
             <Route path="/upload/:type" component={Upload} exact />

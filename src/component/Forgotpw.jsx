@@ -9,7 +9,7 @@ import logo from "./img/logo.png";
 function Forgotpw() {
   const [values, setValues] = useState({
     email: "",
-    idNumber: "",
+    person_id: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -24,7 +24,7 @@ function Forgotpw() {
 
     // 使用fetch來發送POST請求
     fetch("http://118.233.222.23:8000/api/password/forgot/mail", {
-      method: "POST",
+      method: "post",
       headers: {
         "Content-Type": "application/json",
       },
@@ -81,17 +81,17 @@ function Forgotpw() {
               </div>
 
               <div className="">
-                <label htmlFor="idNumber">
+                <label htmlFor="person_id">
                   <strong>身份證字號</strong>
                 </label>
                 <input
                   type="text"
                   placeholder="輸入身份證字號"
-                  name="idNumber"
+                  name="person_id"
                   onChange={handleInput}
                 />
-                {errors.idNumber && (
-                  <span className="errorMessage">{errors.idNumber}</span>
+                {errors.person_id && (
+                  <span className="errorMessage">{errors.person_id}</span>
                 )}
               </div>
 

@@ -154,7 +154,7 @@ function Home() {
         });
     }
     fetchData();
-  }, [m.type, searchMsg, page, login]);
+  }, [m.type, page, login]);
 
   // 搜尋
   function searchInput() {
@@ -174,6 +174,7 @@ function Home() {
           if (jsonData.message == "Post not found!") {
             setCard([]);
             setSearchMsg({ message: `無法搜尋到 ${searchVal} 相關貼文` });
+            setTotalPage(0)
           } else {
             // setSearchMsg(jsonData);
             // setCard([]);

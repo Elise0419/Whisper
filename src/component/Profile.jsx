@@ -6,11 +6,10 @@ import Footer from "./Block/Footer";
 import Asideuser from "./Block/Asideuser";
 import { useHistory } from "react-router-dom";
 import rabbit from "../component/img/rabbit.png";
-import { UserProvider, useUserContext } from "../store/UserContext";
+import { useUserContext } from "../store/UserContext";
 
 function Profile() {
-  const [user, setUser] = useUserContext();
-  // const [user, setUser] = useState({});
+  const [user, setUser, login, setLogin] = useUserContext();
   console.log(user);
 
   const [loading, setLoading] = useState(true);
@@ -59,8 +58,6 @@ function Profile() {
       if (response.ok) {
         const jsonData = await response.json();
         console.log(jsonData);
-
-        // 保存成功后，更新侧边栏用户信息
         setAsideUser(jsonData.user);
         console.log(jsonData.user);
       } else {
@@ -155,6 +152,7 @@ function Profile() {
         } else {
           setUser(jsonData.user);
           setLoading(false);
+          setLogin(true)
         }
       })
       .catch((err) => {
@@ -164,7 +162,7 @@ function Profile() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [login]);
 
   return (
     <div>
@@ -172,7 +170,6 @@ function Profile() {
         <div>資料載入中...</div>
       ) : (
         <div id="container">
-          {/* <Header /> */}
           <section></section>
           <article>
             <div className="ProfileContainer">

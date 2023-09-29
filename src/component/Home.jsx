@@ -4,6 +4,7 @@ import { Link, useRouteMatch, useParams } from "react-router-dom";
 import "./CSS/Home.css";
 import Header from "./Block/Header";
 import Footer from "./Block/Footer";
+import { useUserContext } from "../store/UserContext";
 
 import thumb from "./img/thumb.png";
 import redArrow from "./img/redArrow.png";
@@ -15,6 +16,7 @@ import cake from "./img/cake.png";
 import rose from "./img/rose.png";
 import rabbit from "./img/rabbit.png";
 import ice from "./img/ice.png";
+
 
 function Home() {
   const m = useRouteMatch().params;
@@ -55,7 +57,7 @@ function Home() {
   let [pop, setPop] = useState([]);
   let [like, setLike] = useState([]);
 
-  let [searchBarImg, setSearchBarImg] = useState([]);
+  let [user, setUser, login, setLogin] = useUserContext();
   let [searchVal, setSearchVal] = useState(""); // search bar input value
   let [searchMsg, setSearchMsg] = useState({}); // 宜珊的 response;
   let [find, setFind] = useState(false); // 無搜尋結果
@@ -77,25 +79,26 @@ function Home() {
           console.log(jsonData)
           setCard(jsonData.post.data);
           setTotalPage(jsonData.post.last_page)
-          if (searchMsg.message) {
-            // 沒有搜尋紀錄
-            setFind(true);
-            setCard([]);
-          } else {
-            // 有搜尋紀錄
-            // 改變頁數目錄
-            // setTotalPage(Math.ceil(jsonData.data.length / 16));
+          console.log(searchMsg.message)
+          // if (searchMsg.message) {
+          //   // 沒有搜尋紀錄
+          //   setFind(true);
+          //   setCard([]);
+          // } else {
+          //   // 有搜尋紀錄
+          //   // 改變頁數目錄
+          //   // setTotalPage(Math.ceil(jsonData.data.length / 16));
 
-            // let s = (m.page - 1) * 16;
-            // let e = s + 16;
-            // jsonData.data = jsonData.data.slice(s, e);
+          //   // let s = (m.page - 1) * 16;
+          //   // let e = s + 16;
+          //   // jsonData.data = jsonData.data.slice(s, e);
 
-            setFind(false);
-            setCard(
-              searchMsg.data === undefined ? jsonData.data : searchMsg.data
-            );
-            // setLoading(false);
-          }
+          //   setFind(false);
+          //   setCard(
+          //     searchMsg.data === undefined ? jsonData.data : searchMsg.data
+          //   );
+          //   // setLoading(false);
+          // }
 
           setLoading(false);
         })
@@ -146,7 +149,8 @@ function Home() {
           if (jsonData.error) {
             console.log("錯誤訊息:", jsonData.error);
           } else {
-            setSearchBarImg({ ...jsonData.user, read: false });
+            setLogin(true)
+            setUser(jsonData.user);
           }
         })
         .catch((err) => {
@@ -154,7 +158,7 @@ function Home() {
         });
     }
     fetchData();
-  }, [m.type, searchMsg, page]);
+  }, [m.type, searchMsg, page, login]);
 
   // 搜尋
   function searchInput() {
@@ -254,7 +258,7 @@ function Home() {
           </section>
           <article>
             <div className="search">
-              <img className="userHead" src={searchBarImg?.headimg || rabbit} />
+              <img className="userHead" src={user?.headimg || rabbit} />
               <input
                 id="searchBar"
                 type="text"
@@ -276,11 +280,6 @@ function Home() {
 
               {Array.isArray(card) ? (
                 card.map((card) => {
-                  // <div>
-                  //   <div dangerouslySetInnerHTML={{ __html: card.title }} />
-                  //   <div dangerouslySetInnerHTML={{ __html: card.content }} />
-                  // </div>
-
                   // 將 MySQL 的 HTML 轉成 Text
                   const myContent = document.createElement("div");
                   const myTitle = document.createElement("div");
@@ -351,41 +350,7 @@ function Home() {
                 })
               ) : (
                 // 這邊是單篇 card 處理
-                <Link
-                  className="card"
-                  to={`/post/${card.post_id}/${card.type}`}
-                  key={card.postId}
-                  onClick={() => cardClick(card.post_id)}
-                >
-                  <span className="cardTop">
-                    {typeof card.data[0].imgUrl === "string" ? (
-                      <img
-                        className="cardImg"
-                        src={card.data[0].imgUrl}
-                        referrerPolicy="no-referrer"
-                      />
-                    ) : (
-                      <span className="cardTxt">
-                        <span className="paperTape">paperTapepaperTape</span>
-                        <br />
-                        {card.data[0].content}
-                      </span>
-                    )}
-                  </span>
-                  <span className="cardMid">
-                    <img src={card.data[0].headImg} />
-                    <span className="cardTitle">{card.data[0].title}</span>
-                  </span>
-                  <span className="cardBtm">
-                    <span>#{card.data[0].tag}</span>
-                    <span>
-                      <img src={comment} />
-                      {card.comtxtCount}
-                      <img src={thumb} />
-                      {card.data[0].thumb}
-                    </span>
-                  </span>
-                </Link>
+                <></>
               )}
             </div>
           </article>

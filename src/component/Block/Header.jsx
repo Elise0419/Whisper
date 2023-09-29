@@ -15,9 +15,7 @@ import grayMail from "../img/grayMail.png";
 
 function Header() {
   let [dd, setDd] = useState("創建貼文");
-  // let [user, setUser] = useState({});
-  const [user, setUser] = useUserContext();
-  const [login, setLogin] = useState(true);
+  const [user, setUser, login, setLogin] = useUserContext();
   const m = useRouteMatch().params.type;
   const token = localStorage.getItem("token");
 
@@ -30,7 +28,9 @@ function Header() {
       .then((res) => {
         localStorage.setItem("token", "");
         if (res.status >= 200) {
-          window.location.reload();
+          setLogin(false);
+          setUser({});
+          // window.location.reload();
         }
       })
       .catch((err) => {
@@ -38,50 +38,49 @@ function Header() {
       });
   }
 
-  useEffect(
-    function () {
-      if (m) {
-        if (m === "love") {
-          setDd("感情生活");
-        } else if (m === "life") {
-          setDd("健康生活");
-        } else if (m === "food") {
-          setDd("美食情報");
-        } else if (m === "fashion") {
-          setDd("時尚穿搭");
-        } else if (m === "mkup") {
-          setDd("美妝保養");
-        }
-      } else {
-        setDd("創建貼文");
+  useEffect(() => {
+    if (m) {
+      if (m === "love") {
+        setDd("感情生活");
+      } else if (m === "life") {
+        setDd("健康生活");
+      } else if (m === "food") {
+        setDd("美食情報");
+      } else if (m === "fashion") {
+        setDd("時尚穿搭");
+      } else if (m === "mkup") {
+        setDd("美妝保養");
       }
+    } else {
+      setDd("創建貼文");
+    }
 
-      function fetchData() {
-        fetch(`http://118.233.222.23:8000/api/profile`, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        })
-          .then((res) => {
-            if (res.status >= 200 && res.status < 400) {
-              return res.json();
-            } else {
-              throw new Error("Failed to fetch user data");
-            }
-          })
-          .then((jsonData) => {
-            setLogin(false);
-            setUser(jsonData.user);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      }
+    // function fetchData() {
+    //   fetch(`http://118.233.222.23:8000/api/profile`, {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //   })
+    //     .then((res) => {
+    //       if (res.status >= 200 && res.status < 400) {
+    //         return res.json();
+    //       } else {
+    //         throw new Error("Failed to fetch user data");
+    //       }
+    //     })
+    //     .then((jsonData) => {
+    //       setLogin(true);
+    //       setUser(jsonData.user);
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // }
 
-      fetchData();
-    },
-    [m]
+    // fetchData();
+  },
+    [m, user, login]
   );
 
   function gm() {
@@ -136,10 +135,6 @@ function Header() {
             <span className="userName">{user?.mem_name || "Guest"}</span>
           </Link>
           {login ? (
-            <Link to="/login">
-              <span className="loginCss">登入</span>
-            </Link>
-          ) : (
             <button className="userBtn">
               <img className="userArrow" src={whiteArrow} alt="" />
               <span className="userItem">
@@ -158,6 +153,10 @@ function Header() {
                 <span onClick={logout}>登出</span>
               </span>
             </button>
+          ) : (
+            <Link to="/login">
+              <span className="loginCss">登入</span>
+            </Link>
           )}
         </div>
       </header>

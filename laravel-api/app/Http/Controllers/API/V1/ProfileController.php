@@ -58,7 +58,7 @@ class ProfileController extends Controller
         $filename = 'user_' . $this->user->user_id . '.jpg';
         $head_Path = 'public/user_head/' . $filename;
         Storage::put($head_Path, $imageData);
-        $this->user->headimg = 'http://10.10.247.90:8000/storage/user_head/' . $filename;
+        $this->user->headimg = 'http://118.233.222.23:8000/storage/user_head/' . $filename;
         $this->user->save();
         return response()->json(['message' => '上傳成功'], 200);
     }

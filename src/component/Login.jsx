@@ -126,7 +126,7 @@ function Login() {
               <Link to="/forgotpw" className="btnDafaultborder">
                 忘記密碼
               </Link>
-              <button type="submit" className="btnSuccess">
+              <button type="submit" className="btnSuccesslogin">
                 登入
               </button>
             </form>

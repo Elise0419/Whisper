@@ -94,7 +94,8 @@
 
 
 
-.btnSuccess {
+.btnSuccessfog {
+    width: 100%;
     font: inherit;
     font-size: 14px;
     border: 0;

@@ -134,13 +134,12 @@ textarea:focus {
 }
 
 
-.btnSuccess {
+.btnSuccesssignup {
   font: inherit;
   font-size: 14px;
   width: 83%;
   border: 0;
   outline: 0;
-  padding-top: 100px;
   margin: 10px 0;
   /* 调整垂直方向的外边距 */
   padding: 0 20px;
@@ -188,6 +187,18 @@ textarea:focus {
 .offscreen {
   position: absolute;
   left: -9999px;
+}
+
+.errmsg {
+  font: inherit;
+  font-size: 14px;
+  width: 77%;
+  background-color:  #f08170;
+
+  color: white;
+  font-size: 15px;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .hide {

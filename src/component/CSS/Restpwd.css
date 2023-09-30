@@ -98,6 +98,7 @@
 
 .btnSuccess {
     font: inherit;
+    width: 100%;
     font-size: 14px;
     border: 0;
     outline: 0;

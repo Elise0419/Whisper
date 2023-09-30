@@ -410,7 +410,7 @@ function Signup() {
                   必須與第一個密碼輸入欄相符。
                 </p>
 
-                <button className="btnSuccess "
+                <button className="btnSuccesssignup"
                   disabled={
                     !validName ||
                     !validPwd ||

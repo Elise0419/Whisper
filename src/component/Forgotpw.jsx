@@ -104,7 +104,7 @@ function Forgotpw() {
                 )}
               </div>
 
-              <button type="submit" className="btnSuccess">
+              <button type="submit" className="btnSuccessfog">
                 找回密碼
               </button>
             </form>

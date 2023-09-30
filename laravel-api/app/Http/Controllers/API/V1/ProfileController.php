@@ -127,6 +127,11 @@ class ProfileController extends Controller
                 'message' => '此身分證字號已註冊過',
                 'result' => $result
             ], 200);
+        } else {
+            return response()->json([
+                'message' => '你可以使用此身分證字號',
+                'result' => false,
+            ], 200);
         }
     }
 }

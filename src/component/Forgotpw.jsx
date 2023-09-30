@@ -37,7 +37,7 @@ function Forgotpw() {
     })
       .then((res) => {
         if (res.status >= 200 && res.status < 400) {
-          history.push("/login");
+          history.push("/mail/success");
         }
         else {
           res.json().then((data) => {
@@ -46,14 +46,6 @@ function Forgotpw() {
               wrong: data.message,
             });
           });
-        }
-      })
-      .then((data) => {
-        if (data.message === "已將信件發送至信箱") {
-          alert("成功發送郵件到您的郵箱，請查收郵箱！");
-        } else {
-          alert("發送郵件失敗,請聯繫管理員。");
-          console.error("Error:", data.message);
         }
       })
       .catch((error) => {

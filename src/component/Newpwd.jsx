@@ -74,7 +74,7 @@ function Restpwd() {
               });
             });
           } else {
-            history.push("/login");
+            history.push("/password/reset/success");
           }
         })
         .catch((error) => {

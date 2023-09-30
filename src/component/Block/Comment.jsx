@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useRouteMatch, Link } from "react-router-dom";
 
+import rabbit from "../img/rabbit.png"
+
+import "../CSS/Post.css";
 function Comment() {
   const [user, setUser] = useState({ read: true, push: true, btnhover: false });
   const [com, setCom] = useState({
@@ -128,7 +131,7 @@ function Comment() {
       </div>
       <div className="commentSend">
         <div className="userFace">
-          <img className="userHead" src={user.headimg} alt="" />
+          <img className="userHead" src={user.headimg || rabbit} alt="" />
         </div>
         <div className="textareaContainer">
           <textarea
@@ -147,7 +150,8 @@ function Comment() {
             onClick={handleSubmitComment}
             disabled={user.push}
           >
-            {user.push ? <Link to="/login">點我登入</Link> : "評論"}
+            {user.push ? <Link to="/login" className="commentLink">點我登入</Link>
+ : "評論"}
           </button>
         </div>
       </div>

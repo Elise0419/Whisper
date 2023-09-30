@@ -6,6 +6,7 @@ import Comment from "./Block/Comment";
 
 import bite from "./img/bite.png";
 import makeup from "./img/makeup.png";
+import rabbit from "./img/rabbit.png"
 
 function Post({ postId, userToken }) {
   const match = useRouteMatch();
@@ -227,7 +228,7 @@ function Post({ postId, userToken }) {
         <div className="postContainer" key={post.postId}>
           <div className="postUseinfo">
             <div className="postUsepic">
-              <img className="userHead" src={post.headImg} alt="" />
+              <img className="userHead" src={post.headImg || rabbit} alt="" />
             </div>
             <div className="postUsertime">
               <span>

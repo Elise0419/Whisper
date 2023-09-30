@@ -115,7 +115,7 @@ function Signup() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-  
+
     const v1 = USER_REGEX.test(mem_name);
     const v2 = PWD_REGEX.test(password);
     if (!v1 || !v2) {
@@ -124,7 +124,7 @@ function Signup() {
     }
     const idAvailability = await checkIdAvailability();
     const emailAvailability = await checkEmailAvailability();
-  
+
     if (emailAvailability && idAvailability) {
       try {
         const response = await fetch(REGISTER_URL, {
@@ -140,7 +140,7 @@ function Signup() {
             password,
           }),
         });
-  
+
         if (!response.ok) {
           if (response.status >= 500) {
             alert("伺服器無法連線");
@@ -150,14 +150,14 @@ function Signup() {
             window.location.reload();
           }
         }
-  
+
         const data = await response.json();
         setSuccess(true);
-  
+
         setUser("");
         setPwd("");
         setMatchPwd("");
-  
+
         // Redirect to login page
         history.push("/login");
       } catch (err) {
@@ -169,7 +169,6 @@ function Signup() {
       setErrMsg("郵箱或者用戶名稱已經被註冊");
     }
   }
-  
 
   return (
     <div id="container">
@@ -203,7 +202,7 @@ function Signup() {
               <form onSubmit={handleSubmit}>
                 {/* 用戶名稱輸入框 */}
                 <label htmlFor="username">
-                用戶名稱:
+                  用戶名稱:
                   <FontAwesomeIcon
                     icon={faCheck}
                     className={validName ? "valid" : "hide"}
@@ -214,6 +213,7 @@ function Signup() {
                   />
                 </label>
                 <input
+                  className="signupInput"
                   type="text"
                   id="username"
                   ref={userRef}
@@ -250,6 +250,7 @@ function Signup() {
                   />
                 </label>
                 <input
+                  className="signupInput"
                   type="text"
                   id="idNumber"
                   autoComplete="off"
@@ -286,6 +287,7 @@ function Signup() {
                   />
                 </label>
                 <input
+                  className="signupInput"
                   type="email" // 請使用 type="email" 來啟用瀏覽器的內建格式檢查
                   id="email"
                   autoComplete="off"
@@ -322,6 +324,7 @@ function Signup() {
                   />
                 </label>
                 <input
+                  className="signupInput"
                   type="text"
                   id="phoneNumber"
                   autoComplete="off"
@@ -340,8 +343,10 @@ function Signup() {
                       ? "instructions"
                       : "offscreen"
                   }
-                >  <FontAwesomeIcon icon={faInfoCircle} />
-                請輸入有效的電話號碼
+                >
+                  {" "}
+                  <FontAwesomeIcon icon={faInfoCircle} />
+                  請輸入有效的電話號碼
                   {/* 這裡放置有關電話號碼的說明 */}
                 </p>
 
@@ -357,6 +362,7 @@ function Signup() {
                   />
                 </label>
                 <input
+                                  className="signupInput"
                   type="password"
                   id="password"
                   onChange={(e) => setPwd(e.target.value)}
@@ -379,7 +385,7 @@ function Signup() {
                 </p>
 
                 <label htmlFor="confirm_pwd">
-                再次輸入密碼:
+                  再次輸入密碼:
                   <FontAwesomeIcon
                     icon={faCheck}
                     className={validMatch && matchPwd ? "valid" : "hide"}
@@ -390,6 +396,7 @@ function Signup() {
                   />
                 </label>
                 <input
+                                  className="signupInput"
                   type="password"
                   id="confirm_pwd"
                   onChange={(e) => setMatchPwd(e.target.value)}
@@ -410,7 +417,8 @@ function Signup() {
                   必須與第一個密碼輸入欄相符。
                 </p>
 
-                <button className="btnSuccesssignup"
+                <button
+                  className="btnSuccesssignup"
                   disabled={
                     !validName ||
                     !validPwd ||
@@ -422,10 +430,7 @@ function Signup() {
                   註冊帳號
                 </button>
               </form>
-              <p>
-
-
-              </p>
+              <p></p>
             </div>
           </div>
         </div>

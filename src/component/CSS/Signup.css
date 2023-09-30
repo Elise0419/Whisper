@@ -99,11 +99,7 @@
   font-weight: bold;
 }
 
-.signupMainbox form input,
-input[type="text"],
-input[type="email"],
-input[type="password"],
-button,
+.signupMainbox .signupInput,
 textarea {
   font: inherit;
   font-size: 14px;
@@ -117,11 +113,7 @@ textarea {
   background-color: #EFE4EF;
 }
 
-.signupMainbox form input:focus,
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="password"]:focus,
-button:focus,
+.signupMainbox .signupInput:focus,
 textarea:focus {
   border: 2px solid #c8b2d6 ; /* Change the border on focus */
 }
@@ -149,10 +141,6 @@ textarea:focus {
   text-decoration: none;
 }
 
-.customLink {
-  text-decoration: none;
-  color: red;
-}
 
 
 

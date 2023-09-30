@@ -54,7 +54,7 @@
 
 .postArticle {
   /* background-color: #00a1d6; */
-  max-height: 32rem;
+  /* max-height: 32rem; */
   /* 设置容器的最大高度 */
   overflow-y: auto;
   /* 添加垂直滚动条 */
@@ -112,6 +112,7 @@
   align-items: center;
   margin-bottom: 1.25rem;
   /* 20px / 16px = 1.25rem */
+  height: 3rem!important;
 }
 
 .postCustbutton {
@@ -125,11 +126,11 @@
   /* 未点击状态下的白色图标颜色 */
   border: none;
   /* 去除按钮边框 */
-  border-radius: 1.75rem;
+  border-radius: 50% !important;
   /* 圆形按钮 */
-  width: 1.75rem;
+  width: 2.5rem!important;
   /* 按钮宽度 */
-  height: 1.75rem;
+  height: 2.5rem!important;
   /* 按钮高度 */
   display: flex;
   justify-content: center;
@@ -145,6 +146,11 @@
   /* 点击后的红色背景 */
   color: white;
   /* 点击后的粉色图标颜色 */
+  border-radius: 50% !important;
+  /* 圆形按钮 */
+  width: 2.5rem!important;
+  /* 按钮宽度 */
+  height: 2.5rem!important;
 }
 
 .postCustbutton .material-icons {
@@ -217,6 +223,7 @@
   height: 2.875rem;
   /* 46px / 16px = 2.875rem */
   border-radius: 50%;
+  background-color: white;
 }
 
 .textareaContainer {
@@ -255,8 +262,14 @@
   resize: none;
   outline: none;
 }
+.commentLink {
+  color: inherit;
+  text-decoration: none;
+  /* 添加其他自定义样式 */
+}
 
 .commentSubmit {
+  color: white;
   width: 7rem;
   /* 112px / 16px = 7rem */
   height: 4.125rem;
@@ -269,7 +282,6 @@
   /* 4px / 16px = 0.25rem, 15px / 16px = 0.9375rem */
   font-size: 1rem;
   /* 16px / 16px = 1rem */
-  color: #fff;
   border-radius: 0.25rem;
   /* 4px / 16px = 0.25rem */
   text-align: center;
@@ -282,11 +294,13 @@
   transition: 0.1s;
   user-select: none;
   outline: none;
+
 }
 
 .commentSubmit:hover {
   background-color: #f9e1df;
   border-color: #f9e1df;
+  color: #62666c;
 }
 
 .commentList .comment {

@@ -133,6 +133,35 @@ class PostController extends Controller
         return new PostResource($post);
     }
 
+    public function reupload(Request $request, $postid)
+    {
+        $user = Auth::user();
+        if (!$user) {
+            return 'login';
+        };
+        $post = Post::where('post_id', $postid)->where('user_id', $user->user_id)->first();
+        if (!$post) {
+            return response()->json([], 404);
+        }
+
+        $title = $request->input('title');
+        $content = $request->input('content');
+        $tag = $request->input('tag');
+        $image = $request->file('image');
+        $postTime = now();
+        if ($image) {
+            $imageName = $image->getClientOriginalName();
+            $image->storeAs('images', $imageName, 'public');
+        }
+        $post->title = $title;
+        $post->content = $content;
+        $post->tag = $tag;
+        $post->post_time = $postTime;
+        $post->save();
+        return new PostResource($post);
+    }
+
+
     public function getUserPosts(Request $request)
     {
         $userId = Auth::user()->user_id;

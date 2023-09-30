@@ -93,6 +93,7 @@ Route::middleware(['auth'])->get('/votes/click/{voteId}', [VoteController::class
 Route::middleware(['auth'])->post('/posts/{postId}/comments', [ComtxtController::class, 'createcomtxt']);
 Route::middleware(['auth'])->put('/posts/comments/{id}', [ComtxtController::class, 'updatecomtxt']);
 Route::middleware(['auth'])->post('/upload/{type}', [PostController::class, 'upload']);
+Route::middleware(['auth'])->post('/editor/reupload/{postid}', [PostController::class, 'reupload']);
 Route::middleware(['auth'])->post('/user/posts', [PostController::class, 'getUserPosts']);
 Route::middleware(['auth'])->post('/posts/save/{postId}', [SavepostController::class, 'savepost']);
 Route::middleware(['auth'])->post('/posts/usersave', [SavepostController::class, 'userSaveposts']);

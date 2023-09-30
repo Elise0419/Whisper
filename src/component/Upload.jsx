@@ -3,8 +3,6 @@ import { useRouteMatch } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "./CSS/Upload.css";
 import "react-quill/dist/quill.snow.css";
-import Header from "./Block/Header";
-import Footer from "./Block/Footer";
 
 function Quill() {
   const m = useRouteMatch().params.type;

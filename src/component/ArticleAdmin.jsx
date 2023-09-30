@@ -1,20 +1,15 @@
 import { useEffect, useState } from "react";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link, useRouteMatch, useParams } from "react-router-dom";
 import "./CSS/Adminall.css";
 
 function ArticleAdmin() {
   const [data, setData] = useState([]);
-  const [page, setPage] = useState({});
+  const [lastpage, setLastpage] = useState({});
   const match = useRouteMatch();
+  const { page } = useParams();
 
   const token = localStorage.getItem("token");
 
-  const Prepage = () => {
-    setPage(page + 1);
-  };
-  const Nextpage = () => {
-    setPage(page + 1);
-  };
 
   const DeleteClick = (post_id) => {
     if (window.confirm("確定要刪除此貼文嗎")) {
@@ -61,12 +56,13 @@ function ArticleAdmin() {
       .then((res) => {
         console.log(res)
         setData(res.articles.data);
-        setPage(res.articles.last_page)
+        setLastpage(res.articles.last_page)
+
       })
       .catch((error) => {
         console.error("發生錯誤：", error);
       });
-  }, [match.params.page]);
+  }, [page]);
 
   return (
     <div>
@@ -106,7 +102,7 @@ function ArticleAdmin() {
       <Link to={`/admin/article/${parseInt(match.params.page) - 1}`}>
         pre
       </Link>
-      {Array.from({ length: page }).map((_, index) => (
+      {Array.from({ length: lastpage }).map((_, index) => (
         <span key={index}>
           &nbsp;
           <Link to={`/admin/article/${parseInt(index) + 1}`}>

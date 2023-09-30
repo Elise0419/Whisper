@@ -45,9 +45,9 @@ class GroupAdminController extends Controller
         if ($page < 1) {
             $page = 1;
         }
-        $Comments = Comtxt::with(['users:user_id,mem_name'])->where('post_id', $id)->paginate(20, ['*'], $page);
+        $Comments = Comtxt::with(['users:user_id,mem_name'])->where('post_id', $id)->paginate(20, ['*'], 'page', $page);
         if ($page > $Comments->lastPage()) {
-            $Comments = Comtxt::with(['users:user_id,mem_name'])->where('post_id', $id)->paginate(20, ['*'], $Comments->lastPage());
+            $Comments = Comtxt::with(['users:user_id,mem_name'])->where('post_id', $id)->paginate(20, ['*'], 'page', $Comments->lastPage());
         }
 
         return response()->json(['comments' => $Comments], 200);
@@ -75,7 +75,7 @@ class GroupAdminController extends Controller
 
     public function usermanage($page)
     {
-        $Users = User::with(['admin'])->paginate(20, ['*'], $page);
+        $Users = User::with(['admin'])->paginate(20, ['*'], 'page', $page);
         return response()->json(['users' => $Users], 200);
     }
 }

@@ -1,20 +1,14 @@
 import { useEffect, useState } from "react";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link, useParams, useRouteMatch } from "react-router-dom";
 
 function SuperAdmin() {
   const [data, setData] = useState([]);
-  const [page, setPage] = useState(1);
-
+  const [lastpage, setLastpage] = useState({});
+  const { page } = useParams();
   const match = useRouteMatch();
 
   const token = localStorage.getItem("token");
 
-  const Prepage = () => {
-    setPage(page + 1);
-  };
-  const Nextpage = () => {
-    setPage(page + 1);
-  };
 
   const DeleteClick = (coment_id) => {
     if (window.confirm('確定要刪除此留言嗎')) {
@@ -60,12 +54,13 @@ function SuperAdmin() {
       .then((res) => {
         console.log(res.users.data)
         setData(res.users.data);
-        setPage(res.users.last_page)
+        setLastpage(res.users.last_page)
+        console.log(res)
       })
       .catch((error) => {
         console.error("發生錯誤：", error);
       });
-  }, []);
+  }, [page]);
 
   return (
     <div>
@@ -104,7 +99,7 @@ function SuperAdmin() {
       <Link to={`/admin/users/manage/${parseInt(match.params.page) - 1}`}>
         pre
       </Link>
-      {Array.from({ length: page }).map((_, index) => (
+      {Array.from({ length: lastpage }).map((_, index) => (
         <span key={index}>
           &nbsp;
           <Link to={`/admin/users/manage/${parseInt(index) + 1}`}>

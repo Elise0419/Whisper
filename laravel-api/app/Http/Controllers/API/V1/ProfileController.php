@@ -25,8 +25,12 @@ class ProfileController extends Controller
         });
     }
 
-    public function profile(Request $req)
+    public function profile()
     {
+        if (!$this->user) {
+            return response()->json(['message' => '未登入'], 401);
+        }
+
         $admin = Admin::where('user_id', $this->user->user_id)->exists();
         if ($admin) {
             $this->user->admin = $admin;
@@ -35,6 +39,7 @@ class ProfileController extends Controller
         if ($superadmin) {
             $this->user->superadmin = $superadmin;
         }
+
         return response()->json(['user' => $this->user], 200);
     }
 

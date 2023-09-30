@@ -75,7 +75,7 @@ function Post({ postId, userToken }) {
 
   // 投票區域處理
   useEffect(() => {
-    if (vote.voteId) {
+    if (vote?.voteId) {
       let record = localStorage.getItem(`vote${vote.voteId}`);
       record = JSON.parse(record);
       console.log(record);
@@ -280,11 +280,11 @@ function Post({ postId, userToken }) {
           <span className="voteTopic">
             <p>
               <img src={makeup} alt="" />
-              &nbsp;&nbsp;{vote.forumTitle}
+              &nbsp;&nbsp;{vote?.forumTitle}
             </p>
           </span>
           <div className="vote">
-            <span className="voteTitle">{vote.title}</span>
+            <span className="voteTitle">{vote?.title}</span>
             <div className="choice">
               <div>
                 <label style={{ width: oneWidth + "%" }}>
@@ -295,7 +295,7 @@ function Post({ postId, userToken }) {
                     onClick={widthChange}
                     disabled={disabled}
                   />
-                  <span>{vote.ansOne}</span>
+                  <span>{vote?.ansOne}</span>
                 </label>
                 <label style={{ width: twoWidth + "%" }}>
                   <input
@@ -305,12 +305,12 @@ function Post({ postId, userToken }) {
                     onClick={widthChange}
                     disabled={disabled}
                   />
-                  <span>{vote.ansTwo}</span>
+                  <span>{vote?.ansTwo}</span>
                 </label>
               </div>
             </div>
-            <img src={vote.imgOne} alt="" />
-            <img src={vote.imgTwo} alt="" />
+            <img src={vote?.imgOne} alt="" />
+            <img src={vote?.imgTwo} alt="" />
           </div>
         </div>
         <div className="aside">

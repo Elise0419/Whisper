@@ -27,6 +27,7 @@ export function UserProvider({ children }) {
                     setLogin(true);
                 } else {
                     console.error('HTTP Error:', response.status);
+                    setUser({});
                 }
             } catch (error) {
                 console.error('An error occurred:', error);

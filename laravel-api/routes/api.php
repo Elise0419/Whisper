@@ -13,6 +13,8 @@ use App\Http\Controllers\API\V1\RuleController;
 use App\Http\Controllers\API\V1\SavepostController;
 use App\Http\Controllers\API\V1\TagController;
 use App\Http\Controllers\API\V1\VoteController;
+use App\Http\Controllers\API\V1\SuperAdminController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -68,6 +70,14 @@ Route::controller(GroupAdminController::class)->group(function () {
     Route::delete('admin/management/comments/delete/comment_{coment_id}', 'deletecomment');
     Route::get('admin/management/users/show/{page}', 'usermanage');
 });
+
+
+Route::controller(SuperAdminController::class)->group(function () {
+    Route::post('superadmin/management/users/promotion', 'promotion');
+    Route::delete('superadmin/management/user_{user_id}/downgrade', 'downgrade');
+});
+
+
 
 Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\API\V1'], function () {
     Route::apiResource('posts', PostController::class);

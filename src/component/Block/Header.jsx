@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useRouteMatch } from "react-router-dom";
+import { useRouteMatch, useHistory } from "react-router-dom";
 import { useUserContext } from "../../store/UserContext";
 
 import "../CSS/Header.css";
@@ -14,6 +14,7 @@ import mail from "../img/love3.png";
 import grayMail from "../img/grayMail.png";
 
 function Header() {
+  const history = useHistory();
   let [dd, setDd] = useState("創建貼文");
   const [user, setUser, login, setLogin] = useUserContext();
   const m = useRouteMatch().params.type;
@@ -30,6 +31,7 @@ function Header() {
         if (res.status >= 200) {
           setLogin(false);
           setUser({});
+          history.push("/login");
         }
       })
       .catch((err) => {

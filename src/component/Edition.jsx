@@ -36,7 +36,7 @@ function Edition() {
         } else if (res.status >= 400) {
           res.json().then((data) => {
             alert(data.message);
-            history.push("/home");
+            history.push("/home/1");
           });
         }
         return res.json();

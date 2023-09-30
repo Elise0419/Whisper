@@ -8,6 +8,7 @@ use App\Models\Admin;
 use App\Models\Post;
 use App\Models\Comtxt;
 use App\Models\User;
+use App\Models\Superadmin;
 use Illuminate\Support\Facades\Auth;
 
 class GroupAdminController extends Controller
@@ -73,9 +74,19 @@ class GroupAdminController extends Controller
         return response()->json([], 204);
     }
 
-    public function usermanage($page)
+    public function usermanage(Request $req, $page)
     {
-        $Users = User::with(['admin'])->paginate(20, ['*'], 'page', $page);
+        $sorting = $req->input('sorting');
+        $sortingParts = explode(':', $sorting);
+
+        $field = $sortingParts[0];
+        $order = $sortingParts[1];
+
+        if ($field === 'default') {
+            $Users = User::with(['admin'])->paginate(20, ['*'], 'page', $page);
+        } else {
+            $Users = User::with(['admin', 'admin_id'])->orderBy($field,  $order)->paginate(20, ['*'], 'page', $page);
+        }
         return response()->json(['users' => $Users], 200);
     }
 }

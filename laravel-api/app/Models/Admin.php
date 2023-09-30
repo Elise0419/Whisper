@@ -9,7 +9,10 @@ use App\Models\User;
 class Admin extends Model
 {
     use HasFactory;
+
     protected $primaryKey = 'admin_id';
+
+    protected $fillable = ['user_id', 'type'];
 
     public function user()
     {

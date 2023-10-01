@@ -519,10 +519,11 @@ function Theme() {
           <span className="voteTopic">
             <p>
               <img src={makeup} />
-              &nbsp;&nbsp;{vote?.forumtitle}
+              &nbsp;&nbsp;{vote?.forumTitle}
             </p>
           </span>
           <div className="vote">
+            {console.log(vote)}
             <span className="voteTitle">{vote?.title}</span>
             <div className="choice">
               <div>

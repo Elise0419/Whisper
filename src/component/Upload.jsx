@@ -40,10 +40,9 @@ function Quill() {
 
   function re() {
     setQ({
-      title: "hello",
+      title: "",
       content: "",
       tag: "",
-      imgurl: "",
     });
   }
 
@@ -74,7 +73,6 @@ function Quill() {
           }
         })
         .then((jsonData) => {
-          // localStorage.setItem("token", token);
           history.push("/home/1");
         })
         .catch((error) => {

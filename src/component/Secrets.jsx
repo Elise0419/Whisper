@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import $ from "jquery";
 
 import "./CSS/Secret.css";
 import "./CSS/Secrets.css";
 
 function Secrets() {
+  const history = useHistory();
   let [secret, setSecret] = useState({
     secretH2: "你從來沒有告訴過任何人的秘密是什麼？",
     secretPre: "我發現我老公外遇了。我不想離婚。",
@@ -101,7 +103,7 @@ function Secrets() {
           <div className="smoke">
             <p
               className="readClose"
-              onClick={() => (window.location.href = "/secret")}
+              onClick={() => history.push("/home/1")}
               onMouseEnter={mouse}
             >
               X

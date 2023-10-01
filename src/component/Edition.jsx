@@ -18,7 +18,6 @@ function Edition() {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    console.log(match.params.postID);
     fetch(`http://127.0.0.1:8000/api/posts/edit/post_${match.params.postID}`, {
       method: "GET",
       headers: {
@@ -39,7 +38,7 @@ function Edition() {
         return res.json();
       })
       .then((jsonData) => {
-        // setTags(jsonData.tags);
+        setTags(jsonData.tags);
         setQ(jsonData.post);
       })
       .catch((err) => {
@@ -47,20 +46,28 @@ function Edition() {
       });
   }, []);
 
+  let cake = false;
+  setTimeout(function () {
+    cake = true;
+  }, 1500);
+
   function changeTitle(value) {
-    setQ({ ...q, title: value });
+    if (cake) {
+      setQ({ ...q, title: value });
+    }
   }
 
   function changeContent(value) {
-    setQ({ ...q, content: value });
+    if (cake) {
+      setQ({ ...q, content: value });
+    }
   }
 
   function re() {
     setQ({
-      title: "hello",
+      title: "",
       content: "",
       tag: "",
-      imgurl: "",
     });
   }
 

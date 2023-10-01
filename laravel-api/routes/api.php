@@ -71,16 +71,13 @@ Route::controller(GroupAdminController::class)->group(function () {
     Route::post('admin/management/comments/show/post_{id}/{page}', 'showcomments');
     Route::delete('admin/management/articles/delete/post_{id}', 'deletearticle');
     Route::delete('admin/management/comments/delete/comment_{coment_id}', 'deletecomment');
-    Route::get('admin/management/users/show/{page}', 'usermanage');
 });
-
 
 Route::controller(SuperAdminController::class)->group(function () {
     Route::post('superadmin/management/users/promotion', 'promotion');
     Route::delete('superadmin/management/user_{user_id}/downgrade', 'downgrade');
+    Route::get('superadmin/management/users/show/{page}', 'usermanage');
 });
-
-
 
 Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\API\V1'], function () {
     Route::apiResource('posts', PostController::class);

@@ -73,20 +73,4 @@ class GroupAdminController extends Controller
         $Comment->delete();
         return response()->json([], 204);
     }
-
-    public function usermanage(Request $req, $page)
-    {
-        $sorting = $req->input('sorting');
-        $sortingParts = explode(':', $sorting);
-
-        $field = $sortingParts[0];
-        $order = $sortingParts[1];
-
-        if ($field === 'default') {
-            $Users = User::with(['admin'])->paginate(20, ['*'], 'page', $page);
-        } else {
-            $Users = User::with(['admin', 'admin_id'])->orderBy($field,  $order)->paginate(20, ['*'], 'page', $page);
-        }
-        return response()->json(['users' => $Users], 200);
-    }
 }

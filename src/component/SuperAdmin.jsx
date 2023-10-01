@@ -93,7 +93,7 @@ function SuperAdmin() {
 
   const fetchData = (sorting) => {
     fetch(
-      `http://118.233.222.23:8000/api/admin/management/users/show/${match.params.page}?sorting=${sorting}`,
+      `http://118.233.222.23:8000/api/superadmin/management/users/show/${match.params.page}?sorting=${sorting}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -102,18 +102,18 @@ function SuperAdmin() {
     )
       .then((res) => {
         if (res.status >= 400) {
+          res.json().then((data) => { console.log(data.error) });
           alert("你無權造訪此頁面");
           history.push("/home/1");
           throw new Error("API request failed");
         } else {
-          return res.json();
+          return res.json()
         }
       })
       .then((res) => {
         console.log(res.users.data);
         setData(res.users.data);
         setLastpage(res.users.last_page);
-        console.log(res);
       })
       .catch((error) => {
         console.error("發生錯誤：", error);
@@ -122,114 +122,111 @@ function SuperAdmin() {
 
   return (
     <div className="adminbody">
-    <div className="adminContainer">
-      <div className="adminHeadline">使用者管理介面</div>
-      <table>
-        <thead>
-          <tr>
-            <th>使用者ID</th>
-            <th>使用者名稱</th>
-            <th>信箱</th>
-            <th>
-              建立時間
-              <button onClick={() => toggleSorting("created_at")}>
-                {sortField === "created_at" ? (sortOrder === "asc" ? "▲" : "▼") : "無排序"}
-              </button>
-            </th>
-            <th>更新時間
-              <button onClick={() => toggleSorting("updated_at")}>
-                {sortField === "updated_at" ? (sortOrder === "asc" ? "▲" : "▼") : "無排序"}
-              </button>
-            </th>
-            <th>
-              登入時間
-              <button onClick={() => toggleSorting("login_time")}>
-                {sortField === "login_time" ? (sortOrder === "asc" ? "▲" : "▼") : "無排序"}
-              </button>
-            </th>
-            <th>登出時間
-              <button onClick={() => toggleSorting("logout_time")}>
-                {sortField === "logout_time" ? (sortOrder === "asc" ? "▲" : "▼") : "無排序"}
-              </button>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((item, index) => (
-            <tr key={index}>
-              <td>{item.user_id}</td>
-              <td>{item.mem_name}</td>
-              <td>{item.email}</td>
-              <td>
-                {new Date(item.created_at).toLocaleString()}
-              </td>
-              <td>
-                {new Date(item.updated_at).toLocaleString()}
-              </td>
-              <td>
-                {new Date(item.login_time).toLocaleString()}
-              </td>
-              <td>
-                {new Date(item.logout_time).toLocaleString()}
-              </td>
-              <td>
-                {item.admin.length > 0 ? ('admin') : ('user')}
-              </td>
-              <td>
-                {item.admin.length > 0 ? (<button onClick={() => DeleteClick(`${item.user_id}`)}>
-                  移除管理員
-                </button>) : (<button onClick={promotion}>
-                  提升管理員
-                </button>)}
-              </td>
-              <td>
-                {item.admin.length > 0 ? (
-                  <select name="" id="" defaultValue={item.admin[0].type} onChange={(event) => SelectChange(event, item.user_id)}>
-                    <option value="none">無</option>
-                    <option value="life">健康生活</option>
-                    <option value="love">感情生活</option>
-                    <option value="food">美食情報</option>
-                    <option value="fashion">時尚穿搭</option>
-                    <option value="mkup">美妝保養</option>
-                  </select>
-                ) : (
-                  <select name="" id="" onChange={(event) => SelectChange(event, item.user_id)}>
-                    <option value="none">無</option>
-                    <option value="life">健康生活</option>
-                    <option value="love">感情生活</option>
-                    <option value="food">美食情報</option>
-                    <option value="fashion">時尚穿搭</option>
-                    <option value="mkup">美妝保養</option>
-                  </select>
-                )}
-              </td>
+      <div className="adminContainer">
+        <div className="adminHeadline">使用者管理介面</div>
+        <table>
+          <thead>
+            <tr>
+              <th>使用者ID</th>
+              <th>使用者名稱</th>
+              <th>信箱</th>
+              <th>
+                建立時間
+                <button onClick={() => toggleSorting("created_at")}>
+                  {sortField === "created_at" ? (sortOrder === "asc" ? "▲" : "▼") : "無排序"}
+                </button>
+              </th>
+              <th>更新時間
+                <button onClick={() => toggleSorting("updated_at")}>
+                  {sortField === "updated_at" ? (sortOrder === "asc" ? "▲" : "▼") : "無排序"}
+                </button>
+              </th>
+              <th>
+                登入時間
+                <button onClick={() => toggleSorting("login_time")}>
+                  {sortField === "login_time" ? (sortOrder === "asc" ? "▲" : "▼") : "無排序"}
+                </button>
+              </th>
+              <th>登出時間
+                <button onClick={() => toggleSorting("logout_time")}>
+                  {sortField === "logout_time" ? (sortOrder === "asc" ? "▲" : "▼") : "無排序"}
+                </button>
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-      <Link to={`/admin/users/manage/${parseInt(match.params.page) - 1}`}>
-        pre
-      </Link>
-      {
-        Array.from({ length: lastpage }).map((_, index) => (
-          <span key={index}>
-            &nbsp;
-            <Link to={`/admin/users/manage/${parseInt(index) + 1}`}>
-              {index + 1}
-            </Link>
-            &nbsp;
-          </span>
-        ))
-      }
-      <Link to={`/admin/users/manage/${parseInt(match.params.page) + 1}`}>
-        next
-      </Link>
-    </div >
+          </thead>
+          <tbody>
+            {data.map((item, index) => (
+              <tr key={index}>
+                <td>{item.user_id}</td>
+                <td>{item.mem_name}</td>
+                <td>{item.email}</td>
+                <td>
+                  {new Date(item.created_at).toLocaleString()}
+                </td>
+                <td>
+                  {new Date(item.updated_at).toLocaleString()}
+                </td>
+                <td>
+                  {new Date(item.login_time).toLocaleString()}
+                </td>
+                <td>
+                  {new Date(item.logout_time).toLocaleString()}
+                </td>
+                <td>
+                  {item.admin.length > 0 ? ('admin') : ('user')}
+                </td>
+                <td>
+                  {item.admin.length > 0 ? (<button onClick={() => DeleteClick(`${item.user_id}`)}>
+                    移除管理員
+                  </button>) : (<button onClick={promotion}>
+                    提升管理員
+                  </button>)}
+                </td>
+                <td>
+                  {item.admin.length > 0 ? (
+                    <select name="" id="" defaultValue={item.admin[0].type} onChange={(event) => SelectChange(event, item.user_id)}>
+                      <option value="none">無</option>
+                      <option value="life">健康生活</option>
+                      <option value="love">感情生活</option>
+                      <option value="food">美食情報</option>
+                      <option value="fashion">時尚穿搭</option>
+                      <option value="mkup">美妝保養</option>
+                    </select>
+                  ) : (
+                    <select name="" id="" onChange={(event) => SelectChange(event, item.user_id)}>
+                      <option value="none">無</option>
+                      <option value="life">健康生活</option>
+                      <option value="love">感情生活</option>
+                      <option value="food">美食情報</option>
+                      <option value="fashion">時尚穿搭</option>
+                      <option value="mkup">美妝保養</option>
+                    </select>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <Link to={`/admin/users/manage/${parseInt(match.params.page) - 1}`}>
+          pre
+        </Link>
+        {
+          Array.from({ length: lastpage }).map((_, index) => (
+            <span key={index}>
+              &nbsp;
+              <Link to={`/admin/users/manage/${parseInt(index) + 1}`}>
+                {index + 1}
+              </Link>
+              &nbsp;
+            </span>
+          ))
+        }
+        <Link to={`/admin/users/manage/${parseInt(match.params.page) + 1}`}>
+          next
+        </Link>
+      </div >
     </div >
   );
 
 };
-
-
-
 export default SuperAdmin;

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
 use App\Models\Admin;
 use App\Models\Superadmin;
 use Illuminate\Support\Facades\Auth;
@@ -56,6 +57,30 @@ class SuperAdminController extends Controller
                 return response()->json([], 200);
             } else {
                 return response()->json(['message' => '查無此身分'], 404);
+            }
+        } else {
+            return response()->json(['message' => '你無權操作此功能'], 403);
+        }
+    }
+
+    public function usermanage(Request $req, $page)
+    {
+        if (Superadmin::where('user_id', $this->user->user_id)->exists()) {
+            try {
+                $sorting = $req->input('sorting');
+                $sortingParts = explode(':', $sorting);
+
+                $field = $sortingParts[0];
+                $order = $sortingParts[1];
+
+                if ($field === 'default') {
+                    $Users = User::with(['admin'])->paginate(20, ['*'], 'page', $page);
+                } else {
+                    $Users = User::with(['admin'])->orderBy($field,  $order)->paginate(20, ['*'], 'page', $page);
+                }
+                return response()->json(['users' => $Users], 200);
+            } catch (\Exception $e) {
+                return response()->json(['error' => $e->getMessage()], 500);
             }
         } else {
             return response()->json(['message' => '你無權操作此功能'], 403);

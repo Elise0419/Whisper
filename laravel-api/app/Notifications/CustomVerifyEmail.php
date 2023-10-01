@@ -48,7 +48,7 @@ class CustomVerifyEmail extends Notification
         );
 
         return (new MailMessage)
-            ->subject('自定义主题')
+            ->subject('信箱驗證')
             ->markdown('vendor.mail.custom_verify_email', ['actionUrl' => $verificationUrl]);
         // ->line('请点击下面的链接验证您的邮箱地址。')
         // ->action('验证邮箱', $verificationUrl)

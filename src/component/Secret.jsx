@@ -46,7 +46,7 @@ function Secreat() {
     setTimeout(() => {
       setWrite(false);
       setGate(true);
-    }, 2500);
+    }, 2000);
   }
 
   useEffect(() => {

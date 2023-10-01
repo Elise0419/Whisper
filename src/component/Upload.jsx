@@ -3,8 +3,10 @@ import { useRouteMatch } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "./CSS/Upload.css";
 import "react-quill/dist/quill.snow.css";
+import { useHistory } from "react-router-dom";
 
 function Quill() {
+  const history = useHistory();
   const m = useRouteMatch().params.type;
   let [q, setQ] = useState({
     title: "",
@@ -52,7 +54,6 @@ function Quill() {
       alert("請輸入標題");
     } else {
       const token = localStorage.getItem("token");
-      console.log("Token in Profile:", token);
 
       // 淳嫻 這邊測試要加埠號 不然會有 cors 跟 404 的問題
       // 還有 照片檔案不能過大 不然會出現net::ERR_FAILED
@@ -73,8 +74,8 @@ function Quill() {
           }
         })
         .then((jsonData) => {
-          window.location.href = "/home/1";
-          console.log(jsonData);
+          // localStorage.setItem("token", token);
+          history.push("/home/1");
         })
         .catch((error) => {
           console.log(error);

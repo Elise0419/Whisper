@@ -39,8 +39,7 @@ function Edition() {
         return res.json();
       })
       .then((jsonData) => {
-        console.log(jsonData);
-        setTags(jsonData.tags);
+        // setTags(jsonData.tags);
         setQ(jsonData.post);
       })
       .catch((err) => {
@@ -89,8 +88,7 @@ function Edition() {
           }
         })
         .then((jsonData) => {
-          window.location.href = "/";
-          console.log(jsonData);
+          history.push("/home/1");
         })
         .catch((error) => {
           console.log(error);
@@ -184,6 +182,7 @@ function Edition() {
               ],
             }}
           />
+          {console.log(q)}
           <ReactQuill
             placeholder="今日心情..."
             className="quillContent"

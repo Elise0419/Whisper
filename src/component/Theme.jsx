@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useRouteMatch } from "react-router-dom";
+import { useUserContext } from "../store/UserContext";
 
 import "./CSS/Theme.css";
 
@@ -16,6 +17,8 @@ import rose from "./img/rose.png";
 import bite from "./img/bite.png";
 
 function Theme() {
+  let [user, setUser, login, setLogin] = useUserContext();
+
   const m = useRouteMatch().params;
   const token = localStorage.getItem("token");
 
@@ -154,28 +157,29 @@ function Theme() {
         });
 
       // Search Bar 頭貼
-      fetch("http://127.0.0.1:8000/api/profile", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((res) => {
-          if (res.status === 403) {
-            throw new Error("API request failed");
-          } else if (res.status >= 200) {
-            return res.json();
-          }
-        })
-        .then((jsonData) => {
-          if (jsonData.error) {
-            console.log("錯誤訊息:", jsonData.error);
-          } else {
-            setSearchBarImg({ ...jsonData.user, read: false });
-          }
-        })
-        .catch((err) => {
-          console.log("Error:", err);
-        });
+      // fetch("http://127.0.0.1:8000/api/profile", {
+      //   headers: {
+      //     Authorization: `Bearer ${token}`,
+      //   },
+      // })
+      //   .then((res) => {
+      //     if (res.status === 403) {
+      //       throw new Error("API request failed");
+      //     } else if (res.status >= 200) {
+      //       return res.json();
+      //     }
+      //   })
+      //   .then((jsonData) => {
+      //     console.log(jsonData);
+      //     if (jsonData.error) {
+      //       console.log("錯誤訊息:", jsonData.error);
+      //     } else {
+      //       setSearchBarImg({ ...jsonData.user, read: false });
+      //     }
+      //   })
+      //   .catch((err) => {
+      //     console.log("Error:", err);
+      //   });
     }
     fetchData();
   }, [m.type, searchMsg]);
@@ -301,7 +305,7 @@ function Theme() {
         return res.json();
       })
       .then((jsonData) => {
-        setCard(jsonData);
+        setCard(jsonData.data);
         setFind(false);
         setTotalPage(Math.ceil(jsonData.data.length / 16));
       })
@@ -381,7 +385,7 @@ function Theme() {
       <article>
         {/* Search Bar */}
         <div className="search">
-          <img className="userHead" src={searchBarImg?.headimg || rabbit} />
+          <img className="userHead" src={user?.headimg || rabbit} />
           <input
             id="searchBar"
             type="text"
@@ -423,10 +427,11 @@ function Theme() {
               return (
                 <Link
                   className="card"
-                  to={`/post/${card.postId || card.post_id}}/${card.type}`}
+                  to={`/post/${card.postId || card.post_id}/${card.type}`}
                   key={card.postId}
                   onClick={() => cardClick(card.postId)}
                 >
+                  {console.log(card)}
                   <span className="cardTop">
                     {card.imgUrl || card.imgurl || isStringValid ? (
                       <div>

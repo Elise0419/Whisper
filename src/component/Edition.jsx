@@ -19,15 +19,12 @@ function Edition() {
 
   useEffect(() => {
     console.log(match.params.postID);
-    fetch(
-      `http://118.233.222.23:8000/api/posts/edit/post_${match.params.postID}`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
+    fetch(`http://127.0.0.1:8000/api/posts/edit/post_${match.params.postID}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((res) => {
         if (res.status >= 500) {
           alert("與伺服器中段斷連接");
@@ -72,14 +69,17 @@ function Edition() {
     if (q.title === "") {
       alert("請輸入標題");
     } else {
-      fetch(`http://118.233.222.23:8000/api/editor/reupload/${match.params.postID}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(q),
-      })
+      fetch(
+        `http://127.0.0.1:8000/api/editor/reupload/${match.params.postID}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(q),
+        }
+      )
         .then((res) => {
           if (res.ok) {
             return res.json();
@@ -145,7 +145,6 @@ function Edition() {
       button.onclick = function (e) {
         hn.removeChild(e.currentTarget);
       };
-
     } else if (
       (hn.getElementsByTagName("button").length > 7) &
       (hi.value != "")
@@ -161,7 +160,6 @@ function Edition() {
     );
     setQ({ ...q, tag: a[0]?.innerText });
   }
-
 
   return (
     <div>
@@ -210,7 +208,13 @@ function Edition() {
             <button className="hashtagBtn" onClick={newTag}>
               create
             </button>
-            <span className="hashtagNew">{q.tag ? (<button className="pinkTag" onClick={oldTag}>{q.tag}</button>) : (null)}</span>
+            <span className="hashtagNew">
+              {q.tag ? (
+                <button className="pinkTag" onClick={oldTag}>
+                  {q.tag}
+                </button>
+              ) : null}
+            </span>
             <hr />
             <span className="hashtagOld">
               {tags.map((tag, index) => {
@@ -221,10 +225,9 @@ function Edition() {
                     <button className="grayTag" key={index} onClick={oldTag}>
                       {tag.tag}
                     </button>
-                  )
+                  );
                 }
-              }
-              )}
+              })}
             </span>
           </div>
         </div>
@@ -235,7 +238,7 @@ function Edition() {
       <button role="button" onClick={up} className="upBtn">
         上傳貼文
       </button>
-    </div >
+    </div>
   );
 }
 

@@ -33,7 +33,7 @@ function Login() {
       password: values.password,
     };
 
-    fetch("http://118.233.222.23:8000/api/login", {
+    fetch("http://127.0.0.1:8000/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -69,8 +69,8 @@ function Login() {
       })
       .then((data) => {
         localStorage.setItem("token", data.authorization.token);
-        setUser(data.user)
-        setLogin(true)
+        setUser(data.user);
+        setLogin(true);
         history.push("/home/1");
       })
 

@@ -21,7 +21,7 @@ function Header() {
   const token = localStorage.getItem("token");
 
   function logout() {
-    fetch("http://118.233.222.23:8000/api/logout", {
+    fetch("http://127.0.0.1:8000/api/logout", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -55,10 +55,7 @@ function Header() {
     } else {
       setDd("創建貼文");
     }
-
-  },
-    [m, user, login]
-  );
+  }, [m, user, login]);
 
   function gm() {
     alert("請先登入帳戶");

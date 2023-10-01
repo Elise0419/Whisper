@@ -7,7 +7,6 @@ import Validation from "./Validation/ForgotpwValidation";
 import logo from "./img/logo.png";
 
 function Forgotpw() {
-
   const history = useHistory();
 
   const [values, setValues] = useState({
@@ -28,7 +27,7 @@ function Forgotpw() {
     setErrors(Validation(values));
 
     // 使用fetch來發送POST請求
-    fetch("http://118.233.222.23:8000/api/password/forgot/mail", {
+    fetch("http://127.0.0.1:8000/api/password/forgot/mail", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -38,8 +37,7 @@ function Forgotpw() {
       .then((res) => {
         if (res.status >= 200 && res.status < 400) {
           history.push("/mail/success");
-        }
-        else {
+        } else {
           res.json().then((data) => {
             setErrors({
               ...errors,

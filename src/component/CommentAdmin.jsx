@@ -19,7 +19,7 @@ function CommentAdmin() {
   const DeleteClick = (coment_id) => {
     if (window.confirm("確定要刪除此留言嗎")) {
       fetch(
-        `http://118.233.222.23:8000/api/admin/management/articles/delete/comment_${coment_id}`,
+        `http://127.0.0.1:8000/api/admin/management/articles/delete/comment_${coment_id}`,
         {
           method: "Delete",
           headers: {
@@ -44,7 +44,7 @@ function CommentAdmin() {
 
   useEffect(() => {
     fetch(
-      `http://118.233.222.23:8000/api/admin/management/comments/show/post_${match.params.postId}/${match.params.page}`,
+      `http://127.0.0.1:8000/api/admin/management/comments/show/post_${match.params.postId}/${match.params.page}`,
       {
         method: "post",
         headers: {
@@ -69,50 +69,63 @@ function CommentAdmin() {
 
   return (
     <div className="adminbody">
-    <div className="admincommentContainer">
-      <div className="admincHeadline"> 文章資訊</div>
-      <table className="adminTable">
-        <thead>
-          <tr className="adminTh">
-            <th className="adminID">留言序號</th>
-            <th className="adminID">留言者ID</th>
-            <th className="adminID">留言者名稱</th>
-            <th  className="adminText">留言內容</th>
-            <th className="adminopeate">執行操作</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((item, index) => (
-            <tr key={index} className="adminTrheigh">
-              <td>{item.id}</td>
-              <td>{item.user_id}</td>
-              <td>{item.users.mem_name}</td>
-              <td>{item.comment}</td>
-              <td>
-                <button  className="adminBtn" onClick={() => DeleteClick(`${item.id}`)}>
-                  刪除
-                </button>
-              </td>
+      <div className="admincommentContainer">
+        <div className="admincHeadline"> 文章資訊</div>
+        <table className="adminTable">
+          <thead>
+            <tr className="adminTh">
+              <th className="adminID">留言序號</th>
+              <th className="adminID">留言者ID</th>
+              <th className="adminID">留言者名稱</th>
+              <th className="adminText">留言內容</th>
+              <th className="adminopeate">執行操作</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-      <Link to={`/admin/post_:postId(\d+)/comments/${parseInt(match.params.page) - 1}`}>
-        pre
-      </Link>
-      {Array.from({ length: page }).map((_, index) => (
-        <span key={index}>
-          &nbsp;
-          <Link to={`/admin/post_:postId(\d+)/comments/${parseInt(index) + 1}`}>
-            {index + 1}
-          </Link>
-          &nbsp;
-        </span>
-      ))}
-      <Link to={`/admin/post_:postId(\d+)/comments/${parseInt(match.params.page) + 1}`}>
-        next
-      </Link>
-    </div>
+          </thead>
+          <tbody>
+            {data.map((item, index) => (
+              <tr key={index} className="adminTrheigh">
+                <td>{item.id}</td>
+                <td>{item.user_id}</td>
+                <td>{item.users.mem_name}</td>
+                <td>{item.comment}</td>
+                <td>
+                  <button
+                    className="adminBtn"
+                    onClick={() => DeleteClick(`${item.id}`)}
+                  >
+                    刪除
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <Link
+          to={`/admin/post_:postId(\d+)/comments/${
+            parseInt(match.params.page) - 1
+          }`}
+        >
+          pre
+        </Link>
+        {Array.from({ length: page }).map((_, index) => (
+          <span key={index}>
+            &nbsp;
+            <Link
+              to={`/admin/post_:postId(\d+)/comments/${parseInt(index) + 1}`}
+            >
+              {index + 1}
+            </Link>
+            &nbsp;
+          </span>
+        ))}
+        <Link
+          to={`/admin/post_:postId(\d+)/comments/${
+            parseInt(match.params.page) + 1
+          }`}
+        >
+          next
+        </Link>
+      </div>
     </div>
   );
 }

@@ -8,7 +8,7 @@ import logo from "./img/logo.png";
 
 function Restpwd() {
   const { data } = useParams();
-  console.log(data)
+  console.log(data);
   const history = useHistory();
   const [values, setValues] = useState({
     new_password: "",
@@ -17,12 +17,12 @@ function Restpwd() {
 
   const decodedData = decodeURIComponent(data);
 
-  const paramParts = decodedData.split('&');
+  const paramParts = decodedData.split("&");
 
   const params = {};
 
-  paramParts.forEach(part => {
-    const [key, value] = part.split('=');
+  paramParts.forEach((part) => {
+    const [key, value] = part.split("=");
     params[key] = value;
   });
 
@@ -30,9 +30,9 @@ function Restpwd() {
   const expires = params.expires;
   const signature = params.signature;
 
-  console.log('Token:', token);
-  console.log('Expires:', expires);
-  console.log('Signature:', signature);
+  console.log("Token:", token);
+  console.log("Expires:", expires);
+  console.log("Signature:", signature);
 
   const [errors, setErrors] = useState({
     wrong: "",
@@ -48,24 +48,26 @@ function Restpwd() {
 
     if (!errors.password && !errors.confirmPassword) {
       // 設置新密碼發送請求
-      fetch(`http://118.233.222.23:8000/api/password/forgot/reset/expires=${expires}/signature=${signature}`, {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          new_password: values.new_password,
-          password_confirm: values.password_confirm,
-        }),
-      })
+      fetch(
+        `http://127.0.0.1:8000/api/password/forgot/reset/expires=${expires}/signature=${signature}`,
+        {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            new_password: values.new_password,
+            password_confirm: values.password_confirm,
+          }),
+        }
+      )
         .then((response) => {
           if (response.status >= 500) {
             response.json().then((data) => {
-              console.log(data.message)
+              console.log(data.message);
             });
-            alert('請重新驗證')
-
+            alert("請重新驗證");
           } else if (response.status === 400) {
             response.json().then((data) => {
               setErrors({

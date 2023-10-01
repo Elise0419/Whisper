@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouteMatch, Link } from "react-router-dom";
 
-import rabbit from "../img/rabbit.png"
+import rabbit from "../img/rabbit.png";
 
 import "../CSS/Post.css";
 function Comment() {
@@ -31,7 +31,7 @@ function Comment() {
 
   function fetchData() {
     fetch(
-      `http://118.233.222.23:8000/api/v1/comtxts?postId[eq]=${match.params.postId}`
+      `http://127.0.0.1:8000/api/v1/comtxts?postId[eq]=${match.params.postId}`
     )
       .then((res) => res.json())
       .then((jsonData) => {
@@ -50,7 +50,7 @@ function Comment() {
 
   function getData() {
     const token = localStorage.getItem("token");
-    fetch("http://118.233.222.23:8000/api/profile", {
+    fetch("http://127.0.0.1:8000/api/profile", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -87,17 +87,14 @@ function Comment() {
 
   function submitCommentToBackend(newCommentObj) {
     const token = localStorage.getItem("token");
-    fetch(
-      `http://118.233.222.23:8000/api/posts/${match.params.postId}/comments`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(newCommentObj),
-      }
-    )
+    fetch(`http://127.0.0.1:8000/api/posts/${match.params.postId}/comments`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(newCommentObj),
+    })
       .then((res) => res.json())
       .then((jsonData) => {
         if (jsonData.message === "評論已新增！") {
@@ -150,8 +147,13 @@ function Comment() {
             onClick={handleSubmitComment}
             disabled={user.push}
           >
-            {user.push ? <Link to="/login" className="commentLink">點我登入</Link>
- : "評論"}
+            {user.push ? (
+              <Link to="/login" className="commentLink">
+                點我登入
+              </Link>
+            ) : (
+              "評論"
+            )}
           </button>
         </div>
       </div>

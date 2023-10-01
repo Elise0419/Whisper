@@ -16,7 +16,7 @@ function Verifyemail() {
   };
 
   const handleSendVerification = () => {
-    fetch("http://118.233.222.23:8000/api/verify/change/email", {
+    fetch("http://127.0.0.1:8000/api/verify/change/email", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -26,9 +26,11 @@ function Verifyemail() {
     })
       .then((response) => {
         if (response.ok) {
-          return response.json()
+          return response.json();
         } else {
-          response.json().then((data) => { alert(data.message) })
+          response.json().then((data) => {
+            alert(data.message);
+          });
           history.push("/login");
         }
       })

@@ -6,7 +6,7 @@ import Comment from "./Block/Comment";
 
 import bite from "./img/bite.png";
 import makeup from "./img/makeup.png";
-import rabbit from "./img/rabbit.png"
+import rabbit from "./img/rabbit.png";
 
 function Post({ postId, userToken }) {
   const match = useRouteMatch();

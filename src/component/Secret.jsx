@@ -37,12 +37,16 @@ function Secreat() {
       setChoose(false);
     }
   }
-
+  let [aa, setAa] = useState();
+  let [bb, setBb] = useState();
   function greenBtn() {
+    setAa(document.getElementById("a").value);
+    setBb(document.getElementById("b").value);
+
     setTimeout(() => {
       setWrite(false);
       setGate(true);
-    }, 2000);
+    }, 2500);
   }
 
   useEffect(() => {
@@ -181,16 +185,18 @@ function Secreat() {
             rows="5"
             cols="50"
             name=""
-            id=""
+            id="a"
             placeholder="tell me something..."
+            value={aa}
           ></textarea>
           <textarea
             className="writeQuestion"
             rows="5"
             cols="1"
             name=""
-            id=""
+            id="b"
             placeholder="What truth do you want to hear?..."
+            value={bb}
           />
           <button type="reset" className="green" onClick={greenBtn}>
             <span>send</span>

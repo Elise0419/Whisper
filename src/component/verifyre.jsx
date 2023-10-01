@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 
 import "./CSS/Login.css";
-import Header from "./Block/Header";
-import Footer from "./Block/Footer";
 
 import logo from "./img/logo.png";
 

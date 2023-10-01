@@ -43,6 +43,23 @@ class ProfileController extends Controller
         return response()->json(['user' => $this->user], 200);
     }
 
+    public function profileOnlyRead()
+    {
+        if (!$this->user) {
+            return response()->json(['message' => '未登入'], 401);
+        }
+        $admin = Admin::where('user_id', $this->user->user_id)->exists();
+        if ($admin) {
+            $this->user->admin = $admin;
+        }
+        $superadmin = Superadmin::where('user_id', $this->user->user_id)->exists();
+        if ($superadmin) {
+            $this->user->superadmin = $superadmin;
+        }
+
+        return response()->json(['user' => $this->user], 200);
+    }
+
     public function emailchange(Request $req)
     {
         $validator = Validator::make($req->email, [

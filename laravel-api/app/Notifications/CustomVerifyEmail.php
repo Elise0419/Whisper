@@ -38,13 +38,12 @@ class CustomVerifyEmail extends Notification
         $user_id = $notifiable->user_id;
         $hash = $notifiable->email_verified_token;
 
-        // 生成带签名的验证链接
         $verificationUrl = URL::temporarySignedRoute(
-            'verification.verify', // 路由的名称
-            now()->addMinutes(60), // 链接的有效期
+            'verification.verify',
+            now()->addMinutes(60),
             [
-                'user_id' => $user_id, // 用户的唯一标识符
-                'hash' => $hash, // 邮箱地址的哈希值
+                'user_id' => $user_id,
+                'hash' => $hash,
             ]
         );
 

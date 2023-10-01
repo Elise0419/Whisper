@@ -16,6 +16,17 @@ function Validation(values) {
         error.person_id = "身份證字號不該為空,請輸入身份證字號";
     } else if (!person_id_pattern.test(values.person_id)) {
         error.person_id = "身份證字號輸入錯誤";
+    }
+
+    const id = values.person_id.toUpperCase();
+    const checkSum = (parseInt(id.charAt(0), 36) + parseInt(id.charAt(1), 10) * 8 +
+        parseInt(id.charAt(2), 10) * 7 + parseInt(id.charAt(3), 10) * 6 +
+        parseInt(id.charAt(4), 10) * 5 + parseInt(id.charAt(5), 10) * 4 +
+        parseInt(id.charAt(6), 10) * 3 + parseInt(id.charAt(7), 10) * 2 +
+        parseInt(id.charAt(8), 10) * 1 + parseInt(id.charAt(9), 10) * 1) % 10;
+
+    if (checkSum !== 0) {
+        error.person_id = "身份證字號校驗碼錯誤";
     } else {
         error.person_id = "";
     }

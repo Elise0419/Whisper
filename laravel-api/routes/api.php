@@ -33,6 +33,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('register', 'register');
     Route::get('logout', 'logout');
     Route::post('refresh', 'refresh');
+    Route::post('verify/change/email', 'verifyResend');
 });
 
 Route::get('/unAuth', function () {
@@ -43,6 +44,7 @@ Route::controller(CustomEmailVerificationController::class)->group(function () {
     Route::get('/email/verify/{user_id}/{hash}', 'verify')->middleware(['signed'])->name('verification.verify');
     Route::get('/email/verification-notification', 'verifysending')->middleware(['auth:api', 'throttle:5,1'])->name('verification.send');
     Route::get('/email/verify', 'verifynotice')->middleware('auth:api')->name('verification.notice');
+    Route::post('verify/change/email', 'verifyResend')->middleware('auth:api');
 });
 
 Route::controller(PasswordResetController::class)->group(function () {
@@ -53,6 +55,7 @@ Route::controller(PasswordResetController::class)->group(function () {
 
 Route::controller(ProfileController::class)->group(function () {
     Route::get('profile', 'profile');
+    Route::get('profile/read/only', 'profileOnlyRead');
     Route::put('profile/email/change', 'emailchange');
     Route::put('profile/phone/change', 'phonechange');
     Route::put('profile/head/change', 'headimgchange');

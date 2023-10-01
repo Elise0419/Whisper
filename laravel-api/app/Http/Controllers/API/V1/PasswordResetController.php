@@ -86,11 +86,11 @@ class PasswordResetController extends Controller
         $signaturecheck = hash('sha256', $dataToSign);
 
         if ($signaturecheck != $signature) {
-            return response()->json(['message' => '链接签名无效'], 402);
+            return response()->json(['message' => '無效簽名'], 402);
         }
 
         if (strtotime($expires) > now()->timestamp) {
-            return response()->json(['message' => '链接已过期'], 402);
+            return response()->json(['message' => '連結已過期，請重新操作'], 402);
         }
 
 

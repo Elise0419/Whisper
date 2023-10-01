@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import logo from "./img/logo.png";
 import "./CSS/Login.css";
+import { useUserContext } from "../store/UserContext";
 
 function Login() {
+  const [user, setUser, login, setLogin] = useUserContext();
   const token = localStorage.getItem("token");
   const history = useHistory();
   const [values, setValues] = useState({
@@ -67,6 +69,8 @@ function Login() {
       })
       .then((data) => {
         localStorage.setItem("token", data.authorization.token);
+        setUser(data.user)
+        setLogin(true)
         history.push("/home/1");
       })
 

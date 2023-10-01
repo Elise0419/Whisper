@@ -124,29 +124,29 @@ function Home() {
         });
 
       // 主頁抓取個人資訊，放置Context
-      fetch("http://118.233.222.23:8000/api/profile", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((res) => {
-          if (res.status === 403) {
-            // throw new Error("API request failed");
-          } else if (res.status >= 200) {
-            return res.json();
-          }
-        })
-        .then((jsonData) => {
-          if (jsonData.error) {
+      // fetch("http://118.233.222.23:8000/api/profile", {
+      //   headers: {
+      //     Authorization: `Bearer ${token}`,
+      //   },
+      // })
+      //   .then((res) => {
+      //     if (res.status === 403) {
+      //       // throw new Error("API request failed");
+      //     } else if (res.status >= 200) {
+      //       return res.json();
+      //     }
+      //   })
+      //   .then((jsonData) => {
+      //     if (jsonData.error) {
 
-          } else {
-            setLogin(true);
-            setUser(jsonData.user);
-          }
-        })
-        .catch((err) => {
-          // console.log("Error:", err);
-        });
+      //     } else {
+      //       setLogin(true);
+      //       setUser(jsonData.user);
+      //     }
+      //   })
+      //   .catch((err) => {
+      //     // console.log("Error:", err);
+      //   });
     }
     fetchData();
   }, [m.type, page, login]);

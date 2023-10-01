@@ -50,4 +50,21 @@ class CustomEmailVerificationController extends Controller
     {
         return response()->json(['mseeage' => '請先完成信箱驗證'], 403);
     }
+
+
+    public function verifyResend(Request $req)
+    {
+        $user = Auth::user();
+        if ($user) {
+            if ($user->email_verified_at == NULL) {
+                $user->email = $req->email;
+                Notification::send($user, new CustomVerifyEmail($user));
+                return response()->json(['message' => '已發送至信箱，請進行驗證'], 200);
+            } else {
+                return response()->json(['message' => '信箱已驗證過'], 401);
+            }
+        } else {
+            return response()->json(['message' => '請先進行登入'], 401);
+        }
+    }
 }

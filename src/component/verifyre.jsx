@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 import "./CSS/Login.css";
 import Header from "./Block/Header";
@@ -8,7 +8,9 @@ import Footer from "./Block/Footer";
 import logo from "./img/logo.png";
 
 function Verifyemail() {
+  const token = localStorage.getItem("token");
   const [email, setEmail] = useState("");
+  const history = useHistory();
   const [sentVerification, setSentVerification] = useState(false);
 
   const handleEmailChange = (e) => {
@@ -16,14 +18,22 @@ function Verifyemail() {
   };
 
   const handleSendVerification = () => {
-    fetch("http://118.233.222.23:8000/api/profile", {
+    fetch("http://118.233.222.23:8000/api/verify/change/email", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ email }),
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.ok) {
+          return response.json()
+        } else {
+          response.json().then((data) => { alert(data.message) })
+          history.push("/login");
+        }
+      })
       .then((data) => {
         console.log(data);
         setSentVerification(true);

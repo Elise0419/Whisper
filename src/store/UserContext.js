@@ -11,30 +11,30 @@ export function UserProvider({ children }) {
     const token = localStorage.getItem("token");
     const [user, setUser] = useState({});
     const [login, setLogin] = useState(false);
-
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await fetch(`http://118.233.222.23:8000/api/profile`, {
+                const response = await fetch(`http://118.233.222.23:8000/api/profile/read/only`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
                 });
-
+                // if (response.status == 403) {
+                //     setUser({ ...user, mem_name: '尚未驗證信箱' });
+                // } else 
                 if (response.status >= 200 && response.status < 300) {
                     const data = await response.json();
                     setUser(data.user);
                     setLogin(true);
                 } else {
                     console.error('HTTP Error:', response.status);
-                    setUser({});
                 }
             } catch (error) {
                 console.error('An error occurred:', error);
             }
         }
         fetchData();
-    }, []);
+    }, [login]);
 
     return (
         <UserContext.Provider value={[user,

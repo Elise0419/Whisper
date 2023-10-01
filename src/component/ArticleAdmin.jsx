@@ -100,21 +100,21 @@ function ArticleAdmin() {
           ))}
         </tbody>
       </table>
-      <Link to={`/admin/article/${parseInt(match.params.page) - 1}`}>
-        前一頁
-      </Link>
+      <button className="sortBtn"><Link className="adminlink" to={`/admin/article/${parseInt(match.params.page) - 1}`}>
+      上一頁
+      </Link></button>
       {Array.from({ length: lastpage }).map((_, index) => (
-        <span key={index}>
+        <span key={index} className="sortdelterBtn">
           &nbsp;
-          <Link to={`/admin/article/${parseInt(index) + 1}`}>
+          <Link  className="adminlink" to={`/admin/article/${parseInt(index) + 1}`}>
             {index + 1}
           </Link>
           &nbsp;
         </span>
       ))}
-      <Link to={`/admin/article/${parseInt(match.params.page) + 1}`}>
+      <button className="sortBtn"><Link className="adminlink" to={`/admin/article/${parseInt(match.params.page) + 1}`}>
         下一頁
-      </Link>
+      </Link></button>
     </div>
     </div>
   );

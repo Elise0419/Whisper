@@ -124,67 +124,68 @@ function SuperAdmin() {
     <div className="adminbody">
       <div className="adminContainer">
         <div className="adminHeadline">使用者管理介面</div>
-        <table>
-          <thead>
-            <tr>
-              <th>使用者ID</th>
-              <th>使用者名稱</th>
-              <th>信箱</th>
-              <th>
+        <table className="adminTable ">
+          <thead >
+            <tr className="adminTh">
+              <th className="superID">使用者ID</th>
+              <th  className="superID">使用者名稱</th>
+              <th  className="superEmail">信箱</th>
+              <th className="superTime">
                 建立時間
-                <button onClick={() => toggleSorting("created_at")}>
+                <button className="sortBtn" onClick={() => toggleSorting("created_at")}>
                   {sortField === "created_at" ? (sortOrder === "asc" ? "▲" : "▼") : "無排序"}
                 </button>
               </th>
-              <th>更新時間
-                <button onClick={() => toggleSorting("updated_at")}>
+              <th className="superTime">更新時間
+                <button className="sortBtn" onClick={() => toggleSorting("updated_at")}>
                   {sortField === "updated_at" ? (sortOrder === "asc" ? "▲" : "▼") : "無排序"}
                 </button>
               </th>
-              <th>
+              <th className="superTime">
                 登入時間
-                <button onClick={() => toggleSorting("login_time")}>
+                <button className="sortBtn" onClick={() => toggleSorting("login_time")}>
                   {sortField === "login_time" ? (sortOrder === "asc" ? "▲" : "▼") : "無排序"}
                 </button>
               </th>
-              <th>登出時間
-                <button onClick={() => toggleSorting("logout_time")}>
+              <th className="superTime">登出時間
+                <button className="sortBtn" onClick={() => toggleSorting("logout_time")}>
                   {sortField === "logout_time" ? (sortOrder === "asc" ? "▲" : "▼") : "無排序"}
                 </button>
               </th>
+
             </tr>
           </thead>
-          <tbody>
+          <tbody >
             {data.map((item, index) => (
-              <tr key={index}>
+              <tr className="superTrheigh" key={index} >
                 <td>{item.user_id}</td>
                 <td>{item.mem_name}</td>
-                <td>{item.email}</td>
-                <td>
+                <td className="superTextcon">{item.email}</td>
+                <td className="superTextcon">
                   {new Date(item.created_at).toLocaleString()}
                 </td>
-                <td>
+                <td className="superTextcon">
                   {new Date(item.updated_at).toLocaleString()}
                 </td>
-                <td>
+                <td className="superTextcon">
                   {new Date(item.login_time).toLocaleString()}
                 </td>
-                <td>
+                <td className="superTextcon">
                   {new Date(item.logout_time).toLocaleString()}
                 </td>
                 <td>
                   {item.admin.length > 0 ? ('admin') : ('user')}
                 </td>
                 <td>
-                  {item.admin.length > 0 ? (<button onClick={() => DeleteClick(`${item.user_id}`)}>
+                  {item.admin.length > 0 ? (<button className="sortdelterBtn" onClick={() => DeleteClick(`${item.user_id}`)}>
                     移除管理員
-                  </button>) : (<button onClick={promotion}>
+                  </button>) : (<button className="sortBtn" onClick={promotion}>
                     提升管理員
                   </button>)}
                 </td>
                 <td>
                   {item.admin.length > 0 ? (
-                    <select name="" id="" defaultValue={item.admin[0].type} onChange={(event) => SelectChange(event, item.user_id)}>
+                    <select className="superselect" name="" id="" defaultValue={item.admin[0].type} onChange={(event) => SelectChange(event, item.user_id)}>
                       <option value="none">無</option>
                       <option value="life">健康生活</option>
                       <option value="love">感情生活</option>
@@ -193,7 +194,7 @@ function SuperAdmin() {
                       <option value="mkup">美妝保養</option>
                     </select>
                   ) : (
-                    <select name="" id="" onChange={(event) => SelectChange(event, item.user_id)}>
+                    <select className="superselect" name="" id="" onChange={(event) => SelectChange(event, item.user_id)}>
                       <option value="none">無</option>
                       <option value="life">健康生活</option>
                       <option value="love">感情生活</option>
@@ -207,23 +208,23 @@ function SuperAdmin() {
             ))}
           </tbody>
         </table>
-        <Link to={`/admin/users/manage/${parseInt(match.params.page) - 1}`}>
-          pre
-        </Link>
+        <button className="sortBtn"><Link  className="adminlink" to={`/admin/users/manage/${parseInt(match.params.page) - 1}`}>
+          上一頁
+        </Link></button>
         {
           Array.from({ length: lastpage }).map((_, index) => (
-            <span key={index}>
+            <span key={index} className="sortdelterBtn">
               &nbsp;
-              <Link to={`/admin/users/manage/${parseInt(index) + 1}`}>
+              <Link className="adminlink" to={`/admin/users/manage/${parseInt(index) + 1}`}>
                 {index + 1}
               </Link>
               &nbsp;
             </span>
           ))
         }
-        <Link to={`/admin/users/manage/${parseInt(match.params.page) + 1}`}>
-          next
-        </Link>
+         <button className="sortBtn"><Link className="adminlink" to={`/admin/users/manage/${parseInt(match.params.page) + 1}`}>
+          下一頁
+          </Link></button>
       </div >
     </div >
   );

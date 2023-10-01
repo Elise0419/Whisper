@@ -65,34 +65,35 @@ function ArticleAdmin() {
   }, [page]);
 
   return (
-    <div>
-      <h1>文章資訊</h1>
-      <table>
+    <div className="adminbody">
+    <div className="adminContainer">
+      <div className="adminHeadline"> 文章資訊</div>
+      <table className="adminTable">
         <thead>
-          <tr>
-            <th>文章ID</th>
-            <th>貼文標題</th>
-            <th>貼文者ID</th>
-            <th>貼文者名稱</th>
-            <th>貼文內容</th>
-            <th>執行操作</th>
+          <tr className="adminTh">
+            <th className="adminID">文章ID</th>
+            <th className="adminTitle">貼文標題</th>
+            <th className="adminID">貼文者ID</th>
+            <th className="adminID">貼文者名稱</th>
+            <th className="adminText">貼文內容</th>
+            <th className="adminopeate">執行操作</th>
           </tr>
         </thead>
         <tbody>
           {data.map((item, index) => (
-            <tr key={index}>
-              <td>{item.post_id}</td>
-              <td dangerouslySetInnerHTML={{ __html: item.title }} />
-              <td>{item.user_id}</td>
-              <td>{item.users.mem_name}</td>
-              <td dangerouslySetInnerHTML={{ __html: item.content }} />
+            <tr key={index} className="adminTrheigh">
+              <td className="adminID">{item.post_id}</td>
+              <td className="adminTitlecon" dangerouslySetInnerHTML={{ __html: item.title }} />
+              <td className="adminID">{item.user_id}</td>
+              <td className="adminID">{item.users.mem_name}</td>
+              <td className="adminTextcon" dangerouslySetInnerHTML={{ __html: item.content }} />
               {/* <td>{item.content}</td> */}
               <td>
-                <Link to={`/admin/post_${item.post_id}/comments/1`}>
+                <button className="adminBtn"><Link className="adminlink" to={`/admin/post_${item.post_id}/comments/1`}>
                   文章評論
-                </Link>
-                <button onClick={() => DeleteClick(`${item.post_id}`)}>
-                  Delete
+                </Link></button>
+                <button className="adminBtn" onClick={() => DeleteClick(`${item.post_id}`)}>
+                  刪除貼文
                 </button>
               </td>
             </tr>
@@ -100,7 +101,7 @@ function ArticleAdmin() {
         </tbody>
       </table>
       <Link to={`/admin/article/${parseInt(match.params.page) - 1}`}>
-        pre
+        前一頁
       </Link>
       {Array.from({ length: lastpage }).map((_, index) => (
         <span key={index}>
@@ -112,8 +113,9 @@ function ArticleAdmin() {
         </span>
       ))}
       <Link to={`/admin/article/${parseInt(match.params.page) + 1}`}>
-        next
+        下一頁
       </Link>
+    </div>
     </div>
   );
 }

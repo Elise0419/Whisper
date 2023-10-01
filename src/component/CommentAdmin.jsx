@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useRouteMatch } from "react-router-dom";
+import "./CSS/Adminall.css";
 
 function CommentAdmin() {
   const [data, setData] = useState([]);
@@ -67,28 +68,29 @@ function CommentAdmin() {
   }, []);
 
   return (
-    <div>
-      <h1>文章資訊</h1>
-      <table>
+    <div className="adminbody">
+    <div className="admincommentContainer">
+      <div className="admincHeadline"> 文章資訊</div>
+      <table className="adminTable">
         <thead>
-          <tr>
-            <th>留言序號</th>
-            <th>留言者ID</th>
-            <th>留言者名稱</th>
-            <th>留言內容</th>
-            <th>執行操作</th>
+          <tr className="adminTh">
+            <th className="adminID">留言序號</th>
+            <th className="adminID">留言者ID</th>
+            <th className="adminID">留言者名稱</th>
+            <th  className="adminText">留言內容</th>
+            <th className="adminopeate">執行操作</th>
           </tr>
         </thead>
         <tbody>
           {data.map((item, index) => (
-            <tr key={index}>
+            <tr key={index} className="adminTrheigh">
               <td>{item.id}</td>
               <td>{item.user_id}</td>
               <td>{item.users.mem_name}</td>
               <td>{item.comment}</td>
               <td>
-                <button onClick={() => DeleteClick(`${item.id}`)}>
-                  Delete
+                <button  className="adminBtn" onClick={() => DeleteClick(`${item.id}`)}>
+                  刪除
                 </button>
               </td>
             </tr>
@@ -110,6 +112,7 @@ function CommentAdmin() {
       <Link to={`/admin/post_:postId(\d+)/comments/${parseInt(match.params.page) + 1}`}>
         next
       </Link>
+    </div>
     </div>
   );
 }

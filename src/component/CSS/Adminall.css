@@ -1,20 +1,152 @@
-h1 {
-    background-color: var(--colorPurple);
-    display: block;
-    text-align: center;
-    height: 60px;
-    margin: 0%;
+.adminbody {
+    margin: 10px;
+    padding: 0px;
+    display: flex;
+    display: grid;
+    place-items: center;
 }
 
-table{
+
+.adminContainer {
+    margin: 0px;
+    width: 1600px;
+    text-align: center;
+
+}
+
+.admincommentContainer {
+    margin: 0px;
+    width: 1350px;
+    text-align: center;
+    /* background-color: red; */
+}
+
+
+
+.admincHeadline {
+    display: flex;
+    align-items: center; /* 垂直居中 */
+    justify-content: center;
+    font-size: 22px;
+    font-weight: bold;
+    height: 50px;
+    width: 1300px;
+    margin: 0;
+    background-color: #f08170;
+    color: white;
+    text-align: center; /* 水平居中 */
+}
+
+.adminHeadline {
+    display: flex;
+    align-items: center; /* 垂直居中 */
+    justify-content: center;
+    font-size: 22px;
+    font-weight: bold;
+    height: 50px;
+    width: 100%;
+    margin: 0;
+    background-color: #f08170;
+    color: white;
+    text-align: center; /* 水平居中 */
+}
+
+
+.adminTable {
     display: block;
     width: 100%;
+    /* background-color: blue; */
 }
 
-.userID,.userName {
+.adminTh {
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #C8B2D6;
+    color: white;
+    height: 30px;
+}
+
+.adminTrheigh td {
+    background-color: white;
+    border: lightgray 1px solid;
+    height: 60px;
+    overflow: hidden;
+    word-wrap: break-word;
+    line-height: 20px;
+    /* 设置你想要的行高值 */
+}
+
+.adminID {
+    width: 80px;
+    /* background-color: blue; */
+    height: 60px;
+}
+
+.adminTitle {
+    width: 300px;
+    /* background-color: aquamarine; */
+
+}
+
+.adminText {
+    width: 800px;
+    /* background-color: aquamarine; */
+
+}
+
+.adminopeate {
+    width: 234px;
+    /* background-color: aquamarine; */
+}
+
+
+.adminTitlecon {
+    width: 300px;
+    /* background-color: aquamarine; */
+    text-align: left;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+
+.adminTextcon {
+    width: 800px;
+    /* background-color: aquamarine; */
+    height: 70px;
+    overflow: hidden;
+    word-wrap: break-word;
+    line-height: 20px;
+    /* 设置你想要的行高值 */
+    text-align: left;
+}
+
+.adminTextcon img {
+    width: 120px;
+    height: 70px;
+}
+
+.adminlink{
+    text-decoration: none; /* 去掉下划线 */
+    color: inherit; /* 使用父元素的文本颜色 */
+}
+
+.adminBtn {
+    margin-left: 10px;
+    width: 78px;
+    height: 28px;
+    flex-shrink: 0;
+    border-radius: 14px;
+    border: none;
+    background: var(--pink-300, #FEA7AD);
+    color: white;
+}
+
+.adminBtn:hover {
+    background-color: #C8B2D6;
+}
+
+.userID,
+.userName {
     width: 10%;
     justify-content: center;
     align-content: center;
 }
-
-

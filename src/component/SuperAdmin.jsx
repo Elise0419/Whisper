@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useHistory, useParams, useRouteMatch } from "react-router-dom";
 
+import "./CSS/Adminall.css";
+
 function SuperAdmin() {
   const [data, setData] = useState([]);
   const [lastpage, setLastpage] = useState({});
@@ -119,8 +121,9 @@ function SuperAdmin() {
   };
 
   return (
-    <div>
-      <h1>使用者管理介面</h1>
+    <div className="adminbody">
+    <div className="adminContainer">
+      <div className="adminHeadline">使用者管理介面</div>
       <table>
         <thead>
           <tr>
@@ -221,6 +224,7 @@ function SuperAdmin() {
       <Link to={`/admin/users/manage/${parseInt(match.params.page) + 1}`}>
         next
       </Link>
+    </div >
     </div >
   );
 

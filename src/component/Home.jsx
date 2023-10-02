@@ -70,7 +70,6 @@ function Home() {
         .then((jsonData) => {
           setCard(jsonData.post.data);
           setTotalPage(jsonData.post.last_page);
-          console.log(jsonData);
 
           if (searchMsg.message) {
             // 沒有搜尋紀錄

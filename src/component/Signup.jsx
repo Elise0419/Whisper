@@ -322,7 +322,7 @@ function Signup() {
                   }
                 >
                   <FontAwesomeIcon icon={faInfoCircle} />
-                  請輸入有效的電子郵件地址。例如：example@email.com
+                  已經被註冊或格式不正確，請輸入有效的電子郵件地址。例如：example@email.com
                   {/* 這裡可以放置有關電子郵箱的說明 */}
                 </p>
 

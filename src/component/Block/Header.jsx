@@ -12,14 +12,11 @@ import rabbit from "../img/rabbit.png";
 import crown from "../img/crown.png";
 import mail from "../img/love3.png";
 import grayMail from "../img/grayMail.png";
-import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 function Header() {
   const history = useHistory();
   let [dd, setDd] = useState("創建貼文");
   const [user, setUser, login, setLogin] = useUserContext();
-  const m = useRouteMatch().params.type;
-  const { type } = useParams();
   const token = localStorage.getItem("token");
 
   function logout() {
@@ -41,26 +38,12 @@ function Header() {
       });
   }
 
-  useEffect(() => {
-    if (m) {
-      if (m === "love") {
-        setDd("感情生活");
-      } else if (m === "life") {
-        setDd("健康生活");
-      } else if (m === "food") {
-        setDd("美食情報");
-      } else if (m === "fashion") {
-        setDd("時尚穿搭");
-      } else if (m === "mkup") {
-        setDd("美妝保養");
-      }
-    } else {
-      setDd("創建貼文");
-    }
-  }, [m, user, type, login]);
-
   function gm() {
     alert("請先登入帳戶");
+  }
+
+  function type(e) {
+    setDd(e.target.innerText);
   }
 
   return (
@@ -82,11 +65,21 @@ function Header() {
             <p className="ddName">{dd}</p>
             <img className="ddArrow" src={purpleArrow} alt="" />
             <span className="ddItem">
-              <Link to="/upload/mkup">美妝保養</Link>
-              <Link to="/upload/fashion">時尚穿搭</Link>
-              <Link to="/upload/food">美食情報</Link>
-              <Link to="/upload/life">健康生活</Link>
-              <Link to="/upload/love">感情生活</Link>
+              <Link to="/upload/mkup" onClick={type}>
+                美妝保養
+              </Link>
+              <Link to="/upload/fashion" onClick={type}>
+                時尚穿搭
+              </Link>
+              <Link to="/upload/food" onClick={type}>
+                美食情報
+              </Link>
+              <Link to="/upload/life" onClick={type}>
+                健康生活
+              </Link>
+              <Link to="/upload/love" onClick={type}>
+                感情生活
+              </Link>
             </span>
           </button>
         </div>

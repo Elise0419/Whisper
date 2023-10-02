@@ -39,10 +39,10 @@ class PostController extends Controller
         if ($page < 1) {
             $page = 1;
         }
-        $posts = Post::with('users:user_id,headimg')->orderBy('post_time', 'desc')->paginate(16, ['*'], 'page', $page);
+        $posts = Post::with('users:user_id,headimg')->withCount('comtxts')->orderBy('post_time', 'desc')->paginate(16, ['*'], 'page', $page);
         if ($page > $posts->lastPage()) {
             $page = $posts->lastPage();
-            $posts = Post::with('users:user_id,headimg')->orderBy('post_time', 'desc')->paginate(16, ['*'], 'page', $page);
+            $posts = Post::with('users:user_id,headimg')->withCount('comtxts')->orderBy('post_time', 'desc')->paginate(16, ['*'], 'page', $page);
         }
 
         return response()->json(['post' => $posts]);
@@ -81,7 +81,7 @@ class PostController extends Controller
         $query = $request->input('query');
         $type = $request->input('type');
 
-        $searchResults = Post::query()->with('users:user_id,headimg');
+        $searchResults = Post::query()->with('users:user_id,headimg')->withCount('comtxts');
 
         if ($type) {
             $searchResults->where('type', $type);

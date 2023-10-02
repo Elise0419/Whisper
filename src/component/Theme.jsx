@@ -466,7 +466,7 @@ function Theme() {
                     <span>#{card.tag}</span>
                     <span>
                       <img src={comment} />
-                      {card.comtxtCount}
+                      {card.comtxtCount || card.comtxts_count}
                       <img src={thumb} />
                       {card.thumb}
                     </span>
@@ -523,7 +523,6 @@ function Theme() {
             </p>
           </span>
           <div className="vote">
-            {console.log(vote)}
             <span className="voteTitle">{vote?.title}</span>
             <div className="choice">
               <div>

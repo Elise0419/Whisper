@@ -164,7 +164,7 @@ function SuperAdmin() {
                     : "無排序"}
                 </button>
               </th>
-              <th className="superTime">
+              <th>
                 登入時間
                 <button
                   className="sortBtn"
@@ -197,17 +197,17 @@ function SuperAdmin() {
               <tr className="superTrheigh" key={index}>
                 <td>{item.user_id}</td>
                 <td>{item.mem_name}</td>
-                <td className="superTextcon">{item.email}</td>
-                <td className="superTextcon">
+                <td>{item.email}</td>
+                <td>
                   {new Date(item.created_at).toLocaleString()}
                 </td>
-                <td className="superTextcon">
+                <td>
                   {new Date(item.updated_at).toLocaleString()}
                 </td>
-                <td className="superTextcon">
+                <td>
                   {new Date(item.login_time).toLocaleString()}
                 </td>
-                <td className="superTextcon">
+                <td>
                   {new Date(item.logout_time).toLocaleString()}
                 </td>
                 <td>{item.admin.length > 0 ? "admin" : "user"}</td>

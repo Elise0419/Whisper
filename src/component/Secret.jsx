@@ -179,7 +179,7 @@ function Secreat() {
             <div className="rightleft"></div>
             <label>close</label>
           </div>
-          <h2>最受不了婆婆的哪些舉動！</h2>
+          <h2>不敢對婆婆說出口的話！</h2>
           <textarea
             className="writeSecrat"
             rows="5"

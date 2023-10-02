@@ -8,7 +8,7 @@
 
 .manageEdit {
     width: 705px;
-    height: 96px;
+    height: 100px;
     margin-left: 40px;
     margin-right: 40px;
     justify-content: space-between;
@@ -18,21 +18,23 @@
 }
 
 .manageContent {
-    width: 500px;
-    height: 96px;
+    width: 530px;
+    height: 105px;
     display: flex;
     /* background-color: aqua; */
 
 }
 
 .manageContent img {
-    width: 300px;
-    height: 100px;
-    object-fit: cover;
     border: 1.5px solid #C8B2D6;
     border-radius: 10px;
 }
 
+.collectimg{
+    min-width: 200px;
+    min-height: 100px;
+    object-fit: cover;
+}
 
 .manageText {
     margin-left: 10px;
@@ -62,8 +64,8 @@
 
 .manageTime {
     display: flex;
-    font-size: 1rem;
-    font-weight: 400;
+    font-size: 0.9rem;
+    font-weight: bold;
 }
 
 .manageInteractions {

@@ -103,13 +103,13 @@ function Collectart() {
               >
                 {/* 根据优先级显示图片 */}
                 {post.postInfo.imgUrl && (
-                  <img src={post.postInfo.imgUrl} alt="" />
+                  <img className="collectimg" src={post.postInfo.imgUrl} alt="" />
                 )}
                 {!post.postInfo.imgUrl && isStringValid && (
-                  <img src={url} alt="" />
+                  <img className="collectimg" src={url} alt="" />
                 )}
                 {!post.postInfo.imgUrl && !isStringValid && (
-                  <img src={posttext} alt="" />
+                  <img  className="collectimg" src={posttext} alt="" />
                 )}
 
                 <div className="manageText">

@@ -99,10 +99,10 @@ function Postart() {
                 to={`/post/${post.postId}/${post.type}`}
                 className="manageContent"
               >
-                {post.imgUrl && <img src={post.imgUrl} alt="" />}
-                {!post.imgUrl && isStringValid && <img src={url} alt="" />}
+                {post.imgUrl && <img  className="posterimg " src={post.imgUrl} alt="" />}
+                {!post.imgUrl && isStringValid && <img  className="posterimg " src={url} alt="" />}
                 {!post.imgUrl && !isStringValid && (
-                  <img src={posttext} alt="" />
+                  <img className="posterimg " src={posttext} alt="" />
                 )}
 
                 <div className="manageText">

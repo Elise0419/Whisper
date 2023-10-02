@@ -139,6 +139,7 @@ header {
 
 .hashtagInput,
 .hashtagBtn {
+    font-size: 1.25rem;
     margin: 0.5rem 0.5rem 0.5rem 0.5rem;
     padding: 0.2rem 0.5rem;
     font-size: 1.25rem;
@@ -151,6 +152,8 @@ header {
     display: inline-block;
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+    height: 1.5rem;
 }
 
 .yellowTag,
@@ -186,4 +189,8 @@ header {
 .grayTag::before,
 .pinkTag::before {
     content: '#';
+}
+
+.ql-editor {
+    font-size: 1.5rem;
 }

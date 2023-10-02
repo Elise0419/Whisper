@@ -388,7 +388,7 @@ article a {
 
 .rankList {
     color: var(--colorGray300);
-    width: 8.625rem;
+    width: 10rem;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -396,7 +396,7 @@ article a {
 
 .rankArrow {
     width: 1.25rem;
-    margin-left: 4rem;
+    margin-left: 2rem;
 }
 
 .sideImg {

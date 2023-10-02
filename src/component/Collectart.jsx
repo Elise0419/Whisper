@@ -115,7 +115,7 @@ function Collectart() {
                 <div className="manageText">
                   <p className="managePost">{myTitle.innerText}</p>
                   <p className="manageTime">
-                    作者:{post.postInfo.memName}創作時間:
+                    作者: {post.postInfo.memName} &nbsp;&nbsp;創作時間:{" "}
                     {post.postInfo.postTime}
                   </p>
                   <div className="manageInteractions">

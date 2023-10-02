@@ -1,4 +1,3 @@
-
 /*  */
 .manageCount {
     color: #FEA7AD;
@@ -32,34 +31,38 @@
     object-fit: cover;
     border: 1.5px solid #C8B2D6;
     border-radius: 10px;
-  }
-  
+}
+
 
 .manageText {
     margin-left: 10px;
-    width: 400px; /* 设置元素的宽度 */
-    white-space: nowrap; /* 防止文本换行 */
-    overflow: hidden; /* 隐藏溢出的文本 */
-    text-overflow: ellipsis; /* 在文本溢出时显示省略号 */
+    width: 600px;
+    /* 设置元素的宽度 */
+    white-space: nowrap;
+    /* 防止文本换行 */
+    overflow: hidden;
+    /* 隐藏溢出的文本 */
+    text-overflow: ellipsis;
+    /* 在文本溢出时显示省略号 */
     /* background-color: red; */
     color: black;
 }
 
 .manageText:hover {
-    color: #C8B2D6; /* Change to the color you want on hover */
+    color: #C8B2D6;
+    /* Change to the color you want on hover */
 }
 
 .managePost {
     display: flex;
-    font-size: 16px;
+    font-size: 1.25rem;
     font-weight: bold;
     margin-top: 0px;
-
 }
 
 .manageTime {
     display: flex;
-    font-size: 14px;
+    font-size: 1rem;
     font-weight: 400;
 }
 
@@ -68,7 +71,6 @@
     width: 100%;
     height: 0.875rem;
     font-size: 12px;
-    /* background-color: red; */
 }
 
 .manageInteractions i {
@@ -76,7 +78,7 @@
     font-size: 16px;
     align-items: center;
     color: #9E9E9E;
-    margin-right: 10px;
+    margin-right: 5px;
 }
 
 .manageInteractions span {
@@ -122,4 +124,3 @@
     width: 44rem;
     margin-top: 110px;
 }
-

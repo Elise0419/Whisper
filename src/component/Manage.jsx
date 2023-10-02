@@ -37,7 +37,7 @@ function Manage() {
                 isActive={selectedTab === "postArticle"}
                 onClick={() => setSelectedTab("postArticle")}
               >
-                發布貼文
+                發布貼文&nbsp;
                 <img src={heart} className="saveImg" />
               </TabSelector>
             </nav>

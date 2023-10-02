@@ -99,8 +99,10 @@
   font-weight: bold;
 }
 
-.signupMainbox .signupInput,
-textarea {
+.signupMainbox .signupInput
+
+/* textarea */
+  {
   font: inherit;
   font-size: 14px;
   width: 220px;
@@ -115,7 +117,8 @@ textarea {
 
 .signupMainbox .signupInput:focus,
 textarea:focus {
-  border: 2px solid #c8b2d6 ; /* Change the border on focus */
+  border: 2px solid #c8b2d6;
+  /* Change the border on focus */
 }
 
 .signupMainbox form {
@@ -181,7 +184,7 @@ textarea:focus {
   font: inherit;
   font-size: 14px;
   width: 77%;
-  background-color:  #f08170;
+  background-color: #f08170;
 
   color: white;
   font-size: 15px;

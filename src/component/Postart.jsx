@@ -108,7 +108,7 @@ function Postart() {
                 <div className="manageText">
                   <p className="managePost">{myTitle.innerText}</p>
                   <p className="manageTime">
-                    作者:{post.memName}創作時間:{post.postTime}
+                    作者: {post.memName} &nbsp;&nbsp;創作時間: {post.postTime}
                   </p>
                   <div className="manageInteractions">
                     <span>

@@ -26,11 +26,10 @@
 /* tab按鈕TabSelector.css */
 .tabSelectorButton {
     color: #9E9E9E;
-    ;
     margin-left: 20px;
-    width: 80px;
+    width: 115px;
     height: 57px;
-    font-size: 16px;
+    font-size: 1.25rem;
     margin-right: 10px;
     background-color: transparent;
     /* 设置背景透明 */
@@ -43,13 +42,12 @@
     border-bottom: 2px solid rgba(0, 0, 0, 0);
     /* 设置透明的边框颜色 */
     white-space: nowrap;
+    padding-right: 1rem;
 }
 
 .tabSelectorButton.active {
     border-color: #C8B2D6;
     color: #9E9E9E;
-    ;
-
 }
 
 .tabSelectorButton:not(.active):hover {

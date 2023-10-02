@@ -79,7 +79,7 @@
 
 .loginMain form input {
     font: inherit;
-    font-size: 14px;
+    font-size: 1.25rem;
     width: 220px;
     border: 0;
     outline: 0;
@@ -96,7 +96,7 @@
 
 .btnSuccesslogin {
     font: inherit;
-    font-size: 14px;
+    font-size: 1.25rem;
     width: 100%;
     border: 0;
     outline: 0;
@@ -118,7 +118,7 @@
     /* 添加上方间距 */
     color: #f08170;
     /* 设置错误信息的颜色 */
-    font-size: 12px;
+    font-size: 1rem;
     /* 设置错误信息的字体大小 */
 }
 
@@ -168,7 +168,7 @@
 
 
 
-.verifyMain{
+.verifyMain {
     width: 85%;
     font: inherit;
     font-size: 14px;
@@ -195,8 +195,10 @@
     line-height: 40px;
     border-radius: 10px;
     background-color: #C8B2D6;
-    display: flex; /* Added display property */
+    display: flex;
+    /* Added display property */
     align-items: center;
     justify-content: center;
-    text-align: center; /* Center the text */
+    text-align: center;
+    /* Center the text */
 }

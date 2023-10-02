@@ -13,7 +13,7 @@
     height: 4.25rem;
     align-items: center;
     /* Vertically center */
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     color: var(--colorGray300);
     font-weight: bold;
     margin: 0.8rem;
@@ -54,11 +54,8 @@
 }
 
 .asideMsg {
-    width: ;
     color: var(--colorGray300);
-    font-size: 0.875rem;
-    /* background-color: bisque; */
-
+    font-size: 1rem;
 }
 
 .asideTime {
@@ -68,8 +65,8 @@
     margin: 0px;
     padding: 0px;
     display: flex;
-    color: var(--colorGray100);
-    font-size: 0.875rem;
+    color: var(--colorGray200);
+    font-size: 1rem;
     /* background-color: red; */
 }
 
@@ -102,7 +99,7 @@
 .asideBtn {
     background-color: var(--colorYellow);
     width: 100%;
-    font-size: 0.875rem;
+    font-size: 1.25rem;
     color: white;
     border: none;
     border-radius: 1rem;

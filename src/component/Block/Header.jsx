@@ -18,7 +18,6 @@ function Header() {
   const history = useHistory();
   let [dd, setDd] = useState("創建貼文");
   const [user, setUser, login, setLogin] = useUserContext();
-  console.log(useRouteMatch().params.type);
   const m = useRouteMatch().params.type;
   const { type } = useParams();
   const token = localStorage.getItem("token");
@@ -43,7 +42,6 @@ function Header() {
   }
 
   useEffect(() => {
-    console.log(m);
     if (m) {
       if (m === "love") {
         setDd("感情生活");

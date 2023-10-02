@@ -141,7 +141,7 @@ function Postart() {
           );
         })
       ) : (
-        <div>{userId ? <div>無法獲取帖子數據</div> : <div>請先登入</div>}</div>
+        <div>{userId ? <div>目前沒有帖子</div> : <div>目前沒有帖子</div>}</div>
       )}
     </div>
   );

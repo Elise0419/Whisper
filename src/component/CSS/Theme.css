@@ -38,6 +38,7 @@
     height: 3.75rem;
     object-fit: cover;
     vertical-align: middle;
+    /* border-radius: var(--circle); */
 }
 
 .vote {
@@ -52,7 +53,7 @@
 .voteTitle {
     width: 100%;
     color: var(--colorRed);
-    font-size: 1.25rem;
+    font-size: larger;
     font-weight: bold;
     border-radius: var(--radius);
 }
@@ -107,7 +108,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.15rem;
 }
 
 .choice label:first-child span {
@@ -135,7 +135,7 @@
 
 .tag button {
     height: 2.375rem;
-    font-size: 1rem;
+    font-size: 0.875rem;
     border-radius: var(--radius);
     border: none;
     color: white;
@@ -151,7 +151,7 @@
 /* - - - - - - - - - - */
 
 .rule li {
-    font-size: 1rem;
+    font-size: 0.875rem;
     color: var(--colorGray300);
     width: 90%;
 }

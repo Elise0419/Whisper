@@ -12,12 +12,15 @@ import rabbit from "../img/rabbit.png";
 import crown from "../img/crown.png";
 import mail from "../img/love3.png";
 import grayMail from "../img/grayMail.png";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 function Header() {
   const history = useHistory();
   let [dd, setDd] = useState("創建貼文");
   const [user, setUser, login, setLogin] = useUserContext();
+  console.log(useRouteMatch().params.type);
   const m = useRouteMatch().params.type;
+  const { type } = useParams();
   const token = localStorage.getItem("token");
 
   function logout() {
@@ -40,6 +43,7 @@ function Header() {
   }
 
   useEffect(() => {
+    console.log(m);
     if (m) {
       if (m === "love") {
         setDd("感情生活");
@@ -55,7 +59,7 @@ function Header() {
     } else {
       setDd("創建貼文");
     }
-  }, [m, user, login]);
+  }, [m, user, type, login]);
 
   function gm() {
     alert("請先登入帳戶");

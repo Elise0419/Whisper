@@ -126,7 +126,7 @@ class ProfileController extends Controller
             return response()->json([
                 'message' => '此信箱已被使用',
                 'result' => $result
-            ], 401);
+            ], 200);
         } else {
             return response()->json([
                 'message' => '你可以使用此信箱',

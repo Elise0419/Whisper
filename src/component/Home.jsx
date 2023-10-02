@@ -68,6 +68,7 @@ function Home() {
           return res.json();
         })
         .then((jsonData) => {
+          console.log(jsonData.post.data)
           setCard(jsonData.post.data);
           setTotalPage(jsonData.post.last_page);
 
@@ -321,8 +322,7 @@ function Home() {
                         <span>#{card.tag}</span>
                         <span>
                           <img src={comment} />
-                          {console.log(card)}
-                          {card.comtxtCount}
+                          {card?.comtxts_count}
                           <img src={thumb} />
                           {card.thumb}
                         </span>

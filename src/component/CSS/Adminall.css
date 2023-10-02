@@ -19,7 +19,62 @@
     text-align: center;
     /* background-color: red; */
 }
+.superTrheigh td {
+    background-color: white;
+    border: lightgray 1px solid;
+    height: 45px;
+    overflow: hidden;
+    word-wrap: break-word;
+    line-height: 20px;
+    /* 设置你想要的行高值 */
+}
 
+.superID{
+    width: 85px;
+   /* background-color: blue; */
+   height: 45px;
+}
+.superTime{
+    width: 210px;
+}
+.superTextcon {
+    /* background-color: aquamarine; */
+    height: 45px;
+    overflow: hidden;
+    word-wrap: break-word;
+    line-height: 20px;
+    /* 设置你想要的行高值 */
+    text-align: left;
+}
+.sortBtn {
+    background-color: #E6C75B;
+    border: none;
+    border-radius: 5px;
+    margin-left: 5px;
+    padding: 5px 5px;
+    margin-right: 5px;
+    cursor: pointer;
+    color: white;
+  }
+
+  .sortdelterBtn {
+    background-color: #f08170;
+    border: none;
+    border-radius: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 5px 5px;
+    cursor: pointer;
+    color: white;
+  }
+
+  .superselect{
+    background-color: white;
+    border: 1px solid white;
+    padding: 5px 5px;
+    border-radius: 5px;
+    font-size: 16px;
+  }
 
 
 .admincHeadline {

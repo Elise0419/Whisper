@@ -133,11 +133,11 @@ function SuperAdmin() {
       <div className="adminContainer">
         <div className="adminHeadline">使用者管理介面</div>
         <table className="adminTable ">
-          <thead>
+          <thead >
             <tr className="adminTh">
               <th className="superID">使用者ID</th>
-              <th className="superID">使用者名稱</th>
-              <th className="superEmail">信箱</th>
+              <th  className="superID">使用者名稱</th>
+              <th  className="superEmail">信箱</th>
               <th className="superTime">
                 建立時間
                 <button
@@ -194,20 +194,20 @@ function SuperAdmin() {
           </thead>
           <tbody>
             {data.map((item, index) => (
-              <tr className="superTrheigh" key={index}>
-                <td>{item.user_id}</td>
-                <td>{item.mem_name}</td>
-                <td>{item.email}</td>
-                <td>
+             <tr className="superTrheigh" key={index} >
+             <td>{item.user_id}</td>
+             <td>{item.mem_name}</td>
+             <td className="superTextcon">{item.email}</td>
+                <td className="superTextcon">
                   {new Date(item.created_at).toLocaleString()}
                 </td>
-                <td>
+                <td className="superTextcon">
                   {new Date(item.updated_at).toLocaleString()}
                 </td>
-                <td>
+                <td className="superTextcon">
                   {new Date(item.login_time).toLocaleString()}
                 </td>
-                <td>
+                <td className="superTextcon">
                   {new Date(item.logout_time).toLocaleString()}
                 </td>
                 <td>{item.admin.length > 0 ? "admin" : "user"}</td>

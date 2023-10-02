@@ -142,7 +142,7 @@ function Collectart() {
         })
       ) : (
         <div className="manageCount">
-          {userId ? <div>請先登入</div> : <div>目前沒有帖子</div>}
+          {userId ? <div>目前沒有帖子</div> : <div>目前沒有帖子</div>}
         </div>
       )}
     </div>

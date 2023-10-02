@@ -138,7 +138,7 @@ class ProfileController extends Controller
     public function idcheck(Request $req)
     {
 
-        $result = User::where('email', $req->input('pserson_id'))->exists();
+        $result = User::where('person_id', $req->input('pserson_id'))->exists();
         if ($result) {
             return response()->json([
                 'message' => '此身分證字號已註冊過',

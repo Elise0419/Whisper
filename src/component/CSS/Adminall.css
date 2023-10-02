@@ -4,7 +4,7 @@
     display: flex;
     display: grid;
     justify-content: center;
-    min-height: 700px;
+    min-height: 920px;
 }
 
 
@@ -20,6 +20,7 @@
     text-align: center;
     /* background-color: red; */
 }
+
 .superTrheigh td {
     background-color: white;
     border: lightgray 1px solid;
@@ -30,14 +31,16 @@
     /* 设置你想要的行高值 */
 }
 
-.superID{
+.superID {
     width: 85px;
-   /* background-color: blue; */
-   height: 45px;
+    /* background-color: blue; */
+    height: 45px;
 }
-.superTime{
+
+.superTime {
     width: 210px;
 }
+
 .superTextcon {
     /* background-color: aquamarine; */
     height: 45px;
@@ -47,6 +50,7 @@
     /* 设置你想要的行高值 */
     text-align: left;
 }
+
 .sortBtn {
     background-color: #E6C75B;
     border: none;
@@ -56,9 +60,9 @@
     margin-right: 5px;
     cursor: pointer;
     color: white;
-  }
+}
 
-  .sortdelterBtn {
+.sortdelterBtn {
     background-color: #f08170;
     border: none;
     border-radius: 5px;
@@ -67,20 +71,21 @@
     padding: 5px 5px;
     cursor: pointer;
     color: white;
-  }
+}
 
-  .superselect{
+.superselect {
     background-color: white;
     border: 1px solid white;
     padding: 5px 5px;
     border-radius: 5px;
     font-size: 16px;
-  }
+}
 
 
 .admincHeadline {
     display: flex;
-    align-items: center; /* 垂直居中 */
+    align-items: center;
+    /* 垂直居中 */
     justify-content: center;
     font-size: 22px;
     font-weight: bold;
@@ -89,12 +94,14 @@
     margin: 0;
     background-color: #f08170;
     color: white;
-    text-align: center; /* 水平居中 */
+    text-align: center;
+    /* 水平居中 */
 }
 
 .adminHeadline {
     display: flex;
-    align-items: center; /* 垂直居中 */
+    align-items: center;
+    /* 垂直居中 */
     justify-content: center;
     font-size: 22px;
     font-weight: bold;
@@ -103,7 +110,8 @@
     margin: 0;
     background-color: #f08170;
     color: white;
-    text-align: center; /* 水平居中 */
+    text-align: center;
+    /* 水平居中 */
 }
 
 
@@ -179,9 +187,11 @@
     height: 70px;
 }
 
-.adminlink{
-    text-decoration: none; /* 去掉下划线 */
-    color: inherit; /* 使用父元素的文本颜色 */
+.adminlink {
+    text-decoration: none;
+    /* 去掉下划线 */
+    color: inherit;
+    /* 使用父元素的文本颜色 */
 }
 
 .adminBtn {

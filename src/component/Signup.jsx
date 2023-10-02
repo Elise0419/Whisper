@@ -11,9 +11,9 @@ import logo from "./img/logo.png";
 
 const USER_REGEX = /^[\u4e00-\u9fa5a-zA-Z]+$/;
 const PWD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-const ID_REGX = /^[A-Z]2\d{8}$/; 
+const ID_REGX = /^[A-Z]2\d{8}$/;
 // 身份證數字第一位為2
-const EMAIL_REGX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const EMAIL_REGX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const PHONE_REGX = /^09\d{8}$/;
 
 const REGISTER_URL = "http://118.233.222.23:8000/api/register";
@@ -97,7 +97,8 @@ function Signup() {
         throw new Error("Network response was not ok");
       }
       const data = await response.json();
-      return data;
+      console.log(data);
+      return !(await data.result);
     } catch (error) {
       console.error("Error fetching data:", error);
       return null;
@@ -106,12 +107,20 @@ function Signup() {
 
   async function checkEmailAvailability() {
     const url = `http://118.233.222.23:8000/api/emailcheck?email=${email}`;
-    return await checkAvailability(url);
+    const isAvailable = await checkAvailability(url);
+    if (!isAvailable) {
+      setValidEmail(false);
+    }
+    return isAvailable;
   }
 
   async function checkIdAvailability() {
     const url = `http://118.233.222.23:8000/api/idcheck?person_id=${person_id}`;
-    return await checkAvailability(url);
+    const isAvailable = await checkAvailability(url);
+    if (!isAvailable) {
+      setValidIdNumber(false);
+    }
+    return isAvailable;
   }
 
   async function handleSubmit(e) {
@@ -261,19 +270,22 @@ function Signup() {
                   aria-invalid={validIdNumber ? "false" : "true"}
                   aria-describedby="idnumbernote"
                   onFocus={() => setIdNumberFocus(true)}
-                  onBlur={() => setIdNumberFocus(false)}
+                  onBlur={() => {
+                    setIdNumberFocus(false);
+                    checkIdAvailability();
+                  }}
                 />
                 <p
                   id="idnumbernote"
                   className={
-                    idNumberFocus && person_id && !validIdNumber
+                    person_id && !validIdNumber
                       ? "instructions"
                       : "offscreen"
                   }
                 >
                   {/* 這裡放置有關身份證字號的說明 */}
                   <FontAwesomeIcon icon={faInfoCircle} />
-                  只能女生註冊，請輸入正確的台灣身份證字號
+                  已註冊或你是男生，只有女生可以註冊歐凸^-^凸
                 </p>
                 {/*電子郵箱輸入框 */}
                 <label htmlFor="email">
@@ -298,14 +310,15 @@ function Signup() {
                   aria-invalid={validEmail ? "false" : "true"}
                   aria-describedby="emailnote"
                   onFocus={() => setEmailFocus(true)}
-                  onBlur={() => setEmailFocus(false)}
+                  onBlur={() => {
+                    setEmailFocus(false);
+                    checkEmailAvailability();
+                  }}
                 />
                 <p
                   id="emailnote"
                   className={
-                    emailFocus && email && !validEmail
-                      ? "instructions"
-                      : "offscreen"
+                    email && !validEmail ? "instructions" : "offscreen"
                   }
                 >
                   <FontAwesomeIcon icon={faInfoCircle} />

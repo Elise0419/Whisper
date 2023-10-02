@@ -321,6 +321,7 @@ function Home() {
                         <span>#{card.tag}</span>
                         <span>
                           <img src={comment} />
+                          {console.log(card)}
                           {card.comtxtCount}
                           <img src={thumb} />
                           {card.thumb}

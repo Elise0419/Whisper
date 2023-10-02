@@ -11,7 +11,8 @@ import logo from "./img/logo.png";
 
 const USER_REGEX = /^[\u4e00-\u9fa5a-zA-Z]+$/;
 const PWD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-const ID_REGX = /^[A-Z][12]\d{8}$/;
+const ID_REGX = /^[A-Z]2\d{8}$/; 
+// 身份證數字第一位為2
 const EMAIL_REGX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_REGX = /^09\d{8}$/;
 
@@ -272,7 +273,7 @@ function Signup() {
                 >
                   {/* 這裡放置有關身份證字號的說明 */}
                   <FontAwesomeIcon icon={faInfoCircle} />
-                  請輸入正確的台灣身份證字號
+                  只能女生註冊，請輸入正確的台灣身份證字號
                 </p>
                 {/*電子郵箱輸入框 */}
                 <label htmlFor="email">

@@ -11,12 +11,12 @@ import logo from "./img/logo.png";
 
 const USER_REGEX = /^[\u4e00-\u9fa5a-zA-Z]+$/;
 const PWD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-const ID_REGX = /^[A-Z]2\d{8}$/; 
+const ID_REGX = /^[A-Z]2\d{8}$/;
 // 身份證數字第一位為2
 const EMAIL_REGX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_REGX = /^09\d{8}$/;
 
-const REGISTER_URL = "http://118.233.222.23:8000/api/register";
+const REGISTER_URL = "http://127.0.0.1:8000/api/register";
 
 function Signup() {
   const userRef = useRef();
@@ -105,12 +105,12 @@ function Signup() {
   }
 
   async function checkEmailAvailability() {
-    const url = `http://118.233.222.23:8000/api/emailcheck?email=${email}`;
+    const url = `http://127.0.0.1:8000/api/emailcheck?email=${email}`;
     return await checkAvailability(url);
   }
 
   async function checkIdAvailability() {
-    const url = `http://118.233.222.23:8000/api/idcheck?person_id=${person_id}`;
+    const url = `http://127.0.0.1:8000/api/idcheck?person_id=${person_id}`;
     return await checkAvailability(url);
   }
 

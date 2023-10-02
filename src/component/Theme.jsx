@@ -70,7 +70,7 @@ function Theme() {
   useEffect(() => {
     function fetchData() {
       // 廣告
-      fetch(`http://118.233.222.23:8000/api/v1/ads?type[eq]=${m.type}`, {
+      fetch(`http://127.0.0.1:8000/api/v1/ads?type[eq]=${m.type}`, {
         method: "GET",
       })
         .then((res) => {
@@ -84,7 +84,7 @@ function Theme() {
         });
 
       // 個版
-      fetch(`http://118.233.222.23:8000/api/v1/posts?type[eq]=${m.type}`, {
+      fetch(`http://127.0.0.1:8000/api/v1/posts?type[eq]=${m.type}`, {
         method: "GET",
       })
         .then((res) => {
@@ -114,7 +114,7 @@ function Theme() {
         });
 
       // 投票
-      fetch(`http://118.233.222.23:8000/api/votes/${m.type}`, {
+      fetch(`http://127.0.0.1:8000/api/votes/${m.type}`, {
         method: "GET",
       })
         .then((res) => {
@@ -129,7 +129,7 @@ function Theme() {
         });
 
       // 標籤
-      fetch(`http://118.233.222.23:8000/api/tags/${m.type}`, {
+      fetch(`http://127.0.0.1:8000/api/tags/${m.type}`, {
         method: "GET",
       })
         .then((res) => {
@@ -143,7 +143,7 @@ function Theme() {
         });
 
       // 規則
-      fetch(`http://118.233.222.23:8000/api/v1/rules?type[eq]=${m.type}`, {
+      fetch(`http://127.0.0.1:8000/api/v1/rules?type[eq]=${m.type}`, {
         method: "GET",
       })
         .then((res) => {
@@ -157,7 +157,7 @@ function Theme() {
         });
 
       // Search Bar 頭貼
-      // fetch("http://118.233.222.23:8000/api/profile", {
+      // fetch("http://127.0.0.1:8000/api/profile", {
       //   headers: {
       //     Authorization: `Bearer ${token}`,
       //   },
@@ -212,7 +212,7 @@ function Theme() {
     if (searchVal == "") {
     } else {
       fetch(
-        `http://118.233.222.23:8000/api/posts/search?query=${searchVal}&type=${m.type}`,
+        `http://127.0.0.1:8000/api/posts/search?query=${searchVal}&type=${m.type}`,
         {
           method: "GET",
         }
@@ -244,7 +244,7 @@ function Theme() {
 
   // 點擊率
   const cardClick = async (postId) => {
-    fetch(`http://118.233.222.23:8000/api/posts/click${postId}`, {
+    fetch(`http://127.0.0.1:8000/api/posts/click${postId}`, {
       method: "POST",
       postId: `${postId}`,
     })
@@ -262,7 +262,7 @@ function Theme() {
   // vote
   function widthChange(e) {
     fetch(
-      `http://118.233.222.23:8000/api/votes/click/${vote.voteId}?${e.target.id}=true`,
+      `http://127.0.0.1:8000/api/votes/click/${vote.voteId}?${e.target.id}=true`,
       {
         method: "GET",
         headers: {
@@ -298,7 +298,7 @@ function Theme() {
   // 點擊標籤
   function hashtag(t) {
     document.getElementById("searchBar").value = "";
-    fetch(`http://118.233.222.23:8000/api/v1/posts?tag[eq]=${t}`, {
+    fetch(`http://127.0.0.1:8000/api/v1/posts?tag[eq]=${t}`, {
       method: "GET",
     })
       .then((res) => {

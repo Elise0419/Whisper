@@ -15,7 +15,7 @@ export function UserProvider({ children }) {
     async function fetchData() {
       try {
         const response = await fetch(
-          `http://118.233.222.23:8000/api/profile/read/only`,
+          `http://127.0.0.1:8000/api/profile/read/only`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

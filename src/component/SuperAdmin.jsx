@@ -26,7 +26,7 @@ function SuperAdmin() {
     if (selected.type !== "none")
       if (window.confirm("確定執行提升管理員")) {
         fetch(
-          `http://118.233.222.23:8000/api/superadmin/management/users/promotion`,
+          `http://127.0.0.1:8000/api/superadmin/management/users/promotion`,
           {
             method: "post",
             headers: {
@@ -59,7 +59,7 @@ function SuperAdmin() {
   const DeleteClick = (user_id) => {
     if (window.confirm("確定要移除此管理員")) {
       fetch(
-        `http://118.233.222.23:8000/api/superadmin/management/user_${user_id}/downgrade`,
+        `http://127.0.0.1:8000/api/superadmin/management/user_${user_id}/downgrade`,
         {
           method: "Delete",
           headers: {
@@ -99,7 +99,7 @@ function SuperAdmin() {
 
   const fetchData = (sorting) => {
     fetch(
-      `http://118.233.222.23:8000/api/superadmin/management/users/show/${match.params.page}?sorting=${sorting}`,
+      `http://127.0.0.1:8000/api/superadmin/management/users/show/${match.params.page}?sorting=${sorting}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -133,7 +133,7 @@ function SuperAdmin() {
       <div className="adminContainer">
         <div className="adminHeadline">使用者管理介面</div>
         <table className="adminTable ">
-          <thead >
+          <thead>
             <tr className="adminTh">
               <th className="superID">使用者ID</th>
               <th className="superID">使用者名稱</th>
@@ -194,7 +194,7 @@ function SuperAdmin() {
           </thead>
           <tbody>
             {data.map((item, index) => (
-              <tr className="superTrheigh" key={index} >
+              <tr className="superTrheigh" key={index}>
                 <td>{item.user_id}</td>
                 <td>{item.mem_name}</td>
                 <td className="superTextcon">{item.email}</td>

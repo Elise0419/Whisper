@@ -20,7 +20,7 @@ function Postart() {
   const handleDelete = (postId) => {
     const token = localStorage.getItem("token");
 
-    fetch(`http://118.233.222.23:8000/api/posts/delete/${postId}`, {
+    fetch(`http://127.0.0.1:8000/api/posts/delete/${postId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -42,7 +42,7 @@ function Postart() {
   const fetchPosts = () => {
     const token = localStorage.getItem("token");
 
-    fetch(`http://118.233.222.23:8000/api/user/posts`, {
+    fetch(`http://127.0.0.1:8000/api/user/posts`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -99,8 +99,12 @@ function Postart() {
                 to={`/post/${post.postId}/${post.type}`}
                 className="manageContent"
               >
-                {post.imgUrl && <img  className="posterimg " src={post.imgUrl} alt="" />}
-                {!post.imgUrl && isStringValid && <img  className="posterimg " src={url} alt="" />}
+                {post.imgUrl && (
+                  <img className="posterimg " src={post.imgUrl} alt="" />
+                )}
+                {!post.imgUrl && isStringValid && (
+                  <img className="posterimg " src={url} alt="" />
+                )}
                 {!post.imgUrl && !isStringValid && (
                   <img className="posterimg " src={posttext} alt="" />
                 )}

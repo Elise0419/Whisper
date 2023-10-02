@@ -31,7 +31,7 @@ function Comment() {
 
   function fetchData() {
     fetch(
-      `http://118.233.222.23:8000/api/v1/comtxts?postId[eq]=${match.params.postId}`
+      `http://127.0.0.1:8000/api/v1/comtxts?postId[eq]=${match.params.postId}`
     )
       .then((res) => res.json())
       .then((jsonData) => {
@@ -50,7 +50,7 @@ function Comment() {
 
   function getData() {
     const token = localStorage.getItem("token");
-    fetch("http://118.233.222.23:8000/api/profile", {
+    fetch("http://127.0.0.1:8000/api/profile", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -87,7 +87,7 @@ function Comment() {
 
   function submitCommentToBackend(newCommentObj) {
     const token = localStorage.getItem("token");
-    fetch(`http://118.233.222.23:8000/api/posts/${match.params.postId}/comments`, {
+    fetch(`http://127.0.0.1:8000/api/posts/${match.params.postId}/comments`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -19,7 +19,7 @@ function CommentAdmin() {
   const DeleteClick = (coment_id) => {
     if (window.confirm("確定要刪除此留言嗎")) {
       fetch(
-        `http://118.233.222.23:8000/api/admin/management/articles/delete/comment_${coment_id}`,
+        `http://127.0.0.1:8000/api/admin/management/articles/delete/comment_${coment_id}`,
         {
           method: "Delete",
           headers: {
@@ -44,7 +44,7 @@ function CommentAdmin() {
 
   useEffect(() => {
     fetch(
-      `http://118.233.222.23:8000/api/admin/management/comments/show/post_${match.params.postId}/${match.params.page}`,
+      `http://127.0.0.1:8000/api/admin/management/comments/show/post_${match.params.postId}/${match.params.page}`,
       {
         method: "post",
         headers: {
@@ -101,17 +101,20 @@ function CommentAdmin() {
           </tbody>
         </table>
         <button className="sortBtn">
-        <Link className="adminlink"
-          to={`/admin/post_:postId(\d+)/comments/${parseInt(match.params.page) - 1
+          <Link
+            className="adminlink"
+            to={`/admin/post_:postId(\d+)/comments/${
+              parseInt(match.params.page) - 1
             }`}
-        >
-          上一頁
-        </Link>
+          >
+            上一頁
+          </Link>
         </button>
         {Array.from({ length: page }).map((_, index) => (
-          <span key={index}  className="sortdelterBtn">
+          <span key={index} className="sortdelterBtn">
             &nbsp;
-            <Link className="adminlink"
+            <Link
+              className="adminlink"
               to={`/admin/post_:postId(\d+)/comments/${parseInt(index) + 1}`}
             >
               {index + 1}
@@ -119,15 +122,16 @@ function CommentAdmin() {
             &nbsp;
           </span>
         ))}
-          <button className="sortBtn">
-        <Link className="adminlink"
-          to={`/admin/post_:postId(\d+)/comments/${parseInt(match.params.page) + 1
+        <button className="sortBtn">
+          <Link
+            className="adminlink"
+            to={`/admin/post_:postId(\d+)/comments/${
+              parseInt(match.params.page) + 1
             }`}
-        >
-          下一頁
-        </Link>
+          >
+            下一頁
+          </Link>
         </button>
-        
       </div>
     </div>
   );

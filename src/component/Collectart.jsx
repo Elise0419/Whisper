@@ -12,7 +12,7 @@ function Collectart() {
 
   const fetchPosts = () => {
     const token = localStorage.getItem("token");
-    fetch(`http://118.233.222.23:8000/api/posts/usersave`, {
+    fetch(`http://127.0.0.1:8000/api/posts/usersave`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -43,7 +43,7 @@ function Collectart() {
 
   const handleDelete = (postId) => {
     const token = localStorage.getItem("token");
-    fetch(`http://118.233.222.23:8000/api/saveposts/delete/${postId}`, {
+    fetch(`http://127.0.0.1:8000/api/saveposts/delete/${postId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -103,13 +103,17 @@ function Collectart() {
               >
                 {/* 根据优先级显示图片 */}
                 {post.postInfo.imgUrl && (
-                  <img className="collectimg" src={post.postInfo.imgUrl} alt="" />
+                  <img
+                    className="collectimg"
+                    src={post.postInfo.imgUrl}
+                    alt=""
+                  />
                 )}
                 {!post.postInfo.imgUrl && isStringValid && (
                   <img className="collectimg" src={url} alt="" />
                 )}
                 {!post.postInfo.imgUrl && !isStringValid && (
-                  <img  className="collectimg" src={posttext} alt="" />
+                  <img className="collectimg" src={posttext} alt="" />
                 )}
 
                 <div className="manageText">

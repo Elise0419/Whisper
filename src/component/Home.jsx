@@ -63,12 +63,12 @@ function Home() {
   useEffect(() => {
     function fetchData() {
       // 所有貼文
-      fetch(`http://118.233.222.23:8000/api/v1/posts/page/${m.page}`)
+      fetch(`http://127.0.0.1:8000/api/v1/posts/page/${m.page}`)
         .then((res) => {
           return res.json();
         })
         .then((jsonData) => {
-          console.log(jsonData.post.data)
+          console.log(jsonData.post.data);
           setCard(jsonData.post.data);
           setTotalPage(jsonData.post.last_page);
 
@@ -100,7 +100,7 @@ function Home() {
         });
 
       // 流行貼文
-      fetch("http://118.233.222.23:8000/api/topPosts/1", {})
+      fetch("http://127.0.0.1:8000/api/topPosts/1", {})
         .then((res) => {
           return res.json();
         })
@@ -112,7 +112,7 @@ function Home() {
         });
 
       // 點讚貼文
-      fetch("http://118.233.222.23:8000/api/topPosts/2", {})
+      fetch("http://127.0.0.1:8000/api/topPosts/2", {})
         .then((res) => {
           return res.json();
         })
@@ -124,7 +124,7 @@ function Home() {
         });
 
       // 主頁抓取個人資訊，放置Context
-      // fetch("http://118.233.222.23:8000/api/profile", {
+      // fetch("http://127.0.0.1:8000/api/profile", {
       //   headers: {
       //     Authorization: `Bearer ${token}`,
       //   },
@@ -160,7 +160,7 @@ function Home() {
   function searchButton() {
     if (searchVal == "") {
     } else {
-      fetch(`http://118.233.222.23:8000/api/posts/search?query=${searchVal}`)
+      fetch(`http://127.0.0.1:8000/api/posts/search?query=${searchVal}`)
         .then((res) => {
           return res.json();
         })
@@ -191,7 +191,7 @@ function Home() {
 
   // 點擊率
   const cardClick = async (postId) => {
-    fetch(`http://118.233.222.23:8000/api/posts/click${postId}`, {
+    fetch(`http://127.0.0.1:8000/api/posts/click${postId}`, {
       method: "POST",
       postId: `${postId}`,
     })

@@ -18,7 +18,7 @@ function Edition() {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    fetch(`http://118.233.222.23:8000/api/posts/edit/post_${match.params.postID}`, {
+    fetch(`http://127.0.0.1:8000/api/posts/edit/post_${match.params.postID}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -76,7 +76,7 @@ function Edition() {
       alert("請輸入標題");
     } else {
       fetch(
-        `http://118.233.222.23:8000/api/editor/reupload/${match.params.postID}`,
+        `http://127.0.0.1:8000/api/editor/reupload/${match.params.postID}`,
         {
           method: "POST",
           headers: {

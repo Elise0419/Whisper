@@ -49,7 +49,7 @@ function Restpwd() {
     if (!errors.password && !errors.confirmPassword) {
       // 設置新密碼發送請求
       fetch(
-        `http://118.233.222.23:8000/api/password/forgot/reset/expires=${expires}/signature=${signature}`,
+        `http://127.0.0.1:8000/api/password/forgot/reset/expires=${expires}/signature=${signature}`,
         {
           method: "post",
           headers: {

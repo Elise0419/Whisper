@@ -81,7 +81,7 @@ class PostController extends Controller
         $query = $request->input('query');
         $type = $request->input('type');
 
-        $searchResults = Post::query()->with('users:user_id,headimg');
+        $searchResults = Post::query()->with('users:user_id,headimg')->withCount('comtxts');
 
         if ($type) {
             $searchResults->where('type', $type);

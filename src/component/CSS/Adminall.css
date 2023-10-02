@@ -3,7 +3,8 @@
     padding: 0px;
     display: flex;
     display: grid;
-    place-items: center;
+    justify-content: center;
+    min-height: 700px;
 }
 
 

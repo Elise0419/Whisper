@@ -100,16 +100,18 @@ function CommentAdmin() {
             ))}
           </tbody>
         </table>
-        <Link
+        <button className="sortBtn">
+        <Link className="adminlink"
           to={`/admin/post_:postId(\d+)/comments/${parseInt(match.params.page) - 1
             }`}
         >
-          pre
+          上一頁
         </Link>
+        </button>
         {Array.from({ length: page }).map((_, index) => (
-          <span key={index}>
+          <span key={index}  className="sortdelterBtn">
             &nbsp;
-            <Link
+            <Link className="adminlink"
               to={`/admin/post_:postId(\d+)/comments/${parseInt(index) + 1}`}
             >
               {index + 1}
@@ -117,12 +119,15 @@ function CommentAdmin() {
             &nbsp;
           </span>
         ))}
-        <Link
+          <button className="sortBtn">
+        <Link className="adminlink"
           to={`/admin/post_:postId(\d+)/comments/${parseInt(match.params.page) + 1
             }`}
         >
-          next
+          下一頁
         </Link>
+        </button>
+        
       </div>
     </div>
   );

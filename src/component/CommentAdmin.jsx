@@ -19,7 +19,7 @@ function CommentAdmin() {
   const DeleteClick = (coment_id) => {
     if (window.confirm("確定要刪除此留言嗎")) {
       fetch(
-        `http://127.0.0.1:8000/api/admin/management/articles/delete/comment_${coment_id}`,
+        `http://118.233.222.23:8000/api/admin/management/articles/delete/comment_${coment_id}`,
         {
           method: "Delete",
           headers: {
@@ -44,7 +44,7 @@ function CommentAdmin() {
 
   useEffect(() => {
     fetch(
-      `http://127.0.0.1:8000/api/admin/management/comments/show/post_${match.params.postId}/${match.params.page}`,
+      `http://118.233.222.23:8000/api/admin/management/comments/show/post_${match.params.postId}/${match.params.page}`,
       {
         method: "post",
         headers: {
@@ -101,9 +101,8 @@ function CommentAdmin() {
           </tbody>
         </table>
         <Link
-          to={`/admin/post_:postId(\d+)/comments/${
-            parseInt(match.params.page) - 1
-          }`}
+          to={`/admin/post_:postId(\d+)/comments/${parseInt(match.params.page) - 1
+            }`}
         >
           pre
         </Link>
@@ -119,9 +118,8 @@ function CommentAdmin() {
           </span>
         ))}
         <Link
-          to={`/admin/post_:postId(\d+)/comments/${
-            parseInt(match.params.page) + 1
-          }`}
+          to={`/admin/post_:postId(\d+)/comments/${parseInt(match.params.page) + 1
+            }`}
         >
           next
         </Link>

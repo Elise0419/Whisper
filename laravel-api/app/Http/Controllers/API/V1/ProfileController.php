@@ -137,6 +137,18 @@ class ProfileController extends Controller
 
     public function idcheck(Request $req)
     {
+        $validator = Validator::make($req->all(), [
+            'person_id' => 'required|onlyfemale',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => '此身分證字號不符合格式',
+                'result' => true,
+                'errors' => $validator->errors(),
+            ], 200);
+        }
+
 
         $result = User::where('person_id', $req->input('pserson_id'))->exists();
         if ($result) {

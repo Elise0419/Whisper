@@ -137,6 +137,7 @@ function Profile() {
           throw new Error("API request failed");
         }
         if (res.status === 401) {
+          setUser({})
           history.push("/login");
         }
         if (res.status >= 200) {

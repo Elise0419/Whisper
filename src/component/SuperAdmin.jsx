@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useHistory, useParams, useRouteMatch } from "react-router-dom";
+import { useUserContext } from "../store/UserContext";
 
 import "./CSS/Adminall.css";
 
@@ -13,6 +14,8 @@ function SuperAdmin() {
   const [sortField, setSortField] = useState("default");
   const [sortOrder, setSortOrder] = useState("asc");
   const [selected, setSelected] = useState({});
+  let [user, setUser] = useUserContext();
+  const [send, setSend] = useState(false);
 
   const token = localStorage.getItem("token");
 
@@ -22,7 +25,7 @@ function SuperAdmin() {
   };
 
   const promotion = () => {
-    console.log(selected);
+    setSend(true);
     if (selected.type !== "none")
       if (window.confirm("確定執行提升管理員")) {
         fetch(
@@ -46,8 +49,8 @@ function SuperAdmin() {
               });
               throw new Error("API request failed");
             } else if (res.status >= 200) {
+              setSend(false);
               alert("增加管理員成功");
-              window.location.reload();
             }
           })
           .catch((err) => {
@@ -57,6 +60,7 @@ function SuperAdmin() {
   };
 
   const DeleteClick = (user_id) => {
+    setSend(true);
     if (window.confirm("確定要移除此管理員")) {
       fetch(
         `http://127.0.0.1:8000/api/superadmin/management/user_${user_id}/downgrade`,
@@ -72,8 +76,8 @@ function SuperAdmin() {
             alert("請重新操作");
             throw new Error("API request failed");
           } else if (res.status >= 200) {
-            alert("已成功移除管理員身分");
-            window.location.reload();
+            setSend(false);
+            alert("成功移除管理員");
           }
         })
         .catch((err) => {
@@ -92,10 +96,11 @@ function SuperAdmin() {
     }
   };
 
+
   useEffect(() => {
     const sorting = `${sortField}:${sortOrder}`;
     fetchData(sorting);
-  }, [page, sortField, sortOrder]);
+  }, [page, sortField, sortOrder, send, user]);
 
   const fetchData = (sorting) => {
     fetch(
@@ -111,6 +116,7 @@ function SuperAdmin() {
           res.json().then((data) => {
             console.log(data.error);
           });
+          setUser({})
           alert("你無權造訪此頁面");
           history.push("/home/1");
           throw new Error("API request failed");
@@ -119,7 +125,6 @@ function SuperAdmin() {
         }
       })
       .then((res) => {
-        console.log(res.users.data);
         setData(res.users.data);
         setLastpage(res.users.last_page);
       })

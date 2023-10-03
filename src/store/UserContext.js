@@ -22,9 +22,7 @@ export function UserProvider({ children }) {
             },
           }
         );
-        // if (response.status == 403) {
-        //     setUser({ ...user, mem_name: '尚未驗證信箱' });
-        // } else
+
         if (response.status >= 200 && response.status < 300) {
           const data = await response.json();
           setUser(data.user);

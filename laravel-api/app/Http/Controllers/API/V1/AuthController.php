@@ -58,7 +58,27 @@ class AuthController extends Controller
             'mem_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
+            'person_id' => 'required|onlyfemale'
         ]);
+
+        if ($req->fails()) {
+            return response()->json([
+                'message' => 'Validation failed',
+                'errors' => $req->errors(),
+            ], 422);
+        }
+
+        if (User::where('email', $req->email)->exists()) {
+            return response()->json([
+                'message' => '此信箱已註冊過',
+            ], 200);
+        }
+
+        if (User::where('person_id', $req->person_id)->exists()) {
+            return response()->json([
+                'message' => '此身分證已註冊過',
+            ], 200);
+        }
 
         $user = User::create([
             'mem_name' => $req->mem_name,
@@ -75,7 +95,7 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'User created successfully',
             'user' => $user,
-        ]);
+        ], 200);
     }
 
     public function logout()

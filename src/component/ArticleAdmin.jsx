@@ -5,12 +5,15 @@ import "./CSS/Adminall.css";
 function ArticleAdmin() {
   const [data, setData] = useState([]);
   const [lastpage, setLastpage] = useState({});
+  const [deleteing, setDeleteing] = useState(false);
+
   const match = useRouteMatch();
   const { page } = useParams();
 
   const token = localStorage.getItem("token");
 
   const DeleteClick = (post_id) => {
+    setDeleteing(true)
     if (window.confirm("確定要刪除此貼文嗎")) {
       fetch(
         `http://127.0.0.1:8000/api/admin/management/articles/delete/post_${post_id}`,
@@ -26,8 +29,8 @@ function ArticleAdmin() {
             alert("刪除貼文失敗，請重新操作");
             throw new Error("API request failed");
           } else if (res.status >= 200) {
+            setDeleteing(false)
             alert("刪除貼文成功");
-            window.location.reload();
           }
         })
         .catch((err) => {
@@ -60,7 +63,7 @@ function ArticleAdmin() {
       .catch((error) => {
         console.error("發生錯誤：", error);
       });
-  }, [page]);
+  }, [page, deleteing]);
 
   return (
     <div className="adminbody">
